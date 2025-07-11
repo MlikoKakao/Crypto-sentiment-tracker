@@ -3,10 +3,14 @@ import praw
 import requests
 import pandas as pd
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-REDDIT_CLIENT_ID = "bVHgQ5ub15vRqmP1Rh76_g"
-REDDIT_CLIENT_SECRET = "nzuccpDYcEcei4vmb3Y2wFPCO_1Cxw"
-REDDIT_USER_AGENT = "crypto-tracker by u/MlekoKakao"
+load_dotenv()
+
+REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
+REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
+REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
 reddit = praw.Reddit(
     client_id=REDDIT_CLIENT_ID,
