@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by venv; see https://docs.python.org/3/library/venv.html
 venv/
 __pycache__/
@@ -6,3 +7,13 @@ __pycache__/
 *.pyd
 *.sqlite3
 *.env
+=======
+# Created by venv; see https://docs.python.org/3/library/venv.html
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.env
+>>>>>>> 14cba46b7084622ce6997a54639b69460c3a2ffa
