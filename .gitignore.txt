@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 venv/
 __pycache__/
 *.pyc
@@ -5,3 +6,12 @@ __pycache__/
 *.pyd
 *.sqlite3
 *.env
+=======
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.env
+>>>>>>> 876a747007c87010eba21d79a13d926dd3e12972
