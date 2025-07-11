@@ -20,6 +20,7 @@ reddit = praw.Reddit(
 
 
 
+
 def fetch_reddit_posts(query="bitcoin",limit=100):
     posts = []
     for submission in reddit.subreddit("CryptoCurrency").search(query, limit=limit):
