@@ -11,7 +11,18 @@ def get_price_history(symbol="bitcoin", days="1"):
         "days": days
     }
     response = requests.get(url, params=params)
+
+    if response.status_code != 200:
+        print("❌ API request failed:", response.status_code)
+        print(response.text)
+        return pd.DataFrame()
+
     data = response.json()
+
+    if "prices" not in data:
+        print("❌ 'prices' key not found in API response!")
+        print(data)
+        return pd.DataFrame()
 
     prices = []
     for timestamp, price in data["prices"]:
@@ -22,7 +33,6 @@ def get_price_history(symbol="bitcoin", days="1"):
     return df
     
 if __name__ == "__main__":
-    days = sys.argv[1] if len(sys.argv) > 1 else "90"
-    df = get_price_history("bitcoin", days=days)
+    df = get_price_history("bitcoin", days="max")
     df.to_csv("data/bitcoin_prices.csv", index=False)
-    print(f"Saved {len(df)} price points for past {days} days")
+    print(f"Saved {len(df)} price points for all available days")

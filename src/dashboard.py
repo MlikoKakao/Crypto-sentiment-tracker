@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import datetime
-
+import altair as alt
 
 
 #Page header
@@ -22,9 +22,21 @@ selected_range = st.slider("Select time range:", min_value=min_date, max_value=m
 #Filter by time
 df = df[(df["timestamp"] >= selected_range[0]) & (df["timestamp"] <=selected_range[1])]
 
-#Line 1: Sentiment over time
-fig_sentiment = px.line(df,x="timestamp", y="sentiment", title="Sentiment Over Time")
-st.plotly_chart(fig_sentiment, use_container_width=True)
+#Smoothen sentiment
+smoothen =(
+    alt.Chart(df)
+    .mark_bar(color="lightgray")
+    .encode(
+        x = alt.X("timestamp:T", title="Date"),
+        y = alt.Y("mean(sentiment):Q",title="Average Sentiment"),
+        tooltip=["timestamp:T", "mean(sentiment):Q"]
+    )
+    .properties(title="Smoothed Sentiment Over Time", width="container")
+)
+
+#Line 1: Drawing sentiment
+st.altair_chart(smoothen, use_container_width=True)
+    
 
 #Line 2: Price over time
 fig_price = px.line(df, x="timestamp",y="price", title="Bitcoin Price Over Time")
