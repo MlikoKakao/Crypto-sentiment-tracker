@@ -6,6 +6,13 @@ import matplotlib.dates as mdates
 df = pd.read_csv("data/bitcoin_prices.csv", parse_dates=['timestamp'])
 df = df.sort_values('timestamp')
 
+most_recent_price = df.iloc[-1] ["price"]
+average_past_2_weeks = np.mean(df.iloc[:-14]["price"])
+#print(average_past_2_weeks)
+EMA = (most_recent_price * 0,2) + (average_past_2_weeks * 0,8)
+#   Was, returns types instead of calculcating when most_rect+average_past works? The value is not getting pasted in but reference to data type?
+#EMA = most_recent_price+average_past_2_weeks
+print(EMA)
 bar_colors = ['gray'] + [
     'green' if curr > prev else 'red'
     for prev, curr in zip(df['price'][:-1], df['price'][1:]) 
