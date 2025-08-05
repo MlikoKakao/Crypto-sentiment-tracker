@@ -7,12 +7,7 @@ import logging
 import os
 from dotenv import load_dotenv
 
-logging.basicConfig(
-    filename='logs/app.log',
-    filemode='a',
-    format='%(asctime)s | %(levelname)s | %(message)s',
-    level=logging.INFO
-)
+logger = logging.getLogger(__name__)
 
 
 def get_price_history(symbol="bitcoin", days="1"):

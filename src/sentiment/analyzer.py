@@ -2,12 +2,7 @@ import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import logging
 
-logging.basicConfig(
-    filename='logs/app.log',
-    filemode='a',
-    format='%(asctime)s | %(levelname)s | %(message)s',
-    level=logging.INFO
-)
+logger = logging.getLogger(__name__)
 
 
 def analyze_sentiment(text):
