@@ -49,3 +49,80 @@
 2025-08-05 13:59:18,821 | INFO | Fetched 100 posts for query='Bitcoin'
 2025-08-05 13:59:21,958 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
 2025-08-05 13:59:22,184 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 14:07:37,457 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
+2025-08-05 14:07:39,327 | INFO | Fetched 100 posts for query='Bitcoin'
+2025-08-05 14:07:41,976 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
+2025-08-05 14:07:42,221 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 14:14:29,275 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
+2025-08-05 14:14:31,557 | INFO | Fetched 100 posts for query='Bitcoin'
+2025-08-05 14:14:34,209 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
+2025-08-05 14:17:21,450 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
+2025-08-05 14:17:23,768 | INFO | Fetched 100 posts for query='Bitcoin'
+2025-08-05 14:17:26,990 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
+2025-08-05 14:18:02,923 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
+2025-08-05 14:18:04,735 | INFO | Fetched 100 posts for query='Bitcoin'
+2025-08-05 14:18:07,562 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
+2025-08-05 14:25:12,640 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:25:14,428 | INFO | Fetched 100 posts for query='Bitcoin'
+2025-08-05 14:25:17,374 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
+2025-08-05 14:27:07,448 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:27:11,083 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 14:27:18,997 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 14:29:53,519 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:29:56,789 | INFO | Fetched 8 posts for query='Bitcoin'
+2025-08-05 14:29:57,064 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 8
+2025-08-05 14:30:13,322 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:30:16,842 | INFO | Fetched 87 posts for query='Bitcoin'
+2025-08-05 14:30:19,733 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 87
+2025-08-05 14:30:28,271 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:30:31,728 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 14:30:40,308 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 14:30:47,493 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:30:51,419 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 14:31:00,599 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 14:31:05,361 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 14:31:09,330 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 14:31:16,948 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 15:16:29,682 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 15:16:33,176 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 15:16:41,259 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 15:23:22,779 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 15:23:26,695 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 15:23:34,901 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 15:23:39,949 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 15:23:43,479 | INFO | Fetched 250 posts for query='Bitcoin'
+2025-08-05 15:23:51,071 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 250
+2025-08-05 15:24:35,437 | INFO | Fetching Reddit posts with query='Ethereum', limit=500
+2025-08-05 15:24:39,212 | INFO | Fetched 250 posts for query='Ethereum'
+2025-08-05 15:24:47,837 | INFO | Sentiment added. Saved to data/Ethereum_sentiment.csv. Total records: 250
+2025-08-05 15:31:07,553 | INFO | Fetching Reddit posts with query='Bitcoin', limit=600
+2025-08-05 15:31:11,906 | INFO | Fetched 249 posts for query='Bitcoin'
+2025-08-05 15:31:19,641 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
+2025-08-05 15:31:19,878 | ERROR | API request failed: 404 – {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
+2025-08-05 15:33:05,965 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 15:33:09,527 | INFO | Fetched 249 posts for query='Bitcoin'
+2025-08-05 15:33:17,231 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
+2025-08-05 15:33:17,472 | ERROR | API request failed: 404 – {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
+2025-08-05 15:34:17,394 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 15:34:20,979 | INFO | Fetched 249 posts for query='Bitcoin'
+2025-08-05 15:34:28,743 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
+2025-08-05 15:34:28,964 | ERROR | API request failed: 404 – {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
+2025-08-05 15:35:28,399 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
+2025-08-05 15:35:31,945 | INFO | Fetched 249 posts for query='Bitcoin'
+2025-08-05 15:35:39,653 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
+2025-08-05 15:35:39,881 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 15:37:07,588 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 15:37:11,584 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 15:37:19,540 | INFO | Sentiment added. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 15:37:49,079 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 15:37:52,842 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 15:38:00,555 | INFO | Sentiment added. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 15:39:31,663 | INFO | Fetching Reddit posts with query='ethereum', limit=500
+2025-08-05 15:39:35,246 | INFO | Fetched 148 posts for query='ethereum'
+2025-08-05 15:39:41,053 | INFO | Sentiment added. Saved to data/ethereum_sentiment.csv. Total records: 148
+2025-08-05 15:41:20,982 | INFO | Fetching Reddit posts with query='ethereum', limit=500
+2025-08-05 15:41:24,928 | INFO | Fetched 148 posts for query='ethereum'
+2025-08-05 15:41:32,287 | INFO | Sentiment added. Saved to data/ethereum_sentiment.csv. Total records: 148
+2025-08-05 15:58:50,022 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 15:58:53,620 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 15:59:01,282 | INFO | Sentiment added. Saved to data/bitcoin_sentiment.csv. Total records: 250

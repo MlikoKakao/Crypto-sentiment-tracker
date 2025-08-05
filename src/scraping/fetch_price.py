@@ -4,6 +4,8 @@ import pandas as pd
 from datetime import datetime
 import sys
 import logging
+import os
+from dotenv import load_dotenv
 
 logging.basicConfig(
     filename='logs/app.log',
@@ -14,6 +16,8 @@ logging.basicConfig(
 
 
 def get_price_history(symbol="bitcoin", days="1"):
+    load_dotenv()
+    API_COINGECKO_ID = os.getenv("API_COINGECKO_ID")
     url = f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart"
     params = {
         "vs_currency": "usd",
@@ -23,8 +27,7 @@ def get_price_history(symbol="bitcoin", days="1"):
 
     if response.status_code != 200:
         logging.error(f"API request failed: {response.status_code} – {response.text}")
-        return pd.DataFrame()
-
+        raise Exception(f"API requred failed: {response.status_code}")
 
     data = response.json()
 

@@ -30,12 +30,17 @@ reddit = praw.Reddit(
 
 
 
-def fetch_reddit_posts(query="bitcoin",limit=1000):
+def fetch_reddit_posts(query="bitcoin",limit=1000, start_date=None, end_date=None):
     logging.info(f"Fetching Reddit posts with query='{query}', limit={limit}")
     posts = []
-    for submission in reddit.subreddit("CryptoCurrency").search(query, limit):
-        text = submission.title + " " + submission.selftext
+    for submission in reddit.subreddit("CryptoCurrency").search(query, limit=limit, sort="new"):
+        
         timestamp = datetime.fromtimestamp(submission.created_utc, utc)
+        if start_date and timestamp < start_date:
+            continue
+        if end_date and timestamp > end_date:
+            continue
+        text = submission.title + " " + submission.selftext
         posts.append({
             "timestamp": timestamp,
             "text": text
