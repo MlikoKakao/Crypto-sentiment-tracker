@@ -126,3 +126,42 @@
 2025-08-05 15:58:50,022 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
 2025-08-05 15:58:53,620 | INFO | Fetched 250 posts for query='bitcoin'
 2025-08-05 15:59:01,282 | INFO | Sentiment added. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 19:39:46,925 | WARNING | Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-08-05 19:39:57,054 | WARNING | Xet Storage is enabled for this repo, but the 'hf_xet' package is not installed. Falling back to regular HTTP download. For better performance, install the package with: `pip install huggingface_hub[hf_xet]` or `pip install hf_xet`
+2025-08-05 19:45:18,546 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 19:45:22,218 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 19:45:22,305 | ERROR | Unknown analyzer: Twitter-RoBERTa
+2025-08-05 19:45:29,995 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 19:45:33,093 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 19:45:33,148 | ERROR | Unknown analyzer: TextBlob
+2025-08-05 19:50:05,945 | INFO | Fetching Reddit posts with query='bitcoin', limit=600
+2025-08-05 19:50:09,326 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 19:50:10,115 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 19:51:11,937 | INFO | Fetching Reddit posts with query='bitcoin', limit=600
+2025-08-05 19:51:15,845 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 19:51:21,215 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 19:51:36,760 | INFO | Fetching Reddit posts with query='bitcoin', limit=600
+2025-08-05 19:51:40,013 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 19:56:10,419 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 19:56:14,199 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 19:57:58,492 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 19:58:02,160 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 20:00:14,576 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 20:03:31,655 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:03:33,275 | INFO | Fetched 11 posts for query='bitcoin'
+2025-08-05 20:03:41,011 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11
+2025-08-05 20:04:04,884 | INFO | Fetching Reddit posts with query='bitcoin', limit=400
+2025-08-05 20:04:08,174 | INFO | Fetched 87 posts for query='bitcoin'
+2025-08-05 20:04:55,748 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 87
+2025-08-05 20:08:44,657 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:08:46,380 | INFO | Fetched 11 posts for query='bitcoin'
+2025-08-05 20:08:46,801 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11
+2025-08-05 20:08:52,571 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:08:54,194 | INFO | Fetched 11 posts for query='bitcoin'
+2025-08-05 20:08:54,401 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11
+2025-08-05 20:08:58,077 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:08:59,398 | INFO | Fetched 11 posts for query='bitcoin'
+2025-08-05 20:09:07,459 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11
+2025-08-05 20:10:19,962 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:10:21,858 | INFO | Fetched 11 posts for query='bitcoin'
+2025-08-05 20:10:29,671 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11

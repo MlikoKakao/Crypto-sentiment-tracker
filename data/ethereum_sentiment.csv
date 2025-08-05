@@ -1,4 +1,136 @@
 timestamp,text,sentiment
+2025-08-05 15:57:49+00:00,"Is Ethereum quietly building toward its next major unlock? Ethereum just turned 10, and while the milestone sparked some light celebration across the space, it’s what is happening under the hood that really caught my attention.
+
+One recent development worth watching is EIP-0000, a new proposal co-authored by Vitalik Buterin and Anders Elowsson. It introduces something called a unified multidimensional fee market, which sounds complex at first, but the core idea is simple, instead of setting fees separately for gas, blobs, and other resources, users would only need to define a single max fee. The potential benefits? Improved capital efficiency, a cleaner user experience, and a foundation for handling additional resource types in the future.
+
+In essence, it’s the kind of infrastructure upgrade that doesn’t make headlines today but could fundamentally improve how people use Ethereum, especially as the network leans further into rollups, blob transactions and other modular scaling solutions. It’s a forward looking change that seems designed to quietly improve usability and developer flexibility.
+
+At the same time, Ethereum’s 10th anniversary hasn’t gone unnoticed. Some platforms are using the occasion to engage their communities, Bitget, for example, is running a modest trading campaign tied to ETH, which they have termed ETH Candybomb. It’s nothing massive, but it’s a reminder that Ethereum is still at the center of market activity, not just in terms of tech, but also culture and engagement. With a couple of days left in that event, it's interesting to see how even small incentives can drive volume and attention.
+
+Put together, it feels like Ethereum is entering another phase, one that’s less about hype and more about refinement. EIP-0000, subtle trading incentives, anniversary reflections, they all point to an ecosystem that is still evolving, still building and still very much in motion.
+
+What do you make of EIP-0000? Is it just a background tweak, or could it actually shift the way users and apps interact with Ethereum moving forward?",0.9935
+2025-08-05 14:40:18+00:00,"""We can have the best of both worlds — a private digital payment network that scales to billions of users"" - Sean Bowe Cryptographic Engineer Tachyon is the most exciting improvement for privacy in years. Scaling to millions has only been a pipe dream. It's quickly moving from theoretical to implemented.
+
+Bitcoin was digital scarcity - those two words changed society. Ethereum was programmable money and we are headed for 1tril+ of stablecoins.
+
+HTTPS money will change society again by prying the leverage of information out of the hands of the collective and the eavesdroppers and putting back in the hands of the individual.
+
+We will use math to force them to respect our privacy. 
+
+\--------------------------------------
+
+# ""Tachyon: Scaling Zcash with Oblivious Synchronization
+
+Zcash’s shielded transactions offer the strongest privacy guarantees of any distributed financial network today. They provide a cryptographic property we call “ledger indistinguishability,” which delivers strong on-chain confidentiality — far beyond what’s achievable with decoys or cover traffic that only partially masks transaction details. In short, **shielded transactions resemble random gibberish paired with a proof that it actually represents a valid payment.**
+
+To enable this, Zcash pioneered the use of [zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof) — a technique that allows the network to verify transactions without revealing their private contents. These proofs are called “zero-knowledge” because they reveal *nothing* about the transaction’s internals. But the cryptographic techniques behind this — particularly the proofs we use called [zk-SNARKs](https://z.cash/learn/what-are-zk-snarks/) — are also powerful tools for building scalable decentralized systems. Their power lies not just in the zero-knowledge property itself (which is often unused in practice), but in their ability to succinctly prove the correctness of large computations.
+
+Today, many projects use zero-knowledge (“ZK”) as a marketing term, with little to no regard for actual user privacy. **We can have the best of both worlds — a private digital payment network that scales to billions of users — by fully leveraging both zero-knowledge and verifiable computation.** We've invested heavily in making this happen, first through the [discovery of Halo](https://electriccoin.co/blog/halo-recursive-proof-composition-without-a-trusted-setup/) — which led to a revolution in efficient, scalable verifiable computation — and then through the [Orchard payment protocol](https://zcash.github.io/orchard/), which laid the groundwork for the next generation of upgrades.[^(1)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#orchard)
+
+**Now it’s time to cross the finish line.** I am proposing several protocol changes in Zcash that allow us to increasingly scale the protocol while providing a smooth transition path for existing users and wallets. The crucial component that makes this possible is a new model for how wallets interact with the blockchain that I refer to as **oblivious synchronization**. This new approach improves the user experience for wallets *and* permits an architectural change to the protocol that maintains ledger indistinguishability without incurring heavy state contention, storage and bandwidth costs for validators.
+
+**Crucially, it is an actionable plan that does not require speculative research to see to fruition.** In the short term it can be deployed using the cryptography we're already experts at deploying in Zcash, leaving some remaining challenges for more longer-term research in the future. In order to make this happen we must pursue an engineering effort much like the “Sapling” upgrade from earlier in Zcash's history. Back then, we set out to make zk-SNARKs practical enough to run on mobile devices — a capability that’s now taken for granted. The sophistication of the Sapling upgrade (and the coordination required to pull it off) remain nearly unmatched across the entire blockchain space.[^(2)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#apollo)
+
+Here's what it will take to raise the bar again.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#proof-carrying-data)Proof-carrying Data
+
+Early in the history of Zcash our shielded transactions earned a reputation for being expensive due to the use of zk-SNARKs. As mentioned, the [Sapling network upgrade](https://z.cash/upgrade/sapling/) incorporated a slate of cryptographic improvements from our team[^(3)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#newcurves) and from the academic world[^(4)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#groth16) which made our proofs extremely efficient to generate. However, zk-SNARKs are also known for being slow to verify when compared to bog standard digital signature schemes. This has led to a misconception that zk-SNARKs are the cause of performance and scalability bottlenecks in Zcash.
+
+In reality, we've never actually considered zk-SNARK verification a barrier to scaling Zcash. I once co-authored a paper[^(5)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#sonic) where we devised a method to batch verify proofs as efficiently as checking a single proof, with the help of an untrusted third party's computational resources. Later results in proof aggregation—analogous to [digital signature aggregation](https://crypto.stanford.edu/~dabo/papers/aggsurvey.pdf) in other protocols—allowed multiple proofs to be *combined* and efficiently verified as a single unit, a notable example being SnarkPack[^(6)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#snarkpack) which has been deployed in some blockchains.
+
+The ultimate tool for scaling zk-SNARK verification and a wide variety of other computationally intensive tasks in protocols like Zcash is a more general technique called **proof-carrying data (PCD)** that was originally [devised](https://ic-people.epfl.ch/~achiesa/docs/CT10.pdf) and even [realized](https://eprint.iacr.org/2014/595) by the scientists behind Zcash. Crudely speaking, PCD allows data to live alongside proofs of its own correctness so that when it is combined with other (proof-carrying) data the mixture inherits and extends the original proofs of correctness. This can be used to “compress” a huge amount of verifiable computational effort, since the resulting data does not need to grow in size and there is no *practical* bound in the complexity of the inductive claims.[^(7)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#knowledge_extractors)
+
+PCD languished for years as a theoretical tool due to performance limitations. This changed when our team at the Electric Coin Company discovered [Halo](https://eprint.iacr.org/2019/1021), which was a brand new approach to achieving PCD with significantly better performance while also avoiding trusted setups and strong cryptographic assumptions. As mentioned before, this led to a Cambrian explosion of new results[^(8)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#halo) that has made PCD table stakes for new scalable protocols. PCD can be leveraged to make Zcash's blocks small and fast to verify no matter how many shielded transactions they contain, and it can even be applied to the chain itself to build fully succinct blockchains.[^(9)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#mina) As we'll be discussing, they can be used in other ways to improve our network's transaction throughput.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#communicating-state-changes)Communicating State Changes
+
+zk-SNARKs and PCD are indispensable tools for maintaining privacy while enforcing correctness in contexts that do not involve high state contention—such as within a single transaction or across a long-term history of transactions. However, privacy-preserving protocols like Zcash involve communicating and coordinating *global* state changes because shielded transactions must be made indistinguishable from one another to reach our lofty privacy goals.
+
+There are three major areas where this becomes a concern in our existing protocol:
+
+* How do users learn about the payments they receive and the information they need to spend those funds?
+* How do users later demonstrate that the funds they are spending actually exist?
+* How are users prevented from spending funds that have already been spent?
+
+Zcash's current protocol solves these problems in a way that is maximally convenient for the zk-SNARKs (due to legacy concerns about their performance) but otherwise very inconvenient or even impossible to scale to large numbers of users and payments. By being open to some common sense changes to the underlying cryptography and payment protocol we can take full advantage of the modern performance of zk-SNARKs and PCD.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#shielded-notes-and-commitments)Shielded Notes and Commitments
+
+Shielded transactions involve spending and creating “notes,” which represent an amount of funds and the key authorized to spend them — not unlike [UTXOs](https://developer.bitcoin.org/devguide/transactions.html) in Bitcoin. We aim to leak as little information as possible about the notes being spent or created in a transaction, instead allowing the zk-SNARK to prove that various rules are being followed. In order to keep newly created notes private they are encapsulated in a [cryptographic commitment](https://en.wikipedia.org/wiki/Commitment_scheme) that is exposed publicly in the transaction.[^(10)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#commitments)
+
+The commitment hides the note, but the zk-SNARK can still reason about the note because the transaction creator can open the commitment using a random, secret key. This allows the zk-SNARK proof to enforce *local* rules for things like “balance integrity” (the sum of the funds in new shielded notes does not exceed the sum of the funds being spent) and “spend authorization” (that we know the secret key associated with the notes being spent). In order for the recipient to later spend the funds they must also learn this random key and other payment information, necessitating a **secret distribution system**.
+
+Secret distribution systems are not ordinarily needed in blockchain protocols. The standard payment flow in most cryptocurrencies works like this:
+
+1. The user asks their wallet for a payment address.
+2. The user gives this payment address to one or more other people.
+3. Other people use this address to make a payment.
+4. The user scans the blockchain to find all the new payments to their address.
+
+This is how Bitcoin and most other cryptocurrencies work, and it's possible because addresses and payments are not private. The user can ask a third party (like a light wallet server or block explorer) for all the payments made to an address and those services can index the blockchain and answer these queries in a way that quickly enables the user to spend those funds. In private cryptocurrencies like Zcash we cannot ask a third party to identify payments sent to our payment address. In order to see incoming payments we must allow the sender to encrypt the relevant information and send it to us.
+
+Zcash lets senders place ciphertexts inside of shielded transactions that contain note information. Recipients identify incoming payments by trial decrypting *every transaction* until they identify payments sent to them. This simply does not scale.[^(11)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#detection_keys) **As a start, we'll be assuming that Zcash's future payment flows involve out-of-band payments where the sender and recipient use a separate channel for secret distribution.** The on-chain ciphertexts can then be removed from the protocol entirely.[^(12)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#postquantum)
+
+Fortunately, it is common for a pre-existing channel to already exist between the sender and recipient: a user paying a merchant through a web interface, someone buying coffee within physical proximity to a payment terminal, or friends resolving dinner debts over Signal chats. In these cases the [payment request](https://zips.z.cash/zip-0321) model that is supported by most Zcash wallets (and commonly found in most cryptocurrencies) accomodates out-of-band payments. It is even possible for payments to be sent to recipients out-of-band without a payment request through the use of “liberated” or [URI-encapsulated payments](https://zips.z.cash/zip-0324).[^(13)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#liberated)
+
+There are some drawbacks that have to be addressed separately. By moving secret distribution out-of-band the user cannot rely on the blockchain as a storage mechanism for recovering their funds from a seed phrase or sharing transaction histories with view keys. Also, the ability to give a payment address away publicly (like posting on a billboard to solicit anonymous donations) does not inherently work.[^(14)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#billboards) In order to support these use cases we will need additional infrastructure for our wallets to store and distribute payment information privately. This at least makes sense from an economic perspective, since the blockchain currently provides for these use cases for free at great systemic cost.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#accumulators-and-nullifiers)Accumulators and Nullifiers
+
+In order to spend a shielded note that has been previously created, validators continually append the new note commitments that appear in shielded transactions to a [cryptographic accumulator](https://en.wikipedia.org/wiki/Accumulator_(cryptography)). Currently, at block boundaries, the accumulator is checkpointed and a succinct (hash) representation of that checkpoint is stored by validators. We call this checkpoint an “anchor.” In order to spend a note later, shielded transactions demonstrate that the note they are spending exists at some (usually recent) anchor that validators accept as valid.
+
+In order to maintain privacy, while shielded transactions must publicly identify the anchor (for validators to check) they do *not* need to identify the actual note commitment they are spending. This works because a **set inclusion witness** that demonstrates a commitment exists within an accumulator can be short and easy to verify, and so the zk-SNARK proof in a transaction can be used to demonstrate *knowledge* of such a witness without revealing it publicly.
+
+If we do not identify the note being spent, how do we demonstrate that it has not been spent by another transaction? **The zk-SNARK helps us verifiably compute a value called a nullifier that is deterministically derived in some way from the note we are spending.** The nullifier itself does not reveal anything about the note, but because it is forcibly disclosed within the transaction it serves as an indelible mark on the chain state that prohibits double-spends. Validators currently remember all of the nullifiers seen before and reject payments as invalid if they reveal a previously-seen nullifier.
+
+**The scalability bottlenecks that remain in Zcash center around how wallets synchronize with these particular blockchain state changes.** Currently, even with out-of-band payments, *every* time *any* user creates a shielded transaction in Zcash:
+
+* the network must ensure that the revealed nullifier has never been seen before;
+* the network must record the nullifier so that it cannot be repeated again; and,
+* all other users must account for the newly created note commitments by updating their set inclusion witnesses for all of their unspent shielded notes, to reflect a more recent anchor.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#oblivious-synchronization)Oblivious Synchronization
+
+It'll be helpful to recast what a Zcash wallet does through the lens of an abstract machine, focusing (without loss of generality) on the case that the wallet only receives and later spends a single shielded note.
+
+The wallet starts in some *initial* state (at some point in the blockchain) and processes blocks one at a time. In each block, it attempts to find a new note commitment that it expects to find based on the out-of-band process mentioned previously. Once found, the wallet enters a *synchronizing* state. In all of the blocks that follow, the wallet checks to make sure the block does not contain the nullifier for the note to ensure it has not been spent already. As long as it hasn't the wallet remains in this synchronizing state.
+
+Finally, when the user is ready to make a transaction, they use the wallet's state to create a zk-SNARK proof and spend the funds. (The wallet's state contains, for instance, the set inclusion witness needed to spend the note with a recent anchor.) This is more or less how our wallets currently work.
+
+My vision for scaling Zcash is to fully embrace a new model for how Zcash wallets should synchronize with blockchain state changes. Rather than using the wallet's state to merely inform the process of creating a zk-SNARK proof when it comes time to spend, **we will** ***also*** **represent our wallet's state as proof-carrying data.** This means that as the wallet state updates to reflect new blocks it will continually maintain a proof of its own correctness. Then, when it's time to spend our funds we will extend our transaction with this proof-carrying data. This effectively attaches evidence that the transaction is valid up until a certain recent point in the history of the blockchain — the position of the anchor.
+
+The result is that validators are now only responsible for ensuring that the transaction is correct in the presence of the additional transactions that appeared in the intervening time, which just involves checking that the most recent block(s) do not contain the revealed nullifier.[^(15)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#nullifier_after_commitment) As a result, almost everything in a block can be permanently pruned by validators and ultimately all users of the system as well. **Despite transactions sharing a common state by being indistinguishable from each other, nearly all state contention problems vanish in this new approach.**
+
+It would seem for this model to work that the user's wallet will have to follow a much more expensive synchronization process to create and maintain PCD of the wallet state. This expense is not just due to the cost of creating PCD proofs but also the bandwidth needed to apply every block to the wallet state.
+
+However, we can arrange things so that the user's wallet can outsource the process of synchronizing the wallet (and creating the PCD proofs) to a third party that I call an **oblivious syncing service**. This service isn't trusted with private information or secrets and learns nothing about the notes in the user's wallet, yet it can still make progress synchronizing its state even when the user's wallet software is offline.
+
+We already know that this kind of approach is possible with expensive cryptography like [fully-homomorphic encryption](https://en.wikipedia.org/wiki/Homomorphic_encryption) (FHE). **But by adjusting the protocol slightly we can simply use PCD.** The remote server only needs to learn the nullifier of the note to make synchronization progress without the assistance of the user's wallet, since the wallet can blind or encrypt the rest of the wallet state and only permit the oblivious syncing service to make state transitions involving the nullifier. One would expect this to reveal some information to the service about the note's possible location in the accumulator, but by adjusting how the nullifier is derived in the protocol[^(16)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#nullifier_derivation) we can eliminate this information leakage entirely, depriving the service of *any* information about the note being spent.
+
+In practice the wallet will be handling multiple notes and thus multiple nullifiers, and so an oblivious syncing service might learn more information if it can correlate requests as originating from the same wallet. But this same kind of leakage occurs already anyway when the transactions themselves are published, and so we must tackle the problem at least partially with network privacy countermeasures like mixnets. Fortunately, as I'll explain in a future blog post, even if the oblivious syncing service can correlate nullifiers we can *completely* sever the link using nifty cryptographic techniques and protocol adjustments—it's just a matter of finding the most efficient point in the trade-off space.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#project-tachyon)Project Tachyon
+
+This new model of wallet synchronization and validator state pruning can be enabled with several compartmentalized changes to the existing protocol that can happen in independent tracks, providing an immediate capacity increase in the Zcash shielded payment protocol at each step. The main changes involved include:
+
+* **Wallets need to adopt out-of-band payments.** ECC has already begun exploring the incoporation of URI-encapsulated payments into its Zashi mobile wallet. Different kinds of out-of-band payment flows will require changes to the way existing wallets use payment requests. Fortunately, almost all of this is reverse-compatible and can be deployed without any changes to the Zcash protocol. It also leads to immediate usability wins for shielded wallets even without capacity improvements.
+* **Blocks need to incorporate shielded transaction aggregation.** This involves implementing and deploying a PCD-based proof aggregation protocol for Orchard payments, which we've already been considering for years[^(17)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#shielded_aggregates) and ensured the Orchard payment protocol could later accomodate. This can land in a network upgrade without any other changes to wallets or the underlying payment protocol and leads to an immediate capacity increase.
+* **Nullifiers should be derived differently to prevent oblivious syncing services from learning sensitive information about wallets.** This can be achieved with a backwards-compatible network upgrade, though it will require a circuit change.
+* **Nullifiers** (and potentially also note commitments) **must be batch inserted into a new accumulator that supports efficient set (non-)membership testing in PCD.** I've already sketched a very simple and efficient accumulation scheme for this. This will allow the development of oblivious syncing services without any immediate changes to the payment protocol that would risk user funds, and can be done in a network upgrade with high assurance.
+* **In-band secret distribution must be removed in Zcash.** This can be achieved once wallets have migrated away from the legacy payment protocol(s). Efforts in this direction can happen independent of any protocol changes.
+* **The payment protocol should allow wallet PCD state to augment the zk-SNARK in transactions.** This final major improvement allows validators to begin pruning all old blockchain state and reduces state contention considerably. This can be paired with a corresponding increase to block sizes and/or frequency.
+
+**I call this the Tachyon project for Zcash.** I'm excited that all of these steps are possible, can be done using cryptography we are already experts in deploying, can be developed in parallel tracks, and involve few changes to the actual payment protocol. My goal is to faciliate these efforts on an ambitious timeline: many of the major scalability improvements should be able to hit mainnet within a year, while the more involved changes will depend on how quickly wallets can migrate from legacy payment protocols. As with all of our previous network upgrades I'm committed to shipping high quality code that protects our users' privacy.
+
+Crucially, I don't plan to stand in the way of any other Zcash protocol improvements while I see Tachyon to fruition. I'm not asking the community for grants or financial assistance at this time, and I'm not asking any organizations to redirect resources to Tachyon that they think are better spent elsewhere. I also have no reason to believe that Tachyon will conflict with any of the active areas of development such as Crosslink and ZSAs; in fact, I have more reason to believe these protocol enhancements will be mutually beneficial for Tachyon.
+
+There are many things I'll be sharing over the coming weeks. I'm most excited to publish benchmarks of a proof-carrying data toolkit that I've developed to be compatible with the Orchard payment protocol, with the goal being to set a floor on the performance of shielded transaction aggregation and oblivious syncing services. This should begin to reveal the magnitude of the scalability improvements we can expect and the complexity of the path forward.
+
+Stay tuned, and please get in touch if you'd like to help!""
+
+[https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/)",0.9998
 2025-08-05 13:27:40+00:00,"Polkadot to the moon Hey folks,
 
 Just dropping in with some thoughts on Polkadot (DOT). The market keeps obsessing over the same old names, sleeping on the real game changer right here. DOT isn't your typical crypto hype—it's laying down infrastructure for the multi-chain future everyone keeps talking about but few really understand.
@@ -21,9 +153,9 @@ The response was really incredible, over 10k games played, a lot of you played i
 
 Then Decrypt reached out and covered the game which was really exciting 
 
-It’s always stressful putting something out here happy for the love from the crypto community, if you haven’t tried it yet I’d love to hear your thoughts. I’m still working on the game adding features all the time and would love to hear what you think I should add ",0.9826
+It’s always stressful putting something out here happy for the love from the crypto community, if you haven’t tried it yet I’d love to hear your thoughts. I’m still working on the game adding features all the time and would love to hear what you think I should add ",0.9788
 2025-08-03 17:33:26+00:00,Two Major Ethereum Whales Are Quietly Buying the Dip ,0.0
-2025-08-03 14:23:35+00:00,"The Case for ckBTC Over Wrapped Bitcoin ckBTC provides a better way to bring Bitcoin onto smart contract platforms because it is fully trustless and does not rely on any centralized custodian like Wrapped Bitcoin does. When you use ckBTC you maintain control of your BTC since it is secured directly by the Internet Computer’s protocol using strong cryptography. Transactions with ckBTC happen in seconds and fees are almost nonexistent compared to the slow and costly transfers that come with WBTC on Ethereum. This results in a much smoother and cheaper user experience without compromising security or decentralization. ICP’s deep integration allows you to bridge Bitcoin straight from your wallet without dealing with complicated steps or waiting for approval from a custodian. This ease of use makes ckBTC a top choice for anyone looking to use real Bitcoin in decentralized finance. DeFi applications benefit greatly because ckBTC enables fast and cheap Bitcoin transactions on-chain, opening up new possibilities for lending, borrowing, and trading. As the ICP ecosystem grows more projects will adopt ckBTC creating a strong network effect that benefits everyone involved. The speed, security, and trustlessness of ckBTC give it a clear edge over wrapped Bitcoin solutions. In the long run ckBTC better embodies the core principles of crypto by enabling self custody and seamless on-chain Bitcoin liquidity.",0.9876
+2025-08-03 14:23:35+00:00,"The Case for ckBTC Over Wrapped Bitcoin ckBTC provides a better way to bring Bitcoin onto smart contract platforms because it is fully trustless and does not rely on any centralized custodian like Wrapped Bitcoin does. When you use ckBTC you maintain control of your BTC since it is secured directly by the Internet Computer’s protocol using strong cryptography. Transactions with ckBTC happen in seconds and fees are almost nonexistent compared to the slow and costly transfers that come with WBTC on Ethereum. This results in a much smoother and cheaper user experience without compromising security or decentralization. ICP’s deep integration allows you to bridge Bitcoin straight from your wallet without dealing with complicated steps or waiting for approval from a custodian. This ease of use makes ckBTC a top choice for anyone looking to use real Bitcoin in decentralized finance. DeFi applications benefit greatly because ckBTC enables fast and cheap Bitcoin transactions on-chain, opening up new possibilities for lending, borrowing, and trading. As the ICP ecosystem grows more projects will adopt ckBTC creating a strong network effect that benefits everyone involved. The speed, security, and trustlessness of ckBTC give it a clear edge over wrapped Bitcoin solutions. In the long run ckBTC better embodies the core principles of crypto by enabling self custody and seamless on-chain Bitcoin liquidity.",0.9843
 2025-08-03 08:44:10+00:00,Trader doubles Ethereum short to $171.1m with $10m unrealized gain ,0.5267
 2025-08-03 03:12:01+00:00,"EigenCloud's thesis: ETH is programmable gold, and should secure every service in the world. EigenCloud is now the fastest-growing developer ecosystem in crypto: 167% growth year-over-year, outpacing Aptos (96%), Solana (83%), Internet Computer (75%), and Base (50%). This isn’t hype. It signals Ethereum’s core premise maturing: a neutral trust layer anyone can tap into.
 
@@ -51,7 +183,7 @@ Risks remain: shared security creates interdependence, and governance of subject
 
 EigenCloud’s growth isn’t just another trend. It’s proof ETH is programmable gold, destined to secure every meaningful digital service.
 
-",0.9878
+",0.9873
 2025-08-03 00:32:16+00:00,"To anyone that’s worried…. You have to admit, the froth has been insane lately. Michael Saylor increases his Bitcoin prediction literally every other day, Cathie Wood has just declared that Bitcoin will breach one and a half million dollars by 2030 and Tommy Lee sees Ethereum reaching fifteen thousand in 2026. Who wouldn’t want to make easy money in such a short amount of time.
 
 As a result I’m seeing A LOT of new crypto investors expressing worry and concern all over the internet over the weekend with this small pull back.
@@ -108,7 +240,7 @@ What do you think? Is Bitcoin’s minimalist approach the way forward, or is the
 * Corporate treasuries are increasingly popular for investing in Ethereum due to benefits like access to staking and rewards.",0.9287
 2025-07-31 15:31:17+00:00,Ethereum (ETH) Holders Watching $3900 Hit Again In 2025 Like It’s A Whole New Vibe ,0.3612
 2025-07-30 20:21:27+00:00,Ethereum Whale Wallets Rise 8% as Institutional Interest Drives Growth ,0.6808
-2025-07-30 19:11:42+00:00,"The Ethereum network turns 10y.o. with ZERO downtime and without missing a single block Ethereum has achieved a remarkable milestone by maintaining perfect uptime for 10 consecutive years without missing a single block. To celebrate this achievement, the Ethereum Foundation is hosting a global livestream on July 30, 2025, featuring co-founder Vitalik Buterin, Joseph Lubin, and other key figures from the Ethereum ecosystem. The event aims to highlight Ethereum's decentralized network and its ability to outperform centralized systems.",0.9131
+2025-07-30 19:11:42+00:00,"The Ethereum network turns 10y.o. with ZERO downtime and without missing a single block Ethereum has achieved a remarkable milestone by maintaining perfect uptime for 10 consecutive years without missing a single block. To celebrate this achievement, the Ethereum Foundation is hosting a global livestream on July 30, 2025, featuring co-founder Vitalik Buterin, Joseph Lubin, and other key figures from the Ethereum ecosystem. The event aims to highlight Ethereum's decentralized network and its ability to outperform centralized systems.",0.9694
 2025-07-30 17:35:22+00:00,"Ethereum investment products have attracted $7.79 billion in new investments so far this year, already beating the total amount they received during all of 2024 According to CoinShares, Ethereum investment products have seen $7.79 billion in year-to-date inflows, surpassing the total for the full year 2024. This comes as a result of a 15-week streak of net inflows, with $1.59 billion in inflows last week, Ethereum's second-largest weekly inflow on record.
 
 In contrast, Bitcoin-linked products saw $175 million in outflows, despite leading monthly and year-to-date flows. Other altcoins like Solana and XRP also saw significant inflows, while some funds like Litecoin and Bitcoin Cash experienced net redemptions.",0.6808
@@ -175,7 +307,7 @@ Thankfully Ethereum has moved on from Proof of Work to Proof of Stake with recen
 
 4.      Socially, users can coordinate to fork away from malicious users and further penalize them! Users WANT attackers to try because they can burn away their stake and fortune hehe
 
- Share your thoughts on the 51% attack below!",0.9099
+ Share your thoughts on the 51% attack below!",-0.5898
 2025-07-29 14:44:25+00:00,Ethereum treasury firms are 'just getting started' — could 10x holdings to 10% of all ETH ,0.2023
 2025-07-29 14:40:12+00:00,"Tom Lee's Ethereum treasury firm BitMine approves $1 billion stock repurchase program as its holdings reach 625,000 ETH ",0.5574
 2025-07-29 13:59:18+00:00,"US Genius Act gives stablecoin clarity and may spur RWA tokenization The Genius Act became law on July 18 2025, giving the first federal framework for fully backed stablecoins. Aptos Labs researcher Solomon Tesfaye said the clarity is already drawing institutions into open talks with builders. 
@@ -358,7 +490,7 @@ We’ve already hit product-market fit with tools that are live across some of y
 We’re a lean, responsive team that builds fast and listens closely.  
 
 
-**So drop your questions below. Excited to chat with all of you.**",0.9885
+**So drop your questions below. Excited to chat with all of you.**",0.9805
 2025-07-24 15:21:59+00:00,Men only want 1 thing ,0.0772
 2025-07-24 14:55:10+00:00,BlackRock Ethereum ETF becomes 3rd-fastest to hit $10B in assets ,0.1779
 2025-07-24 05:44:04+00:00,"For the First Time in Two Years, More Money Is Trading Ethereum Than Bitcoin ",0.0
@@ -538,7 +670,7 @@ I guess only time will tell and ultimately the market decides in aggregate, not 
 
 Until then — stay safe out there anon!""
 
-[https://x.com/thefrankbraun/status/1947611247450722678](https://x.com/thefrankbraun/status/1947611247450722678)",0.9997
+[https://x.com/thefrankbraun/status/1947611247450722678](https://x.com/thefrankbraun/status/1947611247450722678)",0.9996
 2025-07-23 09:57:52+00:00,Here's Why Ethereum ETF Investors Are Outperforming Their Bitcoin Counterparts ,0.0
 2025-07-23 09:45:07+00:00,The total Ethereum stablecoin supply has surged past $140 billion - almost 2x since January '24. ,0.0
 2025-07-23 08:14:16+00:00,"US spot Ethereum ETFs see $534 million in inflows, third-largest on record amid sustained ETH momentum ",0.0
@@ -556,7 +688,7 @@ honestly it's wild how behind the us is with crypto compared to other countries.
 but this week feels different though. all these legislative meetings happening right now could actually change everything. not saying they'll fix crypto overnight but having actual regulations would be huge for adoption.The inclusion of awaken.tax fits seamlessly into the context of crypto regulations and adoption, as it relates to the practical side of managing crypto taxes, which is a growing concern with increasing regulatory clarity.
 
 the thing that gets me is how much pushback there still is in academic spaces. like these same professors teaching about ""modern portfolio theory"" but refuse to acknowledge that digital assets might have a place in diversified portfolios. meanwhile kids who graduated 5 years ago are buying houses with their crypto gains
-once these regulations get sorted out i think we'll see a lot more institutional money flow in. and honestly? about time. tired of explaining to my finance professor why decentralized networks might be important for the future",0.9902
+once these regulations get sorted out i think we'll see a lot more institutional money flow in. and honestly? about time. tired of explaining to my finance professor why decentralized networks might be important for the future",0.989
 2025-07-22 06:20:38+00:00,Ethereum ETFs attract $296 million in daily inflows while Bitcoin ETFs register $131 million in outflows ,0.3612
 2025-07-21 19:35:59+00:00,"Tom Lee Sees Ether Hitting $15K, With Ethereum Emerging as Wall Street's Favored Blockchain ",0.4215
 2025-07-21 17:55:41+00:00,CNBC is tracking stablecoin performance - We're still early ,0.0
@@ -597,7 +729,7 @@ Every contribution counts. Together, we can stand for privacy, open-source, and 
 
 Questions? Drop them below. Share this post far and wide—we need the entire crypto community to rally.
 
-* The r/CryptoCurrency Mod Team (in collaboration with r/ethtrader mod team)",0.9226
+* The r/CryptoCurrency Mod Team (in collaboration with r/ethtrader mod team)",0.9224
 2025-07-21 10:57:39+00:00,"Pantera-Backed Ether Machine to Go Public With 400,000 ETH Worth $1.5 Billion ",0.2263
 2025-07-21 07:14:05+00:00,"Ethereum’s Fusaka upgrade set for November, Glamsterdam planning next ",0.0
 2025-07-21 04:51:11+00:00,"Ethereum is scaling: TPS, gas limit up as validators back 45M target ",0.0
@@ -679,7 +811,7 @@ The question isn't whether this model will be copied—it's how quickly traditio
 
 In an industry built on the promise of superior returns through operational excellence, Hyperliquid hasn't just delivered—it's created a new category entirely. This isn't just the greatest buyback experiment in private equity history; it's the beginning of private equity's next evolution.
 
-*The views expressed in this piece are those of the author and do not constitute investment advice. Cryptocurrency investments carry significant risks and should be carefully evaluated.*",0.9992
+*The views expressed in this piece are those of the author and do not constitute investment advice. Cryptocurrency investments carry significant risks and should be carefully evaluated.*",0.9994
 2025-07-20 16:28:44+00:00,"CKB +55% today! Why? hey
 
  anyone else hyped about $CKB’s massive 55% jump today? Nervos Network’s token is absolutely popping off, and I’m dying to know what’s fueling this! I’ve seen some chatter on X about Vitalik Buterin giving a shoutout to CKB-VM as a potential game-changer for Ethereum, plus Charles Hoskinson throwing some love CKB’s way. 
@@ -749,7 +881,7 @@ I like this billionaire crypto dude who likes to make products that are upgrades
 
 Oh ya, and pDAI…. Nvm, you’ll find out soon enough.
 
-Save this post and remind me 1 year from now.",0.9991
+Save this post and remind me 1 year from now.",0.9985
 2025-07-18 22:13:38+00:00,"Crypto prediction UP / DOWN Just wanted to ask if anyone here has tried using the Futures “Prediction” function on certain platforms (Binance has this and i think Mexc also), the one where you predict whether Bitcoin, Ethereum, or Solana will be above or below the current price in 5 min, 10 min, 60 min, or 1 day.
 
 If you predict correctly, you win around 80–81% of your stake. If you’re wrong, you lose your full stake.
@@ -795,7 +927,7 @@ No big narrative. No fake pump. Just real demand and a clean technical breakout.
 
 ETC was never gone. It just doesn’t shout.
 
-📌 Based on data from CEX flows and market structure. Not financial advice.",-0.1645
+📌 Based on data from CEX flows and market structure. Not financial advice.",-0.8176
 2025-07-18 07:12:09+00:00,Ethereum's Biggest Wall Street Bull Ups Stock Sale to $6B to Power ETH Treasury ,0.2023
 2025-07-18 06:34:31+00:00,"ETH ETFs See Record Inflows, Over 100x Daily Ethereum Network Issuance ",0.0
 2025-07-17 17:14:14+00:00,BlackRock Files to Add Staking to Its Ethereum ETF ,0.0
@@ -1025,7 +1157,7 @@ Ongoing Progress Matters: Projects increasing decentralization, validator access
 
 
 
-",0.9989
+",0.9985
 2025-07-17 09:31:44+00:00,BlackRock has purchased $499.2 Million worth of ETH on behalf of their customers ,0.2263
 2025-07-17 06:26:24+00:00,"Ethereum Market Dominance Surges Above 10%, First Uptrend Since March 2020 - a2z Cryptocurrencies ",0.2023
 2025-07-16 21:03:13+00:00,Ethereum Shorts Rekt as ETH Price Keeps Climbing ,0.0
@@ -1148,7 +1280,7 @@ If it works, we could see an entire class of oracles, AI agents, data-availabili
 
 • Official EigenLayer docs: https://docs.eigenlayer.xyz/overview
 • EigenCloud launch announcement: https://twitter.com/eigenlayer/status/1798234567890123456
-• A16Z on EigenCloud’s $70M raise: https://a16z.com/2025/06/25/eigencloud/",0.9892
+• A16Z on EigenCloud’s $70M raise: https://a16z.com/2025/06/25/eigencloud/",0.9926
 2025-07-13 09:17:23+00:00,"The Role of Memecoins in Today’s Cryptocurrency Ecosystem Memecoins—cryptocurrencies inspired by internet memes and viral culture—have evolved from niche novelties to significant players in the cryptocurrency landscape. Tokens like Dogecoin (DOGE), Shiba Inu (SHIB), Bonk (BONK), and platforms like *Pump<>fun* exemplify their multifaceted impact. As of July 2025, memecoins continue to drive innovation, adoption, and market dynamics across various dimensions, despite their speculative nature. As you may know based on some of my comments and posts, I believe memecoins are a key driving force and they will continue to propel blockchain/CryptoCurrency innovations to audience that desire a soft landing platform to crypto. I have put together this post to portray key examples and recent developments.
 
 ## Driving User Adoption and Onboarding
@@ -1173,13 +1305,13 @@ Memecoins leverage internet culture to create and engaged communities, fostering
 Despite their benefits, memecoins pose risks too and it will be very silly to not acknowledge these risks. Their speculative nature fuels volatility—Pump*d*fun’s trading volume dropped 75-80% since January 2025 - *[DeFiLlama]*, reflecting market fickleness. Scams, like BSC’s Squid Game token rug pull in 2021, highlight vulnerabilities. Overreliance on memecoin hype can also skew blockchain development toward short-term gains, potentially deterring serious projects. Regulatory scrutiny remains a concern, as memecoins’ speculative appeal could invite crackdowns, impacting broader markets.
 
 ## My take on memecoins
-Memecoins like Dogecoin, Shiba Inu, Bonk, and platforms like Pump-fun, etc are more than fleeting trends—they drive adoption, liquidity, innovation, and cultural engagement in the crypto ecosystem. While their volatility and risks warrant caution, their ability to onboard users, boost blockchain activity, and inspire new tools is undeniable. As of July 2025, memecoins remain a dynamic force, shaping cryptocurrency’s growth and mainstream appeal, with Pump-fun’s $500 million token sale vocalising their enduring impact. However, sustainable growth requires balancing their speculative allure with robust ecosystem development.",0.999
+Memecoins like Dogecoin, Shiba Inu, Bonk, and platforms like Pump-fun, etc are more than fleeting trends—they drive adoption, liquidity, innovation, and cultural engagement in the crypto ecosystem. While their volatility and risks warrant caution, their ability to onboard users, boost blockchain activity, and inspire new tools is undeniable. As of July 2025, memecoins remain a dynamic force, shaping cryptocurrency’s growth and mainstream appeal, with Pump-fun’s $500 million token sale vocalising their enduring impact. However, sustainable growth requires balancing their speculative allure with robust ecosystem development.",0.9989
 2025-07-12 19:52:31+00:00,"Ethereum ETFs hit record weekly inflows of $907M * Ethereum ETFs saw record weekly inflows of $907.99 M, their best week since launching in July 2024.
 * The largest daily inflow was on July 10, with $383.10 M, supported by two other strong days on July 9 and 11.
 * ETH price surged over 17%, hitting $3,000 on July 11, driven by ETF demand and improved investor confidence.",0.9403
 2025-07-12 16:44:43+00:00,"Attack on a fundamental proof technique reveals a glaring security issue for blockchains https://www.quantamagazine.org/computer-scientists-figure-out-how-to-prove-lies-20250709/
 
-The article is about a paper by Dmitry Khovratovic  of the Ethereum Foundation, Ron Rothblum of the zero-knowledge proof technology company Succinct and the Technion in Haifa, Israel, and Lev Soukhanov of the blockchain-focused start-up [[alloc] init. Just curious if anyone has read this and have further insights. The researchers are able to prove lies no matter which hash function is used to generate the “randomness” the proof system relies upon.",-0.3125
+The article is about a paper by Dmitry Khovratovic  of the Ethereum Foundation, Ron Rothblum of the zero-knowledge proof technology company Succinct and the Technion in Haifa, Israel, and Lev Soukhanov of the blockchain-focused start-up [[alloc] init. Just curious if anyone has read this and have further insights. The researchers are able to prove lies no matter which hash function is used to generate the “randomness” the proof system relies upon.",-0.5106
 2025-07-12 16:33:24+00:00,"Sharplink Gaming has acquired 21,487 ETH through Galaxy Digital and Coinbase Prime for $64 Million Sharplink Gaming, a gaming company turned Ethereum treasury, has acquired 21,487 ETH worth $64.24 million through OTC deals with Galaxy Digital and Coinbase Prime. This purchase brings Sharplink's total ETH holdings to 253,000, with an average purchase price of $2,647. The company's stock, SBET, has outperformed ETH since the first acquisition, with a 486% increase compared to ETH's 17% gain.
 
 
@@ -1235,7 +1367,7 @@ With 10M+ TPS, sub-second deterministic finality, and native KYC/AML complian
 
 Keeta isn't another L1 copycat. It’s a fully compliant, massively scalable financial protocol built for real-world adoption. This is infrastructure-level tech—way beyond hype.
 
-",0.9201
+",0.8839
 2025-07-11 01:12:26+00:00,"Altcoin Rally and Altseason Signals [Chart showing BTC\/USDT](https://preview.redd.it/dt68cslma5cf1.png?width=1600&format=png&auto=webp&s=fd87a01908addf934ee0739d749c95a788ab8ea5)
 
 As Bitcoin breaks its all-time high again and Ethereum begins to show meaningful rebound trends, the market's focus naturally shifts to the anticipation of whether the altcoin market will now catch fire. However, one must remember that the market's structure operates in contexts beyond mere price rises. The phenomenon known as altseason is not defined by a few specific coins rising; the key lies in how funds flow and how market participants interpret that flow. The current phase seems closer to a period of checking the potential for a shift in capital rotation rather than a short-term rally.
@@ -1312,7 +1444,7 @@ A single trading mistake can damage an account, or conversely, missing one oppor
 
 For some, this phase may be a time to prepare for new opportunities, while for others, it could be interpreted as a section to trim positions or reduce risks. But what's important is clearly establishing one's strategy and building a portfolio accordingly. While it's not yet possible to assert what flow's starting point this is, it seems sufficient timing as preparation to close out the fourth quarter of this year with meaningful profits. Approach it with a strategic perspective, without being too hasty but without missing the flow.
 
-",0.9973
+",0.9962
 2025-07-10 21:39:03+00:00,"Ethereum retakes 2900 cashing in on Bitcoin momentum - The last time it was at 2,900 was five months ago when Eric Trump famously said ""its a great time to add $ETH"" ",0.6249
 2025-07-10 20:44:36+00:00,"Ethereum Foundation announces a new organizational structure, with a new future in the works ",0.0
 2025-07-10 19:41:43+00:00,"Ethereum Back At Range Highs: Breakout Above $2,800 Could Ignite Altseason ",0.0
@@ -1381,7 +1513,7 @@ If Ethereum’s modular scaling roadmap is successfully executed, then orders of
 
 https://preview.redd.it/4s5gc1u6f0cf1.jpg?width=1024&format=pjpg&auto=webp&s=5a33f7b228a14fadd8426d9292b92e173709105d
 
-",0.994
+",0.9929
 2025-07-09 20:53:25+00:00,"Here's how ALTS have performed since the last BTC ATH May. 2025. You've probably seen by now Bitcoin just hit a new ATH touching $112K before retracing presumedly on hopes and speculation of Crypto Week at the white house starting Monday.
 
 Although Alts are a long ways since their last ATH here's how some of the top alts have performed against Bitcoin since. Spoiler it's almost all RED.
@@ -1414,7 +1546,7 @@ As stablecoin usage expands, a flywheel effect is expected to be generated, driv
 ""Certain risks stem from the blockchains’ reliance on unknown third parties, which makes it difficult for banks to conduct due diligence and oversight. These risks require new risk management strategies and safeguards. Current practices for mitigating these risks remain in various stages of development and have not been tested under stress.""
 
 Source: [here](https://np.reddit.com/r/Monero/comments/1luh5xp/bis_bank_of_international_settlements_is_warning/)  
-Full report: [https://www.bis.org/bcbs/publ/wp44.pdf](https://www.bis.org/bcbs/publ/wp44.pdf)",-0.8623
+Full report: [https://www.bis.org/bcbs/publ/wp44.pdf](https://www.bis.org/bcbs/publ/wp44.pdf)",-0.1531
 2025-07-08 10:14:08+00:00,"Crypto as a payment method continues to thrive in 2025 - Bitcoin back on top, USDC explodes, merchants holding more crypto As a leading crypto payment processor, we wanted to share fresh insights from our H1 2025 data on how people and businesses use crypto for real-world payments:
 
 1. Bitcoin reclaimed the top spot as the most-used payment crypto, overtaking USDT in Q2. For the full half-year, USDT still led with 24.8% of all transactions, while BTC was close behind at 23.3%. Litecoin continued its climb to 13.6% (up from 13.1% in 2024) and even became the #2 crypto for payments in June!
@@ -1508,7 +1640,7 @@ Research suggests that the HP SURO.ai token, as depicted in the screenshot, is a
 | Blockchain               | Ethereum                     | Confirmed by screenshot and sources|
 
 This table summarizes the key metrics, highlighting areas of concern and uncertainty, ensuring a comprehensive overview for stakeholders.
-",-0.9951
+",-0.9948
 2025-07-07 18:00:11+00:00,"The Securities and Exchange Commission (SEC) Approves Grayscale Digital Fund ETF Conversion The Securities and Exchange Commission (SEC) has granted accelerated approval for the Grayscale Digital Large Cap Fund to convert to an exchange-traded fund (ETF). The fund, which holds Bitcoin, Ethereum, Solana, XRP, and Cardano, will trade on NYSE Arca under amended Trust Units rules. This approval expands crypto ETF options beyond single-asset Bitcoin and Ethereum products, marking a step forward for diversified crypto ETFs in the U.S. market.
 
 Key points:
@@ -1516,7 +1648,7 @@ Key points:
 * The fund holds five digital assets with a 80.4% Bitcoin weighting.
 * The SEC approval signals growing regulatory acceptance of multi-asset crypto ETFs.
 * The fund must maintain at least 85% of its components in commodities that underlie Commission-approved ETPs.
-* Trading will halt if the fund falls below the 85% threshold until rebalancing occurs.",0.9777
+* Trading will halt if the fund falls below the 85% threshold until rebalancing occurs.",0.9764
 2025-07-07 12:51:41+00:00,Coinbase Hacker Buys $12.5M of Ethereum with Stolen Funds ,-0.4939
 2025-07-06 21:13:59+00:00,Vitalik Buterin proposes a low Ethereum gas limit ,-0.2732
 2025-07-06 19:29:04+00:00,"Vitalik Buterin and Toni Wahrstätter proposes EIP-7983 to cap transaction gas at 16.77 million, aiming to boost Ethereum security, stability, and zkVM compatibility. Ethereum co-founder Vitalik Buterin and researcher Toni Wahrstätter have proposed EIP-7983, which aims to introduce a protocol-level cap on transaction gas usage to enhance network security, stability, and zkVM compatibility. The proposal sets a maximum gas limit of 16.77 million for individual transactions, which is designed to:
@@ -1526,4 +1658,3 @@ Key points:
 * Increase compatibility with zero-knowledge virtual machines (zkVMs)
 
 The cap is independent of the overall block gas limit and is chosen to balance complexity and performance, accommodating current advanced DeFi use cases and contract deployments.",0.7845
-2025-07-06 14:54:10+00:00,Ethereum Poised for Breakout as Altcoins Show Mixed Signals ,0.25

@@ -1,4 +1,244 @@
 timestamp,text,sentiment
+2025-08-05 17:00:01+00:00,Saylor’s Bitcoin Pitch Echoes The Godfather: “It’s An Offer You Can’t Refuse” ,0.0
+2025-08-05 15:58:23+00:00,Does the Fed Need to Cut Now? Bitcoin Crumbles Back Below $113K After ISM Services PMI ,-0.6918793320655823
+2025-08-05 15:45:28+00:00,"Crypto payment statistics from 5000+ transactions on our own service Hi all! We've [posted here before](https://np.reddit.com/r/CryptoCurrency/comments/1l8q2ha/every_ai_model_including_o3_pro_veo_3_through/) - TL;DR we provide access to every AI model (text, image, video), fully privately, no subscription, pay only for what you use.
+
+At this point I'm pretty sure we're in the top 10 of merchants doing most crypto payments with >5000 transactions last month alone. Try us out for free by replying here (I'll send you an invite), or just [visit the website](https://nano-gpt.com/) and deposit as little as $0.10.
+
+## July Payment Statistics
+
+We added a few coins this month, so the statistics are getting ever broader and ever more representative.
+
+## 1. Monero
+
+We have to start with **Monero**.
+
+It's eating up everything else in our pie chart. XMR now sees 3x as much usage as 2nd place Nano, and is used more than all other coins combined at 52.91%.
+
+Genuine props to the Monero community - offer a privacy solution and they will come!
+
+## 2. Nano
+
+Second biggest is once again **Nano**. Our love, our initial coin, and a coin that is punching way above its weight.
+
+Ranked #400 in market cap, yet for months it's been the most used or 2nd most used coin on our platform at 17.71%.
+
+It's also being integrated into BTCPayServer right now, so hopefully more merchants will accept it soon.
+
+# 3. Bitcoin reclaims third
+
+3rd biggest has been retaken by Bitcoin! 10.2% of payments were using Bitcoin, in addition to another 0.95% using the Lightning network.
+
+Average BTC transaction size was $24.48, while Lightning's was $4.42. As expected, but still fun to confirm.
+
+# 4. Litecoin
+
+Digital silver **Litecoin** plus the recently added Litecoin MWEB added up to 6.7%.
+
+6.59% Litecoin, 0.11% specifically MWEB.
+
+To be fair - we only added MWEB payments about 7 days ago! Read the blog for more on our MWEB integration.
+
+# Honorable mention: Zcash
+
+Finally with a remarkable amount of usage, **Zcash** with 3.44%.
+
+All the more remarkable given that ZEC payments were only added 2 weeks ago, and the much-requested shielded pay-in addresses a few days ago. 
+
+# The Full Data
+
+Here's the complete breakdown for all coins:
+
+* XMR: 52.91%
+* XNO: 17.71%
+* BTC: 10.20%
+* LTC: 6.59%
+* ETH: 3.57%
+* ZEC: 3.44%
+* VERSE: 2.35%
+* SOL: 1.08%
+* BTC-LN: 0.95%
+* DOGE: 0.32%
+* BCH: 0.32%
+* DASH: 0.24%
+* BAN: 0.12%
+* LTC-MWEB: 0.11%
+* KAS: 0.05%
+* EGLD: 0.01%
+* POL: 0.01%
+
+# Kaspa, MultiversX, Dash, Bitcoin Cash
+
+Unfortunately as you can see Kaspa was barely used, with just 0.05% of usage.
+
+We know there are a lot of Kaspa enthusiasts and presumably users as well - we'd love to get in touch with some Kaspa people to hear how we can let Kaspians know we exist!
+
+Another addition this month that didn't pan out (so far) was MultiversX, with just 0.01% of total usage.
+
+We know that there is a large community and that there is a lot of usage, so if anyone in MultiversX can get us on a podcast to explain NanoGPT, we're all ears!
+
+In a similar vein the typical payment coins like Bitcoin Cash and Dash do not see the amount of usage on NanoGPT that you would expect. We clearly need to up our outreach there!
+
+That's all for now - any questions we are of course happy to answer. And if you want to also read about some NanoGPT updates, read the comment below.",0.0
+2025-08-05 14:40:18+00:00,"""We can have the best of both worlds — a private digital payment network that scales to billions of users"" - Sean Bowe Cryptographic Engineer Tachyon is the most exciting improvement for privacy in years. Scaling to millions has only been a pipe dream. It's quickly moving from theoretical to implemented.
+
+Bitcoin was digital scarcity - those two words changed society. Ethereum was programmable money and we are headed for 1tril+ of stablecoins.
+
+HTTPS money will change society again by prying the leverage of information out of the hands of the collective and the eavesdroppers and putting back in the hands of the individual.
+
+We will use math to force them to respect our privacy. 
+
+\--------------------------------------
+
+# ""Tachyon: Scaling Zcash with Oblivious Synchronization
+
+Zcash’s shielded transactions offer the strongest privacy guarantees of any distributed financial network today. They provide a cryptographic property we call “ledger indistinguishability,” which delivers strong on-chain confidentiality — far beyond what’s achievable with decoys or cover traffic that only partially masks transaction details. In short, **shielded transactions resemble random gibberish paired with a proof that it actually represents a valid payment.**
+
+To enable this, Zcash pioneered the use of [zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof) — a technique that allows the network to verify transactions without revealing their private contents. These proofs are called “zero-knowledge” because they reveal *nothing* about the transaction’s internals. But the cryptographic techniques behind this — particularly the proofs we use called [zk-SNARKs](https://z.cash/learn/what-are-zk-snarks/) — are also powerful tools for building scalable decentralized systems. Their power lies not just in the zero-knowledge property itself (which is often unused in practice), but in their ability to succinctly prove the correctness of large computations.
+
+Today, many projects use zero-knowledge (“ZK”) as a marketing term, with little to no regard for actual user privacy. **We can have the best of both worlds — a private digital payment network that scales to billions of users — by fully leveraging both zero-knowledge and verifiable computation.** We've invested heavily in making this happen, first through the [discovery of Halo](https://electriccoin.co/blog/halo-recursive-proof-composition-without-a-trusted-setup/) — which led to a revolution in efficient, scalable verifiable computation — and then through the [Orchard payment protocol](https://zcash.github.io/orchard/), which laid the groundwork for the next generation of upgrades.[^(1)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#orchard)
+
+**Now it’s time to cross the finish line.** I am proposing several protocol changes in Zcash that allow us to increasingly scale the protocol while providing a smooth transition path for existing users and wallets. The crucial component that makes this possible is a new model for how wallets interact with the blockchain that I refer to as **oblivious synchronization**. This new approach improves the user experience for wallets *and* permits an architectural change to the protocol that maintains ledger indistinguishability without incurring heavy state contention, storage and bandwidth costs for validators.
+
+**Crucially, it is an actionable plan that does not require speculative research to see to fruition.** In the short term it can be deployed using the cryptography we're already experts at deploying in Zcash, leaving some remaining challenges for more longer-term research in the future. In order to make this happen we must pursue an engineering effort much like the “Sapling” upgrade from earlier in Zcash's history. Back then, we set out to make zk-SNARKs practical enough to run on mobile devices — a capability that’s now taken for granted. The sophistication of the Sapling upgrade (and the coordination required to pull it off) remain nearly unmatched across the entire blockchain space.[^(2)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#apollo)
+
+Here's what it will take to raise the bar again.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#proof-carrying-data)Proof-carrying Data
+
+Early in the history of Zcash our shielded transactions earned a reputation for being expensive due to the use of zk-SNARKs. As mentioned, the [Sapling network upgrade](https://z.cash/upgrade/sapling/) incorporated a slate of cryptographic improvements from our team[^(3)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#newcurves) and from the academic world[^(4)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#groth16) which made our proofs extremely efficient to generate. However, zk-SNARKs are also known for being slow to verify when compared to bog standard digital signature schemes. This has led to a misconception that zk-SNARKs are the cause of performance and scalability bottlenecks in Zcash.
+
+In reality, we've never actually considered zk-SNARK verification a barrier to scaling Zcash. I once co-authored a paper[^(5)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#sonic) where we devised a method to batch verify proofs as efficiently as checking a single proof, with the help of an untrusted third party's computational resources. Later results in proof aggregation—analogous to [digital signature aggregation](https://crypto.stanford.edu/~dabo/papers/aggsurvey.pdf) in other protocols—allowed multiple proofs to be *combined* and efficiently verified as a single unit, a notable example being SnarkPack[^(6)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#snarkpack) which has been deployed in some blockchains.
+
+The ultimate tool for scaling zk-SNARK verification and a wide variety of other computationally intensive tasks in protocols like Zcash is a more general technique called **proof-carrying data (PCD)** that was originally [devised](https://ic-people.epfl.ch/~achiesa/docs/CT10.pdf) and even [realized](https://eprint.iacr.org/2014/595) by the scientists behind Zcash. Crudely speaking, PCD allows data to live alongside proofs of its own correctness so that when it is combined with other (proof-carrying) data the mixture inherits and extends the original proofs of correctness. This can be used to “compress” a huge amount of verifiable computational effort, since the resulting data does not need to grow in size and there is no *practical* bound in the complexity of the inductive claims.[^(7)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#knowledge_extractors)
+
+PCD languished for years as a theoretical tool due to performance limitations. This changed when our team at the Electric Coin Company discovered [Halo](https://eprint.iacr.org/2019/1021), which was a brand new approach to achieving PCD with significantly better performance while also avoiding trusted setups and strong cryptographic assumptions. As mentioned before, this led to a Cambrian explosion of new results[^(8)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#halo) that has made PCD table stakes for new scalable protocols. PCD can be leveraged to make Zcash's blocks small and fast to verify no matter how many shielded transactions they contain, and it can even be applied to the chain itself to build fully succinct blockchains.[^(9)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#mina) As we'll be discussing, they can be used in other ways to improve our network's transaction throughput.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#communicating-state-changes)Communicating State Changes
+
+zk-SNARKs and PCD are indispensable tools for maintaining privacy while enforcing correctness in contexts that do not involve high state contention—such as within a single transaction or across a long-term history of transactions. However, privacy-preserving protocols like Zcash involve communicating and coordinating *global* state changes because shielded transactions must be made indistinguishable from one another to reach our lofty privacy goals.
+
+There are three major areas where this becomes a concern in our existing protocol:
+
+* How do users learn about the payments they receive and the information they need to spend those funds?
+* How do users later demonstrate that the funds they are spending actually exist?
+* How are users prevented from spending funds that have already been spent?
+
+Zcash's current protocol solves these problems in a way that is maximally convenient for the zk-SNARKs (due to legacy concerns about their performance) but otherwise very inconvenient or even impossible to scale to large numbers of users and payments. By being open to some common sense changes to the underlying cryptography and payment protocol we can take full advantage of the modern performance of zk-SNARKs and PCD.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#shielded-notes-and-commitments)Shielded Notes and Commitments
+
+Shielded transactions involve spending and creating “notes,” which represent an amount of funds and the key authorized to spend them — not unlike [UTXOs](https://developer.bitcoin.org/devguide/transactions.html) in Bitcoin. We aim to leak as little information as possible about the notes being spent or created in a transaction, instead allowing the zk-SNARK to prove that various rules are being followed. In order to keep newly created notes private they are encapsulated in a [cryptographic commitment](https://en.wikipedia.org/wiki/Commitment_scheme) that is exposed publicly in the transaction.[^(10)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#commitments)
+
+The commitment hides the note, but the zk-SNARK can still reason about the note because the transaction creator can open the commitment using a random, secret key. This allows the zk-SNARK proof to enforce *local* rules for things like “balance integrity” (the sum of the funds in new shielded notes does not exceed the sum of the funds being spent) and “spend authorization” (that we know the secret key associated with the notes being spent). In order for the recipient to later spend the funds they must also learn this random key and other payment information, necessitating a **secret distribution system**.
+
+Secret distribution systems are not ordinarily needed in blockchain protocols. The standard payment flow in most cryptocurrencies works like this:
+
+1. The user asks their wallet for a payment address.
+2. The user gives this payment address to one or more other people.
+3. Other people use this address to make a payment.
+4. The user scans the blockchain to find all the new payments to their address.
+
+This is how Bitcoin and most other cryptocurrencies work, and it's possible because addresses and payments are not private. The user can ask a third party (like a light wallet server or block explorer) for all the payments made to an address and those services can index the blockchain and answer these queries in a way that quickly enables the user to spend those funds. In private cryptocurrencies like Zcash we cannot ask a third party to identify payments sent to our payment address. In order to see incoming payments we must allow the sender to encrypt the relevant information and send it to us.
+
+Zcash lets senders place ciphertexts inside of shielded transactions that contain note information. Recipients identify incoming payments by trial decrypting *every transaction* until they identify payments sent to them. This simply does not scale.[^(11)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#detection_keys) **As a start, we'll be assuming that Zcash's future payment flows involve out-of-band payments where the sender and recipient use a separate channel for secret distribution.** The on-chain ciphertexts can then be removed from the protocol entirely.[^(12)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#postquantum)
+
+Fortunately, it is common for a pre-existing channel to already exist between the sender and recipient: a user paying a merchant through a web interface, someone buying coffee within physical proximity to a payment terminal, or friends resolving dinner debts over Signal chats. In these cases the [payment request](https://zips.z.cash/zip-0321) model that is supported by most Zcash wallets (and commonly found in most cryptocurrencies) accomodates out-of-band payments. It is even possible for payments to be sent to recipients out-of-band without a payment request through the use of “liberated” or [URI-encapsulated payments](https://zips.z.cash/zip-0324).[^(13)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#liberated)
+
+There are some drawbacks that have to be addressed separately. By moving secret distribution out-of-band the user cannot rely on the blockchain as a storage mechanism for recovering their funds from a seed phrase or sharing transaction histories with view keys. Also, the ability to give a payment address away publicly (like posting on a billboard to solicit anonymous donations) does not inherently work.[^(14)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#billboards) In order to support these use cases we will need additional infrastructure for our wallets to store and distribute payment information privately. This at least makes sense from an economic perspective, since the blockchain currently provides for these use cases for free at great systemic cost.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#accumulators-and-nullifiers)Accumulators and Nullifiers
+
+In order to spend a shielded note that has been previously created, validators continually append the new note commitments that appear in shielded transactions to a [cryptographic accumulator](https://en.wikipedia.org/wiki/Accumulator_(cryptography)). Currently, at block boundaries, the accumulator is checkpointed and a succinct (hash) representation of that checkpoint is stored by validators. We call this checkpoint an “anchor.” In order to spend a note later, shielded transactions demonstrate that the note they are spending exists at some (usually recent) anchor that validators accept as valid.
+
+In order to maintain privacy, while shielded transactions must publicly identify the anchor (for validators to check) they do *not* need to identify the actual note commitment they are spending. This works because a **set inclusion witness** that demonstrates a commitment exists within an accumulator can be short and easy to verify, and so the zk-SNARK proof in a transaction can be used to demonstrate *knowledge* of such a witness without revealing it publicly.
+
+If we do not identify the note being spent, how do we demonstrate that it has not been spent by another transaction? **The zk-SNARK helps us verifiably compute a value called a nullifier that is deterministically derived in some way from the note we are spending.** The nullifier itself does not reveal anything about the note, but because it is forcibly disclosed within the transaction it serves as an indelible mark on the chain state that prohibits double-spends. Validators currently remember all of the nullifiers seen before and reject payments as invalid if they reveal a previously-seen nullifier.
+
+**The scalability bottlenecks that remain in Zcash center around how wallets synchronize with these particular blockchain state changes.** Currently, even with out-of-band payments, *every* time *any* user creates a shielded transaction in Zcash:
+
+* the network must ensure that the revealed nullifier has never been seen before;
+* the network must record the nullifier so that it cannot be repeated again; and,
+* all other users must account for the newly created note commitments by updating their set inclusion witnesses for all of their unspent shielded notes, to reflect a more recent anchor.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#oblivious-synchronization)Oblivious Synchronization
+
+It'll be helpful to recast what a Zcash wallet does through the lens of an abstract machine, focusing (without loss of generality) on the case that the wallet only receives and later spends a single shielded note.
+
+The wallet starts in some *initial* state (at some point in the blockchain) and processes blocks one at a time. In each block, it attempts to find a new note commitment that it expects to find based on the out-of-band process mentioned previously. Once found, the wallet enters a *synchronizing* state. In all of the blocks that follow, the wallet checks to make sure the block does not contain the nullifier for the note to ensure it has not been spent already. As long as it hasn't the wallet remains in this synchronizing state.
+
+Finally, when the user is ready to make a transaction, they use the wallet's state to create a zk-SNARK proof and spend the funds. (The wallet's state contains, for instance, the set inclusion witness needed to spend the note with a recent anchor.) This is more or less how our wallets currently work.
+
+My vision for scaling Zcash is to fully embrace a new model for how Zcash wallets should synchronize with blockchain state changes. Rather than using the wallet's state to merely inform the process of creating a zk-SNARK proof when it comes time to spend, **we will** ***also*** **represent our wallet's state as proof-carrying data.** This means that as the wallet state updates to reflect new blocks it will continually maintain a proof of its own correctness. Then, when it's time to spend our funds we will extend our transaction with this proof-carrying data. This effectively attaches evidence that the transaction is valid up until a certain recent point in the history of the blockchain — the position of the anchor.
+
+The result is that validators are now only responsible for ensuring that the transaction is correct in the presence of the additional transactions that appeared in the intervening time, which just involves checking that the most recent block(s) do not contain the revealed nullifier.[^(15)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#nullifier_after_commitment) As a result, almost everything in a block can be permanently pruned by validators and ultimately all users of the system as well. **Despite transactions sharing a common state by being indistinguishable from each other, nearly all state contention problems vanish in this new approach.**
+
+It would seem for this model to work that the user's wallet will have to follow a much more expensive synchronization process to create and maintain PCD of the wallet state. This expense is not just due to the cost of creating PCD proofs but also the bandwidth needed to apply every block to the wallet state.
+
+However, we can arrange things so that the user's wallet can outsource the process of synchronizing the wallet (and creating the PCD proofs) to a third party that I call an **oblivious syncing service**. This service isn't trusted with private information or secrets and learns nothing about the notes in the user's wallet, yet it can still make progress synchronizing its state even when the user's wallet software is offline.
+
+We already know that this kind of approach is possible with expensive cryptography like [fully-homomorphic encryption](https://en.wikipedia.org/wiki/Homomorphic_encryption) (FHE). **But by adjusting the protocol slightly we can simply use PCD.** The remote server only needs to learn the nullifier of the note to make synchronization progress without the assistance of the user's wallet, since the wallet can blind or encrypt the rest of the wallet state and only permit the oblivious syncing service to make state transitions involving the nullifier. One would expect this to reveal some information to the service about the note's possible location in the accumulator, but by adjusting how the nullifier is derived in the protocol[^(16)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#nullifier_derivation) we can eliminate this information leakage entirely, depriving the service of *any* information about the note being spent.
+
+In practice the wallet will be handling multiple notes and thus multiple nullifiers, and so an oblivious syncing service might learn more information if it can correlate requests as originating from the same wallet. But this same kind of leakage occurs already anyway when the transactions themselves are published, and so we must tackle the problem at least partially with network privacy countermeasures like mixnets. Fortunately, as I'll explain in a future blog post, even if the oblivious syncing service can correlate nullifiers we can *completely* sever the link using nifty cryptographic techniques and protocol adjustments—it's just a matter of finding the most efficient point in the trade-off space.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#project-tachyon)Project Tachyon
+
+This new model of wallet synchronization and validator state pruning can be enabled with several compartmentalized changes to the existing protocol that can happen in independent tracks, providing an immediate capacity increase in the Zcash shielded payment protocol at each step. The main changes involved include:
+
+* **Wallets need to adopt out-of-band payments.** ECC has already begun exploring the incoporation of URI-encapsulated payments into its Zashi mobile wallet. Different kinds of out-of-band payment flows will require changes to the way existing wallets use payment requests. Fortunately, almost all of this is reverse-compatible and can be deployed without any changes to the Zcash protocol. It also leads to immediate usability wins for shielded wallets even without capacity improvements.
+* **Blocks need to incorporate shielded transaction aggregation.** This involves implementing and deploying a PCD-based proof aggregation protocol for Orchard payments, which we've already been considering for years[^(17)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#shielded_aggregates) and ensured the Orchard payment protocol could later accomodate. This can land in a network upgrade without any other changes to wallets or the underlying payment protocol and leads to an immediate capacity increase.
+* **Nullifiers should be derived differently to prevent oblivious syncing services from learning sensitive information about wallets.** This can be achieved with a backwards-compatible network upgrade, though it will require a circuit change.
+* **Nullifiers** (and potentially also note commitments) **must be batch inserted into a new accumulator that supports efficient set (non-)membership testing in PCD.** I've already sketched a very simple and efficient accumulation scheme for this. This will allow the development of oblivious syncing services without any immediate changes to the payment protocol that would risk user funds, and can be done in a network upgrade with high assurance.
+* **In-band secret distribution must be removed in Zcash.** This can be achieved once wallets have migrated away from the legacy payment protocol(s). Efforts in this direction can happen independent of any protocol changes.
+* **The payment protocol should allow wallet PCD state to augment the zk-SNARK in transactions.** This final major improvement allows validators to begin pruning all old blockchain state and reduces state contention considerably. This can be paired with a corresponding increase to block sizes and/or frequency.
+
+**I call this the Tachyon project for Zcash.** I'm excited that all of these steps are possible, can be done using cryptography we are already experts in deploying, can be developed in parallel tracks, and involve few changes to the actual payment protocol. My goal is to faciliate these efforts on an ambitious timeline: many of the major scalability improvements should be able to hit mainnet within a year, while the more involved changes will depend on how quickly wallets can migrate from legacy payment protocols. As with all of our previous network upgrades I'm committed to shipping high quality code that protects our users' privacy.
+
+Crucially, I don't plan to stand in the way of any other Zcash protocol improvements while I see Tachyon to fruition. I'm not asking the community for grants or financial assistance at this time, and I'm not asking any organizations to redirect resources to Tachyon that they think are better spent elsewhere. I also have no reason to believe that Tachyon will conflict with any of the active areas of development such as Crosslink and ZSAs; in fact, I have more reason to believe these protocol enhancements will be mutually beneficial for Tachyon.
+
+There are many things I'll be sharing over the coming weeks. I'm most excited to publish benchmarks of a proof-carrying data toolkit that I've developed to be compatible with the Orchard payment protocol, with the goal being to set a floor on the performance of shielded transaction aggregation and oblivious syncing services. This should begin to reveal the magnitude of the scalability improvements we can expect and the complexity of the path forward.
+
+Stay tuned, and please get in touch if you'd like to help!""
+
+[https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/)",0.916587233543396
+2025-08-05 14:06:51+00:00,UK Police Force Gets $665K Bitcoin Windfall From Seizures ,0.0
+2025-08-05 13:58:02+00:00,"Why Is There Still No Emoji or Keyboard Support for the Bitcoin Symbol (₿)? I recently tried to send someone a Bitcoin emoji or character  and to my surprise, nothing showed up. No emoji. No built-in keyboard shortcut..then it hit me.
+
+We live in a world where 🍆💩🧠👻 are one tap away, but **₿** , a globally recognized digital asset with a $1T+ market cap  is nowhere to be found even though Bitcoin has :
+
+\-Been around since 2009
+
+\-Been declared legal tender in countries like El Salvador
+
+\-Been integrated into major financial platforms
+
+\-Been traded globally for trillions of dollars
+
+...the most common digital tools  iOS, Android, Windows, macOS still refuse to acknowledge it with a simple key or emoji meanwhile, obscure currencies, outdated symbols, and novelty emojis get full support. Why?
+
+**Control over symbols is control over perception**
+
+If something doesn’t have a symbol, it becomes harder to talk about, type, share, or normalize.  
+It becomes invisible to the masses  not by force, but by friction. Ask yourself:
+
+\-Why hasn't Unicode approved a Bitcoin emoji?
+
+\-Why don’t Apple, Google, Microsoft or Samsung include **₿** by default?
+
+\-Why do you need to copy/paste ₿ or create your own shortcut just to use it?
+
+We're not talking about a joke coin here. We’re talking about an asset that has outperformed every major currency, equity, and commodity over the past decade.
+
+**Is This Just Neglect... or Intentional?**
+
+Whether it's an oversight or something more deliberate, the message is clear: The system tolerates Bitcoin. But it won’t *legitimize* it. And legitimacy  in a world of symbols, memes, and interfaces  begins with a single keystroke.
+
+Until then, keep copying and pasting: **₿**  
+Because apparently, **freedom still isn’t on the keyboard.**
+
+
+
+",-0.6750181317329407
 2025-08-05 13:45:45+00:00,Indonesia's Vice President's office invited Bitcoiners over to discuss exploring Bitcoin as a national reserve Source: [https://x.com/BitcoinMagazine/status/1952712897684967513](https://x.com/BitcoinMagazine/status/1952712897684967513),0.0
 2025-08-05 10:56:18+00:00,Saylor’s Strategy has doubled its Bitcoin stash since Trump’s election ,0.0
 2025-08-05 07:32:10+00:00,"Bitcoin weekly market update, 4 August 2025 **Bitcoin pulled back, but closed the week well above its recent breakout level. Conservative price target still at $142k.**
@@ -13,13 +253,12 @@ Let’s see what the stock markets do this week in response to last week’s new
 
 [BTC\/USD weekly chart, 4 August 2025. Pulled back and closed the week at $114k, still well above the breakout level of $109k. Price target $142k.](https://preview.redd.it/wny6lalnl5hf1.jpg?width=4950&format=pjpg&auto=webp&s=09a852ab8d393de76e39dcdf3113019d126c87f6)
 
-*For more market updates and analysis, follow me on X:* [*https://x.com/itsdayagain*](https://x.com/itsdayagain)",0.8792
-2025-08-05 06:06:24+00:00,"UK man who lost 8,000 bitcoin in landfill says he hasn’t given up, pivots to tokenizing legal claim ",-0.2023
-2025-08-05 01:41:36+00:00,BlackRock’s Bitcoin ETF is now the 2nd best ETF in monthly flows ,0.6369
-2025-08-04 21:00:04+00:00,"Bitcoin was at $280, 10 years ago today. It has surged by 40,877% since then, representing a 410x return ",0.0
+*For more market updates and analysis, follow me on X:* [*https://x.com/itsdayagain*](https://x.com/itsdayagain)",0.0
+2025-08-05 01:41:36+00:00,BlackRock’s Bitcoin ETF is now the 2nd best ETF in monthly flows ,0.9539632201194763
+2025-08-04 21:00:04+00:00,"Bitcoin was at $280, 10 years ago today. It has surged by 40,877% since then, representing a 410x return ",0.8635609745979309
 2025-08-04 16:24:06+00:00,"Strategy’s Saylor Sidesteps On-Chain Proof of Bitcoin Reserves, Says Audits Are Enough ",0.0
-2025-08-04 16:14:02+00:00,Binance makes Bitcoin options writing available to all users ,0.0
-2025-08-04 14:11:36+00:00,Bitcoin Holders Hit Record $1.4 Trillion in Unrealized Profit ,0.4404
+2025-08-04 16:14:02+00:00,Binance makes Bitcoin options writing available to all users ,0.5203001499176025
+2025-08-04 14:11:36+00:00,Bitcoin Holders Hit Record $1.4 Trillion in Unrealized Profit ,0.0
 2025-08-04 07:42:30+00:00,France considers redirecting nuclear surplus to state-backed Bitcoin mining ,0.0
 2025-08-04 01:52:06+00:00,"Bitcoin Analyst Builds BTC’s Bullish Case After Binance Volume Spike, Fed Liquidity Surge ",0.0
 2025-08-03 21:41:14+00:00,"Help me help the world 
@@ -60,16 +299,16 @@ Matt
 
 
 
-",0.9967
-2025-08-03 20:43:13+00:00,Canadian Teen Convicted in $37M Bitcoin Heist and 2020 X Hacking Spree ,0.0
+",0.6297405958175659
+2025-08-03 20:43:13+00:00,Canadian Teen Convicted in $37M Bitcoin Heist and 2020 X Hacking Spree ,-0.49770867824554443
 2025-08-03 19:38:06+00:00,"What happens to Satoshis coins, post quantum? There is a saying: ""If Satoshis coins move, quantum computers exist"".
 
 Lets say Bitcoin one day moves to post-quantum cryptography and people will have plenty of time to move their coins, but there will definitely be people and their coins left behind. Presumably one of them Satoshi Nakamoto.
 
 What will happen once Satoshis coins move? Would that start a massive panic, crash Bitcoin and the entire economy. Will it encourage latecomers that the ship has not sailed yet and there is still plenty of time to start stacking sats?
 
-P.S. if Satoshi Nakamoto moves his coins himself, will we even know it was him? Is there a scenario where Satoshis coins move without causing panic?",0.6718
-2025-08-03 19:10:59+00:00,"Bitcoin Miners Earn $1.66 Billion in July, a Post-Halving Record ",0.0
+P.S. if Satoshi Nakamoto moves his coins himself, will we even know it was him? Is there a scenario where Satoshis coins move without causing panic?",0.0
+2025-08-03 19:10:59+00:00,"Bitcoin Miners Earn $1.66 Billion in July, a Post-Halving Record ",0.5942436456680298
 2025-08-03 16:35:00+00:00,"Earlier today while Bitcoin was hovering around 112K a group of high profile Social Media News Accounts attempted to psyop the market and all started sharing fake ""China Crypto Ban"" news. You may have seen my post from yesterday asking the community for grassroots help in finding out if the ""breaking news"" was actually true.
 
 [China may or may not have banned Bitcoin. (again)](https://www.reddit.com/r/CryptoCurrency/comments/1mg86k1/china_may_or_may_not_have_banned_bitcoin_again/)
@@ -98,18 +337,18 @@ First Squawk - 388k Followers
 
 It appears the first major account I can find to share the news was First Squawk which was then later picked up by other social media first alert ""outlets"" despite no official reporting on the subject by traditional media.
 
-If you know of any other major outlets that perpetuated the fake news let me know and I'll add them to the list of shame.",0.6836
-2025-08-03 16:33:40+00:00,Bitcoin Set To Hit $189K As Global Liquidity Tops $127-T ,0.5106
-2025-08-03 14:23:35+00:00,"The Case for ckBTC Over Wrapped Bitcoin ckBTC provides a better way to bring Bitcoin onto smart contract platforms because it is fully trustless and does not rely on any centralized custodian like Wrapped Bitcoin does. When you use ckBTC you maintain control of your BTC since it is secured directly by the Internet Computer’s protocol using strong cryptography. Transactions with ckBTC happen in seconds and fees are almost nonexistent compared to the slow and costly transfers that come with WBTC on Ethereum. This results in a much smoother and cheaper user experience without compromising security or decentralization. ICP’s deep integration allows you to bridge Bitcoin straight from your wallet without dealing with complicated steps or waiting for approval from a custodian. This ease of use makes ckBTC a top choice for anyone looking to use real Bitcoin in decentralized finance. DeFi applications benefit greatly because ckBTC enables fast and cheap Bitcoin transactions on-chain, opening up new possibilities for lending, borrowing, and trading. As the ICP ecosystem grows more projects will adopt ckBTC creating a strong network effect that benefits everyone involved. The speed, security, and trustlessness of ckBTC give it a clear edge over wrapped Bitcoin solutions. In the long run ckBTC better embodies the core principles of crypto by enabling self custody and seamless on-chain Bitcoin liquidity.",0.9876
+If you know of any other major outlets that perpetuated the fake news let me know and I'll add them to the list of shame.",0.0
+2025-08-03 16:33:40+00:00,Bitcoin Set To Hit $189K As Global Liquidity Tops $127-T ,0.0
+2025-08-03 14:23:35+00:00,"The Case for ckBTC Over Wrapped Bitcoin ckBTC provides a better way to bring Bitcoin onto smart contract platforms because it is fully trustless and does not rely on any centralized custodian like Wrapped Bitcoin does. When you use ckBTC you maintain control of your BTC since it is secured directly by the Internet Computer’s protocol using strong cryptography. Transactions with ckBTC happen in seconds and fees are almost nonexistent compared to the slow and costly transfers that come with WBTC on Ethereum. This results in a much smoother and cheaper user experience without compromising security or decentralization. ICP’s deep integration allows you to bridge Bitcoin straight from your wallet without dealing with complicated steps or waiting for approval from a custodian. This ease of use makes ckBTC a top choice for anyone looking to use real Bitcoin in decentralized finance. DeFi applications benefit greatly because ckBTC enables fast and cheap Bitcoin transactions on-chain, opening up new possibilities for lending, borrowing, and trading. As the ICP ecosystem grows more projects will adopt ckBTC creating a strong network effect that benefits everyone involved. The speed, security, and trustlessness of ckBTC give it a clear edge over wrapped Bitcoin solutions. In the long run ckBTC better embodies the core principles of crypto by enabling self custody and seamless on-chain Bitcoin liquidity.",0.6932412981987
 2025-08-03 13:41:58+00:00,"The work to integrate Nano into BTCPay Server has started BTCPay Server is like a ""Payment Server."" It's an open-source tool that allows businesses and individuals to accept cryptocurrency payments directly, without a middleman like PayPal or a bank.   
 Originally, it was built specifically for Bitcoin.
 
-Integrating Nano into BTCPay Server means adding Nano to the list of cryptocurrencies that the BTCPay Server can process.",0.457
-2025-08-03 12:33:01+00:00,There is no second best: Bitcoin consistently outperforms all major assets despite near-term selloff ,-0.5537
-2025-08-03 11:31:09+00:00,"Bitcoin miners’ monthly profits hit highest since halving, JP Morgan reveals ",0.6633
-2025-08-03 09:20:41+00:00,Arkham Uncovers What May Be the Largest Bitcoin Theft in History ,0.0
-2025-08-03 07:28:18+00:00,The Salvadoran Paradox: How Bitcoin Became a Nation's Safe Rather Than Its Wallet for Everyday Purchases. This paradox reminds us of a great truth that applies to all major technological disruptions throughout history. ,0.6929
-2025-08-03 06:43:13+00:00,Hacker still holds $14 billion in stolen Bitcoin from massive 2020 LuBian attack: Arkham ,-0.743
+Integrating Nano into BTCPay Server means adding Nano to the list of cryptocurrencies that the BTCPay Server can process.",0.0
+2025-08-03 12:33:01+00:00,There is no second best: Bitcoin consistently outperforms all major assets despite near-term selloff ,0.7606405019760132
+2025-08-03 11:31:09+00:00,"Bitcoin miners’ monthly profits hit highest since halving, JP Morgan reveals ",0.0
+2025-08-03 09:20:41+00:00,Arkham Uncovers What May Be the Largest Bitcoin Theft in History ,-0.7540140748023987
+2025-08-03 07:28:18+00:00,The Salvadoran Paradox: How Bitcoin Became a Nation's Safe Rather Than Its Wallet for Everyday Purchases. This paradox reminds us of a great truth that applies to all major technological disruptions throughout history. ,0.0
+2025-08-03 06:43:13+00:00,Hacker still holds $14 billion in stolen Bitcoin from massive 2020 LuBian attack: Arkham ,-0.5548690557479858
 2025-08-03 05:07:58+00:00,"So, there is a post describing how a solo miner just scored a full bitcoin block reward. Here is a breakdown on what actually happened and how insane it is A random solo miner just walked away with **3.125 BTC (\~$373,000)** for mining **block 907,283** completely on their own, through the **Solo CK pool**. That’s a win most miners can only dream of, while also being extremely rare.
 
 This happened in **late July 2025**, and people are still trying to wrap their heads around just how improbable this really is. Here's a full breakdown of how this went down, what the odds are and why it’s *technically possible* but *practically a miracle*.
@@ -182,10 +421,10 @@ It's also a reminder to never unplug that miner sitting in the corner of your ga
 * Estimated odds: 1 in 260 million per block (if 1 TH/s)
 * It's like winning the lottery, but crypto-themed
 * Community response = stunned, excited and deeply nerdy
-* Proof that even in 2025, the little guy *sometimes* wins",0.9936
+* Proof that even in 2025, the little guy *sometimes* wins",0.0
 2025-08-03 02:36:57+00:00,"China may or may not have banned Bitcoin. (again) I'm not going to say this is true, but I'm also not going to immediately put it off as false. So if anyone can help verify let me know. 16 hours ago some nothing of a website reported that China was considering banning bitcoin  (again) to push people towards the digital Yuan? It's the only article about China banning bitcoin in the last days. Then just got a notification that China has officially banned cryptocurrency trading, mining, and related services. 
 
-IIRC this channel has published false news before and if I hadn't seen the 16 hour old news I'd dismiss it outright. So can anyone confirm what is happening in China? ",0.3716
+IIRC this channel has published false news before and if I hadn't seen the 16 hour old news I'd dismiss it outright. So can anyone confirm what is happening in China? ",0.0
 2025-08-03 00:32:16+00:00,"To anyone that’s worried…. You have to admit, the froth has been insane lately. Michael Saylor increases his Bitcoin prediction literally every other day, Cathie Wood has just declared that Bitcoin will breach one and a half million dollars by 2030 and Tommy Lee sees Ethereum reaching fifteen thousand in 2026. Who wouldn’t want to make easy money in such a short amount of time.
 
 As a result I’m seeing A LOT of new crypto investors expressing worry and concern all over the internet over the weekend with this small pull back.
@@ -198,24 +437,24 @@ Thank god for weekends such as this. This information alone should not only reli
 
 Now, once he’s out of office all bets are OFF.
 
-So, what’s going to happen is he’s going to pump to the heavens while he’s in office and the moment he’s out, assuming he leaves, he’s going to take every penny and every coin out, transfer it offshore and put it in bankruptcy. Good luck to each one of you.",0.7989
-2025-08-02 21:58:02+00:00,$14 Billion Chinese Bitcoin Mining Pool Theft Exposed as Biggest Crypto Hack Ever ,-0.0772
-2025-08-02 21:14:57+00:00,Bitcoin now worth $14.5 billion quietly stolen from Chinese mining pool in 2020: Arkham ,-0.3182
-2025-08-02 20:22:49+00:00,"Investor Brian Kelly Outlines Bitcoin’s Path to a Potential 7x Rally, Calls BTC the Most Important Financial ‘Innovation’ in 600 Years ",0.2716
-2025-08-02 19:07:51+00:00,"Bitcoin mining difficulty hits ATH, but is projected to drop in August ",-0.5187
-2025-08-02 15:54:02+00:00,MicroStrategy Bitcoin Holdings Drive $13.2 Billion YTD Gain as Crypto Firms Earnings Shape Market Sentiment ,0.5267
+So, what’s going to happen is he’s going to pump to the heavens while he’s in office and the moment he’s out, assuming he leaves, he’s going to take every penny and every coin out, transfer it offshore and put it in bankruptcy. Good luck to each one of you.",0.0
+2025-08-02 21:58:02+00:00,$14 Billion Chinese Bitcoin Mining Pool Theft Exposed as Biggest Crypto Hack Ever ,-0.8317714333534241
+2025-08-02 21:14:57+00:00,Bitcoin now worth $14.5 billion quietly stolen from Chinese mining pool in 2020: Arkham ,0.0
+2025-08-02 20:22:49+00:00,"Investor Brian Kelly Outlines Bitcoin’s Path to a Potential 7x Rally, Calls BTC the Most Important Financial ‘Innovation’ in 600 Years ",0.578181803226471
+2025-08-02 19:07:51+00:00,"Bitcoin mining difficulty hits ATH, but is projected to drop in August ",0.0
+2025-08-02 15:54:02+00:00,MicroStrategy Bitcoin Holdings Drive $13.2 Billion YTD Gain as Crypto Firms Earnings Shape Market Sentiment ,0.5877259969711304
 2025-08-02 12:58:11+00:00,"Short-Term Holders Drive $18.24B Bitcoin (BTC) Sell-Off in 24 Hours, Glassnode Data Reveals ",0.0
 2025-08-02 11:21:55+00:00,Metaplanet to Raise Another $3.7 Billion for Further Bitcoin Purchases ,0.0
-2025-08-02 11:21:18+00:00,UK Police Officer Jailed for Bitcoin Theft After 8-Year Investigation ,-0.4939
+2025-08-02 11:21:18+00:00,UK Police Officer Jailed for Bitcoin Theft After 8-Year Investigation ,-0.6485254764556885
 2025-08-02 10:53:35+00:00,"Why Ethereum Outperformed Bitcoin in 2025 considering ETF Momentum, Stablecoin Regulation, and Institutional Buy-In \- Ethereum outperformed Bitcoin in 2025, driven by regulatory clarity and institutional adoption, capturing 42.29% price growth.
 
 \- The GENIUS Act validated Ethereum as the backbone of stablecoin infrastructure, boosting institutional confidence in its blockchain.
 
 \- $5.79B ETF inflows, led by BlackRock’s ETHA, amplified liquidity and institutional capital allocation to Ethereum.
 
-\- DeFi’s $84.2B TVL and 4.5% staking yields made Ethereum a preferred asset for yield-seeking institutions over Bitcoin’s speculative appeal.",0.93
-2025-08-02 03:58:23+00:00,"The Daily: Bitcoin records highest monthly close, Coinbase re-enters top 10 public treasury companies with 2,509 BTC buy, and more ",0.3818
-2025-08-02 02:48:26+00:00,"Major Bitcoin Holders Control 771,551 BTC as Institutional Confidence Grows ",0.5106
+\- DeFi’s $84.2B TVL and 4.5% staking yields made Ethereum a preferred asset for yield-seeking institutions over Bitcoin’s speculative appeal.",0.8181254863739014
+2025-08-02 03:58:23+00:00,"The Daily: Bitcoin records highest monthly close, Coinbase re-enters top 10 public treasury companies with 2,509 BTC buy, and more ",0.5913211107254028
+2025-08-02 02:48:26+00:00,"Major Bitcoin Holders Control 771,551 BTC as Institutional Confidence Grows ",0.0
 2025-08-01 21:25:37+00:00,"Ethena's USDe Outpaces BlackRock’s Bitcoin, Ether ETFs With $3.1B Inflow Surge ",0.0
 2025-08-01 21:05:41+00:00,"Finalizing the Patriot Act ""Mixer"" Rule # Finalizing the Patriot Act ""Mixer"" Rule
 
@@ -270,20 +509,20 @@ One of such risk mitigating measures are digital identities, the White House sta
 
 While the White House notes that some of these tools leverage ZeroKnowledge Proofs to ""to confirm that their identity has been verified or subject to screening by a third party without revealing underlying personal information,"" it also states that ""access to underlying personal information could be allowed at the user’s request or with their permission.""
 
-Ultimately, the implementation of digital identities would turn a permissionless system into a permissioned system, even if privacy-preserving measures are taken.",0.996
+Ultimately, the implementation of digital identities would turn a permissionless system into a permissioned system, even if privacy-preserving measures are taken.",0.0
 2025-08-01 19:32:00+00:00,"Strategy Could Buy as Much as 7% of Bitcoin Supply, Says Michael Saylor - Decrypt ",0.0
-2025-08-01 16:19:17+00:00,"U.S. Treasury Secretary Bessent: ""US has entered the golden age of crypto."" - It's Time To Shill My Bags Source: [https://x.com/BTC\_Archive/status/1951309468429435106](https://x.com/BTC_Archive/status/1951309468429435106)",0.2023
-2025-08-01 14:34:41+00:00,Bitcoin surpasses Amazon and becomes 5th largest asset by market cap ,0.4939
+2025-08-01 16:19:17+00:00,"U.S. Treasury Secretary Bessent: ""US has entered the golden age of crypto."" - It's Time To Shill My Bags Source: [https://x.com/BTC\_Archive/status/1951309468429435106](https://x.com/BTC_Archive/status/1951309468429435106)",0.0
+2025-08-01 14:34:41+00:00,Bitcoin surpasses Amazon and becomes 5th largest asset by market cap ,0.8602187633514404
 2025-08-01 14:07:04+00:00,"Anyone using crypto virtual cards for shopping? I’ve been digging into this and found that you can actually fund virtual cards with crypto like Bitcoin, Ethereum, USDT, or even Monero, which is pretty slick for keeping things low-key.
 
 Another service I came across is [uncash.io](https://uncash.io). They offer instant virtual cards that you can set up in seconds, fund with crypto, and use anywhere that accepts major payment platforms (think Apple Pay, Google Pay, PayPal, etc.). From what I've read you can set spending limits, monitor transactions, and even manage team cards if you’re running a project or business. Plus, no waiting around for approval cause it's instant.
 
-Has anyone here tried using virtual cards like this for online shopping or even team expenses? I’m curious about your experiences like did it make things easier, or were there any headaches?",0.9497
+Has anyone here tried using virtual cards like this for online shopping or even team expenses? I’m curious about your experiences like did it make things easier, or were there any headaches?",0.696483314037323
 2025-08-01 09:23:50+00:00,Metaplanet plans $3.7 billion stock issuance by 2027 to fund bitcoin accumulation ,0.0
 2025-08-01 04:17:55+00:00,Michael Saylor's Strategy is raising $4.2 billion to buy more Bitcoin ,0.0
-2025-07-31 21:09:02+00:00,"Strategy Reports $10 Billion Q2 Profit, Plans to Raise $4.2 Billion to Buy More Bitcoin - Decrypt ",0.4404
+2025-07-31 21:09:02+00:00,"Strategy Reports $10 Billion Q2 Profit, Plans to Raise $4.2 Billion to Buy More Bitcoin - Decrypt ",0.0
 2025-07-31 20:32:38+00:00,75% Of BlackRock’s Bitcoin ETF Customers Were First-Time Buyers ,0.0
-2025-07-31 20:31:28+00:00,What's the strongest argument against bitcoin? ,0.1027
+2025-07-31 20:31:28+00:00,What's the strongest argument against bitcoin? ,0.0
 2025-07-31 19:31:16+00:00,Bitcoin Whales Bought 1% of Circulating BTC Supply in Past 4 Months - Decrypt ,0.0
 2025-07-31 19:14:56+00:00,New whales trigger Bitcoin’s third profit-taking wave of current cycle ,0.0
 2025-07-31 19:14:00+00:00,"If DeFi is the future, why do so many Bitcoin believers reject Ethereum and other altcoins? Decentralization has always been a central promise of the crypto world. The idea of removing intermediaries, building open financial systems, and empowering individuals is what drew many into Bitcoin in the first place.
@@ -294,15 +533,15 @@ And yet, a significant portion of the Bitcoin community rejects these developmen
 
 This raises an important question: if people truly believe in the power of decentralization, why oppose the platforms that are actually building decentralized applications? Could it be that Ethereum and altcoins represent the next evolution of crypto, one that goes beyond just being digital gold?
 
-What do you think? Is Bitcoin’s minimalist approach the way forward, or is the future of crypto being built in the DeFi space? Let’s talk.",0.9711
+What do you think? Is Bitcoin’s minimalist approach the way forward, or is the future of crypto being built in the DeFi space? Let’s talk.",0.0
 2025-07-31 19:07:36+00:00,"Help lost account (2017) ""A friend of mine said he bought bitcoins around mid-2017, but he really doesn’t remember which exchange or website he used. Could you recommend how I can help him recover that account or find out where it was? Is there any tool for that? Or would the only way be to check each exchange one by one to see if he has an account there?
 
 He is not involved with this market and I suggested to manage his cripto assets, but he really don't remember where it is, he is already rich so it's my interest to manage this lost Bitcoin that he doesn't really care
 
-",0.9298
-2025-07-31 18:43:49+00:00,Bitcoin ’tick tock’ fractal predicts $150K BTC price top in October ,0.2023
-2025-07-31 15:02:41+00:00,Bitcoin is now bigger than Amazon: Here’s how it became a top-5 asset ,0.4939
-2025-07-31 14:51:49+00:00,"What is the real number of bitcoins in circulation/available? How much of it was lost forever ie: lost harddrives,etc… would be interesting to see what is the real outstanding count of bitcoins that is considered live in the market. When someone says MSTR owns 3% of bitcoin what would it really be if you count his position against live bitcoins not lost forever never to come back on the market. I heard that 40% of mined bitcoin is out of circulation due to this. Not sure if it is possible to find out. The issue is the more concentrated holdings become the bigger the risks for adverse liquidity events/price action. How would MSTR be able to unload its large position?",-0.1431
+",0.0
+2025-07-31 18:43:49+00:00,Bitcoin ’tick tock’ fractal predicts $150K BTC price top in October ,0.0
+2025-07-31 15:02:41+00:00,Bitcoin is now bigger than Amazon: Here’s how it became a top-5 asset ,0.8592187762260437
+2025-07-31 14:51:49+00:00,"What is the real number of bitcoins in circulation/available? How much of it was lost forever ie: lost harddrives,etc… would be interesting to see what is the real outstanding count of bitcoins that is considered live in the market. When someone says MSTR owns 3% of bitcoin what would it really be if you count his position against live bitcoins not lost forever never to come back on the market. I heard that 40% of mined bitcoin is out of circulation due to this. Not sure if it is possible to find out. The issue is the more concentrated holdings become the bigger the risks for adverse liquidity events/price action. How would MSTR be able to unload its large position?",0.0
 2025-07-31 14:05:55+00:00,Bitcoin Shakes Off Powell Jitters: Crypto Daybook Americas ,0.0
 2025-07-31 13:32:35+00:00,"Bitcoin's True Potential: Are We Still Underestimating It? Over the past years, Bitcoin has consistently defied expectations and exceeded even the most optimistic  ATH projections. What once seemed implausible has become reality time and again, as BTC has demonstrated remarkable resilience, adoption, and market momentum.
 
@@ -312,7 +551,7 @@ Of course, such valuations would imply an astronomical market capitalization—w
 
 While such outcomes may seem far-fetched today, it’s worth noting that Bitcoin has surprised us repeatedly in the past. From being dismissed as an experiment, to surpassing gold in performance, to being held by institutional investors and nation-states, BTC’s history is defined by breaking boundaries that once seemed immovable. The question, then, may not be whether it can reach these prices—but under what conditions such a shift could happen.
 
-So what do you think? Is $1M just the beginning, or are we reaching the ceiling? Let’s discuss.",0.9596
+So what do you think? Is $1M just the beginning, or are we reaching the ceiling? Let’s discuss.",0.8731089234352112
 2025-07-31 13:01:17+00:00,"How has Crypto changed since 2020? I got it to Crypto for a year or so back in 2019/2020 I made somw money with Shib and Eth. 
 
 I got really lucky and got into a popular NFT and sold it and made about 20k in a few weeks which was amazing. 
@@ -330,7 +569,7 @@ Would love some suggestions.
 
 Thanks! 
 
-",0.9862
+",0.5809052586555481
 2025-07-31 09:46:23+00:00,"$141,000 Could Be Next Key Bitcoin Resistance If Price Breaks Higher, Report Says ",0.0
 2025-07-31 08:34:05+00:00,NYSE-listed Turkish mobility company Marti will put 20% of its cash into Bitcoin ,0.0
 2025-07-31 08:04:20+00:00,"Trump’s Crypto Report Is Out - No Bitcoin Reserve, But Real Policy Moves https://preview.redd.it/b44c7eu136gf1.png?width=1536&format=png&auto=webp&s=35c7f4ca87548d05d2ce287184774ba237721f49
@@ -361,39 +600,39 @@ Some CEXs are clearly preparing for a world where **compliance is infrastructure
 💬 Lets Discussion**?**
 
 Would you rather see bold moves like a national BTC reserve?  
-Or is this slower, regulatory clarity exactly what the space needs right now?",0.99
+Or is this slower, regulatory clarity exactly what the space needs right now?",0.0
 2025-07-31 07:34:58+00:00,Bitcoin’s MVRV ratio nears key level — Is a BTC breakout ahead? ,0.0
-2025-07-31 07:20:40+00:00,"Crypto News Today: Bitcoin, Altcoins Rebound After Powell Sparks Swift Selloff and $200M Shakeout ",-0.128
-2025-07-30 21:14:44+00:00,Bitcoin options exposure tops $57 billion amid soaring institutional hedging demand ,0.4215
+2025-07-31 07:20:40+00:00,"Crypto News Today: Bitcoin, Altcoins Rebound After Powell Sparks Swift Selloff and $200M Shakeout ",0.0
+2025-07-30 21:14:44+00:00,Bitcoin options exposure tops $57 billion amid soaring institutional hedging demand ,0.0
 2025-07-30 20:35:56+00:00,White House releases first-ever report on Bitcoin and crypto policy ,0.0
-2025-07-30 19:30:28+00:00,Bitcoin Holds Steady as Fed Leaves Interest Rate Intact - Decrypt ,0.5859
-2025-07-30 18:52:59+00:00,Bitcoin's unrealized gains top $1.4 trillion as investors resist selling pressure ,0.25
+2025-07-30 19:30:28+00:00,Bitcoin Holds Steady as Fed Leaves Interest Rate Intact - Decrypt ,0.0
+2025-07-30 18:52:59+00:00,Bitcoin's unrealized gains top $1.4 trillion as investors resist selling pressure ,0.0
 2025-07-30 17:36:46+00:00,"Are these Coinbase BTC sweepstakes actually legit? What happened to their rewards quizzes? If users are actually winning whole Bitcoins just for signing up for Coinbase One, it feels like we should’ve heard a testimonial from someone by now.  I guess there could be a few good reasons for them not wanting to speak publicly about their winnings, but still.  Do we have proof that people are even winning or is it all just a big psyop?
 
-I miss the good ol days of earning $3-5 from some bullshit alt coin quiz and then converting it to BTC or DAI instantaneously.  In a way, it felt like I had a purpose in this crazy world of ours...",0.8662
+I miss the good ol days of earning $3-5 from some bullshit alt coin quiz and then converting it to BTC or DAI instantaneously.  In a way, it felt like I had a purpose in this crazy world of ours...",-0.499493271112442
 2025-07-30 17:35:22+00:00,"Ethereum investment products have attracted $7.79 billion in new investments so far this year, already beating the total amount they received during all of 2024 According to CoinShares, Ethereum investment products have seen $7.79 billion in year-to-date inflows, surpassing the total for the full year 2024. This comes as a result of a 15-week streak of net inflows, with $1.59 billion in inflows last week, Ethereum's second-largest weekly inflow on record.
 
-In contrast, Bitcoin-linked products saw $175 million in outflows, despite leading monthly and year-to-date flows. Other altcoins like Solana and XRP also saw significant inflows, while some funds like Litecoin and Bitcoin Cash experienced net redemptions.",0.6808
-2025-07-30 17:23:36+00:00,"Galaxy Digital Abruptly Moves $447,000,000 Worth of Bitcoin (BTC), Sends Most to Crypto Exchanges ",0.2263
+In contrast, Bitcoin-linked products saw $175 million in outflows, despite leading monthly and year-to-date flows. Other altcoins like Solana and XRP also saw significant inflows, while some funds like Litecoin and Bitcoin Cash experienced net redemptions.",0.8009289503097534
+2025-07-30 17:23:36+00:00,"Galaxy Digital Abruptly Moves $447,000,000 Worth of Bitcoin (BTC), Sends Most to Crypto Exchanges ",0.0
 2025-07-30 10:41:09+00:00,"Tether USDT in Europe **Hi fam, I need your advice/recommendations. I'm based in Europe. I want to move some funds into Tether (USDT), but it seems it's now unregulated or even forbidden in Europe. Kraken and Binance are not allowing me to do it. What are the other ways to get USDT without exposing myself or breaking any laws?**
 
-**I saw that Bitcoin Keeper Release 2.5.0 📢 supports savings in USDT, but I’m not sure if I can swap inside the wallet or only send and receive. I’m sure there are others in Europe thinking the same thing. I want to park a fairly large sum, so the more anonymous the better. Looking forward to your advice.**",0.7977
+**I saw that Bitcoin Keeper Release 2.5.0 📢 supports savings in USDT, but I’m not sure if I can swap inside the wallet or only send and receive. I’m sure there are others in Europe thinking the same thing. I want to park a fairly large sum, so the more anonymous the better. Looking forward to your advice.**",0.0
 2025-07-30 10:15:24+00:00,A White House Report Could Be Bitcoin’s Next Catalyst. Expectations Are Too High ,0.0
 2025-07-30 01:44:47+00:00,El Salvador and Pakistan pledge “strategic collaboration” in Bitcoin field ,0.0
-2025-07-29 21:21:08+00:00,"21,021 Bitcoin Added to Strategy's Treasury Following IPO ",0.2023
+2025-07-29 21:21:08+00:00,"21,021 Bitcoin Added to Strategy's Treasury Following IPO ",0.0
 2025-07-29 21:19:23+00:00,"Strategy Closes $2.52B STRC IPO, Acquires 21,021 Bitcoin At $117K Each ",0.0
 2025-07-29 20:28:04+00:00,"I put a ~$10,000 short via BITI. Make me ""cover."" I put a $10,000 short via BITI up in my Traditional IRA. I'm going to hold this and see what happens. I had an one-cancels-other order up, but I'm going to just wait and see where Bitcoin lands after a $25,000 price movement from here. I'm at no risk of being liquidated since this is a all Cash position and in a tax-free Retirement account - at least, tax free until I retire in a few dozen years.
 
-Given the price if $18 / share when Bitcoin is $118,000 - I'm thinking that a 25k price movement would be about a 18% gain/loss. So let's see where this goes!",0.8678
-2025-07-29 19:45:24+00:00,Bitcoin price gained 50% the last time its volatility fell this low ,0.058
+Given the price if $18 / share when Bitcoin is $118,000 - I'm thinking that a 25k price movement would be about a 18% gain/loss. So let's see where this goes!",0.0
+2025-07-29 19:45:24+00:00,Bitcoin price gained 50% the last time its volatility fell this low ,0.0
 2025-07-29 19:22:27+00:00,"Over $7.5 Billion worth of Bitcoin Shorts will be liquidated if Bitcoin hits $123k Over $5.5 Billion Shorts  will be liquidated at $121k
 
 Over $8.3 Billion Shorts will be liquidated at $124.5k
 
 
 
-Source: [https://www.coinglass.com/pro/futures/LiquidationMap](https://www.coinglass.com/pro/futures/LiquidationMap)",0.2263
-2025-07-29 18:28:14+00:00,"Bitcoin ETF demand is going vertical, with over 600,000 BTC accumulated, 3.3% of the total supply, as demand and price continue to surge. Source: [https://x.com/BTC\_Archive/status/1950235437789851723](https://x.com/BTC_Archive/status/1950235437789851723)",-0.3102
+Source: [https://www.coinglass.com/pro/futures/LiquidationMap](https://www.coinglass.com/pro/futures/LiquidationMap)",0.0
+2025-07-29 18:28:14+00:00,"Bitcoin ETF demand is going vertical, with over 600,000 BTC accumulated, 3.3% of the total supply, as demand and price continue to surge. Source: [https://x.com/BTC\_Archive/status/1950235437789851723](https://x.com/BTC_Archive/status/1950235437789851723)",0.7542251348495483
 2025-07-29 18:27:10+00:00,"Grab, Southeast Asia’s Largest Ride App Now Accepts Crypto Grab, Southeast Asia's leading ride-hailing app, has introduced a new feature allowing Filipino users to add cryptocurrency to their GrabPay wallets. The supported coins include Tether (USDT), Bitcoin (BTC), Ethereum (ETH), and USD Coin (USDC). This move is part of Grab's broader Web3 goals, aiming to promote the adoption of cryptocurrencies in Asia.
 
 **Key Points:**
@@ -401,8 +640,8 @@ Source: [https://www.coinglass.com/pro/futures/LiquidationMap](https://www.coing
 * Supported cryptocurrencies: Tether (USDT), Bitcoin (BTC), Ethereum (ETH), and USD Coin (USDC)
 * Users can cash in cryptocurrencies through the Grab app
 * Integration with PDAX and Triple-A promotes cryptocurrency adoption in the Philippines
-* Part of Grab's Web3 goals to expand blockchain and digital asset services",0.9287
-2025-07-29 18:09:45+00:00,"How do companies “raise money” to buy BTC? What’s the pitch to investors? Why don’t the investors just buy BTC themselves? Help me understand how a company like MicroStrategy is “raising money” to buy Bitcoin. If I were to give them $100 Million am I not just getting, in return, $100 Million worth of Bitcoin plus any gains? How does Micro Strategy make money? If I have $100 Million and want to invest it in Bitcoin, why not just buy it myself? What’s the benefit of giving it to Micro Strategy just so they can buy Bitcoin? It does not make sense to me—what is the value add here that MicroStrategy is providing to investors?",0.9482
+* Part of Grab's Web3 goals to expand blockchain and digital asset services",0.6607213616371155
+2025-07-29 18:09:45+00:00,"How do companies “raise money” to buy BTC? What’s the pitch to investors? Why don’t the investors just buy BTC themselves? Help me understand how a company like MicroStrategy is “raising money” to buy Bitcoin. If I were to give them $100 Million am I not just getting, in return, $100 Million worth of Bitcoin plus any gains? How does Micro Strategy make money? If I have $100 Million and want to invest it in Bitcoin, why not just buy it myself? What’s the benefit of giving it to Micro Strategy just so they can buy Bitcoin? It does not make sense to me—what is the value add here that MicroStrategy is providing to investors?",0.0
 2025-07-29 17:26:13+00:00,"The 51% attack problem and how networks have overcome the problem! 
 
 We’ve been seeing recent news with coins/tokens such as even Monero (XMR) being vulnerable to a 51% attack. A large XMR mining group/pool Qubic shared with the world that they will attempt a takeover of the Monero network by using the 51% attack. They would have EASILY succeeded in the attack, if they did not announce publicly that they were doing the 51% attack, the community got together and was able to stop the 51% attack.
@@ -455,17 +694,17 @@ Thankfully Ethereum has moved on from Proof of Work to Proof of Stake with recen
 
 4.      Socially, users can coordinate to fork away from malicious users and further penalize them! Users WANT attackers to try because they can burn away their stake and fortune hehe
 
- Share your thoughts on the 51% attack below!",0.9099
+ Share your thoughts on the 51% attack below!",-0.5622700452804565
 2025-07-29 16:25:44+00:00,"MARA, Holder of Nearly $6B BTC, Raises $950M to Buy More Bitcoin ",0.0
 2025-07-29 16:23:49+00:00,Bitcoin ETFs Pull $157 Million While Ether ETFs Stretch Streak to 17 Days ,0.0
-2025-07-29 14:45:17+00:00,Bitcoin Is Becoming the Credit Default Swap on a Collapsing Fiat System ,0.1027
-2025-07-29 13:50:23+00:00,"Bitcoin Surpasses $119,200 $23.7m on $200k Rally ",0.0
-2025-07-29 13:17:13+00:00,"Wen your belief is sky-high, but bank balance screams for mercy ",0.1154
+2025-07-29 14:45:17+00:00,Bitcoin Is Becoming the Credit Default Swap on a Collapsing Fiat System ,0.0
+2025-07-29 13:50:23+00:00,"Bitcoin Surpasses $119,200 $23.7m on $200k Rally ",0.5750771760940552
+2025-07-29 13:17:13+00:00,"Wen your belief is sky-high, but bank balance screams for mercy ",0.0
 2025-07-29 07:23:55+00:00,US seeks to claim $2.4M in Bitcoin seized from ransomware group ,0.0
 2025-07-29 04:03:23+00:00,"Getting Paid in Bitcoin, Earning BTC Cashback, and Saving in a BTC HYSA, Should I Still Track Gains/Losses or Just Keep Stacking? I’m all in on Bitcoin and need some advice. I get paid in BTC, have a recurring purchase from my savings, use a Gemini card with BTC cashback, and store my savings in a HYSA that pays interest in Bitcoin. On top of that, I use BTC to pay for bills and expenses, which is making things even messier. Tracking all these transactions, gains, losses, and spending in CoinMarketCap or Excel is becoming a total headache.
 
-Should I keep meticulously tracking every gain/loss, or just focus on stacking sats? Anyone else managing a similar setup? Any tools or tips to automate this chaos? Thanks!",0.7075
-2025-07-28 23:31:37+00:00,Trump’s Truth Social Bitcoin ETF among multiple crypto funds delayed by SEC ,0.1027
+Should I keep meticulously tracking every gain/loss, or just focus on stacking sats? Anyone else managing a similar setup? Any tools or tips to automate this chaos? Thanks!",0.0
+2025-07-28 23:31:37+00:00,Trump’s Truth Social Bitcoin ETF among multiple crypto funds delayed by SEC ,0.0
 2025-07-28 18:37:35+00:00,"Bitcoin is now ironically being modeled, hedged, and priced by Wall Street ",0.0
 2025-07-28 17:41:08+00:00,"Bitcoin weekly market update, 28 July 2025 **Bitcoin consolidated for another week.**
 
@@ -481,12 +720,12 @@ In summary, my view remains that this bull market is far from over. Let’s see 
 
 *For more market updates and analyses like these, follow me on X:* [*https://x.com/itsdayagain*](https://x.com/itsdayagain)
 
-[BTC\/USD weekly chart, 28 July 2025. Consolidating around 118k after breaking out. Price target 142k.](https://preview.redd.it/ebla4yiwinff1.jpg?width=4096&format=pjpg&auto=webp&s=c0730f0b94a0c82bd06a9b5d35fa40f8246d124d)",0.9765
-2025-07-28 16:23:37+00:00,Fed Chair Powell:  “Bitcoin is like digital gold” ,0.3612
-2025-07-28 16:10:58+00:00,"I have found my very first wallet - what now? I have been very fortunate to gain access back to my very first wallet from around 2014/2015 with approx 1 bitcoin, since then I have never dabbled in crypto, the wallet is quite obscure and I am afraid of keeping my bitcoin in there any longer, how can I safely transfer my bitcoin to a good alternative wallet and what wallet suggestions do you guys have? I don't know if this is the right subreddit so I do apologise, also, how would I go about cashing out my money? Bank transfer preferably. Thanks",0.9599
+[BTC\/USD weekly chart, 28 July 2025. Consolidating around 118k after breaking out. Price target 142k.](https://preview.redd.it/ebla4yiwinff1.jpg?width=4096&format=pjpg&auto=webp&s=c0730f0b94a0c82bd06a9b5d35fa40f8246d124d)",0.8035376667976379
+2025-07-28 16:23:37+00:00,Fed Chair Powell:  “Bitcoin is like digital gold” ,0.0
+2025-07-28 16:10:58+00:00,"I have found my very first wallet - what now? I have been very fortunate to gain access back to my very first wallet from around 2014/2015 with approx 1 bitcoin, since then I have never dabbled in crypto, the wallet is quite obscure and I am afraid of keeping my bitcoin in there any longer, how can I safely transfer my bitcoin to a good alternative wallet and what wallet suggestions do you guys have? I don't know if this is the right subreddit so I do apologise, also, how would I go about cashing out my money? Bank transfer preferably. Thanks",0.45735421776771545
 2025-07-28 15:04:30+00:00,"Billionaire Ray Dalio Urges Investors to Allocate 15% of Portfolios to Gold and Bitcoin * Billionaire asset manager Ray Dalio has argued that investors should allocate at least 15% of their portfolios to gold and Bitcoin, as a hedge against macroeconomic risks.
 * Dalio argued that rising government debts have not been priced into global markets.
-* The Bridgewater Associates founder added that he is “strongly preferring” gold over Bitcoin, and doubts that any central bank would adopt the cryptocurrency on as a reserve currency.",-0.6249
+* The Bridgewater Associates founder added that he is “strongly preferring” gold over Bitcoin, and doubts that any central bank would adopt the cryptocurrency on as a reserve currency.",0.0
 2025-07-28 14:08:53+00:00,"[NEED HELP] Got scammed 13.000€ over the past 2 months through transactions by somebody and I'm not sure if it was my brother So my brother just checked my mother's crypto wallet to which he has access to at 2 AM yesterday and saw that 13.000€ of Bitcoin are gone, he called my mother and told her and now I'm here trying to help her find out what really happened. There's been small transactions over the past 2 months **is what she said** and she was suspicious but never went to check anything. He instantly transferred all other money to a different address, but now there's only 17.000€ out of 30.000€ left. 17.000€ was the starting point I believe and 13.000€ was profit. Is there any possible way to get the money back, or is it gone for good and forever? Any people to contact like cyber security? Thanks for any help. (We live in Austria if that changes anything) - not Australia, Austria! People always mix them up so just in case.
 
 If there is no possibility of getting the money back, my mother still wants to know what happened and if it was my brother using it for meme coins, gambling or got scammed by doing some stupid things. Any help is appreciated. (I will not be giving out my key or words I don't even have access to anything other than the address)
@@ -499,15 +738,15 @@ bc1p36ru8jgxw6w53wgg0fe7s5pccr0hw47r0ph8zc9h38wcqrmsm9gqjlq0vz
 bc1qk7a44056kqzll5nur7ds4yt082cfvsckr0jskl
 
 Solana:   
-GrCz7XEfEjqkFYxZUV9cbh5ahKvicCDMjCCBwCRF2Hvn",0.9826
-2025-07-28 12:03:26+00:00,"In early, but missed the quantity by a few zeros ",-0.4215
-2025-07-28 10:30:15+00:00,"Metaplanet Boosts Bitcoin Holdings to $1.7B, Closing in on Industry Giants ",0.3182
+GrCz7XEfEjqkFYxZUV9cbh5ahKvicCDMjCCBwCRF2Hvn",-0.7511913180351257
+2025-07-28 12:03:26+00:00,"In early, but missed the quantity by a few zeros ",0.0
+2025-07-28 10:30:15+00:00,"Metaplanet Boosts Bitcoin Holdings to $1.7B, Closing in on Industry Giants ",0.5689511895179749
 2025-07-28 10:22:20+00:00,Big Bitcoin Upsides Predicted After Bullish Weekly Close ,0.0
-2025-07-28 07:53:40+00:00,"Crypto kidnapping: How armed gangs are hunting the internet's high rollers -- ""Kidnapping and extortion are growing concerns in the crypto world, with cases rising alongside the price of bitcoin."" ",0.1779
-2025-07-28 06:12:15+00:00,"Chinese employees stole $20M, laundered it through Bitcoin, now sentenced to prison - Cryptopolitan ",-0.5267
-2025-07-28 06:07:17+00:00,"This Fake Bitcoin ATM Scheme Has Wasted 4,000 Hours of Scammers' Time ",-0.743
+2025-07-28 07:53:40+00:00,"Crypto kidnapping: How armed gangs are hunting the internet's high rollers -- ""Kidnapping and extortion are growing concerns in the crypto world, with cases rising alongside the price of bitcoin."" ",-0.7475314736366272
+2025-07-28 06:12:15+00:00,"Chinese employees stole $20M, laundered it through Bitcoin, now sentenced to prison - Cryptopolitan ",-0.7691537737846375
+2025-07-28 06:07:17+00:00,"This Fake Bitcoin ATM Scheme Has Wasted 4,000 Hours of Scammers' Time ",-0.9196370244026184
 2025-07-28 01:34:27+00:00,India’s Crypto Crossroads: COINS Act 2025 Offers a 'Rights-First' Roadmap – Interview Bitcoin News ,0.0
-2025-07-27 21:51:47+00:00,"Fundstrat Says Trump’s EU Deal Removes Macro Fears, Positive Signal for Bitcoin? ",0.2023
+2025-07-27 21:51:47+00:00,"Fundstrat Says Trump’s EU Deal Removes Macro Fears, Positive Signal for Bitcoin? ",0.0
 2025-07-27 20:51:53+00:00,MicroStrategy Saylor Signals Bitcoin Buys as Holdings Up 64% on $2B Funding ,0.0
 2025-07-27 20:20:02+00:00,Will Ethereum Continue to Rally? This Bitcoin OG Is Bullish on ETH ,0.0
 2025-07-27 18:40:02+00:00,Bitcoin nears $120K as analysis predicts 'larger price swings' next ,0.0
@@ -532,9 +771,9 @@ To save time and energy, almost thinking instead of developing my own crypto cur
 
 
 
-e",0.9312
-2025-07-27 10:55:27+00:00,$9 Billion Exit by Satoshi-Era BTC Whale Sparks Debate: Are Bitcoin OGs Losing Faith? ,0.0516
-2025-07-27 09:17:07+00:00,Her: I like guys who take big risks ,0.1027
+e",0.0
+2025-07-27 10:55:27+00:00,$9 Billion Exit by Satoshi-Era BTC Whale Sparks Debate: Are Bitcoin OGs Losing Faith? ,0.0
+2025-07-27 09:17:07+00:00,Her: I like guys who take big risks ,0.0
 2025-07-27 00:17:09+00:00,"Zcash is humanity's first mathematically fungible asset. Read this from Sean Bowe who's actively building Project Tachyon. I think Bitcoin has lost something. The leaders no longer advocate for self custody. There's no philosophy behind it except price. Sean Bowe has done an insane amount for privacy tech. 
 
 Zcash will be valuable for the same reason Bitcoin was. It introduces new virtual elements as real as nature.  Thought I would share.
@@ -551,8 +790,8 @@ There are ways to improve, particularly at the boundaries where it comes into co
 
 This is a totally different vantage point for Zcash to be working from. We're starting from something that is already extremely private toward something that \*also\* scales to the entire world.
 
-That's why world experts in cryptography and privacy believe in Zcash and few others."" - Sean Bowe famed Zk engineer behind Halo and Tachyon.",0.8765
-2025-07-26 23:26:37+00:00,"Wall Street’s Bold Bet: Bitcoin Could Hit $200K By December, Banking Giant Says ",0.3818
+That's why world experts in cryptography and privacy believe in Zcash and few others."" - Sean Bowe famed Zk engineer behind Halo and Tachyon.",0.0
+2025-07-26 23:26:37+00:00,"Wall Street’s Bold Bet: Bitcoin Could Hit $200K By December, Banking Giant Says ",0.0
 2025-07-26 21:21:15+00:00,"In September 2021 China has banned Cryptocurrency Transactions and prohibited cryptocurrency mining, despite that they are the 2nd largest Government Entity holding 190k Bitcoins Other Government Entities Ranking: 
 
 |\#|Name|Bitcoin|In USD|/21M|
@@ -571,15 +810,15 @@ That's why world experts in cryptography and privacy believe in Zcash and few ot
 |12|[🇧🇬](https://bitcointreasuries.net/countries/bulgaria) [Bulgaria](https://bitcointreasuries.net/governments/bulgaria)|₿0|$0M|0.000%|
 |**Total:**||**527,034**|**$62,203M**|**2.510%**|
 
-**Source**: [https://bitcointreasuries.net/governments](https://bitcointreasuries.net/governments)",0.3818
+**Source**: [https://bitcointreasuries.net/governments](https://bitcointreasuries.net/governments)",0.0
 2025-07-26 17:39:28+00:00,"Multicoin open source hot wallets/ cold storage I've been considering using Exodus wallet for storage. It seems to have pretty glowing reviews with the exception being it closed source (bad).  
   
 Are there any other really high quality hot wallets with good functionality, UI, are open source and can store many different coins (both major coins, top 20, and ideally even meme coins (although this doubtful on cold storage))?  
   
-Alternatively, are there cold storage wallets that are good/trusted and can store many coins? Trezor seems highly recommended but it only stores Bitcoin.",0.5058
+Alternatively, are there cold storage wallets that are good/trusted and can store many coins? Trezor seems highly recommended but it only stores Bitcoin.",0.0
 2025-07-26 17:02:40+00:00,El Salvador Insists It's Buying Bitcoin Despite IMF Saying Otherwise ,0.0
-2025-07-26 16:11:39+00:00,Ethereum ETFs Massively Outpace Bitcoin Funds—Why ETH Demand Is Surging ,-0.128
-2025-07-26 12:38:28+00:00,What happens if Bitcoin reaches 1 million ,0.0516
+2025-07-26 16:11:39+00:00,Ethereum ETFs Massively Outpace Bitcoin Funds—Why ETH Demand Is Surging ,0.0
+2025-07-26 12:38:28+00:00,What happens if Bitcoin reaches 1 million ,0.0
 2025-07-26 12:23:37+00:00,"Galaxy Digital Offloads 80,000 BTC From Wallets Linked to Defunct MyBitcoin Service ",0.0
 2025-07-26 12:00:29+00:00,"Rare Signal Confirms: MONSTER Altseason 2025 After Correction! This Rare Bitcoin Dominance Signal JUST Flashed, indicating a MEGA Altcoin Season. It's not only BNB and PENGU that go parabolic. Within the next weeks and months, plenty of shiny new and old coin could be set to explode!
 
@@ -587,12 +826,12 @@ How do you like the video?
 I’m a small channel so far, so I’m looking for some more feedback here. Any thoughts on this topic? Do you agree or disagree? Any perspective would be exciting to hear. 
 
 Happy to discuss here or in YT comments! 
-Also, I’d be glad if you follow in case you like it! ☺️🤝",0.9653
+Also, I’d be glad if you follow in case you like it! ☺️🤝",0.926411509513855
 2025-07-26 02:01:58+00:00,"A question about Quantum computing vs bitcoin encryption. So with the understanding that a quantum computer in China has solve a mathematical equation that would take current top ended server farms 2.6 billon years of calculations.  Link added at the bottom and has been shown to be real not a fake: 
 
 What does this mean for the current bitcoin encryption? Using ECC SHA-256 encryption methods it’s believed a quantum computer, especially at the speed we seem to be progressing, would take a day to break it. 
 
-https://myelectricsparks.com/china-jiuzhang-quantum-computer-2-6-billion-year-problem/",0.6315
+https://myelectricsparks.com/china-jiuzhang-quantum-computer-2-6-billion-year-problem/",0.0
 2025-07-25 20:39:28+00:00,"Ancient Bitcoin Whale Comes Alive After Lying Low for Over 14 Years, Moves $469,811,057 in BTC at 30,00,000%+ Profit: On-Chain Data ",0.0
 2025-07-25 19:13:42+00:00,"US Government Holds 198,000 BTC worth $24 Billion The United States government holds approximately 198,000 Bitcoin, valued at $24 billion, making it the world's largest sovereign holder of cryptocurrency. This reserve stems from assets seized in criminal investigations and forfeiture cases, and is intended to establish US dominance in digital asset governance while leveraging Bitcoin's scarcity principle.
 
@@ -603,10 +842,10 @@ https://myelectricsparks.com/china-jiuzhang-quantum-computer-2-6-billion-year-pr
 * The policy shift coincides with the passage of the GENIUS Act, creating federal stablecoin regulations.
 * Critics question the wisdom of hoarding volatile assets, while supporters hail the reserve as a ""visionary hedge in the digital age.""
 
-",0.9349
+",0.0
 2025-07-25 18:26:35+00:00,Strategy Targets Massive Bitcoin Buy With $2.5B Offering Set to Close Within Days ,0.0
-2025-07-25 18:11:44+00:00,"Corporate Bitcoin holdings surge 35% in one quarter, now nearing 900,000 BTC - Adoption is here. ",0.0
-2025-07-25 17:35:00+00:00,Bitcoin’s four-year cycle loses grip as maturing market reshapes dynamics ,-0.0516
+2025-07-25 18:11:44+00:00,"Corporate Bitcoin holdings surge 35% in one quarter, now nearing 900,000 BTC - Adoption is here. ",0.8755342364311218
+2025-07-25 17:35:00+00:00,Bitcoin’s four-year cycle loses grip as maturing market reshapes dynamics ,0.0
 2025-07-25 11:33:31+00:00,"Bitcoin to Hit $135K by Year-End in Base-Case Forecast, $199K in Bullish Scenario: Citi ",0.0
 2025-07-25 08:35:11+00:00,"The exemption of de minimis tax under 600$. A good policy? The White House has recently made a significant announcement regarding cryptocurrency policy, stating that President Trump supports a de minimis tax exemption for small Bitcoin and other crypto transactions. This policy aims to simplify the use of digital currencies for everyday transactions by potentially exempting transactions under $600 from capital gains tax. The announcement was made during a press briefing by White House secretory Karoline Leavitt.
 
@@ -618,10 +857,10 @@ This could be the difference between crypto staying a speculative investment ver
 
 It feels like a sensible crypto tax policy proposal. A de minimis exemption acknowledges that some crypto transactions are just... transactions, not investment activity.
 
-Anyone else think this could finally make crypto payments viable for normal stuff? Or are there downsides I'm missing?",0.7984
+Anyone else think this could finally make crypto payments viable for normal stuff? Or are there downsides I'm missing?",0.5438045263290405
 2025-07-24 22:51:05+00:00,"Bitcoin Could Hit $150K This Year, Says Mike Novogratz—But Ethereum Might Outperform BTC ",0.0
-2025-07-24 21:59:36+00:00,Do You Know What's Cool? Source: [https://x.com/naiivememe/status/1948276460508385515](https://x.com/naiivememe/status/1948276460508385515),0.3182
-2025-07-24 21:02:44+00:00,ETH/BTC ratio jumps 70% from April low as Ethereum overtakes Bitcoin in weekly spot volume ,-0.2732
+2025-07-24 21:59:36+00:00,Do You Know What's Cool? Source: [https://x.com/naiivememe/status/1948276460508385515](https://x.com/naiivememe/status/1948276460508385515),0.0
+2025-07-24 21:02:44+00:00,ETH/BTC ratio jumps 70% from April low as Ethereum overtakes Bitcoin in weekly spot volume ,0.8280863761901855
 2025-07-24 21:01:33+00:00,"We are in a renaissance and I think the future will play out a lot like the last one. I'm one of the earlier Bitcoin investors. I got into it because I saw people moving money or value around without a bank, and I figured it was going to change everything. I got into Bitcoin, Ripple, and Ethereum very early. The only one I've really held onto is Bitcoin, which comprises most of my portfolio.
 
 
@@ -646,16 +885,16 @@ We have a better collective memory now, I hope we don't make the same mistakes t
 
 What are your thoughts? We have to work together to figure out what our future looks like. The governments and current industry leaders wont be able to, they can't see a future without the lenses of the past. They are too vested in the old world that died over 15 years ago.
 
-",0.3456
-2025-07-24 21:00:11+00:00,Billionaire Mike Novogratz Says Ethereum Has a Chance To Outperform Bitcoin in Coming Months – Here’s Why - The Daily Hodl ,0.25
-2025-07-24 20:48:14+00:00,I Live 500 Feet From A Bitcoin Mine. My Life Is Hell. ,-0.6808
-2025-07-24 20:41:54+00:00,"Jumped in head first ! What's next?? So I've been on the sidelines watching for about 10 years now. I've missed out on all the rags to riches cuz I didn't trust it and thought it was all a scam. Still kinda up in the air on that part lol anyways, I've decided now that everything is at ATH to dive in ! I got $1000 each of Bitcoin, solara, xrp and ethereum. $500 of Shiba Inu too. I have set up buy $10 each of Bitcoin, solara, xrp and ethereum every single day. What do y'all think? Should I change anything, reverse course, keep doing this or what? Just looking for some advice as I'm new. Goal is to get rich, duh lol I don't need the money I've put in either. ",0.7609
+",0.7425059080123901
+2025-07-24 21:00:11+00:00,Billionaire Mike Novogratz Says Ethereum Has a Chance To Outperform Bitcoin in Coming Months – Here’s Why - The Daily Hodl ,0.0
+2025-07-24 20:48:14+00:00,I Live 500 Feet From A Bitcoin Mine. My Life Is Hell. ,-0.9344989061355591
+2025-07-24 20:41:54+00:00,"Jumped in head first ! What's next?? So I've been on the sidelines watching for about 10 years now. I've missed out on all the rags to riches cuz I didn't trust it and thought it was all a scam. Still kinda up in the air on that part lol anyways, I've decided now that everything is at ATH to dive in ! I got $1000 each of Bitcoin, solara, xrp and ethereum. $500 of Shiba Inu too. I have set up buy $10 each of Bitcoin, solara, xrp and ethereum every single day. What do y'all think? Should I change anything, reverse course, keep doing this or what? Just looking for some advice as I'm new. Goal is to get rich, duh lol I don't need the money I've put in either. ",0.0
 2025-07-24 19:39:11+00:00,Bitcoin consolidation expected to end with impulse move to $135K: Data ,0.0
 2025-07-24 19:08:59+00:00,Strategy lifts latest preferred stock sale to $2B for more Bitcoin buys ,0.0
-2025-07-24 15:21:59+00:00,Men only want 1 thing ,0.0772
-2025-07-24 14:49:16+00:00,"Large cap alt coin / new ETF’s question Do you think prices for large cap of coins will remain high after alt season because of the new ETF’s that are now being introduced?  This will be my first alt coin season and my initial plan was to rotate the gains from my alt coins (if any lol) into bitcoin or gross tech stocks or growth ETF’s. The alt coins that I am referring to are solana and SUI mainly. I’ve always been told that alt coins are basically considered gambling, and most , if not all will go to zero after alt season. My largest holding is bitcoin by far, but if we are in the early stages of adoption of alt coins, I may consider holding some as long-term plays. What are your guys thoughts? I’m new to this space and don’t really have enough experience to form an educated opinion.",0.6381
+2025-07-24 15:21:59+00:00,Men only want 1 thing ,-0.48370569944381714
+2025-07-24 14:49:16+00:00,"Large cap alt coin / new ETF’s question Do you think prices for large cap of coins will remain high after alt season because of the new ETF’s that are now being introduced?  This will be my first alt coin season and my initial plan was to rotate the gains from my alt coins (if any lol) into bitcoin or gross tech stocks or growth ETF’s. The alt coins that I am referring to are solana and SUI mainly. I’ve always been told that alt coins are basically considered gambling, and most , if not all will go to zero after alt season. My largest holding is bitcoin by far, but if we are in the early stages of adoption of alt coins, I may consider holding some as long-term plays. What are your guys thoughts? I’m new to this space and don’t really have enough experience to form an educated opinion.",0.0
 2025-07-24 14:47:53+00:00,"""Rezolve AI (RZVL) is quietly building an empire: $50M funding, $1B Bitcoin strategy, and real contracts — are we still early? ",0.0
-2025-07-24 14:37:25+00:00,"Bitcoin treasury fever grows in Japan as AI company Quantum Solution targets 3,000 BTC ",0.4767
+2025-07-24 14:37:25+00:00,"Bitcoin treasury fever grows in Japan as AI company Quantum Solution targets 3,000 BTC ",0.0
 2025-07-24 13:25:30+00:00,"Arkham confirms US gov $24b Bitcoin holdings, debunking 85% sell-off rumor ",0.0
 2025-07-24 12:04:18+00:00,"Report Shows 45% Increase in User Holdings for Bitcoin (BTC) in Bitget's July Proof-of-Reserves No surprise in the BullRun though, but according to the PoR public figures published, BTC held by users grew from 6,594 BTC in June to 9,531 BTC in July. A sharp increase in user-held Bitcoin, with BTC balances surging over 45% month-on-month in July. 
 
@@ -669,7 +908,7 @@ They are also incentivizing users to buy and trade more assets with their Bitget
 
 another report i saw somewhere showed a spike in the google search for Bitcoin which shows that adoption is rising across the industry...
 
-what are your thoughts on the increased HODLing of BTC?",0.9895
+what are your thoughts on the increased HODLing of BTC?",0.65949547290802
 2025-07-24 11:03:53+00:00,"XRP ETF rejected → liquidity might rotate back to BTC? So I’ve been watching the XRP chart lately  and something felt off.
 
 It gave up all of its July gains, just like that. Back to July 8 levels. On the 4H, it tapped the 100 SMA and stalled hard. At first, I thought it was just a typical retrace… until I saw this:
@@ -698,9 +937,9 @@ If you look at ETF flows right now, BTC is eating up the attention. And this rej
 Not financial advice obviously, but I’m keeping a closer eye on BTC now. Feels like it’s quietly preparing to take the lead again while everyone else is distracted. Or rather, other altcoins like BGB, BNB, or SOL will likely draw more attention , with Solana potentially being on the ETF shortlist.
 
 
-Curious if anyone else is seeing the same pattern?",-0.7746
-2025-07-24 10:34:56+00:00,"Tech Giant Sequans Outpaces 'Magnificent 7' With Massive 2,317 Bitcoin Treasury Investment ",0.6908
-2025-07-24 08:53:52+00:00,Western Union CEO Embraces Stablecoins as a Path to Innovation and Efficiency – News Bytes Bitcoin News ,0.6249
+Curious if anyone else is seeing the same pattern?",-0.6635707020759583
+2025-07-24 10:34:56+00:00,"Tech Giant Sequans Outpaces 'Magnificent 7' With Massive 2,317 Bitcoin Treasury Investment ",0.7011521458625793
+2025-07-24 08:53:52+00:00,Western Union CEO Embraces Stablecoins as a Path to Innovation and Efficiency – News Bytes Bitcoin News ,0.0
 2025-07-24 08:13:19+00:00,"🔥 MASSIVE $630M Liquidations Hit Crypto Bulls – Time to Buy the Dip or Dump? 🔥 crypto markets saw a brutal shakeout earlier, about $630 million wiped out in liquidations. Ether and XRP traders took the hardest hit, even more than Bitcoin holders. This comes after a week of insane momentum in altcoins, with some retail traders obviously caught off-guard
 
 Nearly $735M total liquidated, mostly long positions.
@@ -712,12 +951,12 @@ Could this signal a panic bottom, or is more pain ahead?
 
 Would you be buying the dip right now?
 Or staying clear until more stability returns?
-",-0.9721
+",-0.601233720779419
 2025-07-24 05:44:04+00:00,"For the First Time in Two Years, More Money Is Trading Ethereum Than Bitcoin ",0.0
 2025-07-24 01:55:50+00:00,"Bitcoin hitting $200K this year ‘very improbable,’ says analyst ",0.0
-2025-07-23 21:00:28+00:00,Tesla’s Bitcoin Holdings Now Worth $1.2B After 30% BTC Price Rally in Q2 ,0.2263
-2025-07-23 20:47:21+00:00,Jim Cramer says he loads up Bitcoin because America's broke ,-0.4215
-2025-07-23 20:44:44+00:00,"Block joins S&P 500, bringing more Bitcoin exposure to equity index ",-0.4404
+2025-07-23 21:00:28+00:00,Tesla’s Bitcoin Holdings Now Worth $1.2B After 30% BTC Price Rally in Q2 ,0.5903832316398621
+2025-07-23 20:47:21+00:00,Jim Cramer says he loads up Bitcoin because America's broke ,0.0
+2025-07-23 20:44:44+00:00,"Block joins S&P 500, bringing more Bitcoin exposure to equity index ",0.0
 2025-07-23 18:42:00+00:00,‘This isn’t a top’: Here’s why Bitcoin analysts say BTC will break $123K ,0.0
 2025-07-23 18:10:00+00:00,"Any multi-chain DEX? Title says it all. Is there any decentralised exchanges where I can swap BTC for ETH and vice versa? 
 Only dexs I’ve found so far are chain specific like Uniswap for ETH and Jupiter for Solana. 
@@ -726,11 +965,11 @@ I’m trying to move away from centralised exchanges, and the one thing I’m mi
 
 Would be great to hear if there’s any good solutions out there that enables this. 
 
-And I’m not looking for peer to peer or in person trading, ideally a set up where you can simply swap ETH for BTC. ",0.9034
-2025-07-23 16:40:52+00:00,The Road to Mainnet is Heating up With Portal to Bitcoin - AMA questions answered on July 29 This post contains content not supported on old Reddit. [Click here to view the full post](https://sh.reddit.com/r/CryptoCurrency/comments/1m7e88n),-0.2411
-2025-07-23 15:46:40+00:00,Why Is Marathon Raising $1B Without Paying Interest? The Real Bet Behind Its Bold Bitcoin Move ,0.031
+And I’m not looking for peer to peer or in person trading, ideally a set up where you can simply swap ETH for BTC. ",0.0
+2025-07-23 16:40:52+00:00,The Road to Mainnet is Heating up With Portal to Bitcoin - AMA questions answered on July 29 This post contains content not supported on old Reddit. [Click here to view the full post](https://sh.reddit.com/r/CryptoCurrency/comments/1m7e88n),0.0
+2025-07-23 15:46:40+00:00,Why Is Marathon Raising $1B Without Paying Interest? The Real Bet Behind Its Bold Bitcoin Move ,0.0
 2025-07-23 15:21:15+00:00,Bitcoin grabs bid liquidity as BTC price dip targets include $113K ,0.0
-2025-07-23 13:40:32+00:00,Were is the pump? Thought we just made a deal with Japan? We got a huge pump after we made a deal with the UK. I feel like Japan is a way bigger trading partner. Where is this huge pump? Feel like the markets should be soaring right now. This should be the catalyst that we need for the next leg up? I don’t get it he even posted it on his truth social last night. Someone please explain it to me? Feels like something else is controlling the markets maybe bitcoin is just moving on its own accord now and we still haven’t lost btc.d yet? Idk nobody knows anything but somebody please give me a theory,0.8771
+2025-07-23 13:40:32+00:00,Were is the pump? Thought we just made a deal with Japan? We got a huge pump after we made a deal with the UK. I feel like Japan is a way bigger trading partner. Where is this huge pump? Feel like the markets should be soaring right now. This should be the catalyst that we need for the next leg up? I don’t get it he even posted it on his truth social last night. Someone please explain it to me? Feels like something else is controlling the markets maybe bitcoin is just moving on its own accord now and we still haven’t lost btc.d yet? Idk nobody knows anything but somebody please give me a theory,0.0
 2025-07-23 11:37:09+00:00,"My Zcash Investment Thesis - Frank Braun This was a good read. I think I'm going 50% into ZEC.   
   
 It's undervalued by any metric. By the time any thesis is popular most of the profit has been made. Privacy coins are so low compared to other market segments & it's the original Cypherpunk ethos. Satoshi would approve. 
@@ -906,22 +1145,22 @@ I guess only time will tell and ultimately the market decides in aggregate, not 
 
 Until then — stay safe out there anon!""
 
-[https://x.com/thefrankbraun/status/1947611247450722678](https://x.com/thefrankbraun/status/1947611247450722678)",0.9997
-2025-07-23 09:57:52+00:00,Here's Why Ethereum ETF Investors Are Outperforming Their Bitcoin Counterparts ,0.0
+[https://x.com/thefrankbraun/status/1947611247450722678](https://x.com/thefrankbraun/status/1947611247450722678)",0.810653805732727
+2025-07-23 09:57:52+00:00,Here's Why Ethereum ETF Investors Are Outperforming Their Bitcoin Counterparts ,-0.5348290205001831
 2025-07-23 09:09:01+00:00,FBI Drops Investigation of Kraken Founder Jesse Powell – News Bytes Bitcoin News ,0.0
-2025-07-23 09:00:04+00:00,Bitcoin Tops Visa in Transaction Volume: Sygnum ,0.5106
+2025-07-23 09:00:04+00:00,Bitcoin Tops Visa in Transaction Volume: Sygnum ,0.0
 2025-07-23 04:26:28+00:00,"Start-up says it will use nuclear fusion to turn mercury into gold Too bad the gold supply algorithm doesn't have a difficulty adjustment. When future fusion reactors print gold as a by-product of energy the gold supply will increase. The Bitcoin supply won't even if they try to use that energy to mine it. 
 
 The most creative part of Satoshi's invention was arguably the addition of the difficulty adjustment to ensure that the Bitcoin supply schedule would stay on track even in the face of changing mining hashrate due to high Bitcoin demand or an abundance of energy. It's a mechanism that sets Bitcoin apart from most other supply/demand systems. 
 
-Obviously the production of gold from fusion at scale is nowhere near reality (and the produced gold will be radioactive for 14 years), but it's an interesting thought experiment nonetheless. ",0.7625
-2025-07-23 01:32:20+00:00,"Bitcoin Must Defend This Key Support For $180,000 Year-End Target... ",0.4019
-2025-07-22 20:30:57+00:00,‘XRP Is The End Game’ — Pundit Reveals Why It’s Better Than Bitcoin ,0.4404
+Obviously the production of gold from fusion at scale is nowhere near reality (and the produced gold will be radioactive for 14 years), but it's an interesting thought experiment nonetheless. ",0.0
+2025-07-23 01:32:20+00:00,"Bitcoin Must Defend This Key Support For $180,000 Year-End Target... ",0.5035427212715149
+2025-07-22 20:30:57+00:00,‘XRP Is The End Game’ — Pundit Reveals Why It’s Better Than Bitcoin ,0.6095334887504578
 2025-07-22 18:45:39+00:00,Elon Musk’s SpaceX Transfers $153 Million Bitcoin For First Time In Three Years ,0.0
 2025-07-22 18:43:04+00:00,US lawmakers release Bitcoin & crypto market structure draft bill. Source: [https://x.com/BTCjunkies/status/1947652902715003292](https://x.com/BTCjunkies/status/1947652902715003292),0.0
-2025-07-22 17:07:34+00:00,I Thought You Owned BTC... What The Hell Is MOON.... ,-0.6808
+2025-07-22 17:07:34+00:00,I Thought You Owned BTC... What The Hell Is MOON.... ,-0.7009779810905457
 2025-07-22 15:55:42+00:00,PNC Partners with Coinbase to Offer Crypto Access to Clients – News Bytes Bitcoin News ,0.0
-2025-07-22 11:37:12+00:00,$51.8B Bitcoin Mining Market Gets Game-Changing Clean Cooling Solution from Water Tech Pioneer ,0.6124
+2025-07-22 11:37:12+00:00,$51.8B Bitcoin Mining Market Gets Game-Changing Clean Cooling Solution from Water Tech Pioneer ,0.5798554420471191
 2025-07-22 09:26:42+00:00,"John tried to withdraw his crypto from the internet. He asked where the “crypto ATM” plugs into his laptop. John just learned that crypto is *money that lives on the internet.*  
 So naturally, he asked if he can print it and where the “crypto bills” are.  
 John, no. That’s not how any of this works.
@@ -941,8 +1180,8 @@ John thought it meant ""cryptocurrency = spooky money."" Close, but no.
 
   
 **A very good example is Bitcoin(BTC):**  
-Bitcoin is the OG. But there are thousands of others now, each trying to solve (or create) something.",0.9027
-2025-07-22 07:40:37+00:00,Elon Musk's SpaceX moves $153M in Bitcoin for first time in 3 years ,0.0
+Bitcoin is the OG. But there are thousands of others now, each trying to solve (or create) something.",0.0
+2025-07-22 07:40:37+00:00,Elon Musk's SpaceX moves $153M in Bitcoin for first time in 3 years ,0.5748715400695801
 2025-07-22 07:29:36+00:00,"crypto is not a joke, as much as the previous generation believes it to be so i'm sitting in econ class right and my professor goes off about how crypto ""isn't backed by anything"" for the millionth time. same energy as my classmates who think bitcoin is just internet monopoly money. but like... what exactly is backing the usd again?
 
 the government? the same government that's been printing money like it's going out of style? at least with crypto you can see exactly how many coins exist and when new ones get created. with fiat currency it's just ""trust us bro we got this
@@ -951,8 +1190,8 @@ honestly it's wild how behind the us is with crypto compared to other countries.
 but this week feels different though. all these legislative meetings happening right now could actually change everything. not saying they'll fix crypto overnight but having actual regulations would be huge for adoption.The inclusion of awaken.tax fits seamlessly into the context of crypto regulations and adoption, as it relates to the practical side of managing crypto taxes, which is a growing concern with increasing regulatory clarity.
 
 the thing that gets me is how much pushback there still is in academic spaces. like these same professors teaching about ""modern portfolio theory"" but refuse to acknowledge that digital assets might have a place in diversified portfolios. meanwhile kids who graduated 5 years ago are buying houses with their crypto gains
-once these regulations get sorted out i think we'll see a lot more institutional money flow in. and honestly? about time. tired of explaining to my finance professor why decentralized networks might be important for the future",0.9902
-2025-07-22 06:20:38+00:00,Ethereum ETFs attract $296 million in daily inflows while Bitcoin ETFs register $131 million in outflows ,0.3612
+once these regulations get sorted out i think we'll see a lot more institutional money flow in. and honestly? about time. tired of explaining to my finance professor why decentralized networks might be important for the future",-0.5693719983100891
+2025-07-22 06:20:38+00:00,Ethereum ETFs attract $296 million in daily inflows while Bitcoin ETFs register $131 million in outflows ,0.0
 2025-07-22 01:51:58+00:00,"The Machinery of Freedom Must Be Built This struck a nerve. What we all came for isn't being built on transparent blockchains (Bitcoin) or the smart contract platforms. Thought I would share - this guy is worth a follow. [https://x.com/arjunkhemani/status/1936110545695871239](https://x.com/arjunkhemani/status/1936110545695871239)
 
 \---------------------------------------------------------------------------------------------------------------------
@@ -1005,7 +1244,7 @@ Progress needs freedom. Freedom needs machinery. That machinery must include pri
 
 The future isn’t guaranteed. Someone has to build it.
 
-Why not us?",0.997
+Why not us?",0.0
 2025-07-22 01:46:35+00:00,Fill your bags ,0.0
 2025-07-21 22:09:51+00:00,Michael Saylor's Strategy Added Another $740M of Bitcoin Last Week ,0.0
 2025-07-21 18:52:48+00:00,"Google searches for ""Buy Bitcoin"" have spiked - It's happening... Source: [https://x.com/BTC\_Archive/status/1947234478591553939](https://x.com/BTC_Archive/status/1947234478591553939)",0.0
@@ -1016,9 +1255,9 @@ Or is retail just late this time?
 
 Also, if retail never really comes back, does that mean altseason might not happen like before?
 
-Would like to hear what others think, especially those who’ve seen past cycles.",0.6951
+Would like to hear what others think, especially those who’ve seen past cycles.",0.0
 2025-07-21 17:55:41+00:00,CNBC is tracking stablecoin performance - We're still early ,0.0
-2025-07-21 17:19:52+00:00,"Bitcoin Price Stuck Under $120,000 As Profit Taking Hits 7-Month High ",0.2263
+2025-07-21 17:19:52+00:00,"Bitcoin Price Stuck Under $120,000 As Profit Taking Hits 7-Month High ",0.0
 2025-07-21 15:32:25+00:00,Bitcoin Whale Metrics Flash Mixed Signals: Monthly Inflows Rise And Daily Outflows Start Slowing ,0.0
 2025-07-21 14:48:53+00:00,These US States Have Passed Bitcoin Reserve Laws - Decrypt ,0.0
 2025-07-21 14:33:25+00:00,"Strategy, Trump Media headline $2.9 billion Bitcoin purchases to start the week ",0.0
@@ -1030,15 +1269,15 @@ Would like to hear what others think, especially those who’ve seen past cycles
 * Number of Bitcoins acquired: 6,220
 * Average price per coin: $118,940
 * Total Bitcoin holdings: 607,770 BTC
-* Average price per coin for total holdings: $71,756",0.296
-2025-07-21 11:10:10+00:00,Bitcoin's Dominance Slides by Most in 3 Years as BTC's Correlation With Altcoins Weakens ,-0.128
+* Average price per coin for total holdings: $71,756",0.0
+2025-07-21 11:10:10+00:00,Bitcoin's Dominance Slides by Most in 3 Years as BTC's Correlation With Altcoins Weakens ,0.0
 2025-07-21 09:16:40+00:00,"How has crypto changed your life or the life of someone around you? I made a friend from Ukraine in Taiwan. At the time I was working for a centralized exchange in that country. I, somewhat curiously, introduced myself to her and we chit chatted for a while. We were never more than friends. This was about 2019. The pandemic happened and we lost our jobs. I was job hunting online in everything I could find that was marketing related. I happened to see a job position at a centralized exchange that needed a Russian native speaker or a Ukrainian native speaker. Luckily she is both. I sent her the job posting and then I said to her, ""If you need to, I can teach you about crypto and how it works and you should be good to go."" So we met up a couple more times to explain everything to her and she landed the job.                
 
 About a year later she was let go, then she found another job at a centralized exchange and asked me to write a letter of recommendation. So I did. She landed that job too. Then the war in Ukraine happened. I can't say for certain, but I would imagine that she was able to send money to her family using crypto when necessary.                  
 
-Fast forward to 2023. I tied the knot with my wife and gave her about 500 USD of bitcoin at the time. I told her, ""Only sell it if we need to take care of an emergency like paying for a family member's suddenly unexpected surgery."" It tripled since then. She trusts me to use it as a long term savings vehicle.",0.8447
-2025-07-21 06:42:48+00:00,Altcoin Season Nears as Bitcoin Dominance Drops to 4-Month Low ,-0.0772
-2025-07-21 05:04:03+00:00,UK working to sell $7B in seized Bitcoin to boost budget: ,0.4019
+Fast forward to 2023. I tied the knot with my wife and gave her about 500 USD of bitcoin at the time. I told her, ""Only sell it if we need to take care of an emergency like paying for a family member's suddenly unexpected surgery."" It tripled since then. She trusts me to use it as a long term savings vehicle.",0.0
+2025-07-21 06:42:48+00:00,Altcoin Season Nears as Bitcoin Dominance Drops to 4-Month Low ,0.0
+2025-07-21 05:04:03+00:00,UK working to sell $7B in seized Bitcoin to boost budget: ,0.0
 2025-07-21 01:00:52+00:00,Can Bitcoin Replace Gold? ,0.0
 2025-07-20 22:41:52+00:00,"Bitcoin and Ethereum Spot ETFs have taken in $36 billion since April I remember when people were skeptical about the ETFs, first of them ever being approved and then of them ever being successful. 
 
@@ -1047,7 +1286,7 @@ And when SEC did approve them people thought they wouldn't contribute in any way
 Bitcoin and Ethereum Spot (and im only talking about spot ETFs,) have taken in $36 billion combined only since April. That's $22 million for Bitcoin Spot ETF and another $14 million for Ethereum.
 
 It's clear people are very interested in the ETFs, forxing institutions to accumulate more and more. And it seems like its only getting started tbh
-",0.8858
+",0.0
 2025-07-20 22:36:19+00:00,"How Hyperliquid is Rewriting the Rules of Capital Allocation # The Greatest Buyback Experiment in Private Equity History: How Hyperliquid is Rewriting the Rules of Capital Allocation
 
 **In an era where Apple's $110 billion buyback barely moves markets and private equity firms struggle with record-long holding periods, a decentralized exchange has quietly orchestrated the most revolutionary buyback program in financial history.**
@@ -1118,7 +1357,7 @@ The question isn't whether this model will be copied—it's how quickly traditio
 
 In an industry built on the promise of superior returns through operational excellence, Hyperliquid hasn't just delivered—it's created a new category entirely. This isn't just the greatest buyback experiment in private equity history; it's the beginning of private equity's next evolution.
 
-*The views expressed in this piece are those of the author and do not constitute investment advice. Cryptocurrency investments carry significant risks and should be carefully evaluated.*",0.9992
+*The views expressed in this piece are those of the author and do not constitute investment advice. Cryptocurrency investments carry significant risks and should be carefully evaluated.*",0.7189377546310425
 2025-07-20 21:29:20+00:00,"Will the regulated fiat stablecoins collapse the economy? It seems like any stock listed on the stock exchange can now issue stable coins, that have to be backed '100%' by safe assets like treasuries or cash. 
 
 At face value, this would seem to be hard for the issuer or buyer to make money. He sells $1 million in coins to people, puts the $1 million in a safe account earning some low percent interest rate, and the end users who bought the coin can't speculate like bitcoin that these coins will go up in value, since they are $1 each. It seems they could only be used for sending money, like a gift card. The only way they could make money is if the the issuer gave a discount, or promised future 'dividends'. Is this legal? The issuer could give a discount based on a portion of the interest they expect to receive.
@@ -1129,7 +1368,7 @@ This would allow the company to take riskier, expansionary bets, which might be 
 
 Under bankruptcy, the new law favors the stablecoin owners, so the stock owners and commercial lenders are left out and will end up failing.
 
-In a financial crisis, this might lead to a vast amount of collapse. Is there anything I am not understanding about this?",0.9162
+In a financial crisis, this might lead to a vast amount of collapse. Is there anything I am not understanding about this?",0.0
 2025-07-20 20:38:18+00:00,Saylor signals Bitcoin buy as Strategy's stash climbs to over $71B ,0.0
 2025-07-20 20:33:37+00:00,Fed up with the daily grind? Bitcoin researcher says you can retire with less than 1 BTC ,0.0
 2025-07-20 19:51:05+00:00,"Really feels like the start of altcoin season. When Bitcoin is being stagnant,even lowering a little bit but the global market cap is going up, you can tell some new money and some bitcoin money are pouring into alts.
@@ -1139,12 +1378,12 @@ XRP and solana are already shining, eth doing it's usual stuff. Many alts are st
 Most of us has been waiting for this. I am 
 Hoping that my selections are about to perform ok even if so far it's a bit sad to look at compared to Bitcoin, Solana and XRP runs
 
-What would be your go to alt coins with actual real utility and metrics going on for this alt season?",0.4096
+What would be your go to alt coins with actual real utility and metrics going on for this alt season?",0.6226821541786194
 2025-07-20 17:08:07+00:00,"India’s Rich are Swapping Gold for Bitcoin and Cryptocurrencies India's wealthy individuals, known as High Net Worth Individuals (HNIs), are increasingly investing in Bitcoin and other cryptocurrencies as a way to diversify their portfolios. According to experts, this shift is driven by rising institutional interest, clearer rules, and the desire for higher returns. HNIs are allocating 2-5% of their portfolios to digital assets, treating crypto with measured caution to balance risk and reward. Next-generation heirs are also driving the adoption of cryptocurrencies, pushing for digital diversification and embedding it into succession and estate planning. While Bitcoin is not replacing gold, it is becoming a complementary asset class, with experts predicting a significant rise in allocations toward Bitcoin in the next five years.
 
-",0.9643
-2025-07-20 15:38:41+00:00,Vanguard Slams Bitcoin—But Now Has Billions Tied To It Thanks To Index Exposure ,0.4404
-2025-07-20 14:55:38+00:00,"Altcoin Season Index hits 47 today, up from 29 last week - Total altcoin market cap reaches $1.55T ",0.0516
+",0.571322500705719
+2025-07-20 15:38:41+00:00,Vanguard Slams Bitcoin—But Now Has Billions Tied To It Thanks To Index Exposure ,0.0
+2025-07-20 14:55:38+00:00,"Altcoin Season Index hits 47 today, up from 29 last week - Total altcoin market cap reaches $1.55T ",0.7070217728614807
 2025-07-20 13:14:59+00:00,UK government eyes £5 billion seized Bitcoin sale to manage fiscal shortfall ,0.0
 2025-07-20 12:57:29+00:00,"Alternate Bitcoin networks I'm learning about Bitcoin and how it all works, and was wondering if there are any alternate Bitcoin networks and communities that people use to essentially play around on?
 
@@ -1152,8 +1391,8 @@ I.e. networks like the early days of Bitcoin where it's easy to hash blocks on a
 
 Being a small network transactions would be quicker and easier to trace, and follow around.
 
-I've tried Google for some, but just get drowned out by all the altcoins people are trying to get rich from.",0.6588
-2025-07-20 10:42:27+00:00,World War III threatens Bitcoin mining infrastructure | Opinion ,-0.7579
+I've tried Google for some, but just get drowned out by all the altcoins people are trying to get rich from.",0.0
+2025-07-20 10:42:27+00:00,World War III threatens Bitcoin mining infrastructure | Opinion ,-0.684185802936554
 2025-07-20 09:59:36+00:00,"John bought 7 different altcoins because “diversification is good,” but he thought BabyDogeJesus420 was his retirement plan. John just learned that anything that's not Bitcoin is called an ""altcoin.""  
 So he went wild. He bought ETH, LTC, SOL, and something called “BabyDogeJesus420.”  
 When asked why, he said:
@@ -1182,7 +1421,7 @@ Some are innovations. Others are... John’s retirement plan.
 ***Don't be like John.***
 
   
-I was just browsing the sub and realized that we are lacking funny, but yet informative posts, so here I am. I hope that you enjoy!",0.9912
+I was just browsing the sub and realized that we are lacking funny, but yet informative posts, so here I am. I hope that you enjoy!",0.0
 2025-07-20 09:29:22+00:00,"Rai Stones and Bitcoin — same idea, just different [Yapese stone money](https://en.m.wikipedia.org/wiki/Rai_stones) were used as money, but  they were not physically  moved. Ownership just shifted in people's minds, agreed upon by everyone. 
 
 Just like Bitcoin 
@@ -1193,20 +1432,20 @@ In contrast to gold,  Rain stones and bitcoin rely entirely on consensus. They o
 
 Rai stones were hard to get and move, making them rare and valuable. Bitcoin's the same: a limited supply, hard to ""mine."" The effort and scarcity give it value, not its physical form.
 
-It just amazing me that humans have been doing this ""value by agreement"" thing for millennia. Bitcoin feels so new and revolutionary, but maybe it's just a high-tech echo of what we've always done.",0.9887
-2025-07-20 07:05:25+00:00,Bitcoin Minimum Fee Rate Slashed by 90%—Is That a Good Thing? - Decrypt ,0.25
+It just amazing me that humans have been doing this ""value by agreement"" thing for millennia. Bitcoin feels so new and revolutionary, but maybe it's just a high-tech echo of what we've always done.",0.0
+2025-07-20 07:05:25+00:00,Bitcoin Minimum Fee Rate Slashed by 90%—Is That a Good Thing? - Decrypt ,0.0
 2025-07-20 02:44:03+00:00,"Where did Bitcoin Roller Coaster Guy disappear to?! There was a lot of hype before the launch of Bitcoin Roller Coaster Guy (BRCG) meme coin. I'll admit I got caught up in the excitement and put some Ethereum (for the chain) in my wallet so I could do a Uniswap and buy BRCG coins when they launched. Long story short the swap attempt turned into a failure after failure nightmare. So I watched the launch climb to over a 300K market cap. Then it happened the pump stopped and the dump began. It was a classic pump and dump. I went to r/BitcoinCoaster  to express a warning to anyone who might need to hear it and I was quickly Banned. 
 
 So I feel an update to the current condition of BRCG is in order. This coin (?) is on life support. It's market cap has dissolved from just over 300K to a pitiful 42.45K! The current 3 day flatline price is 0.00000004240 but the community sentiment is rated at 88% bullish! DANGER, WILL ROBINSON!!
 
-Hopefully you are not a bag holder or a member of the 88%. As for me I am sticking to Bitcoin and avoiding meme coins and Alts like the plague. Also I wanted to get in a little petty ""I told you so"" in case one of the Mods from r/BitcoinCoaster stumble upon this post.",-0.923
-2025-07-19 20:46:13+00:00,"Bitcoin Is Shadowing Global M2 With a 10-Week Lag - Liquidity Goes Up, BTC Follows Like Clockwork Source: [https://x.com/BTC\_Archive/status/1946339221901279605](https://x.com/BTC_Archive/status/1946339221901279605)",0.0258
-2025-07-19 16:04:47+00:00,Just In Time ,0.0
-2025-07-19 14:21:20+00:00,"Spot Bitcoin ETFs gains $363M, extend 12-day inflow streak to $6.6B ",0.4767
-2025-07-19 07:55:31+00:00,France Bitcoin Mining Proposal Turns Extra Energy into Power ,0.2732
-2025-07-19 05:36:17+00:00,"Texas creating Bitcoin reserve, third state in country to do so ",0.296
-2025-07-19 04:32:12+00:00,"El Salvador Lied About Buying Bitcoin in 2025, IMF Report Reveals ",-0.3818
-2025-07-19 02:01:11+00:00,France Eyes Bitcoin Mining Leadership With Surplus Nuclear Energy ,0.2732
+Hopefully you are not a bag holder or a member of the 88%. As for me I am sticking to Bitcoin and avoiding meme coins and Alts like the plague. Also I wanted to get in a little petty ""I told you so"" in case one of the Mods from r/BitcoinCoaster stumble upon this post.",0.0
+2025-07-19 20:46:13+00:00,"Bitcoin Is Shadowing Global M2 With a 10-Week Lag - Liquidity Goes Up, BTC Follows Like Clockwork Source: [https://x.com/BTC\_Archive/status/1946339221901279605](https://x.com/BTC_Archive/status/1946339221901279605)",0.0
+2025-07-19 16:04:47+00:00,Just In Time ,0.6670960187911987
+2025-07-19 14:21:20+00:00,"Spot Bitcoin ETFs gains $363M, extend 12-day inflow streak to $6.6B ",0.5526431798934937
+2025-07-19 07:55:31+00:00,France Bitcoin Mining Proposal Turns Extra Energy into Power ,0.0
+2025-07-19 05:36:17+00:00,"Texas creating Bitcoin reserve, third state in country to do so ",0.0
+2025-07-19 04:32:12+00:00,"El Salvador Lied About Buying Bitcoin in 2025, IMF Report Reveals ",-0.5260778665542603
+2025-07-19 02:01:11+00:00,France Eyes Bitcoin Mining Leadership With Surplus Nuclear Energy ,0.0
 2025-07-18 23:22:30+00:00,"I’ve been buying Hex since 2021… And it’s forever gone down.
 
 I am pure degenerate.
@@ -1261,7 +1500,7 @@ I like this billionaire crypto dude who likes to make products that are upgrades
 
 Oh ya, and pDAI…. Nvm, you’ll find out soon enough.
 
-Save this post and remind me 1 year from now.",0.9991
+Save this post and remind me 1 year from now.",-0.5146019458770752
 2025-07-18 22:13:38+00:00,"Crypto prediction UP / DOWN Just wanted to ask if anyone here has tried using the Futures “Prediction” function on certain platforms (Binance has this and i think Mexc also), the one where you predict whether Bitcoin, Ethereum, or Solana will be above or below the current price in 5 min, 10 min, 60 min, or 1 day.
 
 If you predict correctly, you win around 80–81% of your stake. If you’re wrong, you lose your full stake.
@@ -1270,7 +1509,7 @@ I’m curious if anyone has had success with this kind of short-term prediction,
 
 Would love to hear your experiences! 🙏
 
-Edit: Edited Futures Prediction*",0.9476
+Edit: Edited Futures Prediction*",0.0
 2025-07-18 21:20:15+00:00,"Bulgaria sold 213,500 BTC 8 years ago - Today, that could pay off more than the country's entire national debt In 2017, Bulgaria seized 213,519 Bitcoin, worth approximately $3.5 billion, which was enough to cover a fifth of the country's national debt. However, the government sold the Bitcoin in 2018, now worth over $25.24 billion, exceeding the country's public debt of $24 billion. Experts speculate that the sale was motivated by unfamiliarity with Bitcoin's value and volatility, and some believe that holding a long-term reserve of Bitcoin could have provided benefits.
 
 **Key Points**
@@ -1279,24 +1518,24 @@ Edit: Edited Futures Prediction*",0.9476
 * The government sold the Bitcoin in 2018, now worth over $25.24 billion.
 * Bulgaria's public debt is approximately $24 billion.
 * Experts suggest that holding a long-term reserve of Bitcoin could have provided benefits.
-* Other countries, such as the US, China, and the UK, also hold significant amounts of Bitcoin.",0.765
-2025-07-18 20:12:03+00:00,Australia Approves First Bitcoin-Backed Mortgage After Legal Win ,0.7906
-2025-07-18 15:11:34+00:00,"Bitcoin's Realized Cap Taps $1T Milestone, Fueled by 25% Surge in 2025 ",0.0
+* Other countries, such as the US, China, and the UK, also hold significant amounts of Bitcoin.",0.0
+2025-07-18 20:12:03+00:00,Australia Approves First Bitcoin-Backed Mortgage After Legal Win ,0.0
+2025-07-18 15:11:34+00:00,"Bitcoin's Realized Cap Taps $1T Milestone, Fueled by 25% Surge in 2025 ",0.6497936844825745
 2025-07-18 13:30:20+00:00,"Ancient Bitcoin whale completes $9.53B selloff after 14 years, turns $132K into billions ",0.0
-2025-07-18 12:03:24+00:00,"$6 million Bitcoin theft lands cop five and a half years in prison... Officer stole 50 Bitcoins from Silk Road 2.0 founder during investigation, inside job unravelled by the man he was trying to put away ",-0.5106
+2025-07-18 12:03:24+00:00,"$6 million Bitcoin theft lands cop five and a half years in prison... Officer stole 50 Bitcoins from Silk Road 2.0 founder during investigation, inside job unravelled by the man he was trying to put away ",-0.7744995951652527
 2025-07-18 10:51:07+00:00,"Crypto market hits $4 tn for 1st time on altcoins rally; Bitcoin holds near $118K global cryptocurrency market capitalisation touched the $4 trillion mark for the first time, driven by a powerful altcoin-led rally, even as Bitcoin (BTC), which represents nearly 60% of the market, trades 0.2% lower in the past 24 hours, according to CoinDecko data. 
 
-The total crypto market cap reached $4.003 trillion on Thursday, with $260.2 billion worth of crypto traded in the past 24 hours.",0.4404
-2025-07-18 10:47:10+00:00,"Ancient Bitcoin Whale Dumps 80,202 Bitcoin, Rips $9.38 Bn Profit ",0.0516
+The total crypto market cap reached $4.003 trillion on Thursday, with $260.2 billion worth of crypto traded in the past 24 hours.",0.6972571611404419
+2025-07-18 10:47:10+00:00,"Ancient Bitcoin Whale Dumps 80,202 Bitcoin, Rips $9.38 Bn Profit ",0.0
 2025-07-18 09:27:45+00:00,Bitcoin (BTC) Realised Cap Hits $1 Trillion for the First Time Source: [https://x.com/BTC\_Archive/status/1946016595676938579](https://x.com/BTC_Archive/status/1946016595676938579),0.0
-2025-07-18 01:42:55+00:00,Thumbzup Media Approves $250 million investment in Bitcoin ,0.4019
+2025-07-18 01:42:55+00:00,Thumbzup Media Approves $250 million investment in Bitcoin ,0.0
 2025-07-17 20:58:48+00:00,"XRP Smashes All-Time High As Bitcoin Reclaims $119,000 ",0.0
 2025-07-17 20:49:07+00:00,"National Crime Agency officer jailed for stealing £4.4m worth of seized Bitcoin A 42-year-old National Crime Agency (NCA) officer, Paul Chowles, has been sentenced to five and a half years in prison for stealing £4.4m worth of bitcoin seized during an investigation into an online black market for illegal drugs. The theft occurred in 2017, and Chowles laundered the money on the dark web, spending £613,000 over the next five years on everyday expenses. Chowles was caught after the suspect he was investigating, Thomas White, noticed the missing bitcoin and reported it to the police.
 
-",-0.9781
-2025-07-17 18:46:29+00:00,"70% of Bitcoin Users Don’t Understand How It Works, GoMining Survey Finds ",0.0
+",-0.6670050621032715
+2025-07-17 18:46:29+00:00,"70% of Bitcoin Users Don’t Understand How It Works, GoMining Survey Finds ",-0.817969560623169
 2025-07-17 17:22:23+00:00,French lawmakers propose five-year trial to use surplus electricity for bitcoin mining ,0.0
-2025-07-17 17:08:17+00:00,Rezolve Ai Reaffirms Commitment to $1 Billion Bitcoin Treasury Strategy and Governance-Led Execution ,0.5267
+2025-07-17 17:08:17+00:00,Rezolve Ai Reaffirms Commitment to $1 Billion Bitcoin Treasury Strategy and Governance-Led Execution ,0.0
 2025-07-17 15:50:12+00:00,Strategy now holds 3% of all Bitcoin in circulation ,0.0
 2025-07-17 15:37:10+00:00,"Bitcoin Consolidates Below Record High, With Everyone From Shrimps to Whales Accumulating ",0.0
 2025-07-17 15:05:59+00:00,"The Clarity Act - Likelihood Of Commodity Classification. 
@@ -1516,12 +1755,12 @@ Ongoing Progress Matters: Projects increasing decentralization, validator access
 
 
 
-",0.9989
+",0.0
 2025-07-17 10:32:32+00:00,Is FOMO back? Bitcoin first timers buy 140K BTC in 2 weeks ,0.0
-2025-07-17 09:24:11+00:00,Dad put criminal behind bars then took £4m of Bitcoin for himself ,-0.5267
-2025-07-17 07:54:33+00:00,BlackRock ramps up Bitcoin purchases amid sustained ETF inflows ,0.0
+2025-07-17 09:24:11+00:00,Dad put criminal behind bars then took £4m of Bitcoin for himself ,-0.694874107837677
+2025-07-17 07:54:33+00:00,BlackRock ramps up Bitcoin purchases amid sustained ETF inflows ,0.5766627788543701
 2025-07-17 06:57:29+00:00,Michael Saylor’s Strategy hits record market cap amid Bitcoin surge ,0.0
-2025-07-17 04:04:04+00:00,James Wynn jumps back into Hyperliquid with mammoth bet after losing $100m on Bitcoin moves ,-0.3818
+2025-07-17 04:04:04+00:00,James Wynn jumps back into Hyperliquid with mammoth bet after losing $100m on Bitcoin moves ,0.0
 2025-07-17 00:41:25+00:00,"Quantum Threat Discussion: Jameson Lopp proposes freezing Satoshi Nakamoto (and same-era) wallet addresses. This is **important** meta-discussion. Coindesk article (paraphrases the situation): https://www.coindesk.com/tech/2025/07/16/bitcoin-devs-float-proposal-to-freeze-quantum-vulnerable-addresses-even-satoshi-nakamoto-s                    
 
 Lopp's blog: https://blog.lopp.net/against-quantum-recovery-of-bitcoin/                     
@@ -1538,17 +1777,10 @@ Discuss!
 
 EDIT: For those of you who don't know, there are generally four different types of wallet addresses. Addreses that begin with 04 are ""quantum vulnerable"" and so too are P2TR. However, my (perhaps flawed, perhaps wrong) understanding is that a soft-fork later will make P2TR wallet addresses quantum-proof later down the road. Jameson Lopp proposes a completely different soft fork that excludes addresses that start with 04 from participating in transactions. So, in summary, two soft-forks would make bitcoin quantum-proof. **The following is a table to help you determine whether or not your bitcoin wallet is quantum proof.:** https://imgur.com/a/d70kiuB                
 
-EDIT 2: I want to thank everyone for participating in this important philosophical debate. These are conversations that must be had, in my opinion.",-0.6372
+EDIT 2: I want to thank everyone for participating in this important philosophical debate. These are conversations that must be had, in my opinion.",0.0
 2025-07-16 23:36:18+00:00,GameStop Eyes Crypto Payments After $500M Bitcoin Bet ,0.0
 2025-07-16 22:33:20+00:00,El Salvador And Pakistan Leaders Meet To Discuss Bitcoin ,0.0
 2025-07-16 21:23:18+00:00,Ms Nakamoto ,0.0
-2025-07-16 18:53:27+00:00,"$3,500,000,000 in Profits Locked In by Bitcoin Investors in Just 24 Hours As BTC Printed New All-Time Highs: Glassnode ",0.4404
+2025-07-16 18:53:27+00:00,"$3,500,000,000 in Profits Locked In by Bitcoin Investors in Just 24 Hours As BTC Printed New All-Time Highs: Glassnode ",0.0
 2025-07-16 18:20:25+00:00,Developers Push for Quantum-Resistant Upgrade For Bitcoin ,0.0
-2025-07-16 17:10:52+00:00,"Tether minted an additional $2 billion in USDT, bringing its total supply to a record-breaking $160 billion ... Tether, the largest stablecoin issuer, has minted an additional $2 billion in USDT on the Ethereum blockchain, bringing its total supply to a record-breaking $160 billion. The new mints are primarily used for inventory replenishment and blockchain swaps, with $1 billion sent directly to Binance. This surge in supply is attributed to increased trading activity in the crypto market, particularly following Bitcoin's new all-time high above $120,000",0.2732
-2025-07-16 15:50:42+00:00,Bitcoin digests US PPI win with $120K liquidity grab on bulls' radar ,0.5859
-2025-07-16 15:11:19+00:00,Bitcoin 'not at peak yet': Watch these BTC price levels next ,0.0
-2025-07-16 15:10:39+00:00,"Looking for current advice When the time comes to take some profits, I want to minimize the fees associated with selling. I am a Canadian with some sitting in a ledger hardware wallet , and some on the regular crypto dot com app. I have a handful of different tokens. Am I best to combine all as one specific token (maybe XLM?) then liquidate or transfer to a place I can sell with less fees? Which app/exchange/wallet will have low fees and is trustworthy? I know this has been addressed here before. I am wondering if the answers I saw are the same. Ndax was recommended and was Bitcoin well. 
-I initially thought I’d convert what I wanted to cash, then add it to my crypto visa debit, then withdraw. That seems like a lot of unnecessary steps and fees. 
-Appreciate the feedback, shared experiences and light roasting for using the app I currently do. Cheers. ",0.9721
-2025-07-16 11:41:55+00:00,Bitcoin ETF inflows show institutions ‘doubled down’ on BTC at $116K ,0.0
-2025-07-16 09:44:05+00:00,A total of 125 public companies have now added Bitcoin to their holdings ,0.0
+2025-07-16 17:10:52+00:00,"Tether minted an additional $2 billion in USDT, bringing its total supply to a record-breaking $160 billion ... Tether, the largest stablecoin issuer, has minted an additional $2 billion in USDT on the Ethereum blockchain, bringing its total supply to a record-breaking $160 billion. The new mints are primarily used for inventory replenishment and blockchain swaps, with $1 billion sent directly to Binance. This surge in supply is attributed to increased trading activity in the crypto market, particularly following Bitcoin's new all-time high above $120,000",0.0

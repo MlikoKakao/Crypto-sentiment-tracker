@@ -1,4 +1,244 @@
 timestamp,text
+2025-08-05 17:00:01+00:00,Saylor’s Bitcoin Pitch Echoes The Godfather: “It’s An Offer You Can’t Refuse” 
+2025-08-05 15:58:23+00:00,Does the Fed Need to Cut Now? Bitcoin Crumbles Back Below $113K After ISM Services PMI 
+2025-08-05 15:45:28+00:00,"Crypto payment statistics from 5000+ transactions on our own service Hi all! We've [posted here before](https://np.reddit.com/r/CryptoCurrency/comments/1l8q2ha/every_ai_model_including_o3_pro_veo_3_through/) - TL;DR we provide access to every AI model (text, image, video), fully privately, no subscription, pay only for what you use.
+
+At this point I'm pretty sure we're in the top 10 of merchants doing most crypto payments with >5000 transactions last month alone. Try us out for free by replying here (I'll send you an invite), or just [visit the website](https://nano-gpt.com/) and deposit as little as $0.10.
+
+## July Payment Statistics
+
+We added a few coins this month, so the statistics are getting ever broader and ever more representative.
+
+## 1. Monero
+
+We have to start with **Monero**.
+
+It's eating up everything else in our pie chart. XMR now sees 3x as much usage as 2nd place Nano, and is used more than all other coins combined at 52.91%.
+
+Genuine props to the Monero community - offer a privacy solution and they will come!
+
+## 2. Nano
+
+Second biggest is once again **Nano**. Our love, our initial coin, and a coin that is punching way above its weight.
+
+Ranked #400 in market cap, yet for months it's been the most used or 2nd most used coin on our platform at 17.71%.
+
+It's also being integrated into BTCPayServer right now, so hopefully more merchants will accept it soon.
+
+# 3. Bitcoin reclaims third
+
+3rd biggest has been retaken by Bitcoin! 10.2% of payments were using Bitcoin, in addition to another 0.95% using the Lightning network.
+
+Average BTC transaction size was $24.48, while Lightning's was $4.42. As expected, but still fun to confirm.
+
+# 4. Litecoin
+
+Digital silver **Litecoin** plus the recently added Litecoin MWEB added up to 6.7%.
+
+6.59% Litecoin, 0.11% specifically MWEB.
+
+To be fair - we only added MWEB payments about 7 days ago! Read the blog for more on our MWEB integration.
+
+# Honorable mention: Zcash
+
+Finally with a remarkable amount of usage, **Zcash** with 3.44%.
+
+All the more remarkable given that ZEC payments were only added 2 weeks ago, and the much-requested shielded pay-in addresses a few days ago. 
+
+# The Full Data
+
+Here's the complete breakdown for all coins:
+
+* XMR: 52.91%
+* XNO: 17.71%
+* BTC: 10.20%
+* LTC: 6.59%
+* ETH: 3.57%
+* ZEC: 3.44%
+* VERSE: 2.35%
+* SOL: 1.08%
+* BTC-LN: 0.95%
+* DOGE: 0.32%
+* BCH: 0.32%
+* DASH: 0.24%
+* BAN: 0.12%
+* LTC-MWEB: 0.11%
+* KAS: 0.05%
+* EGLD: 0.01%
+* POL: 0.01%
+
+# Kaspa, MultiversX, Dash, Bitcoin Cash
+
+Unfortunately as you can see Kaspa was barely used, with just 0.05% of usage.
+
+We know there are a lot of Kaspa enthusiasts and presumably users as well - we'd love to get in touch with some Kaspa people to hear how we can let Kaspians know we exist!
+
+Another addition this month that didn't pan out (so far) was MultiversX, with just 0.01% of total usage.
+
+We know that there is a large community and that there is a lot of usage, so if anyone in MultiversX can get us on a podcast to explain NanoGPT, we're all ears!
+
+In a similar vein the typical payment coins like Bitcoin Cash and Dash do not see the amount of usage on NanoGPT that you would expect. We clearly need to up our outreach there!
+
+That's all for now - any questions we are of course happy to answer. And if you want to also read about some NanoGPT updates, read the comment below."
+2025-08-05 14:40:18+00:00,"""We can have the best of both worlds — a private digital payment network that scales to billions of users"" - Sean Bowe Cryptographic Engineer Tachyon is the most exciting improvement for privacy in years. Scaling to millions has only been a pipe dream. It's quickly moving from theoretical to implemented.
+
+Bitcoin was digital scarcity - those two words changed society. Ethereum was programmable money and we are headed for 1tril+ of stablecoins.
+
+HTTPS money will change society again by prying the leverage of information out of the hands of the collective and the eavesdroppers and putting back in the hands of the individual.
+
+We will use math to force them to respect our privacy. 
+
+\--------------------------------------
+
+# ""Tachyon: Scaling Zcash with Oblivious Synchronization
+
+Zcash’s shielded transactions offer the strongest privacy guarantees of any distributed financial network today. They provide a cryptographic property we call “ledger indistinguishability,” which delivers strong on-chain confidentiality — far beyond what’s achievable with decoys or cover traffic that only partially masks transaction details. In short, **shielded transactions resemble random gibberish paired with a proof that it actually represents a valid payment.**
+
+To enable this, Zcash pioneered the use of [zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof) — a technique that allows the network to verify transactions without revealing their private contents. These proofs are called “zero-knowledge” because they reveal *nothing* about the transaction’s internals. But the cryptographic techniques behind this — particularly the proofs we use called [zk-SNARKs](https://z.cash/learn/what-are-zk-snarks/) — are also powerful tools for building scalable decentralized systems. Their power lies not just in the zero-knowledge property itself (which is often unused in practice), but in their ability to succinctly prove the correctness of large computations.
+
+Today, many projects use zero-knowledge (“ZK”) as a marketing term, with little to no regard for actual user privacy. **We can have the best of both worlds — a private digital payment network that scales to billions of users — by fully leveraging both zero-knowledge and verifiable computation.** We've invested heavily in making this happen, first through the [discovery of Halo](https://electriccoin.co/blog/halo-recursive-proof-composition-without-a-trusted-setup/) — which led to a revolution in efficient, scalable verifiable computation — and then through the [Orchard payment protocol](https://zcash.github.io/orchard/), which laid the groundwork for the next generation of upgrades.[^(1)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#orchard)
+
+**Now it’s time to cross the finish line.** I am proposing several protocol changes in Zcash that allow us to increasingly scale the protocol while providing a smooth transition path for existing users and wallets. The crucial component that makes this possible is a new model for how wallets interact with the blockchain that I refer to as **oblivious synchronization**. This new approach improves the user experience for wallets *and* permits an architectural change to the protocol that maintains ledger indistinguishability without incurring heavy state contention, storage and bandwidth costs for validators.
+
+**Crucially, it is an actionable plan that does not require speculative research to see to fruition.** In the short term it can be deployed using the cryptography we're already experts at deploying in Zcash, leaving some remaining challenges for more longer-term research in the future. In order to make this happen we must pursue an engineering effort much like the “Sapling” upgrade from earlier in Zcash's history. Back then, we set out to make zk-SNARKs practical enough to run on mobile devices — a capability that’s now taken for granted. The sophistication of the Sapling upgrade (and the coordination required to pull it off) remain nearly unmatched across the entire blockchain space.[^(2)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#apollo)
+
+Here's what it will take to raise the bar again.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#proof-carrying-data)Proof-carrying Data
+
+Early in the history of Zcash our shielded transactions earned a reputation for being expensive due to the use of zk-SNARKs. As mentioned, the [Sapling network upgrade](https://z.cash/upgrade/sapling/) incorporated a slate of cryptographic improvements from our team[^(3)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#newcurves) and from the academic world[^(4)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#groth16) which made our proofs extremely efficient to generate. However, zk-SNARKs are also known for being slow to verify when compared to bog standard digital signature schemes. This has led to a misconception that zk-SNARKs are the cause of performance and scalability bottlenecks in Zcash.
+
+In reality, we've never actually considered zk-SNARK verification a barrier to scaling Zcash. I once co-authored a paper[^(5)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#sonic) where we devised a method to batch verify proofs as efficiently as checking a single proof, with the help of an untrusted third party's computational resources. Later results in proof aggregation—analogous to [digital signature aggregation](https://crypto.stanford.edu/~dabo/papers/aggsurvey.pdf) in other protocols—allowed multiple proofs to be *combined* and efficiently verified as a single unit, a notable example being SnarkPack[^(6)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#snarkpack) which has been deployed in some blockchains.
+
+The ultimate tool for scaling zk-SNARK verification and a wide variety of other computationally intensive tasks in protocols like Zcash is a more general technique called **proof-carrying data (PCD)** that was originally [devised](https://ic-people.epfl.ch/~achiesa/docs/CT10.pdf) and even [realized](https://eprint.iacr.org/2014/595) by the scientists behind Zcash. Crudely speaking, PCD allows data to live alongside proofs of its own correctness so that when it is combined with other (proof-carrying) data the mixture inherits and extends the original proofs of correctness. This can be used to “compress” a huge amount of verifiable computational effort, since the resulting data does not need to grow in size and there is no *practical* bound in the complexity of the inductive claims.[^(7)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#knowledge_extractors)
+
+PCD languished for years as a theoretical tool due to performance limitations. This changed when our team at the Electric Coin Company discovered [Halo](https://eprint.iacr.org/2019/1021), which was a brand new approach to achieving PCD with significantly better performance while also avoiding trusted setups and strong cryptographic assumptions. As mentioned before, this led to a Cambrian explosion of new results[^(8)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#halo) that has made PCD table stakes for new scalable protocols. PCD can be leveraged to make Zcash's blocks small and fast to verify no matter how many shielded transactions they contain, and it can even be applied to the chain itself to build fully succinct blockchains.[^(9)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#mina) As we'll be discussing, they can be used in other ways to improve our network's transaction throughput.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#communicating-state-changes)Communicating State Changes
+
+zk-SNARKs and PCD are indispensable tools for maintaining privacy while enforcing correctness in contexts that do not involve high state contention—such as within a single transaction or across a long-term history of transactions. However, privacy-preserving protocols like Zcash involve communicating and coordinating *global* state changes because shielded transactions must be made indistinguishable from one another to reach our lofty privacy goals.
+
+There are three major areas where this becomes a concern in our existing protocol:
+
+* How do users learn about the payments they receive and the information they need to spend those funds?
+* How do users later demonstrate that the funds they are spending actually exist?
+* How are users prevented from spending funds that have already been spent?
+
+Zcash's current protocol solves these problems in a way that is maximally convenient for the zk-SNARKs (due to legacy concerns about their performance) but otherwise very inconvenient or even impossible to scale to large numbers of users and payments. By being open to some common sense changes to the underlying cryptography and payment protocol we can take full advantage of the modern performance of zk-SNARKs and PCD.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#shielded-notes-and-commitments)Shielded Notes and Commitments
+
+Shielded transactions involve spending and creating “notes,” which represent an amount of funds and the key authorized to spend them — not unlike [UTXOs](https://developer.bitcoin.org/devguide/transactions.html) in Bitcoin. We aim to leak as little information as possible about the notes being spent or created in a transaction, instead allowing the zk-SNARK to prove that various rules are being followed. In order to keep newly created notes private they are encapsulated in a [cryptographic commitment](https://en.wikipedia.org/wiki/Commitment_scheme) that is exposed publicly in the transaction.[^(10)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#commitments)
+
+The commitment hides the note, but the zk-SNARK can still reason about the note because the transaction creator can open the commitment using a random, secret key. This allows the zk-SNARK proof to enforce *local* rules for things like “balance integrity” (the sum of the funds in new shielded notes does not exceed the sum of the funds being spent) and “spend authorization” (that we know the secret key associated with the notes being spent). In order for the recipient to later spend the funds they must also learn this random key and other payment information, necessitating a **secret distribution system**.
+
+Secret distribution systems are not ordinarily needed in blockchain protocols. The standard payment flow in most cryptocurrencies works like this:
+
+1. The user asks their wallet for a payment address.
+2. The user gives this payment address to one or more other people.
+3. Other people use this address to make a payment.
+4. The user scans the blockchain to find all the new payments to their address.
+
+This is how Bitcoin and most other cryptocurrencies work, and it's possible because addresses and payments are not private. The user can ask a third party (like a light wallet server or block explorer) for all the payments made to an address and those services can index the blockchain and answer these queries in a way that quickly enables the user to spend those funds. In private cryptocurrencies like Zcash we cannot ask a third party to identify payments sent to our payment address. In order to see incoming payments we must allow the sender to encrypt the relevant information and send it to us.
+
+Zcash lets senders place ciphertexts inside of shielded transactions that contain note information. Recipients identify incoming payments by trial decrypting *every transaction* until they identify payments sent to them. This simply does not scale.[^(11)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#detection_keys) **As a start, we'll be assuming that Zcash's future payment flows involve out-of-band payments where the sender and recipient use a separate channel for secret distribution.** The on-chain ciphertexts can then be removed from the protocol entirely.[^(12)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#postquantum)
+
+Fortunately, it is common for a pre-existing channel to already exist between the sender and recipient: a user paying a merchant through a web interface, someone buying coffee within physical proximity to a payment terminal, or friends resolving dinner debts over Signal chats. In these cases the [payment request](https://zips.z.cash/zip-0321) model that is supported by most Zcash wallets (and commonly found in most cryptocurrencies) accomodates out-of-band payments. It is even possible for payments to be sent to recipients out-of-band without a payment request through the use of “liberated” or [URI-encapsulated payments](https://zips.z.cash/zip-0324).[^(13)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#liberated)
+
+There are some drawbacks that have to be addressed separately. By moving secret distribution out-of-band the user cannot rely on the blockchain as a storage mechanism for recovering their funds from a seed phrase or sharing transaction histories with view keys. Also, the ability to give a payment address away publicly (like posting on a billboard to solicit anonymous donations) does not inherently work.[^(14)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#billboards) In order to support these use cases we will need additional infrastructure for our wallets to store and distribute payment information privately. This at least makes sense from an economic perspective, since the blockchain currently provides for these use cases for free at great systemic cost.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#accumulators-and-nullifiers)Accumulators and Nullifiers
+
+In order to spend a shielded note that has been previously created, validators continually append the new note commitments that appear in shielded transactions to a [cryptographic accumulator](https://en.wikipedia.org/wiki/Accumulator_(cryptography)). Currently, at block boundaries, the accumulator is checkpointed and a succinct (hash) representation of that checkpoint is stored by validators. We call this checkpoint an “anchor.” In order to spend a note later, shielded transactions demonstrate that the note they are spending exists at some (usually recent) anchor that validators accept as valid.
+
+In order to maintain privacy, while shielded transactions must publicly identify the anchor (for validators to check) they do *not* need to identify the actual note commitment they are spending. This works because a **set inclusion witness** that demonstrates a commitment exists within an accumulator can be short and easy to verify, and so the zk-SNARK proof in a transaction can be used to demonstrate *knowledge* of such a witness without revealing it publicly.
+
+If we do not identify the note being spent, how do we demonstrate that it has not been spent by another transaction? **The zk-SNARK helps us verifiably compute a value called a nullifier that is deterministically derived in some way from the note we are spending.** The nullifier itself does not reveal anything about the note, but because it is forcibly disclosed within the transaction it serves as an indelible mark on the chain state that prohibits double-spends. Validators currently remember all of the nullifiers seen before and reject payments as invalid if they reveal a previously-seen nullifier.
+
+**The scalability bottlenecks that remain in Zcash center around how wallets synchronize with these particular blockchain state changes.** Currently, even with out-of-band payments, *every* time *any* user creates a shielded transaction in Zcash:
+
+* the network must ensure that the revealed nullifier has never been seen before;
+* the network must record the nullifier so that it cannot be repeated again; and,
+* all other users must account for the newly created note commitments by updating their set inclusion witnesses for all of their unspent shielded notes, to reflect a more recent anchor.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#oblivious-synchronization)Oblivious Synchronization
+
+It'll be helpful to recast what a Zcash wallet does through the lens of an abstract machine, focusing (without loss of generality) on the case that the wallet only receives and later spends a single shielded note.
+
+The wallet starts in some *initial* state (at some point in the blockchain) and processes blocks one at a time. In each block, it attempts to find a new note commitment that it expects to find based on the out-of-band process mentioned previously. Once found, the wallet enters a *synchronizing* state. In all of the blocks that follow, the wallet checks to make sure the block does not contain the nullifier for the note to ensure it has not been spent already. As long as it hasn't the wallet remains in this synchronizing state.
+
+Finally, when the user is ready to make a transaction, they use the wallet's state to create a zk-SNARK proof and spend the funds. (The wallet's state contains, for instance, the set inclusion witness needed to spend the note with a recent anchor.) This is more or less how our wallets currently work.
+
+My vision for scaling Zcash is to fully embrace a new model for how Zcash wallets should synchronize with blockchain state changes. Rather than using the wallet's state to merely inform the process of creating a zk-SNARK proof when it comes time to spend, **we will** ***also*** **represent our wallet's state as proof-carrying data.** This means that as the wallet state updates to reflect new blocks it will continually maintain a proof of its own correctness. Then, when it's time to spend our funds we will extend our transaction with this proof-carrying data. This effectively attaches evidence that the transaction is valid up until a certain recent point in the history of the blockchain — the position of the anchor.
+
+The result is that validators are now only responsible for ensuring that the transaction is correct in the presence of the additional transactions that appeared in the intervening time, which just involves checking that the most recent block(s) do not contain the revealed nullifier.[^(15)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#nullifier_after_commitment) As a result, almost everything in a block can be permanently pruned by validators and ultimately all users of the system as well. **Despite transactions sharing a common state by being indistinguishable from each other, nearly all state contention problems vanish in this new approach.**
+
+It would seem for this model to work that the user's wallet will have to follow a much more expensive synchronization process to create and maintain PCD of the wallet state. This expense is not just due to the cost of creating PCD proofs but also the bandwidth needed to apply every block to the wallet state.
+
+However, we can arrange things so that the user's wallet can outsource the process of synchronizing the wallet (and creating the PCD proofs) to a third party that I call an **oblivious syncing service**. This service isn't trusted with private information or secrets and learns nothing about the notes in the user's wallet, yet it can still make progress synchronizing its state even when the user's wallet software is offline.
+
+We already know that this kind of approach is possible with expensive cryptography like [fully-homomorphic encryption](https://en.wikipedia.org/wiki/Homomorphic_encryption) (FHE). **But by adjusting the protocol slightly we can simply use PCD.** The remote server only needs to learn the nullifier of the note to make synchronization progress without the assistance of the user's wallet, since the wallet can blind or encrypt the rest of the wallet state and only permit the oblivious syncing service to make state transitions involving the nullifier. One would expect this to reveal some information to the service about the note's possible location in the accumulator, but by adjusting how the nullifier is derived in the protocol[^(16)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#nullifier_derivation) we can eliminate this information leakage entirely, depriving the service of *any* information about the note being spent.
+
+In practice the wallet will be handling multiple notes and thus multiple nullifiers, and so an oblivious syncing service might learn more information if it can correlate requests as originating from the same wallet. But this same kind of leakage occurs already anyway when the transactions themselves are published, and so we must tackle the problem at least partially with network privacy countermeasures like mixnets. Fortunately, as I'll explain in a future blog post, even if the oblivious syncing service can correlate nullifiers we can *completely* sever the link using nifty cryptographic techniques and protocol adjustments—it's just a matter of finding the most efficient point in the trade-off space.
+
+# [🔗](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#project-tachyon)Project Tachyon
+
+This new model of wallet synchronization and validator state pruning can be enabled with several compartmentalized changes to the existing protocol that can happen in independent tracks, providing an immediate capacity increase in the Zcash shielded payment protocol at each step. The main changes involved include:
+
+* **Wallets need to adopt out-of-band payments.** ECC has already begun exploring the incoporation of URI-encapsulated payments into its Zashi mobile wallet. Different kinds of out-of-band payment flows will require changes to the way existing wallets use payment requests. Fortunately, almost all of this is reverse-compatible and can be deployed without any changes to the Zcash protocol. It also leads to immediate usability wins for shielded wallets even without capacity improvements.
+* **Blocks need to incorporate shielded transaction aggregation.** This involves implementing and deploying a PCD-based proof aggregation protocol for Orchard payments, which we've already been considering for years[^(17)](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/#shielded_aggregates) and ensured the Orchard payment protocol could later accomodate. This can land in a network upgrade without any other changes to wallets or the underlying payment protocol and leads to an immediate capacity increase.
+* **Nullifiers should be derived differently to prevent oblivious syncing services from learning sensitive information about wallets.** This can be achieved with a backwards-compatible network upgrade, though it will require a circuit change.
+* **Nullifiers** (and potentially also note commitments) **must be batch inserted into a new accumulator that supports efficient set (non-)membership testing in PCD.** I've already sketched a very simple and efficient accumulation scheme for this. This will allow the development of oblivious syncing services without any immediate changes to the payment protocol that would risk user funds, and can be done in a network upgrade with high assurance.
+* **In-band secret distribution must be removed in Zcash.** This can be achieved once wallets have migrated away from the legacy payment protocol(s). Efforts in this direction can happen independent of any protocol changes.
+* **The payment protocol should allow wallet PCD state to augment the zk-SNARK in transactions.** This final major improvement allows validators to begin pruning all old blockchain state and reduces state contention considerably. This can be paired with a corresponding increase to block sizes and/or frequency.
+
+**I call this the Tachyon project for Zcash.** I'm excited that all of these steps are possible, can be done using cryptography we are already experts in deploying, can be developed in parallel tracks, and involve few changes to the actual payment protocol. My goal is to faciliate these efforts on an ambitious timeline: many of the major scalability improvements should be able to hit mainnet within a year, while the more involved changes will depend on how quickly wallets can migrate from legacy payment protocols. As with all of our previous network upgrades I'm committed to shipping high quality code that protects our users' privacy.
+
+Crucially, I don't plan to stand in the way of any other Zcash protocol improvements while I see Tachyon to fruition. I'm not asking the community for grants or financial assistance at this time, and I'm not asking any organizations to redirect resources to Tachyon that they think are better spent elsewhere. I also have no reason to believe that Tachyon will conflict with any of the active areas of development such as Crosslink and ZSAs; in fact, I have more reason to believe these protocol enhancements will be mutually beneficial for Tachyon.
+
+There are many things I'll be sharing over the coming weeks. I'm most excited to publish benchmarks of a proof-carrying data toolkit that I've developed to be compatible with the Orchard payment protocol, with the goal being to set a floor on the performance of shielded transaction aggregation and oblivious syncing services. This should begin to reveal the magnitude of the scalability improvements we can expect and the complexity of the path forward.
+
+Stay tuned, and please get in touch if you'd like to help!""
+
+[https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/](https://seanbowe.com/blog/tachyon-scaling-zcash-oblivious-synchronization/)"
+2025-08-05 14:06:51+00:00,UK Police Force Gets $665K Bitcoin Windfall From Seizures 
+2025-08-05 13:58:02+00:00,"Why Is There Still No Emoji or Keyboard Support for the Bitcoin Symbol (₿)? I recently tried to send someone a Bitcoin emoji or character  and to my surprise, nothing showed up. No emoji. No built-in keyboard shortcut..then it hit me.
+
+We live in a world where 🍆💩🧠👻 are one tap away, but **₿** , a globally recognized digital asset with a $1T+ market cap  is nowhere to be found even though Bitcoin has :
+
+\-Been around since 2009
+
+\-Been declared legal tender in countries like El Salvador
+
+\-Been integrated into major financial platforms
+
+\-Been traded globally for trillions of dollars
+
+...the most common digital tools  iOS, Android, Windows, macOS still refuse to acknowledge it with a simple key or emoji meanwhile, obscure currencies, outdated symbols, and novelty emojis get full support. Why?
+
+**Control over symbols is control over perception**
+
+If something doesn’t have a symbol, it becomes harder to talk about, type, share, or normalize.  
+It becomes invisible to the masses  not by force, but by friction. Ask yourself:
+
+\-Why hasn't Unicode approved a Bitcoin emoji?
+
+\-Why don’t Apple, Google, Microsoft or Samsung include **₿** by default?
+
+\-Why do you need to copy/paste ₿ or create your own shortcut just to use it?
+
+We're not talking about a joke coin here. We’re talking about an asset that has outperformed every major currency, equity, and commodity over the past decade.
+
+**Is This Just Neglect... or Intentional?**
+
+Whether it's an oversight or something more deliberate, the message is clear: The system tolerates Bitcoin. But it won’t *legitimize* it. And legitimacy  in a world of symbols, memes, and interfaces  begins with a single keystroke.
+
+Until then, keep copying and pasting: **₿**  
+Because apparently, **freedom still isn’t on the keyboard.**
+
+
+
+"
 2025-08-05 13:45:45+00:00,Indonesia's Vice President's office invited Bitcoiners over to discuss exploring Bitcoin as a national reserve Source: [https://x.com/BitcoinMagazine/status/1952712897684967513](https://x.com/BitcoinMagazine/status/1952712897684967513)
 2025-08-05 10:56:18+00:00,Saylor’s Strategy has doubled its Bitcoin stash since Trump’s election 
 2025-08-05 07:32:10+00:00,"Bitcoin weekly market update, 4 August 2025 **Bitcoin pulled back, but closed the week well above its recent breakout level. Conservative price target still at $142k.**
@@ -14,7 +254,6 @@ Let’s see what the stock markets do this week in response to last week’s new
 [BTC\/USD weekly chart, 4 August 2025. Pulled back and closed the week at $114k, still well above the breakout level of $109k. Price target $142k.](https://preview.redd.it/wny6lalnl5hf1.jpg?width=4950&format=pjpg&auto=webp&s=09a852ab8d393de76e39dcdf3113019d126c87f6)
 
 *For more market updates and analysis, follow me on X:* [*https://x.com/itsdayagain*](https://x.com/itsdayagain)"
-2025-08-05 06:06:24+00:00,"UK man who lost 8,000 bitcoin in landfill says he hasn’t given up, pivots to tokenizing legal claim "
 2025-08-05 01:41:36+00:00,BlackRock’s Bitcoin ETF is now the 2nd best ETF in monthly flows 
 2025-08-04 21:00:04+00:00,"Bitcoin was at $280, 10 years ago today. It has surged by 40,877% since then, representing a 410x return "
 2025-08-04 16:24:06+00:00,"Strategy’s Saylor Sidesteps On-Chain Proof of Bitcoin Reserves, Says Audits Are Enough "
@@ -1545,10 +1784,3 @@ EDIT 2: I want to thank everyone for participating in this important philosophic
 2025-07-16 18:53:27+00:00,"$3,500,000,000 in Profits Locked In by Bitcoin Investors in Just 24 Hours As BTC Printed New All-Time Highs: Glassnode "
 2025-07-16 18:20:25+00:00,Developers Push for Quantum-Resistant Upgrade For Bitcoin 
 2025-07-16 17:10:52+00:00,"Tether minted an additional $2 billion in USDT, bringing its total supply to a record-breaking $160 billion ... Tether, the largest stablecoin issuer, has minted an additional $2 billion in USDT on the Ethereum blockchain, bringing its total supply to a record-breaking $160 billion. The new mints are primarily used for inventory replenishment and blockchain swaps, with $1 billion sent directly to Binance. This surge in supply is attributed to increased trading activity in the crypto market, particularly following Bitcoin's new all-time high above $120,000"
-2025-07-16 15:50:42+00:00,Bitcoin digests US PPI win with $120K liquidity grab on bulls' radar 
-2025-07-16 15:11:19+00:00,Bitcoin 'not at peak yet': Watch these BTC price levels next 
-2025-07-16 15:10:39+00:00,"Looking for current advice When the time comes to take some profits, I want to minimize the fees associated with selling. I am a Canadian with some sitting in a ledger hardware wallet , and some on the regular crypto dot com app. I have a handful of different tokens. Am I best to combine all as one specific token (maybe XLM?) then liquidate or transfer to a place I can sell with less fees? Which app/exchange/wallet will have low fees and is trustworthy? I know this has been addressed here before. I am wondering if the answers I saw are the same. Ndax was recommended and was Bitcoin well. 
-I initially thought I’d convert what I wanted to cash, then add it to my crypto visa debit, then withdraw. That seems like a lot of unnecessary steps and fees. 
-Appreciate the feedback, shared experiences and light roasting for using the app I currently do. Cheers. "
-2025-07-16 11:41:55+00:00,Bitcoin ETF inflows show institutions ‘doubled down’ on BTC at $116K 
-2025-07-16 09:44:05+00:00,A total of 125 public companies have now added Bitcoin to their holdings 

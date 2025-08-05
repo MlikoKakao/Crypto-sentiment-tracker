@@ -1,6 +1,6 @@
 import os
 
-DEFAULT_SYMBOLS = ["bitcoin", "ethereum"]
+
 DEFAULT_CURRENCY = "usd"
 DEFAULT_DAYS = ["1", "7", "30", "90", "180", "365"]
 
@@ -24,3 +24,5 @@ def get_data_path(coin: str, filetype:str) -> str:
 
 COINS_UI_LABELS = ["Bitcoin","Ethereum"]
 COINS_UI_TO_SYMBOL = {label: label.lower() for label in COINS_UI_LABELS}
+
+ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa"]

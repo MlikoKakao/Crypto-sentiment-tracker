@@ -4,11 +4,12 @@ import plotly.express as px
 import numpy as np
 from pytz import utc
 from datetime import timedelta
+
 from src.scraping import fetch_reddit_posts, get_price_history
 from src.sentiment import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 from config.settings import(
-    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, get_data_path
+    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS,  get_data_path
 )
 from src.plotting.charts import (
     plot_price_time_series,
@@ -29,7 +30,10 @@ st.sidebar.header("Configuration")
 selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
 selected_coin = COINS_UI_TO_SYMBOL[selected_label]
 num_posts = st.sidebar.slider("Number of Reddit posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
-days = st.sidebar.selectbox("Price history in days", ["1","7","30","90","180","365"])
+days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS)
+analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS)
+
+
 end_date = pd.Timestamp.now(tz=utc)
 start_date = end_date - timedelta(days=int(days))
 
@@ -46,7 +50,7 @@ if st.sidebar.button("Run Analysis"):
 
     with st.spinner("Analyzing sentiment..."):
         sentiment_path = get_data_path(selected_coin, "sentiment")
-        add_sentiment_to_file(reddit_path, sentiment_path)
+        add_sentiment_to_file(reddit_path, sentiment_path, analyzer_choice)
 
     with st.spinner("Fetching price data..."):
         price_df = get_price_history(selected_coin, days)

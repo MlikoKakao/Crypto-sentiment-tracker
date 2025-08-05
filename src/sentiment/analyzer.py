@@ -1,20 +1,58 @@
 import pandas as pd
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from textblob import TextBlob
+from transformers import pipeline
 import logging
-
+import nltk
+nltk.download("vader_lexicon", quiet=True)
 logger = logging.getLogger(__name__)
 
 
-def analyze_sentiment(text):
-    analyzer = SentimentIntensityAnalyzer()
-    score = analyzer.polarity_scores(text)
-    return score["compound"]        
 
-def add_sentiment_to_file(input_csv, output_csv):
+def vader_analyze(text: str) -> float:
+    analyzer = SentimentIntensityAnalyzer()
+    return analyzer.polarity_scores(str(text))["compound"]       
+
+def textblob_analyze(text:str) -> float:
+    return TextBlob(str(text)).sentiment.polarity
+
+roberta_pipeline = pipeline("sentiment-analysis",
+                            model="cardiffnlp/twitter-roberta-base-sentiment-latest",
+                            tokenizer="cardiffnlp/twitter-roberta-base-sentiment-latest",
+                            truncation=True,
+                            max_length = 512,
+                            padding=True)
+
+def roberta_analyze(text: str) -> float:
+    max_length = 512
+    short_text = str(text)[:1000]
+    result = roberta_pipeline(short_text)[0]
+    label = result["label"].lower()
+    score = result["score"]
+    if label == "negative":
+        return -score
+    elif label == "positive":
+        return score
+    else:
+        return 0
+
+ANALYZER_UI_TO_FUNCTION = {
+    "vader": vader_analyze,
+    "textblob": textblob_analyze,
+    "twitter-roberta": roberta_analyze
+}
+ANALYZER_UI_LABELS = list(ANALYZER_UI_TO_FUNCTION.keys())
+
+
+def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader"):
     df = pd.read_csv(input_csv)
-    df["sentiment"] = df["text"].apply(analyze_sentiment)
+    analyzer_func = ANALYZER_UI_TO_FUNCTION.get(analyzer_name.lower())
+    if analyzer_func is None:
+        logger.error(f"Unknown analyzer: {analyzer_name}")
+        raise ValueError(f"Unknown analyzer: {analyzer_name}")
+    df["sentiment"] = df["text"].apply(analyzer_func)
     df.to_csv(output_csv, index=False)
-    logging.info(f"Sentiment added. Saved to {output_csv}. Total records: {len(df)}")
+    logging.info(f"Sentiment added using {ANALYZER_UI_LABELS}. Saved to {output_csv}. Total records: {len(df)}")
     print("Sentiment added. Preview:")
     print(df.head())
 
