@@ -165,3 +165,12 @@
 2025-08-05 20:10:19,962 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
 2025-08-05 20:10:21,858 | INFO | Fetched 11 posts for query='bitcoin'
 2025-08-05 20:10:29,671 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11
+2025-08-05 20:14:09,329 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:14:11,441 | INFO | Fetched 11 posts for query='bitcoin'
+2025-08-05 20:14:18,412 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 11
+2025-08-05 20:14:43,277 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-05 20:14:47,401 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-05 20:16:43,218 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-05 20:19:05,582 | INFO | Fetching Reddit posts with query='ethereum', limit=300
+2025-08-05 20:19:09,519 | INFO | Fetched 149 posts for query='ethereum'
+2025-08-05 20:19:13,551 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/ethereum_sentiment.csv. Total records: 149
