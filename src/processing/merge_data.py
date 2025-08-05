@@ -33,10 +33,3 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file):
     merged.to_csv(output_file, index=False)
     print("✅ Merged data saved:", output_file)
     print(merged.head())
-
-if __name__ == "__main__":
-    merge_sentiment_and_price(
-        "data/bitcoin_posts_with_sentiment.csv",
-        "data/bitcoin_prices.csv",
-        "data/merged_sentiment_price.csv"
-    )

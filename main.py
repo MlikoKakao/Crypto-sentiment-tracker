@@ -1,9 +1,8 @@
 import subprocess
 
-from src.fetch_posts import fetch_reddit_posts
-from src.fetch_price import get_price_history
+from src.scraping import fetch_reddit_posts, get_price_history
 from src.sentiment import add_sentiment_to_file
-from src.merge_data import merge_sentiment_and_price
+from src.processing.merge_data import merge_sentiment_and_price
 
 class CryptoSentimentApp:
     def __init__(self):
