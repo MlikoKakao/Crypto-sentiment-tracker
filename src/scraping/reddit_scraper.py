@@ -2,8 +2,9 @@ from pytz import utc
 import praw
 import requests
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
+from src.utils.helpers import save_csv, clean_text
 import os
 import logging
 
@@ -38,8 +39,17 @@ def fetch_reddit_posts(query="bitcoin",limit=1000, start_date=None, end_date=Non
         text = submission.title + " " + submission.selftext
         posts.append({
             "timestamp": timestamp,
-            "text": text
+            "text": text,
+            "url": f"https://www.reddit.com{submission.permalink}"
         })
 
     logging.info(f"Fetched {len(posts)} posts for query='{query}'")
-    return pd.DataFrame(posts)
+    df = pd.DataFrame(posts)
+    df["text"] = df["text"].apply(clean_text)
+    return df
+
+if __name__ == "__main__":
+    now = datetime.now(utc)
+    one_week_ago = now - timedelta(days=7)
+    df = fetch_reddit_posts("bitcoin", limit=500, start_date=one_week_ago, end_date=now)
+    save_csv(df, "data/bitcoin_posts.csv")

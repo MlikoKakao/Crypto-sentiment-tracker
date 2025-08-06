@@ -1,9 +1,10 @@
 import pandas as pd
+from src.utils.helpers import load_csv, save_csv
 
 def merge_sentiment_and_price(sentiment_file, price_file, output_file):
     # Load raw data
-    sentiment_df = pd.read_csv(sentiment_file)
-    price_df = pd.read_csv(price_file)
+    sentiment_df = load_csv(sentiment_file)
+    price_df = load_csv(price_file)
 
     # Convert timestamp columns safely (handles ISO strings with +00:00)
     sentiment_df["timestamp"] = pd.to_datetime(sentiment_df["timestamp"], format="ISO8601", errors="coerce")
@@ -30,6 +31,6 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file):
     )
 
     # Save to file
-    merged.to_csv(output_file, index=False)
+    save_csv(merged, output_file)
     print("✅ Merged data saved:", output_file)
     print(merged.head())

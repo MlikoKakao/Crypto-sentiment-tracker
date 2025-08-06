@@ -3,7 +3,50 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-df = pd.read_csv("data/bitcoin_prices.csv", parse_dates=['timestamp'])
+#df = pd.read_csv("data/bitcoin_posts.csv")
+
+#sample = df.sample(20, random_state=42)
+#sample[["timestamp","text"]].to_csv("data/benchmark_raw.csv",index= False)
+
+from sentiment.analyzer import vader_analyze, textblob_analyze, roberta_analyze
+import pandas as pd
+
+df = pd.read_csv("data/benchmark_raw.csv")
+
+# Choose one model to test
+df["vader"] = df["text"].apply(vader_analyze)
+df["textblob"] = df["text"].apply(textblob_analyze)
+df["roberta"] = df["text"].apply(roberta_analyze)
+
+# Optional: convert model output to class label
+def convert(score):
+    if score > 0.05:
+        return "positive"
+    elif score < -0.05:
+        return "negative"
+    else:
+        return "neutral"
+
+df["vader_label"] = df["vader"].apply(convert)
+df["textblob_label"] = df["textblob"].apply(convert)
+df["roberta_label"] = df["roberta"].apply(convert)
+
+# Save for analysis
+df.to_csv("data/benchmark_evaluation.csv", index=False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+""""
 df = df.sort_values('timestamp')
 
 most_recent_price = df.iloc[-1] ["price"]
@@ -37,3 +80,4 @@ ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
 
 plt.tight_layout()
 plt.show()
+"""

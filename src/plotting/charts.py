@@ -19,7 +19,8 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
         df,
         x="sentiment",
         y="price",
-        hover_data=["timestamp"],
+        color="source",
+        hover_data=["timestamp", "source"],
         title="Sentiment vs Price",
         labels={"sentiment": "Sentiment Score", "price": "Price (USD)"}
     )

@@ -6,6 +6,7 @@ import sys
 import logging
 import os
 from dotenv import load_dotenv
+from src.utils.helpers import save_csv
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +41,6 @@ def get_price_history(symbol="bitcoin", days="1"):
     
 if __name__ == "__main__":
     df = get_price_history("bitcoin", days="max")
-    df.to_csv("data/bitcoin_prices.csv", index=False)
+    save_csv(df, "data/bitcoin_prices.csv")
     logging.info("Saved price history to data/bitcoin_prices.csv")
     print(f"Saved {len(df)} price points for all available days")

@@ -44,15 +44,15 @@
 2025-08-05 13:57:37,610 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
 2025-08-05 13:57:39,768 | INFO | Fetched 100 posts for query='Bitcoin'
 2025-08-05 13:57:42,525 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
-2025-08-05 13:57:42,759 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 13:57:42,759 | ERROR | API request failed: 404 ï¿½ {"error":"coin not found"}
 2025-08-05 13:59:16,911 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
 2025-08-05 13:59:18,821 | INFO | Fetched 100 posts for query='Bitcoin'
 2025-08-05 13:59:21,958 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
-2025-08-05 13:59:22,184 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 13:59:22,184 | ERROR | API request failed: 404 ï¿½ {"error":"coin not found"}
 2025-08-05 14:07:37,457 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
 2025-08-05 14:07:39,327 | INFO | Fetched 100 posts for query='Bitcoin'
 2025-08-05 14:07:41,976 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
-2025-08-05 14:07:42,221 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 14:07:42,221 | ERROR | API request failed: 404 ï¿½ {"error":"coin not found"}
 2025-08-05 14:14:29,275 | INFO | Fetching Reddit posts with query='Bitcoin', limit=300
 2025-08-05 14:14:31,557 | INFO | Fetched 100 posts for query='Bitcoin'
 2025-08-05 14:14:34,209 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 100
@@ -98,19 +98,19 @@
 2025-08-05 15:31:07,553 | INFO | Fetching Reddit posts with query='Bitcoin', limit=600
 2025-08-05 15:31:11,906 | INFO | Fetched 249 posts for query='Bitcoin'
 2025-08-05 15:31:19,641 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
-2025-08-05 15:31:19,878 | ERROR | API request failed: 404 – {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
+2025-08-05 15:31:19,878 | ERROR | API request failed: 404 ï¿½ {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
 2025-08-05 15:33:05,965 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
 2025-08-05 15:33:09,527 | INFO | Fetched 249 posts for query='Bitcoin'
 2025-08-05 15:33:17,231 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
-2025-08-05 15:33:17,472 | ERROR | API request failed: 404 – {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
+2025-08-05 15:33:17,472 | ERROR | API request failed: 404 ï¿½ {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
 2025-08-05 15:34:17,394 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
 2025-08-05 15:34:20,979 | INFO | Fetched 249 posts for query='Bitcoin'
 2025-08-05 15:34:28,743 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
-2025-08-05 15:34:28,964 | ERROR | API request failed: 404 – {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
+2025-08-05 15:34:28,964 | ERROR | API request failed: 404 ï¿½ {"error":"Incorrect path. Please check https://docs.coingecko.com/"}
 2025-08-05 15:35:28,399 | INFO | Fetching Reddit posts with query='Bitcoin', limit=500
 2025-08-05 15:35:31,945 | INFO | Fetched 249 posts for query='Bitcoin'
 2025-08-05 15:35:39,653 | INFO | Sentiment added. Saved to data/Bitcoin_sentiment.csv. Total records: 249
-2025-08-05 15:35:39,881 | ERROR | API request failed: 404 – {"error":"coin not found"}
+2025-08-05 15:35:39,881 | ERROR | API request failed: 404 ï¿½ {"error":"coin not found"}
 2025-08-05 15:37:07,588 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
 2025-08-05 15:37:11,584 | INFO | Fetched 250 posts for query='bitcoin'
 2025-08-05 15:37:19,540 | INFO | Sentiment added. Saved to data/bitcoin_sentiment.csv. Total records: 250
@@ -174,3 +174,192 @@
 2025-08-05 20:19:05,582 | INFO | Fetching Reddit posts with query='ethereum', limit=300
 2025-08-05 20:19:09,519 | INFO | Fetched 149 posts for query='ethereum'
 2025-08-05 20:19:13,551 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/ethereum_sentiment.csv. Total records: 149
+2025-08-05 20:23:39,140 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-05 20:23:40,659 | INFO | Fetched 86 posts for query='bitcoin'
+2025-08-05 20:23:40,990 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 86
+2025-08-06 11:48:26,146 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-06 11:48:27,818 | INFO | Fetched 100 posts for query='bitcoin'
+2025-08-06 11:48:28,350 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 100
+2025-08-06 11:48:34,575 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-06 11:48:36,358 | INFO | Fetched 100 posts for query='bitcoin'
+2025-08-06 11:48:36,654 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 100
+2025-08-06 12:54:55,439 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-06 12:54:57,153 | INFO | Fetched 15 posts for query='bitcoin'
+2025-08-06 12:54:57,716 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 15
+2025-08-06 14:47:17,747 | INFO | Attempting to fetch news for bitcoin..
+2025-08-06 14:47:18,156 | INFO | Fetched 8 news posts for bitcoin
+2025-08-06 14:50:09,362 | INFO | Fetching Reddit posts with query='bitcoin', limit=500
+2025-08-06 14:50:13,539 | INFO | Fetched 84 posts for query='bitcoin'
+2025-08-06 16:15:41,966 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:15:46,728 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:15:47,706 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:15:49,855 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:15:51,675 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:15:51,687 | INFO | Attempting to fetch news for bitcoin..
+2025-08-06 16:15:52,705 | INFO | Fetched 0 news posts for bitcoin
+2025-08-06 16:19:38,624 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:20:02,242 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:20:03,392 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:20:03,402 | INFO | Attempting to fetch news for bitcoin..
+2025-08-06 16:20:03,589 | INFO | Fetched 0 news posts for bitcoin
+2025-08-06 16:24:57,182 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:24:59,845 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:25:00,846 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:25:00,857 | INFO | Attempting to fetch news for bitcoin..
+2025-08-06 16:25:01,224 | INFO | Fetched 0 news posts for bitcoin
+2025-08-06 16:31:21,348 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:31:26,077 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:31:27,704 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:31:27,717 | INFO | Attempting to fetch news for bitcoin..
+2025-08-06 16:31:27,828 | ERROR | Cryptopanic API failed: 404 - 
+2025-08-06 16:34:54,344 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:34:56,940 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:34:58,957 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:34:58,967 | INFO | Attempting to fetch news for bitcoin..
+2025-08-06 16:34:59,168 | INFO | Fetched 0 news posts for bitcoin
+2025-08-06 16:41:54,623 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:41:57,792 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:41:59,872 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:42:01,744 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:42:01,752 | INFO | Attempting to fetch news for BTC..
+2025-08-06 16:42:03,762 | INFO | Fetched 3 news posts for BTC
+2025-08-06 16:42:03,790 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-06 16:42:05,639 | INFO | Fetched 12 posts for query='bitcoin'
+2025-08-06 16:42:05,647 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 16:42:05,768 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 3
+2025-08-06 16:42:05,787 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 16:42:06,111 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 12
+2025-08-06 16:42:06,121 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 16:42:06,145 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 16:42:06,296 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 16:42:06,329 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 16:42:06,407 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 16:47:32,424 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:47:32,435 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 16:47:33,071 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:47:33,082 | INFO | Attempting to fetch news for BTC..
+2025-08-06 16:47:33,406 | INFO | Fetched 3 news posts for BTC
+2025-08-06 16:47:33,414 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-06 16:47:34,991 | INFO | Fetched 12 posts for query='bitcoin'
+2025-08-06 16:47:34,999 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 16:47:35,098 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 3
+2025-08-06 16:47:35,113 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 16:47:35,148 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 12
+2025-08-06 16:47:35,163 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 16:47:35,190 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 16:47:35,331 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 16:47:35,362 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 16:47:35,415 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 16:47:38,575 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:47:38,585 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 16:47:39,121 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:47:39,131 | INFO | Attempting to fetch news for BTC..
+2025-08-06 16:47:39,305 | INFO | Fetched 3 news posts for BTC
+2025-08-06 16:47:39,313 | INFO | Fetching Reddit posts with query='bitcoin', limit=100
+2025-08-06 16:47:40,575 | INFO | Fetched 12 posts for query='bitcoin'
+2025-08-06 16:47:40,582 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 16:47:43,063 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 3
+2025-08-06 16:47:43,080 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 16:47:49,248 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 12
+2025-08-06 16:47:49,264 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 16:47:49,288 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 16:47:49,569 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 16:47:49,618 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 16:47:49,770 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 16:52:00,379 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:52:08,420 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 16:52:08,432 | INFO | Attempting to fetch news for BTC..
+2025-08-06 16:52:08,631 | INFO | Fetched 3 news posts for BTC
+2025-08-06 16:52:08,659 | INFO | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-06 16:52:12,727 | INFO | Fetched 12 posts for query='bitcoin'
+2025-08-06 16:52:12,739 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 16:52:12,856 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 3
+2025-08-06 16:52:12,890 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 16:52:13,396 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 12
+2025-08-06 16:52:13,414 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 16:52:13,420 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 16:52:13,660 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 16:52:13,726 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 16:52:13,813 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:00:10,623 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:00:35,227 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:00:35,237 | INFO | Attempting to fetch news for BTC..
+2025-08-06 17:00:35,458 | INFO | Fetched 4 news posts for BTC
+2025-08-06 17:00:35,484 | INFO | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-06 17:00:40,443 | INFO | Fetched 12 posts for query='bitcoin'
+2025-08-06 17:00:40,525 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 17:00:40,703 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 4
+2025-08-06 17:00:40,786 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 17:00:41,249 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 12
+2025-08-06 17:00:41,300 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 17:00:41,342 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 17:00:41,517 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 17:00:41,561 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 17:00:41,660 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:01:11,324 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:01:11,337 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:01:12,973 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:01:13,007 | INFO | Attempting to fetch news for BTC..
+2025-08-06 17:01:13,298 | INFO | Fetched 4 news posts for BTC
+2025-08-06 17:01:13,329 | INFO | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-06 17:01:17,133 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-06 17:01:17,221 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 17:01:17,418 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 4
+2025-08-06 17:01:17,453 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 17:01:29,110 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-06 17:01:29,127 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 17:01:29,138 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 17:01:29,441 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 17:01:29,483 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 17:01:29,551 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:03:57,869 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:04:02,797 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:04:42,004 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:04:42,017 | INFO | Attempting to fetch news for BTC..
+2025-08-06 17:04:42,227 | INFO | Fetched 4 news posts for BTC
+2025-08-06 17:04:42,260 | INFO | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-06 17:04:45,774 | INFO | Fetched 12 posts for query='bitcoin'
+2025-08-06 17:04:45,782 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 17:04:45,878 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 4
+2025-08-06 17:04:45,898 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 17:04:46,139 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 12
+2025-08-06 17:04:46,152 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 17:04:46,158 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 17:04:46,276 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 17:04:46,340 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 17:04:46,397 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:05:05,294 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:05:05,305 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:05:06,073 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:05:06,084 | INFO | Attempting to fetch news for BTC..
+2025-08-06 17:05:06,408 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:05:06,419 | INFO | Attempting to fetch news for BTC..
+2025-08-06 17:05:06,692 | INFO | Fetched 4 news posts for BTC
+2025-08-06 17:05:06,704 | INFO | Fetched 4 news posts for BTC
+2025-08-06 17:05:06,961 | INFO | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-06 17:05:11,101 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-06 17:05:11,131 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 17:05:11,220 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 4
+2025-08-06 17:05:11,235 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 17:05:16,929 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-06 17:05:16,942 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 17:05:16,947 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 17:05:17,249 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 17:05:17,294 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 17:05:17,372 | INFO | Loaded CSV from: data/bitcoin_merged.csv
+2025-08-06 17:05:36,678 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:06:07,575 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:06:09,120 | INFO | Loaded CSV from: data/merged_sentiment_price.csv
+2025-08-06 17:06:09,136 | INFO | Attempting to fetch news for BTC..
+2025-08-06 17:06:09,355 | INFO | Fetched 4 news posts for BTC
+2025-08-06 17:06:09,365 | INFO | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-06 17:06:12,383 | INFO | Fetched 250 posts for query='bitcoin'
+2025-08-06 17:06:12,415 | INFO | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-06 17:06:12,565 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_news_sentiment.csv. Total records: 4
+2025-08-06 17:06:12,580 | INFO | Loaded CSV from: data/bitcoin_posts.csv
+2025-08-06 17:06:19,441 | INFO | Sentiment added using ['vader', 'textblob', 'twitter-roberta']. Saved to data/bitcoin_sentiment.csv. Total records: 250
+2025-08-06 17:06:19,460 | INFO | Loaded CSV from: data/bitcoin_news_sentiment.csv
+2025-08-06 17:06:19,467 | INFO | Loaded CSV from: data/bitcoin_sentiment.csv
+2025-08-06 17:06:19,783 | INFO | Loaded CSV from: data/combined_sentiment.csv
+2025-08-06 17:06:19,840 | INFO | Loaded CSV from: data/bitcoin_prices.csv
+2025-08-06 17:06:19,929 | INFO | Loaded CSV from: data/bitcoin_merged.csv

@@ -2,6 +2,7 @@ import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from transformers import pipeline
+from src.utils.helpers import load_csv, save_csv
 import logging
 import nltk
 nltk.download("vader_lexicon", quiet=True)
@@ -24,7 +25,6 @@ roberta_pipeline = pipeline("sentiment-analysis",
                             padding=True)
 
 def roberta_analyze(text: str) -> float:
-    max_length = 512
     short_text = str(text)[:1000]
     result = roberta_pipeline(short_text)[0]
     label = result["label"].lower()
@@ -45,13 +45,13 @@ ANALYZER_UI_LABELS = list(ANALYZER_UI_TO_FUNCTION.keys())
 
 
 def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader"):
-    df = pd.read_csv(input_csv)
+    df = load_csv(input_csv)
     analyzer_func = ANALYZER_UI_TO_FUNCTION.get(analyzer_name.lower())
     if analyzer_func is None:
         logger.error(f"Unknown analyzer: {analyzer_name}")
         raise ValueError(f"Unknown analyzer: {analyzer_name}")
     df["sentiment"] = df["text"].apply(analyzer_func)
-    df.to_csv(output_csv, index=False)
+    save_csv(df, output_csv)
     logging.info(f"Sentiment added using {ANALYZER_UI_LABELS}. Saved to {output_csv}. Total records: {len(df)}")
     print("Sentiment added. Preview:")
     print(df.head())
