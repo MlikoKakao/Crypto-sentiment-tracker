@@ -26,3 +26,4 @@ COINS_UI_LABELS = ["Bitcoin","Ethereum"]
 COINS_UI_TO_SYMBOL = {label: label.lower() for label in COINS_UI_LABELS}
 
 ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa"]
+POSTS_KIND = ["All", "Reddit", "News"]

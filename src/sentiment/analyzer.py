@@ -52,7 +52,7 @@ def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader"):
         raise ValueError(f"Unknown analyzer: {analyzer_name}")
     df["sentiment"] = df["text"].apply(analyzer_func)
     save_csv(df, output_csv)
-    logging.info(f"Sentiment added using {ANALYZER_UI_LABELS}. Saved to {output_csv}. Total records: {len(df)}")
+    logging.info(f"Sentiment added using {analyzer_name}. Saved to {output_csv}. Total records: {len(df)}")
     print("Sentiment added. Preview:")
     print(df.head())
 

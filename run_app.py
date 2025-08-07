@@ -4,20 +4,24 @@ import plotly.express as px
 import numpy as np
 from pytz import utc
 from datetime import timedelta
+import logging
 
-from src.utils.helpers import load_csv,save_csv, filter_date_range, map_to_cryptopanic_symbol
+from src.utils.helpers import load_csv,save_csv, filter_date_range, map_to_cryptopanic_symbol, is_file_fresh
 from src.scraping import fetch_reddit_posts, get_price_history
 from src.scraping.news_scraper import fetch_news_posts
 from src.sentiment import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 from config.settings import(
-    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS,  get_data_path
+    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS, get_data_path, POSTS_KIND
 )
 from src.plotting.charts import (
     plot_price_time_series,
     plot_sentiment_timeline,
-    plot_sentiment_vs_price
+    plot_sentiment_vs_price,
+    plot_sentiment_with_price
 )
+logger = logging.getLogger(__name__)
+
 import os
 
 #Page header
@@ -25,59 +29,120 @@ st.set_page_config(page_title="Crypto Sentiment Tracker",layout="wide")
 
 #Page main intro
 st.title("Crypto sentiment tracker")
-st.markdown("Visualization of Reddit sentiment based on keywords and further comparison to actual price of cryptocurrencies")
+st.markdown("Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies")
 
 #Config
 st.sidebar.header("Configuration")
 selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
 selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-num_posts = st.sidebar.slider("Number of Reddit posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
+num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
 days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
 analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
-                                                                                                    "Twitter-RoBERTa - slowest(can take up to 40 seconds), but most accurate, conservative")
+                                                                                                    "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
+posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
 
 
 end_date = pd.Timestamp.now(tz=utc)
 start_date = end_date - timedelta(days=int(days))
 
-#Load csv(would be better to only read on button press)
-df = load_csv("data/merged_sentiment_price.csv", parse_dates=["timestamp"])
+
 
 #Fetching and merging all data
 if st.sidebar.button("Run Analysis"):
+    #Check whether to use
+    use_news = False
+    use_reddit = False
+
+    #Set sentiment path already for caching
+    news_sentiment_path = get_data_path(selected_coin, "news_sentiment")
+    reddit_sentiment_path = get_data_path(selected_coin, "sentiment")
+
+    #Set data path for caching
+    news_path = f"data/{selected_coin}_news_posts.csv"
+    reddit_path = f"data/{selected_coin}_posts.csv"
     
-    with st.spinner("Fetching news..."):
-        cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
-        news_df = fetch_news_posts(cryptopanic_coin, num_posts)
-        news_df["source"] = "news"
-        news_path = f"data/{selected_coin}_news_posts.csv"
-        save_csv(news_df, news_path)
+    #News
+    if posts_choice in ("All", "News"):
+        if is_file_fresh(news_path, freshness_minutes=30):
+            logger.info("Using cached news data.")
+            news_df = load_csv(news_path)
+           #use_news = True
+        else:
+            try:
+                with st.spinner("Fetching news..."):
+                    cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
+                    news_df = fetch_news_posts(cryptopanic_coin, num_posts)
+                    news_df["source"] = "news"
+                    save_csv(news_df, news_path)
+                    #use_news = True
 
-    with st.spinner("Fetching Reddit posts..."):
-        reddit_df = fetch_reddit_posts(selected_coin, num_posts, start_date=start_date, end_date=end_date)
-        reddit_df["source"] = "reddit"
-        reddit_path = f"data/{selected_coin}_posts.csv"
-        save_csv(reddit_df, reddit_path)
+            except Exception as e:
+                logger.warning(f"Couldn't fetch news: {e}")
+                logger.warning("OLD NEWS DATA WILL BE USED, MAKE SURE TO CHECK THE DATES")
+                st.warning("OLD NEWS DATA WILL BE USED, MAKE SURE TO CHECK THE DATES")
+                """
+                Uncomment use_news lines and delete "if os.path.exists.."
+                if dont want to use news at all unless its cached or 
+                new, for now im using it no matter how old as long as it's in file system.
+                Same goes for use_reddit.
+                """
+                #use_news = False
+        if os.path.exists(news_path):
+            use_news = True
+    #Reddit
+    if posts_choice in ("All", "Reddit"):
+        if is_file_fresh(reddit_path, freshness_minutes=30):
+            logger.info("Using cached Reddit data.")
+            reddit_df = load_csv(reddit_path)
+            #use_reddit = True
+        else:
+            try:
+                with st.spinner("Fetching Reddit posts..."):
+                    reddit_df = fetch_reddit_posts(selected_coin, num_posts, start_date=start_date, end_date=end_date)
+                    reddit_df["source"] = "reddit"
+                    save_csv(reddit_df, reddit_path)
+                    #use_reddit = True
 
+            except Exception as e:
+                logger.warning(f"Couldn't fetch Reddit posts: {e}")
+                #use_reddit = False
+        if os.path.exists(reddit_path):
+            use_reddit = True
     with st.spinner("Analyzing sentiment..."):
-        news_sentiment_path = get_data_path(selected_coin, "news_sentiment")
-        add_sentiment_to_file(news_path, news_sentiment_path, analyzer_choice)
-
-        sentiment_path = get_data_path(selected_coin, "sentiment")
-        add_sentiment_to_file(reddit_path, sentiment_path, analyzer_choice)
+        if use_news:
+            add_sentiment_to_file(news_path, news_sentiment_path, analyzer_choice)
+        else:
+            logger.warning("News sentiment will not be included")
+        if use_reddit:
+            add_sentiment_to_file(reddit_path, reddit_sentiment_path, analyzer_choice)
+        else:
+            logger.warning("Reddit sentiment will not be included")
 
     with st.spinner("Combining sentiment..."):
-        news_sent = load_csv(news_sentiment_path)
-        reddit_sent = load_csv(sentiment_path)
-        combined_df = pd.concat([news_sent, reddit_sent], ignore_index=True)
-        combined_df = combined_df.sort_values("timestamp")
-        save_csv(combined_df, "data/combined_sentiment.csv")
+        dfs = []
+        if use_news and os.path.exists(news_sentiment_path):
+            news_sent = load_csv(news_sentiment_path)
+            dfs.append(news_sent)
+        if use_reddit and os.path.exists(reddit_sentiment_path):
+            reddit_sent = load_csv(reddit_sentiment_path)
+            dfs.append(reddit_sent)
 
+        if dfs:
+            combined_df = pd.concat(dfs, ignore_index=True)
+            combined_df = combined_df.sort_values("timestamp")
+            save_csv(combined_df, "data/combined_sentiment.csv")
+        else:
+            logger.error(f"No sentiment data. use_news={use_news}, use_reddit={use_reddit}")
+            st.error("No sentiment data could be loaded. Check API limits or local files.")
+            st.stop()
+
+    #Price data
     with st.spinner("Fetching price data..."):
         price_df = get_price_history(selected_coin, days)
         price_path = get_data_path(selected_coin, "prices")
         save_csv(price_df, price_path)
 
+    #Merge of price and data
     with st.spinner("Merging sentiment and price data..."):
         merged_path = get_data_path(selected_coin, "merged")
         merge_sentiment_and_price("data/combined_sentiment.csv", price_path, merged_path)
@@ -106,6 +171,9 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
     st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
     #Sentiment timeline
     st.plotly_chart(plot_sentiment_timeline(df, selected_coin), use_container_width=True)
+
+    #Sentiment vs price timeline (smoothed)
+    st.plotly_chart(plot_sentiment_with_price(df, selected_coin), use_container_width=True)
 
     #Average sentiment
     avg_sent = df["sentiment"].mean()
