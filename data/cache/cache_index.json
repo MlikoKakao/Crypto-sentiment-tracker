@@ -1,0 +1,25 @@
+{
+  "4f8d7ba675b84644134af34ebc3cee25": {
+    "source": "reddit",
+    "coin": "bitcoin",
+    "start_date": "2025-07-31T20:22:37",
+    "end_date": "2025-08-07T20:22:37",
+    "num_posts": 200
+  },
+  "6c59bda3802a0b56f50d1ced0671f43b": {
+    "source": "reddit",
+    "coin": "bitcoin",
+    "analyzer": "VADER",
+    "start_date": "2025-07-31T20:35:44",
+    "end_date": "2025-08-07T20:35:44",
+    "num_posts": 300
+  },
+  "3f74f1aa855f11aa37103da1536fdadf": {
+    "source": "reddit",
+    "coin": "bitcoin",
+    "analyzer": "VADER",
+    "start_date": "2025-07-31T20:41:40",
+    "end_date": "2025-08-07T20:41:40",
+    "num_posts": 300
+  }
+}

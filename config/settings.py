@@ -17,6 +17,10 @@ SENTIMENT_NEG_THRESHOLD = -0.05
 SENTIMENT_POS_THRESHOLD = 0.05
 
 DATA_DIR = "data/"
+CACHE_DIR = "data/cache"
+MAPPING_FILE = os.path.join(CACHE_DIR, "cache_index.json")
+os.makedirs(CACHE_DIR, exist_ok=True)
+
 LOG_PATH = "logs/app.log"
 
 def get_data_path(coin: str, filetype:str) -> str:
@@ -25,5 +29,5 @@ def get_data_path(coin: str, filetype:str) -> str:
 COINS_UI_LABELS = ["Bitcoin","Ethereum"]
 COINS_UI_TO_SYMBOL = {label: label.lower() for label in COINS_UI_LABELS}
 
-ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa"]
+ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa", "All"]
 POSTS_KIND = ["All", "Reddit", "News"]

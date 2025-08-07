@@ -11,6 +11,7 @@ from src.scraping import fetch_reddit_posts, get_price_history
 from src.scraping.news_scraper import fetch_news_posts
 from src.sentiment import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
+from src.utils.cache import load_cached_csv, cache_csv
 from config.settings import(
     COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS, get_data_path, POSTS_KIND
 )
@@ -63,58 +64,65 @@ if st.sidebar.button("Run Analysis"):
     
     #News
     if posts_choice in ("All", "News"):
+        #news_settings = {
+        #    "source": "news",
+        #    "coin": selected_coin,
+        #    "num_posts": num_posts,
+        #    "start_date": str(start_date.date()),
+        #    "end_date": str(end_date.date())
+        #}
+
+        
         if is_file_fresh(news_path, freshness_minutes=30):
             logger.info("Using cached news data.")
             news_df = load_csv(news_path)
-           #use_news = True
         else:
             try:
+        #news_df = load_cached_csv(news_settings, freshness_minutes=30)
+        #if news_df is None:
                 with st.spinner("Fetching news..."):
                     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
                     news_df = fetch_news_posts(cryptopanic_coin, num_posts)
                     news_df["source"] = "news"
                     save_csv(news_df, news_path)
-                    #use_news = True
-
+                    #cache_csv(news_df, news_settings)
+        #use_news = True
             except Exception as e:
                 logger.warning(f"Couldn't fetch news: {e}")
                 logger.warning("OLD NEWS DATA WILL BE USED, MAKE SURE TO CHECK THE DATES")
                 st.warning("OLD NEWS DATA WILL BE USED, MAKE SURE TO CHECK THE DATES")
-                """
-                Uncomment use_news lines and delete "if os.path.exists.."
-                if dont want to use news at all unless its cached or 
-                new, for now im using it no matter how old as long as it's in file system.
-                Same goes for use_reddit.
-                """
-                #use_news = False
+                
+                #From news for now just using old data, if wanna get new ones have to 
+                #uncomment cache logic, delete is_file_fresh block, else: and try:except
+                
         if os.path.exists(news_path):
             use_news = True
     #Reddit
     if posts_choice in ("All", "Reddit"):
-        if is_file_fresh(reddit_path, freshness_minutes=30):
-            logger.info("Using cached Reddit data.")
-            reddit_df = load_csv(reddit_path)
-            #use_reddit = True
-        else:
-            try:
+        reddit_settings = {
+            "source": "reddit",
+            "coin": selected_coin,
+            "analyzer": analyzer_choice,
+            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
+            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
+            "num_posts": num_posts
+        }
+        reddit_df = load_cached_csv(reddit_settings, freshness_minutes = 30)
+        if reddit_df is None:
                 with st.spinner("Fetching Reddit posts..."):
                     reddit_df = fetch_reddit_posts(selected_coin, num_posts, start_date=start_date, end_date=end_date)
                     reddit_df["source"] = "reddit"
-                    save_csv(reddit_df, reddit_path)
-                    #use_reddit = True
+                    cache_csv(reddit_df, reddit_settings)
+        use_reddit = True
 
-            except Exception as e:
-                logger.warning(f"Couldn't fetch Reddit posts: {e}")
-                #use_reddit = False
-        if os.path.exists(reddit_path):
-            use_reddit = True
     with st.spinner("Analyzing sentiment..."):
         if use_news:
-            add_sentiment_to_file(news_path, news_sentiment_path, analyzer_choice)
+            #change to cache_setting=news_settings when switching logic
+            add_sentiment_to_file(news_path, news_sentiment_path, analyzer_choice, cache_settings=True)
         else:
             logger.warning("News sentiment will not be included")
         if use_reddit:
-            add_sentiment_to_file(reddit_path, reddit_sentiment_path, analyzer_choice)
+            add_sentiment_to_file(reddit_path, reddit_sentiment_path, analyzer_choice, cache_settings=reddit_settings)
         else:
             logger.warning("Reddit sentiment will not be included")
 

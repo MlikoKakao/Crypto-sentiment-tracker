@@ -25,7 +25,7 @@ def fetch_news_posts(currency ="BTC", limit=100):
     response = requests.get(url, params=params)
 
     if response.status_code != 200:
-        logger.error(f"Cryptopanic API failed: {response.status_code} - {response.text}")
+        logger.error(f"Cryptopanic API failed: {response.status_code} - {response.reason}")
         raise Exception("Failed to fetch news")
     
     results = response.json().get("results",[])

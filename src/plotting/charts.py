@@ -31,7 +31,7 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
     return fig
 
 def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
-    df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.1)
+    df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.3)
     fig = px.line(
         df,
         x="timestamp",
@@ -55,7 +55,7 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
 
 #Graph showing LOESS/BTC price
 def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
-    df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.1)
+    df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.3)
     fig = go.Figure()
 
     #Price trace

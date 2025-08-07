@@ -2,6 +2,7 @@ import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from transformers import pipeline
+from src.utils.cache import load_cached_csv, cache_csv
 from src.utils.helpers import load_csv, save_csv
 import logging
 import nltk
@@ -39,19 +40,38 @@ def roberta_analyze(text: str) -> float:
 ANALYZER_UI_TO_FUNCTION = {
     "vader": vader_analyze,
     "textblob": textblob_analyze,
-    "twitter-roberta": roberta_analyze
+    "twitter-roberta": roberta_analyze,
+    "all": [vader_analyze, textblob_analyze, roberta_analyze]
 }
 ANALYZER_UI_LABELS = list(ANALYZER_UI_TO_FUNCTION.keys())
 
 
-def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader"):
-    df = load_csv(input_csv)
+def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader", cache_settings = None):
+    if cache_settings:
+        cached = load_cached_csv(cache_settings)
+        if cached is not None:
+            save_csv(cached, output_csv)
+            return
+    
+    
+    df = load_cached_csv(input_csv)
     analyzer_func = ANALYZER_UI_TO_FUNCTION.get(analyzer_name.lower())
     if analyzer_func is None:
         logger.error(f"Unknown analyzer: {analyzer_name}")
         raise ValueError(f"Unknown analyzer: {analyzer_name}")
-    df["sentiment"] = df["text"].apply(analyzer_func)
+    if isinstance(analyzer_func, list):
+        for func in analyzer_func:
+            col_name = f"sentiment_{func.__name__.replace("_analyze","")}"
+            df[col_name] = df["text"].apply(func)
+        sentiment_cols = [f"sentiment_{func.__name__.replace("_analyze","")}" for func in analyzer_func]
+        df["sentiment"] = df[sentiment_cols].mean(axis=1)
+        save_csv(df, output_csv)
+        
+    else:
+        df["sentiment"] = df["text"].apply(analyzer_func)
     save_csv(df, output_csv)
+    if cache_settings:
+        cache_csv(df, cache_settings)
     logging.info(f"Sentiment added using {analyzer_name}. Saved to {output_csv}. Total records: {len(df)}")
     print("Sentiment added. Preview:")
     print(df.head())

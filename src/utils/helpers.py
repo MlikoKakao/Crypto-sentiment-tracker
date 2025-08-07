@@ -4,6 +4,9 @@ import os
 import time
 from datetime import datetime
 import logging
+import hashlib
+import json
+from config.settings import MAPPING_FILE, CACHE_DIR
 logger = logging.getLogger(__name__)
 
 
@@ -19,14 +22,13 @@ def save_csv(df, filepath):
     df.to_csv(filepath, index=False)
     logger.debug(f"Saved CSV to: {filepath} ({len(df)} rows)")
 
-#CACHING
+#DEPRECATED CACHING
 def is_file_fresh(path,freshness_minutes=10):
     if not os.path.exists(path):
         return False
     modified_time = os.path.getmtime(path)
     age_minutes = (time.time() - modified_time) / 60
     return age_minutes < freshness_minutes
-
 
 #TEXT CLEANUP
 def clean_text(text):
@@ -44,3 +46,4 @@ def map_to_cryptopanic_symbol(symbol):
         "monero": "XMR"
     }
     return symbol_map.get(symbol.lower(),symbol.upper())
+
