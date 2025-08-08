@@ -34,7 +34,7 @@ def fetch_news_posts(currency ="BTC", limit=100):
     for item in results[:limit]:
         title = item.get("title","")
         published_at = item.get("published_at","")
-        timestamp = pd.to_datetime(published_at).tz_convert(utc)
+        timestamp = pd.to_datetime(published_at, utc=True).tz_convert(utc)
         url = item.get("url","")
         domain = item.get("domain","")
         posts.append({

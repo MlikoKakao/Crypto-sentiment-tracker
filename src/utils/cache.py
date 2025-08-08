@@ -4,47 +4,50 @@ import os
 import hashlib
 import pandas as pd
 import time
+from pathlib import Path
 
 
 
 
 
 
-def hash_settings(settings: dict) -> str:
-    key = "|".join(f"{k}={v}" for k,v in sorted(settings.items()))
-    return hashlib.md5(key.encode()).hexdigest()
 
-def load_mapping():
-    if os.path.exists(MAPPING_FILE):
-        with open(MAPPING_FILE, "r") as f:
-            return json.load(f)
+def load_mapping() -> dict:
+    if Path(MAPPING_FILE).exists():
+        return json.loads(Path(MAPPING_FILE).read_text() or "{}")
     return {}
 
-def save_mapping(mapping):
-    with open(MAPPING_FILE, "w") as f:
-        json.dump(mapping, f, indent=2)
+def save_mapping(mp: dict) -> None:
+    Path(MAPPING_FILE).write_text(json.dumps(mp,indent=2))
 
-def cache_csv(df, settings:dict):
-    mapping = load_mapping()
-    cache_hash = hash_settings(settings)
-    filename = f"{cache_hash}.csv"
-    path = os.path.join(CACHE_DIR, filename)
+def hash_settings(settings: dict) -> str:
+    key = "|".join(f"{k}={settings[k]}" for k in sorted(settings))
+    return hashlib.md5(key.encode()).hexdigest()
 
+def get_cached_path(settings: dict) -> Path:
+    h = hash_settings(settings)
+    return Path(CACHE_DIR) / f"{h}.csv"
+
+def load_cached_csv(settings:dict, parse_dates=None, freshness_minutes=None):
+    path = get_cached_path(settings)
+    
+    if not path.exists():
+        return None
+    if freshness_minutes is not None:
+        age_min = (time.time() - path.stat().st_mtime) / 60
+        if age_min > freshness_minutes:
+            return None
+    return pd.read_csv(path, parse_dates=parse_dates)
+
+def cache_csv(df: pd.DataFrame, settings:dict) -> Path:
+    path = get_cached_path(settings)
     df.to_csv(path, index=False)
-    mapping[cache_hash] = settings
-    save_mapping(mapping)
-
+    mp = load_mapping()
+    mp[hash_settings(settings)] = {
+        "path": str(path),
+        "rows": len(df),
+        "updated": int(time.time()),
+        "settings": settings
+    }
+    save_mapping(mp)
     return path
-
-def load_cached_csv(settings:dict, freshness_minutes=10):
-    mapping = load_mapping()
-    cache_hash = hash_settings(settings)
-
-    if cache_hash in mapping:
-        path = os.path.join(CACHE_DIR, f"{cache_hash}.csv")
-        if os.path.exists(path):
-            modified_time = os.path.getmtime(path)
-            age_minutes = (time.time() - modified_time) / 60
-            if age_minutes < freshness_minutes:
-                return pd.read_csv(path)
-    return None

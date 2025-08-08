@@ -79,7 +79,7 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
     ))
 
     #Layout update to show both
-    padding = 0.05
+    padding = 0.1
     winner_number = max(-df["sentiment_loess"].min(), df["sentiment_loess"].max())
     sentiment_range = [-winner_number - padding, winner_number + padding]
 

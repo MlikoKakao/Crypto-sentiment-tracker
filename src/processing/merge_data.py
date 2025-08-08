@@ -1,14 +1,26 @@
 import pandas as pd
 from src.utils.helpers import load_csv, save_csv
+from src.utils.cache import load_cached_csv, cache_csv
 
-def merge_sentiment_and_price(sentiment_file, price_file, output_file):
-    # Load raw data
+def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_settings):
+    merged_cached = load_cached_csv(    
+        cache_settings, parse_dates=["timestamp"], freshness_minutes=30
+    )
+    if merged_cached is not None:
+        save_csv(merged_cached, output_file)
+        print("Loaded merged data from cache:", output_file)
+        print(merged_cached.head())
+        return
+
+    
+
     sentiment_df = load_csv(sentiment_file)
     price_df = load_csv(price_file)
 
+
     # Convert timestamp columns safely (handles ISO strings with +00:00)
-    sentiment_df["timestamp"] = pd.to_datetime(sentiment_df["timestamp"], format="ISO8601", errors="coerce")
-    price_df["timestamp"] = pd.to_datetime(price_df["timestamp"], format="ISO8601", errors="coerce")
+    sentiment_df["timestamp"] = pd.to_datetime(sentiment_df["timestamp"], errors="coerce")
+    price_df["timestamp"] = pd.to_datetime(price_df["timestamp"], errors="coerce")
 
     # Drop any rows with invalid timestamps
     sentiment_df = sentiment_df.dropna(subset=["timestamp"])
@@ -31,6 +43,7 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file):
     )
 
     # Save to file
+    cache_csv(merged, cache_settings)
     save_csv(merged, output_file)
     print("✅ Merged data saved:", output_file)
     print(merged.head())

@@ -27,7 +27,7 @@ reddit = praw.Reddit(
 
 
 def fetch_reddit_posts(query="bitcoin",limit=1000, start_date=None, end_date=None):
-    logging.info(f"Fetching Reddit posts with query='{query}', limit={limit}")
+    logger.info(f"Fetching Reddit posts with query='{query}', limit={limit}")
     posts = []
     for submission in reddit.subreddit("CryptoCurrency").search(query, limit=limit, sort="new"):
         
@@ -43,7 +43,7 @@ def fetch_reddit_posts(query="bitcoin",limit=1000, start_date=None, end_date=Non
             "url": f"https://www.reddit.com{submission.permalink}"
         })
 
-    logging.info(f"Fetched {len(posts)} posts for query='{query}'")
+    logger.info(f"Fetched {len(posts)} posts for query='{query}'")
     df = pd.DataFrame(posts)
     df["text"] = df["text"].apply(clean_text)
     return df
