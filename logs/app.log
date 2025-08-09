@@ -879,3 +879,17 @@
 2025-08-08 15:00:21,393 | INFO | src.utils.helpers | Loaded CSV from: C:\Users\PC\crypto-tracker\data\bitcoin_news_sentiment.csv
 2025-08-08 15:00:21,408 | INFO | src.utils.helpers | Loaded CSV from: C:\Users\PC\crypto-tracker\data\bitcoin_sentiment.csv
 2025-08-08 15:00:22,443 | INFO | src.utils.helpers | Loaded CSV from: C:\Users\PC\crypto-tracker\data\bitcoin_merged.csv
+2025-08-09 22:38:54,889 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-09 22:38:55,178 | INFO | src.scraping.news_scraper | Fetched 4 news posts for BTC
+2025-08-09 22:38:55,201 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='bitcoin', limit=300
+2025-08-09 22:38:59,039 | INFO | src.scraping.reddit_scraper | Fetched 84 posts for query='bitcoin'
+2025-08-09 22:38:59,069 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-09 22:38:59,153 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv. Total records: 4
+2025-08-09 22:38:59,190 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-09 22:39:00,054 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 84
+2025-08-09 22:39:00,067 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-09 22:39:00,071 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-09 22:39:00,416 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-09 22:39:00,420 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-09 22:39:00,482 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-09 22:39:00,534 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv

@@ -4,7 +4,7 @@ import os
 import time
 from datetime import datetime
 import logging
-import hashlib
+import hashlib, pathlib
 import json
 from config.settings import MAPPING_FILE, CACHE_DIR
 logger = logging.getLogger(__name__)

@@ -7,6 +7,8 @@ from datetime import timedelta
 import logging
 import os
 import sys
+import hashlib, pathlib
+
 
 from src.utils.helpers import load_csv,save_csv, filter_date_range, map_to_cryptopanic_symbol, is_file_fresh
 from src.scraping.reddit_scraper import fetch_reddit_posts
@@ -24,6 +26,8 @@ from src.plotting.charts import (
     plot_sentiment_vs_price,
     plot_sentiment_with_price
 )
+from src.utils.cache import file_sha1
+
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -75,50 +79,37 @@ if st.sidebar.button("Run Analysis"):
     
     #News
     if posts_choice in ("All", "News"):
-        #news_settings = {
-        #   "task": "fetch_news",
-        #    "source": "news",
-        #    "coin": selected_coin,
-        #   "num_posts": num_posts,
-        #    "start_date": str(start_date.date()),
-        #    "end_date": str(end_date.date())
-        #}
+        cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
 
-        
-        if is_file_fresh(news_path, freshness_minutes=30):
-            logging.info("Using cached news data.")
-            news_df = load_csv(news_path)
-        else:
-            try:
-        #news_df = load_cached_csv(news_settings, parse_dates=["timestamp"] freshness_minutes=30)
-        #if news_df is None:
+        news_settings = {
+            "dataset": "posts",
+            "source": "news",
+            "coin": selected_coin,
+            "query": cryptopanic_coin,
+            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
+            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
+            "num_posts": num_posts,
+        }
+        news_df = load_cached_csv(news_settings, parse_dates=["timestamp"], freshness_minutes=30)
+        if news_df is None:
                 with st.spinner("Fetching news..."):
-                    cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
                     news_df = fetch_news_posts(cryptopanic_coin, num_posts)
                     news_df["source"] = "news"
-                    save_csv(news_df, news_path)
-                    #cache_csv(news_df, news_settings)
-        #use_news = True
-            except Exception as e:
-                logging.warning(f"Couldn't fetch news: {e}")
-                logging.warning("OLD NEWS DATA WILL BE USED, MAKE SURE TO CHECK THE DATES")
-                st.warning("OLD NEWS DATA WILL BE USED, MAKE SURE TO CHECK THE DATES")
-                
-                #From news for now just using old data, if wanna get new ones have to 
-                #uncomment cache logic, delete is_file_fresh block, else: and try:except
-                
-        if os.path.exists(news_path):
-            use_news = True
+                    cache_csv(news_df, news_settings)
+        save_csv(news_df, news_path)
+        use_news = True
+
     #Reddit
     if posts_choice in ("All", "Reddit"):
         reddit_settings = {
-            "task": "fetch_reddit",
+            "dataset": "posts",
             "source": "reddit",
             "coin": selected_coin,
-            "analyzer": analyzer_choice,
+            "query": selected_coin,
             "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
             "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
-            "num_posts": num_posts
+            "num_posts": num_posts,
+            "tz":"utc"
         }
         reddit_df = load_cached_csv(reddit_settings, parse_dates=["timestamp"],freshness_minutes = 30)
         if reddit_df is None:
@@ -131,13 +122,15 @@ if st.sidebar.button("Run Analysis"):
 
     with st.spinner("Analyzing sentiment..."):
         if use_news:
-            news_sent_settings={"task": "sentiment_news",
-                                  "source": "news",
-                                  "coin": selected_coin,
-                                  "analyzer": analyzer_choice,
-                                  "num_posts": num_posts
-                                  }
-            add_sentiment_to_file(f"data/{selected_coin}_news_posts.csv",
+            news_sent_settings={
+                "dataset": "sentiment",
+                "source": "news",
+                "coin": selected_coin,
+                "analyzer": analyzer_choice,
+                "num_posts": num_posts,
+                "input_sha1": file_sha1(news_path)
+            }
+            add_sentiment_to_file(news_path,
                                   news_sentiment_path,
                                   analyzer_choice,
                                   cache_settings=news_sent_settings,
@@ -145,11 +138,13 @@ if st.sidebar.button("Run Analysis"):
         else:
             logging.warning("News sentiment will not be included")
         if use_reddit:
-            reddit_sent_settings={"task": "sentiment_reddit",
-                                  "source": "reddit",
-                                  "coin": selected_coin,
-                                  "analyzer": analyzer_choice,
-                                  "num_posts": num_posts
+            reddit_sent_settings={
+                "dataset": "sentiment",
+                "source": "reddit",
+                "coin": selected_coin,
+                "analyzer": analyzer_choice,
+                "num_posts": num_posts,
+                "input_sha1": file_sha1(f"data/{selected_coin}_reddit_posts.csv")
                                   }
             add_sentiment_to_file(f"data/{selected_coin}_reddit_posts.csv",
                                   reddit_sentiment_path,
@@ -177,9 +172,10 @@ if st.sidebar.button("Run Analysis"):
 
     #Price data
     price_settings={
-            "task": "fetch_price",
+            "dataset": "price",
             "coin": selected_coin,
-            "days": days
+            "days": int(days),
+            "tz": "utc"
     }
     price_df = load_cached_csv(price_settings, parse_dates=["timestamp"], freshness_minutes=30)
     if price_df is None:
@@ -190,11 +186,15 @@ if st.sidebar.button("Run Analysis"):
 
     #Merge of price and data
     merged_settings = {
-        "task": "merge_sentiment_price",
+        "dataset": "merged",
         "coin": selected_coin,
-        "days": days,
+        "days": int(days),
         "analyzer": analyzer_choice,
-        "posts_choice": posts_choice
+        "posts_choice": posts_choice,
+        "depends_on": [
+            file_sha1(get_data_path(selected_coin,"prices")),
+            file_sha1("data/combined_sentiment.csv")
+        ]
     }
     merged_path = get_data_path(selected_coin, "merged")
     merged_df = load_cached_csv(merged_settings, parse_dates=["timestamp"], freshness_minutes=30)

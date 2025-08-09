@@ -233,5 +233,83 @@
       "analyzer": "Twitter-RoBERTa",
       "num_posts": 300
     }
+  },
+  "79b200fb0014061153eb83687b45b46d": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\79b200fb0014061153eb83687b45b46d.csv",
+    "rows": 4,
+    "updated": 1754771935,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts",
+      "end_date": "2025-08-09T20:38:54",
+      "num_posts": 300,
+      "query": "btc",
+      "source": "news",
+      "start_date": "2025-08-02T20:38:54"
+    }
+  },
+  "c830ff2dde1ec2710c07228b7167391c": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\c830ff2dde1ec2710c07228b7167391c.csv",
+    "rows": 84,
+    "updated": 1754771939,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts",
+      "end_date": "2025-08-09T20:38:54",
+      "num_posts": 300,
+      "query": "bitcoin",
+      "source": "reddit",
+      "start_date": "2025-08-02T20:38:54"
+    }
+  },
+  "65bd0936c300d8e96ed57808aa9246f2": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\65bd0936c300d8e96ed57808aa9246f2.csv",
+    "rows": 4,
+    "updated": 1754771939,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "fe14c6547ed4993020253c04e2a8e8f434021ce8",
+      "source": "news"
+    }
+  },
+  "a0bde3f0db1cecea3c2db72497862e51": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\a0bde3f0db1cecea3c2db72497862e51.csv",
+    "rows": 84,
+    "updated": 1754771940,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "4ae5c8f78d74b153c8da7901c11a325d929d27c9",
+      "source": "reddit"
+    }
+  },
+  "0a2b0f4e46d6fc6c16b077317f022599": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\0a2b0f4e46d6fc6c16b077317f022599.csv",
+    "rows": 169,
+    "updated": 1754771940,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "price",
+      "days": 7
+    }
+  },
+  "1fc4b553d89d8303a9401a8aa0a3b57e": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\1fc4b553d89d8303a9401a8aa0a3b57e.csv",
+    "rows": 88,
+    "updated": 1754771940,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 7,
+      "depends_on": [
+        "648cd392bcbfdc7f55ab34b964affc5b2d9ff16a",
+        "887438625090569fa16c11a4ba202b48feb3dabb"
+      ],
+      "posts_choice": "all"
+    }
   }
 }
