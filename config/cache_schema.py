@@ -7,6 +7,13 @@ HASH_KEYS_BY_DATASET: Dict[str, Tuple[str, ...]] = {
     "sentiment": ("dataset", "coin", "source", "analyzer", "input_sha1"),
     "merged":    ("dataset", "coin", "days", "analyzer", "posts_choice", "depends_on"),
 } 
+
+HASH_KEYS_BY_DATASET["features"] = (
+    "dataset", "coin", "days", "analyzer", "posts_choice",
+    "depends_on",
+    "lag_min_s", "lag_max_s", "lag_step_s",
+    "metric"
+)
 #each dict entry maps a dataset type to the exact tuple of setting keys that define that file's bytes
 
 DEFAULTS: Dict[str, Any] = { #Defaultes - unused for now, could implement later but dont really see use

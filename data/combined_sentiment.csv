@@ -1,5 +1,924 @@
 timestamp,title,source,url,text,sentiment
+2025-07-20 21:29:20+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m50nvc/will_the_regulated_fiat_stablecoins_collapse_the/,"will the regulated fiat stablecoins collapse the economy? it seems like any stock listed on the stock exchange can now issue stable coins, that have to be backed '100%' by safe assets like treasuries or cash. 
+
+at face value, this would seem to be hard for the issuer or buyer to make money. he sells $1 million in coins to people, puts the $1 million in a safe account earning some low percent interest rate, and the end users who bought the coin can't speculate like bitcoin that these coins will go up in value, since they are $1 each. it seems they could only be used for sending money, like a gift card. the only way they could make money is if the the issuer gave a discount, or promised future 'dividends'. is this legal? the issuer could give a discount based on a portion of the interest they expect to receive.
+
+it would seem that a company could instead, if it normally kept $2 million in cash to cover operations year to year, issue say $1.5 million in stablecoins, sell them at a discount, collect the millions, put them into risky investments with high rates of return, and count the cash to cover operations as the cash to cover the stablecoin instead.
+
+this would allow the company to take riskier, expansionary bets, which might be good for the economy, until there is bad news, and the company has to pay their stablecoins off due to a run, and does not have enough money for operations, and goes under.
+
+under bankruptcy, the new law favors the stablecoin owners, so the stock owners and commercial lenders are left out and will end up failing.
+
+in a financial crisis, this might lead to a vast amount of collapse. is there anything i am not understanding about this?",0.9474
+2025-07-20 22:36:19+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5288w/how_hyperliquid_is_rewriting_the_rules_of_capital/,"how hyperliquid is rewriting the rules of capital allocation # the greatest buyback experiment in private equity history: how hyperliquid is rewriting the rules of capital allocation
+
+**in an era where apple's $110 billion buyback barely moves markets and private equity firms struggle with record-long holding periods, a decentralized exchange has quietly orchestrated the most revolutionary buyback program in financial history.**
+
+while traditional markets celebrated another record-breaking year of corporate buybacks—with s&p 500 companies returning $942.5 billion to shareholders in 2024—a different kind of experiment was unfolding in the digital asset space. hyperliquid, a decentralized perpetual futures exchange, has created what can only be described as the greatest buyback experiment in the history of private equity: a fully automated, revenue-driven capital recycling engine that makes traditional buyback programs look antiquated by comparison.
+
+# the magnitude of the machine
+
+hyperliquid's assistance fund has amassed more than $1 billion in hype tokens, creating a major capital recycling engine where 97% of the fees collected from users are used to buy back hype. to put this in perspective, the platform recently purchased $4.72 million worth of hype in a single day, with an average price of $47.43, while maintaining strong buyback mechanics of $2 million per day.
+
+this isn't just impressive—it's unprecedented. when we examine the scale relative to the platform's size and age, hyperliquid's buyback intensity dwarfs anything seen in traditional private equity. the platform has accumulated over $77 million in usdc inflows to its assistance fund, with over $25 million in the past month alone, translating to an average daily buyback of approximately $1 million worth of hype.
+
+# beyond the numbers: a new paradigm
+
+what makes hyperliquid's approach revolutionary isn't just the scale—it's the mechanism itself. unlike traditional private equity buybacks that depend on discretionary board decisions, market timing, and complex approval processes, hyperliquid operates like a protocol-funded participant, always bidding, always buying.
+
+using an average contract trading fee of 0.0225%, with profits distributed between hlp and af in a 46:54 split, approximately 54% ($18.79 million) enters the af fund to buy back hype, translating into an annualized net profit of $225.5 million. this creates what amounts to an auto-scarcity mechanism that not only incentivizes holders to delay selling but also instills the expectation of further scarcity, creating additional upward pressure on token price.
+
+# the private equity context
+
+to understand why this matters, consider the current state of traditional private equity. the median holding period for a private equity-backed company reached an all-time high of seven years in 2023 but experienced a dramatic decline in 2024 to 5.9 years, while private equity firms hold more than 28,000 assets, 40% of which have been held for longer than four years.
+
+traditional private equity struggles with what economists call the ""liquidity paradox""—the longer you hold assets, the more difficult it becomes to achieve efficient exits. firms are sitting on record amounts of dry powder while facing prolonged holding periods that frustrate limited partners and distort returns.
+
+# the hyperliquid solution
+
+hyperliquid has solved this paradox through what could be called ""perpetual liquidity generation."" rather than waiting for exit opportunities, the platform creates continuous value through its buyback mechanism. the automatic nature of the assistance fund's buyback activity, directly fueled by protocol revenue, creates a transparent and programmatic link between the platform's operational success and mechanisms designed to support the token's value.
+
+this approach mirrors the best practices of traditional private equity—focusing on operational excellence and cash generation—while eliminating the industry's biggest weakness: exit dependency. every day of successful trading activity translates directly into buyback pressure, creating what doug colkitt, founder of ambient finance, calls alignment between ""a project's tokenomics and user incentives regardless of prevailing market conditions"".
+
+# the performance proof
+
+the results speak for themselves. hype has soared to an all-time high of $42 and is up 65% in the last month, beating bitcoin, ethereum and solana. more importantly, the assistance fund is sitting on a trove of $680 million in paper gains after buying hype tokens at an average price of $14.
+
+hyperliquid's futures trading volume has continued its upward trajectory, recording $443 billion year-to-date in 2024, with november alone seeing a record-high trading volume of $77 billion, capturing an impressive 45% market share in the crypto futures dex market. this organic growth, combined with the buyback mechanism, creates a virtuous cycle that traditional private equity can only dream of achieving.
+
+# why this changes everything
+
+traditional private equity operates on a model of buy, improve, and exit. this creates inherent tension between value creation and value realization. hyperliquid has created a fourth option: buy, improve, and continuously compound through systematic buybacks.
+
+the implications extend far beyond crypto. by purchasing and burning hype tokens from the market, supply contracts, and the proportional value of remaining tokens naturally increases. this auto-scarcity mechanism not only incentivizes holders to delay selling but also instills the expectation of further scarcity.
+
+this model addresses three critical challenges facing modern private equity:
+
+**1. the exit bottleneck:** rather than depending on ipo markets or strategic buyers, value is continuously realized through buybacks.
+
+**2. the lp patience problem:** instead of waiting years for distributions, token holders see continuous value accretion through supply reduction.
+
+**3. the scale efficiency question:** the more successful the platform becomes, the more aggressive the buybacks become, creating exponential rather than linear value creation.
+
+# the broader revolution
+
+other crypto projects like jupiter and dydx have similar plans, with estimates suggesting various protocols will repurchase hundreds of millions worth of tokens annually. but hyperliquid stands apart in both scale and execution sophistication.
+
+hyperliquid stands apart from the rest of the ecosystem, with no true direct comparison. the project's development has been entirely self-financed, fostering organic and sustainable growth. the revenues generated by the protocol are among the highest in the industry and are entirely reinvested into hype buybacks through the assistance fund.
+
+# the future of capital allocation
+
+what we're witnessing with hyperliquid isn't just a clever financial engineering trick—it's the emergence of a new paradigm for capital allocation that could reshape how we think about value creation and distribution in private markets.
+
+the traditional private equity model, with its dependence on external exit markets and discrete liquidity events, suddenly looks as antiquated as dividend-paying utilities in a world of growth stocks. unlike dividend models, where scarcity is contingent on individual reinvestment decisions, hyperliquid's automatic burn system reinforces the network's tokenomics without relying on user behavior.
+
+# the bottom line
+
+while apple makes headlines with $110 billion buyback announcements and private equity firms struggle with extended holding periods, hyperliquid has quietly built the most sophisticated capital recycling machine in financial history. it's not just the largest buyback experiment in private equity—it's the blueprint for how capital allocation should work in the digital age.
+
+the question isn't whether this model will be copied—it's how quickly traditional private equity will adapt to remain relevant in a world where automated, performance-linked buybacks have redefined what efficient capital allocation looks like.
+
+in an industry built on the promise of superior returns through operational excellence, hyperliquid hasn't just delivered—it's created a new category entirely. this isn't just the greatest buyback experiment in private equity history; it's the beginning of private equity's next evolution.
+
+*the views expressed in this piece are those of the author and do not constitute investment advice. cryptocurrency investments carry significant risks and should be carefully evaluated.*",0.9995
+2025-07-20 22:41:52+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m52ctw/bitcoin_and_ethereum_spot_etfs_have_taken_in_36/,"bitcoin and ethereum spot etfs have taken in $36 billion since april i remember when people were skeptical about the etfs, first of them ever being approved and then of them ever being successful. 
+
+and when sec did approve them people thought they wouldn't contribute in any way, let alone affect the price.
+
+bitcoin and ethereum spot (and im only talking about spot etfs,) have taken in $36 billion combined only since april. that's $22 million for bitcoin spot etf and another $14 million for ethereum.
+
+it's clear people are very interested in the etfs, forxing institutions to accumulate more and more. and it seems like its only getting started tbh",0.8858
+2025-07-21 01:00:52+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m55da9/can_bitcoin_replace_gold/,can bitcoin replace gold?,0.0
+2025-07-21 05:04:03+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5a3to/uk_working_to_sell_7b_in_seized_bitcoin_to_boost/,uk working to sell $7b in seized bitcoin to boost budget:,0.4019
+2025-07-21 06:42:48+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5bqno/altcoin_season_nears_as_bitcoin_dominance_drops/,altcoin season nears as bitcoin dominance drops to 4-month low,-0.0772
+2025-07-21 09:16:40+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5e5ea/how_has_crypto_changed_your_life_or_the_life_of/,"how has crypto changed your life or the life of someone around you? i made a friend from ukraine in taiwan. at the time i was working for a centralized exchange in that country. i, somewhat curiously, introduced myself to her and we chit chatted for a while. we were never more than friends. this was about 2019. the pandemic happened and we lost our jobs. i was job hunting online in everything i could find that was marketing related. i happened to see a job position at a centralized exchange that needed a russian native speaker or a ukrainian native speaker. luckily she is both. i sent her the job posting and then i said to her, ""if you need to, i can teach you about crypto and how it works and you should be good to go."" so we met up a couple more times to explain everything to her and she landed the job.                
+
+about a year later she was let go, then she found another job at a centralized exchange and asked me to write a letter of recommendation. so i did. she landed that job too. then the war in ukraine happened. i can't say for certain, but i would imagine that she was able to send money to her family using crypto when necessary.                  
+
+fast forward to 2023. i tied the knot with my wife and gave her about 500 usd of bitcoin at the time. i told her, ""only sell it if we need to take care of an emergency like paying for a family member's suddenly unexpected surgery."" it tripled since then. she trusts me to use it as a long term savings vehicle.",0.8447
+2025-07-21 11:10:10+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5g1n0/bitcoins_dominance_slides_by_most_in_3_years_as/,bitcoin's dominance slides by most in 3 years as btc's correlation with altcoins weakens,-0.128
+2025-07-21 12:36:18+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5hqnv/microstrategy_has_purchased_6220_bitcoins_worth/,"microstrategy has purchased 6,220 bitcoins worth $740m michael saylor's strategy, the world's largest public holder of bitcoin, made a $739.8 million investment in bitcoin last week, acquiring 6,220 btc at an average price of $118,940 per coin. this purchase brings strategy's total bitcoin holdings to 607,770 btc, purchased for approximately $43.6 billion at an average price of $71,756 per coin.
+
+**key details:**
+
+* investment amount: $739.8 million
+* number of bitcoins acquired: 6,220
+* average price per coin: $118,940
+* total bitcoin holdings: 607,770 btc
+* average price per coin for total holdings: $71,756",0.296
+2025-07-21 14:33:25+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5kix6/strategy_trump_media_headline_29_billion_bitcoin/,"strategy, trump media headline $2.9 billion bitcoin purchases to start the week",0.0
+2025-07-21 14:48:53+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5kwzy/these_us_states_have_passed_bitcoin_reserve_laws/,these us states have passed bitcoin reserve laws - decrypt,0.0
+2025-07-21 15:32:25+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5m2eu/bitcoin_whale_metrics_flash_mixed_signals_monthly/,bitcoin whale metrics flash mixed signals: monthly inflows rise and daily outflows start slowing,0.0
+2025-07-21 17:19:52+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5oyx5/bitcoin_price_stuck_under_120000_as_profit_taking/,"bitcoin price stuck under $120,000 as profit taking hits 7-month high",0.2263
+2025-07-21 17:55:41+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5py7t/cnbc_is_tracking_stablecoin_performance_were/,cnbc is tracking stablecoin performance - we're still early,0.0
+2025-07-21 18:03:58+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5q6l2/are_we_in_a_bull_market_without_retail/,"are we in a bull market without retail? this cycle feels different. bitcoin is hitting new highs, etfs are pulling in billions, and institutions are clearly buying. but retail interest still seems low. google searches are quiet, meme coins aren’t exploding, and the usual hype just isn’t here yet.
+
+is this a new kind of bull run, driven mostly by institutions?
+or is retail just late this time?
+
+also, if retail never really comes back, does that mean altseason might not happen like before?
+
+would like to hear what others think, especially those who’ve seen past cycles.",-0.4749
+2025-07-21 18:52:48+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5rhir/google_searches_for_buy_bitcoin_have_spiked_its/,"google searches for ""buy bitcoin"" have spiked - it's happening... source: [https://x.com/btc\_archive/status/1947234478591553939](https://x.com/btc_archive/status/1947234478591553939)",0.0
+2025-07-21 22:09:51+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m5wmxo/michael_saylors_strategy_added_another_740m_of/,michael saylor's strategy added another $740m of bitcoin last week,0.0
+2025-07-22 01:46:35+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m61h20/fill_your_bags/,fill your bags,0.0
+2025-07-22 01:51:58+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m61l30/the_machinery_of_freedom_must_be_built/,"the machinery of freedom must be built this struck a nerve. what we all came for isn't being built on transparent blockchains (bitcoin) or the smart contract platforms. thought i would share - this guy is worth a follow. [https://x.com/arjunkhemani/status/1936110545695871239](https://x.com/arjunkhemani/status/1936110545695871239)
+
+\---------------------------------------------------------------------------------------------------------------------
+
+a few months ago, i read peter thiel’s the education of a libertarian. one line from that piece has haunted me ever since:
+
+“the fate of our world may depend on the effort of a single person who builds or propagates the machinery of freedom that makes the world safe for capitalism.”
+
+what is that machinery of freedom?
+
+in the same post, thiel warns against a seductive delusion:
+
+“the future of technology is not pre-determined, and we must resist the temptation of technological utopianism — the notion that technology has a momentum or will of its own, that it will guarantee a more free future, and therefore that we can ignore the terrible arc of the political in our world.”
+
+he’s right. progress isn’t automatic. technology doesn’t have agency. there’s no law of history that guarantees a freer or more prosperous future.
+
+david deutsch offers the clearest definition of wealth i’ve encountered: wealth is the repertoire of physical transformations one can cause. in other words, progress means expanding what we can do. that expansion comes from creative effort and error correction—from the feedback of nature in science and the feedback of markets in society.
+
+but that only works in a free environment.
+
+without freedom, knowledge creation slows. markets break. progress stalls. to prevent that, we need tools that protect freedom from political interference.
+
+that’s the machinery thiel was referring to. and the most important component of that machinery is money.
+
+before the invention of money, trade was conducted through barter. societies had to match wants directly. economists call this the problem of the lack of double coincidence of wants. even though, in principle, anything could be traded for anything, the sheer friction in matching needs made most trades impossible.
+
+introducing a single good as a medium of exchange (money) solved this. suddenly, prices could be expressed in a common denominator. and with prices came the possibility of large-scale cooperation. prices are signals. they convey knowledge about human preferences across time and space, much as language conveys thought. this is what makes civilization-scale coordination possible.
+
+but those signals can be corrupted. and they have been… again and again.
+
+throughout history, tyrants have tried to override economic reality by distorting prices. they debased currencies, fixed exchange rates, inflated supply—anything to assert political control over what is, fundamentally, an emergent and decentralized system.
+
+fiat money is a political artifact. it’s fragile, opaque, and prone to abuse. it punishes savers, rewards insiders, and weakens the market’s immune system. it makes capitalism unsafe.
+
+bitcoin was invented to solve this. with a fixed supply and decentralized issuance, it offered a credible alternative to fiat. but bitcoin is not private. and privacy isn’t optional for individuals who seek freedom.
+
+during the 2022 canadian trucker protests, the government invoked emergency powers and froze transactions from 34 crypto wallets (including 29 bitcoin addresses). the problem wasn’t technical but architectural. bitcoin’s transparent ledger made censorship easy. if the state can see everything, it can still enforce compliance through physical coercion.
+
+so what is the machinery of freedom that can make the world safe for capitalism?
+
+it’s the next evolution of money—satoshi’s last wish: money that is decentralized, private, and scalable. money that can’t be surveilled or stopped. money that makes freedom non-negotiable.
+
+zcash is already the most advanced implementation of this vision. it offers strong cryptographic privacy, proven over nearly a decade. and now, with project tachyon, it’s being re-engineered to scale to billions of users without sacrificing privacy.
+
+the timing couldn’t be more urgent. ai surveillance, cbdcs, and authoritarian overreach are accelerating. wrench attacks are rising. the window is narrow. but the opportunity is real.
+
+money is upstream of everything—science, education, energy, even morality. if you don’t fix money, nothing else can scale. if you do, infinite frontiers await.
+
+progress needs freedom. freedom needs machinery. that machinery must include private, uncensorable money.
+
+the future isn’t guaranteed. someone has to build it.
+
+why not us?",0.9982
+2025-07-22 06:20:38+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m66m8z/ethereum_etfs_attract_296_million_in_daily/,ethereum etfs attract $296 million in daily inflows while bitcoin etfs register $131 million in outflows,0.3612
+2025-07-22 07:29:36+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m67pbr/crypto_is_not_a_joke_as_much_as_the_previous/,"crypto is not a joke, as much as the previous generation believes it to be so i'm sitting in econ class right and my professor goes off about how crypto ""isn't backed by anything"" for the millionth time. same energy as my classmates who think bitcoin is just internet monopoly money. but like... what exactly is backing the usd again?
+
+the government? the same government that's been printing money like it's going out of style? at least with crypto you can see exactly how many coins exist and when new ones get created. with fiat currency it's just ""trust us bro we got this
+honestly it's wild how behind the us is with crypto compared to other countries. like el salvador made bitcoin legal tender years ago and we're still having congressional hearings about whether ethereum is a security or not. the stigma here is actually insane
+
+but this week feels different though. all these legislative meetings happening right now could actually change everything. not saying they'll fix crypto overnight but having actual regulations would be huge for adoption.the inclusion of awaken.tax fits seamlessly into the context of crypto regulations and adoption, as it relates to the practical side of managing crypto taxes, which is a growing concern with increasing regulatory clarity.
+
+the thing that gets me is how much pushback there still is in academic spaces. like these same professors teaching about ""modern portfolio theory"" but refuse to acknowledge that digital assets might have a place in diversified portfolios. meanwhile kids who graduated 5 years ago are buying houses with their crypto gains
+once these regulations get sorted out i think we'll see a lot more institutional money flow in. and honestly? about time. tired of explaining to my finance professor why decentralized networks might be important for the future",0.989
+2025-07-22 07:40:37+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m67vg9/elon_musks_spacex_moves_153m_in_bitcoin_for_first/,elon musk's spacex moves $153m in bitcoin for first time in 3 years,0.0
+2025-07-22 09:26:42+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m69hje/john_tried_to_withdraw_his_crypto_from_the/,"john tried to withdraw his crypto from the internet. he asked where the “crypto atm” plugs into his laptop. john just learned that crypto is *money that lives on the internet.*  
+so naturally, he asked if he can print it and where the “crypto bills” are.  
+john, no. that’s not how any of this works.
+
+  
+**what does cryptocurrency actually means?**  
+crypto = digital money secured by cryptography.  
+no banks, no paper, no government issuing it.  
+just math, code and people arguing here on reddit.
+
+it’s designed to be secure, borderless and in many cases decentralized.
+
+  
+fun fact:  
+the word **""**crypto**""** comes from the greek word *kryptós*, which means **""**secret**""**.  
+john thought it meant ""cryptocurrency = spooky money."" close, but no.
+
+  
+**a very good example is bitcoin(btc):**  
+bitcoin is the og. but there are thousands of others now, each trying to solve (or create) something.",0.4569
+2025-07-22 11:37:12+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6bqa2/518b_bitcoin_mining_market_gets_gamechanging/,$51.8b bitcoin mining market gets game-changing clean cooling solution from water tech pioneer,0.6124
+2025-07-22 15:55:42+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6hv74/pnc_partners_with_coinbase_to_offer_crypto_access/,pnc partners with coinbase to offer crypto access to clients – news bytes bitcoin news,0.0
+2025-07-22 17:07:34+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6jsfj/i_thought_you_owned_btc_what_the_hell_is_moon/,i thought you owned btc... what the hell is moon....,-0.6808
+2025-07-22 18:43:04+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6mdsh/us_lawmakers_release_bitcoin_crypto_market/,us lawmakers release bitcoin & crypto market structure draft bill. source: [https://x.com/btcjunkies/status/1947652902715003292](https://x.com/btcjunkies/status/1947652902715003292),0.0
+2025-07-22 18:45:39+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6mgd1/elon_musks_spacex_transfers_153_million_bitcoin/,elon musk’s spacex transfers $153 million bitcoin for first time in three years,0.0
+2025-07-22 20:30:57+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6p9mt/xrp_is_the_end_game_pundit_reveals_why_its_better/,‘xrp is the end game’ — pundit reveals why it’s better than bitcoin,0.4404
+2025-07-23 01:32:20+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6wbqm/bitcoin_must_defend_this_key_support_for_180000/,"bitcoin must defend this key support for $180,000 year-end target...",0.4019
+2025-07-23 04:26:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m6zto5/startup_says_it_will_use_nuclear_fusion_to_turn/,"start-up says it will use nuclear fusion to turn mercury into gold too bad the gold supply algorithm doesn't have a difficulty adjustment. when future fusion reactors print gold as a by-product of energy the gold supply will increase. the bitcoin supply won't even if they try to use that energy to mine it. 
+
+the most creative part of satoshi's invention was arguably the addition of the difficulty adjustment to ensure that the bitcoin supply schedule would stay on track even in the face of changing mining hashrate due to high bitcoin demand or an abundance of energy. it's a mechanism that sets bitcoin apart from most other supply/demand systems. 
+
+obviously the production of gold from fusion at scale is nowhere near reality (and the produced gold will be radioactive for 14 years), but it's an interesting thought experiment nonetheless.",0.8309
+2025-07-23 09:00:04+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m747ra/bitcoin_tops_visa_in_transaction_volume_sygnum/,bitcoin tops visa in transaction volume: sygnum,0.5106
+2025-07-23 09:09:01+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m74cr3/fbi_drops_investigation_of_kraken_founder_jesse/,fbi drops investigation of kraken founder jesse powell – news bytes bitcoin news,0.0
+2025-07-23 09:57:52+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7543c/heres_why_ethereum_etf_investors_are/,here's why ethereum etf investors are outperforming their bitcoin counterparts,0.0
+2025-07-23 11:37:09+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m76vks/my_zcash_investment_thesis_frank_braun/,"my zcash investment thesis - frank braun this was a good read. i think i'm going 50% into zec.   
+  
+it's undervalued by any metric. by the time any thesis is popular most of the profit has been made. privacy coins are so low compared to other market segments & it's the original cypherpunk ethos. satoshi would approve. 
+
+\--------------------------------------------
+
+  
+**""this is not financial advice and just my personal analysis. please do your own research.**
+
+i simply share my analysis of why i think that zcash (zec) might be a good investment mid- to long-term as a high beta play, this post is not an ideological debate on which cryptocurrency is best.
+
+it's also not meant as input for short-term trading, i'm not interested in that and i think nobody knows if a coin is going to go up, down, sideways or in circles in the short-term, least of all crypto influencers (unless they orchestrate the pump themselves).
+
+# starting point
+
+bitcoin is king and it's sucking in more capital than a drunken saylor could spend.
+
+the narrative has shifted from electronic cash to *store of value* (sov) and *digital gold*, with the [mempool](https://mempool.space/) being pretty empty, resulting in low on-chain transaction fees.
+
+the launch of blackrock's bitcoin etf [ibit](https://www.ishares.com/us/products/333011/ishares-bitcoin-trust-etf) with currently $83.7b aum is considered the most successful etf launch *in history*.
+
+the u.s. seems to be set on printing again and there isn't really an alternative to that either.
+
+**nothing stops this train.**
+
+that means number go up for bitcoin, the obvious move under these macro conditions. with gold being the conservative choice, who just outperformed the s&p500 in the last 25 years, which is pretty remarkable.
+
+ethereum and solana have both been underperforming bitcoin recently and to me it still remains unclear why value should accrue to their respective tokens.
+
+retail seemed to be mostly gambling in meme coins now, culminating in [pump.fun](https://pump.fun/) recently raising $500m in 12 minutes. or $600m, nobody seems to be exactly sure, but who's counting between friends?
+
+crypto twitter seems to be pretty dead right now, given how much bitcoin is pumping. retail is dead, the institutions are here, and they are not shitposting on x.
+
+# a privacy renaissance?
+
+meanwhile, the word on the street is that aml regulations are getting out of control. it's getting harder and harder for everyday people and businesses to move legitimate money around and the banks are spending *at least* 10 dollars in compliance cost for every dollar frozen.
+
+people have a hard time buying houses if the money came from crypto.
+
+interacted with a mixer six years go? please explain yourself.
+
+the eu is leading the way again in regulation with mica, the only area where the eu seems to be leading these days. this lead to many exchanges delisting privacy coins.
+
+# why should privacy coins outperform?
+
+i think it's safe to say that bitcoin has been institutionalized. bitcoin maxis are cheering for michael saylor, etfs, and even strategic bitcoin reserves, ignoring that they will be the ones paying for the bitcoins in the reserve. or the ones from whom the bitcoin for the reserves will be confiscated.
+
+there are various l2 solution trying to add privacy to bitcoin, i'll write in another post why i don't think these will add privacy to bitcoin in any meaningful way. i hope i'm wrong, though, and projects like [fedimint](https://fedimint.org/) and [cashu](https://cashu.me/) get mainstream adoption.
+
+the problem with cypherpunks and privacy geeks like myself is that we tend to extrapolate our own preferences to the general population, which usually isn't true and leads to terrible investment decisions.
+
+swapping bitcoin for monero, because it has better privacy, didn't work out well in the last couple of years, monero is still down -35% from it's last all-time high over 4 years ago, while bitcoin is chasing one all-time high after another.
+
+so was it fundamentally wrong or was it just too early?
+
+will there be a renaissance in privacy coins, or even a privacy super cycle, as some call it?
+
+# will bitcoin dominate forever?
+
+as i said in the beginning, bitcoin is king and has it all going for it: the network effects, brand recognition, regulatory clarity, institutional adoption, you name it, and bitcoin got it.
+
+the only thing that bitcoin definitely doesn't have is a good l1 privacy story and it will most likely never get it. we can be happy if we get the necessary quantum resistance updates in time. it's extremely unlikely we'll get any meaningful privacy upgrades on the l1 protocol layer, given the ossification of bitcoin.
+
+currently, privacy coins only compromise a tiny fraction of the total crypto market cap (stable coins excluded): the leading privacy coin monero has only \~1/380th the market cap and the second largest one, zcash, only \~1/3300th.
+
+so why should that number, the relative fraction of privacy coins in the overall market cap of crypto, go up? why should there be real market demand for privacy coins outside of cypherpunks and hardcore privacy activists?
+
+it's already clear that for every use case where people want real privacy they prefer privacy coins, usually monero, over bitcoin. [archetyp](https://en.wikipedia.org/wiki/archetyp_market), one of the leading and longest running dark net markets, was monero only, had 612,000 users and allegedly did 250m euro in revenue.
+
+so why should the demand for privacy coins go up relative to the demand for bitcoin and other cryptocurrencies? and while payment usage is nice, it doesn't necessarily mean value accrual to the token. why should that change?
+
+* the market cap of bitcoin is $2.3t
+* the market cap of gold is $22t
+* total global asset value is [\~$1,000t](https://x.com/croesus_btc/status/1919385198795338165)
+* that is, the market cap of bitcoin is \~1/10th of gold and \~0.2% of total assets
+* the market cap of all privacy coins ([coingecko category](https://www.coingecko.com/en/categories/privacy-coins)) is $8.4b
+* the market cap of monero is $6b
+* the market cap of zcash is $0.7b
+* undeclared/hidden offshore wealth is estimated to be *at least* $10t, so *at least* 1% of global asset value
+* that is, the **market cap of all privacy coins is less than \~0.1% of offshore wealth**
+
+due to increasing aml regulation it's getting harder and harder to move offshore wealth into real estate, a classic vehicle for that purpose due to, among other things, its ability to generate yield.
+
+quickly moving funds in and out of privacy coins won't give you good privacy, because sums can be correlated and fund movements can be timed. that's a generic argument why value should accrue to privacy coins over time, if the market decides to adopt them more to store offshore wealth. this will probably require the ability to generate yield which in turns requires deeper integration into the wider defi ecosystem.
+
+another driving factor for the adoption of privacy coins, outside of tax optimization strategies, is that [$5 wrench attacks](https://xkcd.com/538/) are on [the rise](https://github.com/jlopp/physical-bitcoin-attacks).
+
+all the kyc & aml regulations mean that the personal details of users **and** their net worth is spread far and wide into numerous databases, from where they can easily be exfiltrated, sometimes with hacks, social engineering, or simple [bribery](https://www.coinbase.com/blog/protecting-our-customers-standing-up-to-extortionists).
+
+users still get phishing emails and even physical letters related to the ledger email leak that happened years ago.
+
+so hiding wealth becomes more and more important, not just for people evading taxes, but also for everyday people rightly worried about their physical security.
+
+# zcash vs. monero
+
+as has been argued in [another post](https://frankbraun.org/t-addr), zcash has better privacy if shielded transactions are used, but only 19.5% of zec in circulation are currently in shielded pools. that's quickly increasing due to the ""zashi effect"" and due to the support for shielded transactions in the [keystone](https://keyst.one/). ledger support for shielded transactions is [in the making](https://forum.zcashcommunity.com/t/a-path-forward-for-ledger-and-zcash/50951).
+
+holding zec in a shielded pool for a long time gives you better privacy, thereby increasing demand for the token. higher tvl in the shielded pool makes it more attractive for anonymizing larger amount of funds, thereby increasing demand for zec. it's a virtuous privacy cycle, if the market decides to adopt it.
+
+monero currently has the lead over zcash, with a 8.5x larger market cap, but with inferior privacy if you compare zcash shielded transaction to default monero transactions. at least until fcmp++ is released and the verdict of cryptographers is out on the privacy properties of fcmp++ over zero-knowledge proofs.
+
+# the importance of ux
+
+monero is often perceived as more community-led and grass-roots while zcash is perceived as more corporate and venture capital driven. assessing these claims is out of scope for this post, but i want to share an observation i made over the years.
+
+open-source has been really effective in delivering superior ""base layer"" infrastructure components: the linux kernel, the gcc compiler, various programming languages, etc.
+
+but it's usually very bad at delivering world-class ux, these usually come from companies, apple being the most famous example.
+
+i think that's due to the fact that having a lot of nerds tweak some technology like a kernel or a compiler will lead to superior performance (they are also their own users), but it won't create a great ux. nerds don't use that layer that much (they live more in the command line), but, more importantly, a great ux needs a unifying vision, usually a single leader, and the willingness to make hard calls and listen to the end user.
+
+given that zcash currently has the better base technology (monero is catching up with fcmp++), the war for the end user is won in the ux, and there [electric coin company](https://electriccoin.co/) under josh swihart is currently leading the way with [zashi](https://electriccoin.co/zashi/).
+
+the typical person storing offshore wealth is usually not a privacy geek, but more your regular end user that values great ux and already has a ledger.
+
+# privacy is necessary for commerce
+
+most cryptocurrencies, including stable coins, have terrible privacy. using them is leaks a lot more data (or more precisely, it leaks data to a lot more people) than using wire transfers or credit card transactions.
+
+the term *public ledger* often used for blockchains gives it away: making **one** payment to a business allows you to derive a lot of information about that business, especially when professional chain analysis software is used.
+
+you can potentially see the total revenue of a business, their customers, their suppliers, how much they pay their employees, and what their cashflow and runway is.
+
+for example, there is good reason why a lot of hr departments consider the pay structure one of the most closely guarded secrets of the company. if you start paying your employees with crypto (including stable coins), employees can easily see all other payments, just in pseudonymized form.
+
+bank secrecy laws and consumer data protection laws (like gdpr) exist for a reason. i'm not a lawyer, but i would argue that exposing all of that data clashes with some of these regulations.
+
+**commerce simply doesn't work without privacy.**
+
+just as the world wide web (using the http protocol) needed an encryption layer first (leading to https) before it became viable for business, the payment layer of the internet needs privacy in order to function properly. see also: [zcash, the https of blockchains](https://balajis.com/p/zcash-the-https-of-blockchains) (originally published in january 2020).
+
+and while crypto currencies have a lot of advantages over traditional payment methods, if it really catches on for commerce, the disadvantages of not having privacy will become more widely known and that might tip the scale in favor of privacy coins.
+
+for a store of value privacy might not be that important in some contexts, but for actual commerce (which includes *payments*), what's needed is *unstoppable private money*.
+
+# halvings
+
+zcash is about two halving cycles behind bitcoin. while inflation in bitcoin became very low (sub 1%) after 4 halvings, inflation in zcash just became manageable after the second halving, which pushed it down from an annual inflation of \~12.5% to \~4.2% and that occurred less than a year ago in november 2024. this might serve as a catalyst for zcash in the current bull market, given that the effects of halvings usually lag behind by a year to 18 months.
+
+the next halving will make the inflation rate good, comparable to gold and the target inflation rate of most central banks, namely \~2%.
+
+and after the fourth halving the inflation rate will be a very good sub \~1%.
+
+bitcoin had the first mover advantage which allowed it a very slow price discovery in its first years after genesis. zcash was launched in a market that was already quite speculative, but with the same coin issue schedule and no premine, which meant that the initial price was very high (due to very limited circulating supply in the beginning) and then was hit with 4 years of very high inflation, which lead to constant sell pressure, and makes the price chart look terrible if one doesn't take these factors into account. but from a today's perspective that's another argument for this asymmetric bet.
+
+# tracking
+
+of course, picking a start date to track an investment thesis is kind of arbitrary, different start dates can lead to vastly different results. but picking one is better than none, so let's go with the prices from the date of the first draft of this post on 2025-07-16:
+
+* btc: 118844.42 usd
+* xmr: 334.72 usd
+* zec: 44.23 usd
+
+let's circle back in a year or so and check how it's going.
+
+# conclusion
+
+if the network effects of bitcoin dominate everything or the market decides that privacy doesn't matter, both monero and zcash should underperform bitcoin.
+
+if privacy coins become more important, relative to the total crypto market, both monero and zcash should overperform bitcoin, given that they are currently #1 and #2 in the privacy coin market, together comprising \~80% of it (according to [coingecko](https://www.coingecko.com/en/categories/privacy-coins)).
+
+given that zcash is only 1/8.5th of the market cap of monero, has the better privacy tech, and is quickly making ux advances with a structurally better setup to make them, makes it an asymmetric opportunity with the potential to outperform both monero and bitcoin over the mid- to long-term.
+
+which is why i consider zcash as the highest beta play in the privacy space.
+
+**it has the potential to become a private capital attractor.** holding capital in a shielded pool long-term makes it more private. higher tvl in the shielded pool makes it more attractive for private capital. it's a great flywheel.
+
+the largest risks i see is that monero quickly catches on with fcmp++ and better ux, or that the recent quick ux advances in zcash slow down. for example, due to lack of funding for electric coin company, because recent [changes to the zcash funding model](https://electriccoin.co/blog/zcash-community-shapes-the-future-of-development-funding/) mean that ecc doesn't automatically receive ""protocol funding"" anymore.
+
+commerce needs unstoppable private money, but how much it can be adopted in the mainstream also depends a lot on the development of the regulatory landscape, which will have quite some influence on the entire privacy coin category.
+
+i guess only time will tell and ultimately the market decides in aggregate, not the individual bag holder.
+
+until then — stay safe out there anon!""
+
+[https://x.com/thefrankbraun/status/1947611247450722678](https://x.com/thefrankbraun/status/1947611247450722678)",0.9996
+2025-07-23 13:40:32+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m79k21/were_is_the_pump_thought_we_just_made_a_deal_with/,were is the pump? thought we just made a deal with japan? we got a huge pump after we made a deal with the uk. i feel like japan is a way bigger trading partner. where is this huge pump? feel like the markets should be soaring right now. this should be the catalyst that we need for the next leg up? i don’t get it he even posted it on his truth social last night. someone please explain it to me? feels like something else is controlling the markets maybe bitcoin is just moving on its own accord now and we still haven’t lost btc.d yet? idk nobody knows anything but somebody please give me a theory,0.8723
+2025-07-23 15:21:15+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7c4jn/bitcoin_grabs_bid_liquidity_as_btc_price_dip/,bitcoin grabs bid liquidity as btc price dip targets include $113k,0.0
+2025-07-23 15:46:40+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7csgk/why_is_marathon_raising_1b_without_paying/,why is marathon raising $1b without paying interest? the real bet behind its bold bitcoin move,0.031
+2025-07-23 16:40:52+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7e88n/the_road_to_mainnet_is_heating_up_with_portal_to/,the road to mainnet is heating up with portal to bitcoin - ama questions answered on july 29 this post contains content not supported on old reddit. [click here to view the full post](https://sh.reddit.com/r/cryptocurrency/comments/1m7e88n),-0.2411
+2025-07-23 18:10:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7glgu/any_multichain_dex/,"any multi-chain dex? title says it all. is there any decentralised exchanges where i can swap btc for eth and vice versa? 
+only dexs i’ve found so far are chain specific like uniswap for eth and jupiter for solana. 
+
+i’m trying to move away from centralised exchanges, and the one thing i’m missing is a dex where you can trade/ swap bitcoin. 
+
+would be great to hear if there’s any good solutions out there that enables this. 
+
+and i’m not looking for peer to peer or in person trading, ideally a set up where you can simply swap eth for btc.",0.9034
+2025-07-23 18:42:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7hgda/this_isnt_a_top_heres_why_bitcoin_analysts_say/,‘this isn’t a top’: here’s why bitcoin analysts say btc will break $123k,0.0
+2025-07-23 20:44:44+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7koy1/block_joins_sp_500_bringing_more_bitcoin_exposure/,"block joins s&p 500, bringing more bitcoin exposure to equity index",-0.4404
+2025-07-23 20:47:21+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7krdq/jim_cramer_says_he_loads_up_bitcoin_because/,jim cramer says he loads up bitcoin because america's broke,-0.4215
+2025-07-23 21:00:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7l38z/teslas_bitcoin_holdings_now_worth_12b_after_30/,tesla’s bitcoin holdings now worth $1.2b after 30% btc price rally in q2,0.2263
+2025-07-24 01:55:50+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7rvco/bitcoin_hitting_200k_this_year_very_improbable/,"bitcoin hitting $200k this year ‘very improbable,’ says analyst",0.0
+2025-07-24 05:44:04+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7w76y/for_the_first_time_in_two_years_more_money_is/,"for the first time in two years, more money is trading ethereum than bitcoin",0.0
+2025-07-24 08:13:19+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7ymrs/massive_630m_liquidations_hit_crypto_bulls_time/,"🔥 massive $630m liquidations hit crypto bulls – time to buy the dip or dump? 🔥 crypto markets saw a brutal shakeout earlier, about $630 million wiped out in liquidations. ether and xrp traders took the hardest hit, even more than bitcoin holders. this comes after a week of insane momentum in altcoins, with some retail traders obviously caught off-guard
+
+nearly $735m total liquidated, mostly long positions.
+
+eth bulls lost ~$153m, xrp ~$89m—bitcoin only ~$65m.
+
+high leverage + profit-taking led the charge.
+could this signal a panic bottom, or is more pain ahead?
+
+would you be buying the dip right now?
+or staying clear until more stability returns?",-0.9599
+2025-07-24 08:53:52+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m7z935/western_union_ceo_embraces_stablecoins_as_a_path/,western union ceo embraces stablecoins as a path to innovation and efficiency – news bytes bitcoin news,0.6249
+2025-07-24 10:34:56+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m80vs3/tech_giant_sequans_outpaces_magnificent_7_with/,"tech giant sequans outpaces 'magnificent 7' with massive 2,317 bitcoin treasury investment",0.6908
+2025-07-24 11:03:53+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m81e8l/xrp_etf_rejected_liquidity_might_rotate_back_to/,"xrp etf rejected → liquidity might rotate back to btc? so i’ve been watching the xrp chart lately  and something felt off.
+
+it gave up all of its july gains, just like that. back to july 8 levels. on the 4h, it tapped the 100 sma and stalled hard. at first, i thought it was just a typical retrace… until i saw this:
+
+👉 the sec rejected bitwise’s “10 ex-btc/eth” altcoin etf and xrp was reportedly the main reason for the rejection.
+
+that kind of killed the altcoin etf momentum before it even started. and if that rejection holds weight, it could send a broader signal to institutions: stick with btc, for now.
+
+it made me think , what happens when etf-driven liquidity is denied access to alts like xrp?
+
+well, it has to go somewhere. and the safest, most ""institutionally correct"" place? bitcoin.
+
+i’m not saying xrp is dead  far from it. i actually think it’ll have its moment eventually. but when etf doors are slammed shut, market narratives adjust.
+
+that’s why i wouldn’t be surprised if we see:
+
+• more rotations from alts back to btc
+
+• btc dominance ticking back up
+
+• choppy price action on majors like xrp to trap both sides
+
+
+if you look at etf flows right now, btc is eating up the attention. and this rejection might’ve just added more fuel to that.
+
+not financial advice obviously, but i’m keeping a closer eye on btc now. feels like it’s quietly preparing to take the lead again while everyone else is distracted. or rather, other altcoins like bgb, bnb, or sol will likely draw more attention , with solana potentially being on the etf shortlist.
+
+
+curious if anyone else is seeing the same pattern?",-0.701
+2025-07-24 12:04:18+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m82jtc/report_shows_45_increase_in_user_holdings_for/,"report shows 45% increase in user holdings for bitcoin (btc) in bitget's july proof-of-reserves no surprise in the bullrun though, but according to the por public figures published, btc held by users grew from 6,594 btc in june to 9,531 btc in july. a sharp increase in user-held bitcoin, with btc balances surging over 45% month-on-month in july. 
+
+thats the strongest growth across all major assets tracked on the platform... 
+
+usdt holdings also experienced a notable increase of 21%, climbing from approximately 1.61 billion to nearly 1.95 billion. eth balances rose by 31% month-on-month, from 148,754 eth to 195,466 eth, while usdc holdings grew by 14%.
+
+they are also incentivizing users to buy and trade more assets with their bitget trading club championship which just went live hours after the report...
+
+""this increase in on-platform user assets, especially bitcoin, shows a bit of the broader trend in user behavior, where traders and institutions increasingly may favor exchanges that allow independent asset verification,"" said **gracy chen, ceo at bitget**.
+
+another report i saw somewhere showed a spike in the google search for bitcoin which shows that adoption is rising across the industry...
+
+what are your thoughts on the increased hodling of btc?",0.9887
+2025-07-24 13:25:30+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m84d87/arkham_confirms_us_gov_24b_bitcoin_holdings/,"arkham confirms us gov $24b bitcoin holdings, debunking 85% sell-off rumor",0.0
+2025-07-24 14:37:25+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m864in/bitcoin_treasury_fever_grows_in_japan_as_ai/,"bitcoin treasury fever grows in japan as ai company quantum solution targets 3,000 btc",0.4767
+2025-07-24 14:47:53+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m86e02/rezolve_ai_rzvl_is_quietly_building_an_empire_50m/,"""rezolve ai (rzvl) is quietly building an empire: $50m funding, $1b bitcoin strategy, and real contracts — are we still early?",0.0
+2025-07-24 14:49:16+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m86f9e/large_cap_alt_coin_new_etfs_question/,"large cap alt coin / new etf’s question do you think prices for large cap of coins will remain high after alt season because of the new etf’s that are now being introduced?  this will be my first alt coin season and my initial plan was to rotate the gains from my alt coins (if any lol) into bitcoin or gross tech stocks or growth etf’s. the alt coins that i am referring to are solana and sui mainly. i’ve always been told that alt coins are basically considered gambling, and most , if not all will go to zero after alt season. my largest holding is bitcoin by far, but if we are in the early stages of adoption of alt coins, i may consider holding some as long-term plays. what are your guys thoughts? i’m new to this space and don’t really have enough experience to form an educated opinion.",0.5122
+2025-07-24 15:21:59+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m87aje/men_only_want_1_thing/,men only want 1 thing,0.0772
+2025-07-24 19:08:59+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8dbiy/strategy_lifts_latest_preferred_stock_sale_to_2b/,strategy lifts latest preferred stock sale to $2b for more bitcoin buys,0.0
+2025-07-24 19:39:11+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8e3k6/bitcoin_consolidation_expected_to_end_with/,bitcoin consolidation expected to end with impulse move to $135k: data,0.0
+2025-07-24 20:41:54+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8fpfp/jumped_in_head_first_whats_next/,"jumped in head first ! what's next?? so i've been on the sidelines watching for about 10 years now. i've missed out on all the rags to riches cuz i didn't trust it and thought it was all a scam. still kinda up in the air on that part lol anyways, i've decided now that everything is at ath to dive in ! i got $1000 each of bitcoin, solara, xrp and ethereum. $500 of shiba inu too. i have set up buy $10 each of bitcoin, solara, xrp and ethereum every single day. what do y'all think? should i change anything, reverse course, keep doing this or what? just looking for some advice as i'm new. goal is to get rich, duh lol i don't need the money i've put in either.",0.7609
+2025-07-24 20:48:14+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8fv74/i_live_500_feet_from_a_bitcoin_mine_my_life_is/,i live 500 feet from a bitcoin mine. my life is hell.,-0.6808
+2025-07-24 21:00:11+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8g634/billionaire_mike_novogratz_says_ethereum_has_a/,billionaire mike novogratz says ethereum has a chance to outperform bitcoin in coming months – here’s why - the daily hodl,0.25
+2025-07-24 21:01:33+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8g7hi/we_are_in_a_renaissance_and_i_think_the_future/,"we are in a renaissance and i think the future will play out a lot like the last one. i'm one of the earlier bitcoin investors. i got into it because i saw people moving money or value around without a bank, and i figured it was going to change everything. i got into bitcoin, ripple, and ethereum very early. the only one i've really held onto is bitcoin, which comprises most of my portfolio.
+
+
+
+i run an ai agent firm, and i don't think people are really ready for the collision of these two technologies. let me explain why. we're in a renaissance. looking at the last renaissance around the 1500s, there was an intersection between two technological revolutions: information networks and ledgers. books could disseminate new ideas, which disrupted the catholic church's monopoly on the bible, leading to the protestant reformation. subsequently, protestants fled europe and came to america. double-entry accounting gave birth to nation-states, stock markets, corporatism, and public stock exchanges. **it completely transformed our world and scaled our ability to cooperate.**
+
+we have this same thing now, a financial reformation, where the people no longer need the permission from an elite heriarchy to access what is essentially just a book. an important one, that can only have entries appended to. it is a revolution in how clearing is done.
+
+i define a renaissance as an intersection of innovations in our lists and information networks. today, we've had numerous innovations. sql and relational databases have transformed our world as a list powered at light speed. the internet, telegram, telephone, and social media have revolutionized information networks. now we have cryptocurrency, which is an innovation in the ledger, and llms (large language models), creating a new intersection of technological disruptions to our civilization's core pillars.
+
+a notable author to explore on this topic is yuval noah harari. these technologies cannot fit in the old world or old way of thinking because they give birth to new economic ideologies. just as double-entry accounting gave us capitalism, cryptocurrency will give us something else.
+
+i believe cryptocurrencies will ultimately converge into one because these systems are identical - they are decentralized verification systems where you put a message in, and everyone on the network can verify whether your message is there or not. all 15,000 cryptocurrencies perform the same function.
+
+ai agents won't be using bank accounts; they'll be using cryptocurrency. they will make decisions and purchases, and i don't think people realize how disruptive this combination of technologies will be. they will likely settle on one secure blockchain because blockchains are public and permissionless, and we only need one. cross-chain swaps expend unnecessary energy and resources when all you really need to verify is whether alice paid bob and if a message is hashed in the database.
+
+the future ai agent economy will be powered by cryptocurrency. equities will be built on it. you will be investing in agents, and they will be investing in you and your businesses.
+
+i think that is what people miss, is when we get a revolution in our information networks and our ledgers it scales our ability to cooperate as it spawns new economic ideologies. the last time we had a transition like this, things got very violent. multiple wars spawned across europe as well as witch hunts. 
+
+we have a better collective memory now, i hope we don't make the same mistakes that lead to such violence of trying to stuff the new way of doing things into old ways of thinking.
+
+what are your thoughts? we have to work together to figure out what our future looks like. the governments and current industry leaders wont be able to, they can't see a future without the lenses of the past. they are too vested in the old world that died over 15 years ago.",0.3456
+2025-07-24 21:02:44+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8g8kw/ethbtc_ratio_jumps_70_from_april_low_as_ethereum/,eth/btc ratio jumps 70% from april low as ethereum overtakes bitcoin in weekly spot volume,-0.2732
+2025-07-24 21:59:36+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8hmp6/do_you_know_whats_cool/,do you know what's cool? source: [https://x.com/naiivememe/status/1948276460508385515](https://x.com/naiivememe/status/1948276460508385515),0.3182
+2025-07-24 22:51:05+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8itwq/bitcoin_could_hit_150k_this_year_says_mike/,"bitcoin could hit $150k this year, says mike novogratz—but ethereum might outperform btc",0.0
+2025-07-25 08:35:11+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8tugy/the_exemption_of_de_minimis_tax_under_600_a_good/,"the exemption of de minimis tax under 600$. a good policy? the white house has recently made a significant announcement regarding cryptocurrency policy, stating that president trump supports a de minimis tax exemption for small bitcoin and other crypto transactions. this policy aims to simplify the use of digital currencies for everyday transactions by potentially exempting transactions under $600 from capital gains tax. the announcement was made during a press briefing by white house secretory karoline leavitt.
+
+why this matter: the current tax situation is completely broken for actual crypto payments. nobody wants to track and report every tiny purchase, and the irs doesn't have the resources to chase down coffee transactions anyway. this creates a weird situation where crypto payments are legal but practically unusable for normal stuff. small swaps and transactions under $600 become much simpler to handle and businesses won't worry about customers creating tax headaches
+
+the potential issues are that people might break down large purchases into small 600$ multiple transactions. and you still need to track down taxes on transactions above 600$, so the complexity would still remain.
+
+this could be the difference between crypto staying a speculative investment versus becoming actual digital cash. right now, using crypto for payments is a tax compliance nightmare that most people avoid. remove that friction and suddenly crypto payments make sense. 
+
+it feels like a sensible crypto tax policy proposal. a de minimis exemption acknowledges that some crypto transactions are just... transactions, not investment activity.
+
+anyone else think this could finally make crypto payments viable for normal stuff? or are there downsides i'm missing?",0.8193
+2025-07-25 11:33:31+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m8wqfd/bitcoin_to_hit_135k_by_yearend_in_basecase/,"bitcoin to hit $135k by year-end in base-case forecast, $199k in bullish scenario: citi",0.0
+2025-07-25 17:35:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m95kae/bitcoins_fouryear_cycle_loses_grip_as_maturing/,bitcoin’s four-year cycle loses grip as maturing market reshapes dynamics,-0.0516
+2025-07-25 18:11:44+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m96ivd/corporate_bitcoin_holdings_surge_35_in_one/,"corporate bitcoin holdings surge 35% in one quarter, now nearing 900,000 btc - adoption is here.",0.0
+2025-07-25 18:26:35+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m96wi5/strategy_targets_massive_bitcoin_buy_with_25b/,strategy targets massive bitcoin buy with $2.5b offering set to close within days,0.0
+2025-07-25 19:13:42+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m983xm/us_government_holds_198000_btc_worth_24_billion/,"us government holds 198,000 btc worth $24 billion the united states government holds approximately 198,000 bitcoin, valued at $24 billion, making it the world's largest sovereign holder of cryptocurrency. this reserve stems from assets seized in criminal investigations and forfeiture cases, and is intended to establish us dominance in digital asset governance while leveraging bitcoin's scarcity principle.
+
+**key points:**
+
+* the government's $24 billion position represents just 0.065% of america's $37 trillion national debt.
+* the reserve is currently inactive, with no movement in federal wallets for four consecutive months.
+* the policy shift coincides with the passage of the genius act, creating federal stablecoin regulations.
+* critics question the wisdom of hoarding volatile assets, while supporters hail the reserve as a ""visionary hedge in the digital age.""",0.9349
+2025-07-25 20:39:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9a98j/ancient_bitcoin_whale_comes_alive_after_lying_low/,"ancient bitcoin whale comes alive after lying low for over 14 years, moves $469,811,057 in btc at 30,00,000%+ profit: on-chain data",0.0
+2025-07-26 02:01:58+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9hhiy/a_question_about_quantum_computing_vs_bitcoin/,"a question about quantum computing vs bitcoin encryption. so with the understanding that a quantum computer in china has solve a mathematical equation that would take current top ended server farms 2.6 billon years of calculations.  link added at the bottom and has been shown to be real not a fake: 
+
+what does this mean for the current bitcoin encryption? using ecc sha-256 encryption methods it’s believed a quantum computer, especially at the speed we seem to be progressing, would take a day to break it. 
+
+https://myelectricsparks.com/china-jiuzhang-quantum-computer-2-6-billion-year-problem/",0.6315
+2025-07-26 12:00:29+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9rkk5/rare_signal_confirms_monster_altseason_2025_after/,"rare signal confirms: monster altseason 2025 after correction! this rare bitcoin dominance signal just flashed, indicating a mega altcoin season. it's not only bnb and pengu that go parabolic. within the next weeks and months, plenty of shiny new and old coin could be set to explode!
+
+how do you like the video? 
+i’m a small channel so far, so i’m looking for some more feedback here. any thoughts on this topic? do you agree or disagree? any perspective would be exciting to hear. 
+
+happy to discuss here or in yt comments! 
+also, i’d be glad if you follow in case you like it! ☺️🤝",0.9539
+2025-07-26 12:23:37+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9s0fd/galaxy_digital_offloads_80000_btc_from_wallets/,"galaxy digital offloads 80,000 btc from wallets linked to defunct mybitcoin service",0.0
+2025-07-26 12:38:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9sb00/what_happens_if_bitcoin_reaches_1_million/,what happens if bitcoin reaches 1 million,0.0516
+2025-07-26 16:11:39+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9x86e/ethereum_etfs_massively_outpace_bitcoin_fundswhy/,ethereum etfs massively outpace bitcoin funds—why eth demand is surging,-0.128
+2025-07-26 17:02:40+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9yhc4/el_salvador_insists_its_buying_bitcoin_despite/,el salvador insists it's buying bitcoin despite imf saying otherwise,0.0
+2025-07-26 17:39:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1m9ze1t/multicoin_open_source_hot_wallets_cold_storage/,"multicoin open source hot wallets/ cold storage i've been considering using exodus wallet for storage. it seems to have pretty glowing reviews with the exception being it closed source (bad).  
+  
+are there any other really high quality hot wallets with good functionality, ui, are open source and can store many different coins (both major coins, top 20, and ideally even meme coins (although this doubtful on cold storage))?  
+  
+alternatively, are there cold storage wallets that are good/trusted and can store many coins? trezor seems highly recommended but it only stores bitcoin.",0.6577
+2025-07-26 21:21:15+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1ma4oek/in_september_2021_china_has_banned_cryptocurrency/,"in september 2021 china has banned cryptocurrency transactions and prohibited cryptocurrency mining, despite that they are the 2nd largest government entity holding 190k bitcoins other government entities ranking: 
+
+|\#|name|bitcoin|in usd|/21m|
+|:-|:-|:-|:-|:-|
+|1|[🇺🇸](https://bitcointreasuries.net/countries/united-states) [united states](https://bitcointreasuries.net/governments/united-states)|₿198,012|$23,370m|0.943%|
+|2|[🇨🇳](https://bitcointreasuries.net/countries/china) [china](https://bitcointreasuries.net/governments/china)|₿190,000|$22,425m|0.905%|
+|3|[🇬🇧](https://bitcointreasuries.net/countries/united-kingdom) [united kingdom](https://bitcointreasuries.net/governments/united-kingdom)|₿61,245|$7,228m|0.292%|
+|4|[🇺🇦](https://bitcointreasuries.net/countries/ukraine) [ukraine (holdings of public officials)](https://bitcointreasuries.net/governments/ukraine)|₿46,351|$5,471m|0.221%|
+|5|[🇰🇵](https://bitcointreasuries.net/countries/north-korea) [north korea](https://bitcointreasuries.net/governments/north-korea)|₿13,562|$1,601m|0.065%|
+|6|[🇧🇹](https://bitcointreasuries.net/countries/bhutan) [bhutan](https://bitcointreasuries.net/governments/bhutan)|₿11,286|$1,332m|0.054%|
+|7|[🇸🇻](https://bitcointreasuries.net/countries/el-salvador) [el salvador](https://bitcointreasuries.net/governments/el-salvador)|₿6,248|$737m|0.030%|
+|8|[🇻🇪](https://bitcointreasuries.net/countries/venezuela) [venezuela](https://bitcointreasuries.net/governments/venezuela)|₿240|$28m|0.001%|
+|9|[🇫🇮](https://bitcointreasuries.net/countries/finland) [finland](https://bitcointreasuries.net/governments/finland)|₿90|$11m|0.000%|
+|10|[🇺🇸](https://bitcointreasuries.net/countries/united-states) [roswell, new mexico](https://bitcointreasuries.net/governments/roswell-new-mexico)|₿0|$0m|0.000%|
+|11|[🇩🇪](https://bitcointreasuries.net/countries/germany) [germany](https://bitcointreasuries.net/governments/germany)|₿0|$0m|0.000%|
+|12|[🇧🇬](https://bitcointreasuries.net/countries/bulgaria) [bulgaria](https://bitcointreasuries.net/governments/bulgaria)|₿0|$0m|0.000%|
+|**total:**||**527,034**|**$62,203m**|**2.510%**|
+
+**source**: [https://bitcointreasuries.net/governments](https://bitcointreasuries.net/governments)",-0.4588
+2025-07-26 23:26:37+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1ma7gh5/wall_streets_bold_bet_bitcoin_could_hit_200k_by/,"wall street’s bold bet: bitcoin could hit $200k by december, banking giant says",0.3818
+2025-07-27 00:17:09+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1ma8hzt/zcash_is_humanitys_first_mathematically_fungible/,"zcash is humanity's first mathematically fungible asset. read this from sean bowe who's actively building project tachyon. i think bitcoin has lost something. the leaders no longer advocate for self custody. there's no philosophy behind it except price. sean bowe has done an insane amount for privacy tech. 
+
+zcash will be valuable for the same reason bitcoin was. it introduces new virtual elements as real as nature.  thought i would share.
+
+\----------------------------------------------------------------
+
+much like when time and space switch places in a black hole, when money crosses the event horizon of a shielded pool its history begins an unstoppable, monotonic march toward indistinguishability.
+
+in many ways zcash's shielded transactions bump up against the information-theoretic boundary of what it means for something to be private. it's not perfect but in many meaningful ways we simply cannot make it any ""more private.""
+
+for example, there is no quantum computer or powerful ai that will be able to look back at the zcash blockchain 1000 years from now and figure out who made every fully shielded transaction. that information, among other things, never even touches the ledger. it's already gone.
+
+there are ways to improve, particularly at the boundaries where it comes into contact with the rest of the world. but to be certain about your privacy you \*must\* start by using shielded zcash. you almost cannot even begin otherwise.
+
+this is a totally different vantage point for zcash to be working from. we're starting from something that is already extremely private toward something that \*also\* scales to the entire world.
+
+that's why world experts in cryptography and privacy believe in zcash and few others."" - sean bowe famed zk engineer behind halo and tachyon.",0.8765
+2025-07-27 09:17:07+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mahw3m/her_i_like_guys_who_take_big_risks/,her: i like guys who take big risks,0.1027
+2025-07-27 10:55:27+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1majepg/9_billion_exit_by_satoshiera_btc_whale_sparks/,$9 billion exit by satoshi-era btc whale sparks debate: are bitcoin ogs losing faith?,0.0516
+2025-07-27 15:54:20+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1maps3t/should_i_go_bitcoin_or_develop_a_custom/,"should i go bitcoin or develop a custom crypto-currency? 
+working on a project, rust based self hosted ai home assistant.  details at:
+
+serious manifesto: [https://cicero.sh/r/manifesto](https://cicero.sh/r/manifesto)
+
+satirical comedy, george carlin style: [https://cicero.sh/r/hows-the-ai-revolution](https://cicero.sh/r/hows-the-ai-revolution)
+
+dev branch: [https://github.com/cicero-ai/cicero/tree/dev-master](https://github.com/cicero-ai/cicero/tree/dev-master)
+
+if you look at the manifesto, in phase ii you will see involves a decentralized compute network overlayed with a privacy focused crypto-currency.
+
+initially i was thinking of developing my own crypto-currency.  monero is great, but i don't like the technical implementation with the multiple daemons -- wallet, server node, clinet, etc.  definitely not doing ethereum, as i hate that protocol.
+
+have been developing bitcoin related systems since 2010 though, so know the protocol inside out.  even developed my own node once.  haven't kept up with all the latest bips, but the base protocol remains the same.
+
+to save time and energy, almost thinking instead of developing my own crypto currency, might be best to just use bitcoin instead.  what do you think?
+
+
+
+
+e",0.9312
+2025-07-27 18:30:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1matqse/bitcoins_hashrate_brushes_alltime_high_as_miners/,bitcoin’s hashrate brushes all-time high as miners close in on june peak – mining bitcoin news,0.0
+2025-07-27 18:40:02+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1matzls/bitcoin_nears_120k_as_analysis_predicts_larger/,bitcoin nears $120k as analysis predicts 'larger price swings' next,0.0
+2025-07-27 20:20:02+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mawgll/will_ethereum_continue_to_rally_this_bitcoin_og/,will ethereum continue to rally? this bitcoin og is bullish on eth,0.0
+2025-07-27 20:51:53+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1max8t8/microstrategy_saylor_signals_bitcoin_buys_as/,microstrategy saylor signals bitcoin buys as holdings up 64% on $2b funding,0.0
+2025-07-27 21:51:47+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mayo3t/fundstrat_says_trumps_eu_deal_removes_macro_fears/,"fundstrat says trump’s eu deal removes macro fears, positive signal for bitcoin?",0.2023
+2025-07-28 01:34:27+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mb3grk/indias_crypto_crossroads_coins_act_2025_offers_a/,india’s crypto crossroads: coins act 2025 offers a 'rights-first' roadmap – interview bitcoin news,0.0
+2025-07-28 06:07:17+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mb8hsq/this_fake_bitcoin_atm_scheme_has_wasted_4000/,"this fake bitcoin atm scheme has wasted 4,000 hours of scammers' time",-0.743
+2025-07-28 06:12:15+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mb8kij/chinese_employees_stole_20m_laundered_it_through/,"chinese employees stole $20m, laundered it through bitcoin, now sentenced to prison - cryptopolitan",-0.5267
+2025-07-28 07:53:40+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mba5om/crypto_kidnapping_how_armed_gangs_are_hunting_the/,"crypto kidnapping: how armed gangs are hunting the internet's high rollers -- ""kidnapping and extortion are growing concerns in the crypto world, with cases rising alongside the price of bitcoin.""",0.1779
+2025-07-28 10:22:20+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbcgz1/big_bitcoin_upsides_predicted_after_bullish/,big bitcoin upsides predicted after bullish weekly close,0.0
+2025-07-28 10:30:15+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbcli2/metaplanet_boosts_bitcoin_holdings_to_17b_closing/,"metaplanet boosts bitcoin holdings to $1.7b, closing in on industry giants",0.3182
+2025-07-28 12:03:26+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbebf1/in_early_but_missed_the_quantity_by_a_few_zeros/,"in early, but missed the quantity by a few zeros",-0.4215
+2025-07-28 14:08:53+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbh6o4/need_help_got_scammed_13000_over_the_past_2/,"[need help] got scammed 13.000€ over the past 2 months through transactions by somebody and i'm not sure if it was my brother so my brother just checked my mother's crypto wallet to which he has access to at 2 am yesterday and saw that 13.000€ of bitcoin are gone, he called my mother and told her and now i'm here trying to help her find out what really happened. there's been small transactions over the past 2 months **is what she said** and she was suspicious but never went to check anything. he instantly transferred all other money to a different address, but now there's only 17.000€ out of 30.000€ left. 17.000€ was the starting point i believe and 13.000€ was profit. is there any possible way to get the money back, or is it gone for good and forever? any people to contact like cyber security? thanks for any help. (we live in austria if that changes anything) - not australia, austria! people always mix them up so just in case.
+
+if there is no possibility of getting the money back, my mother still wants to know what happened and if it was my brother using it for meme coins, gambling or got scammed by doing some stupid things. any help is appreciated. (i will not be giving out my key or words i don't even have access to anything other than the address)
+
+edit: yesterday afternoon he told my mother he connected something to the account and said he's sorry and it's all his fault. wouldn't some scammer connected to the account take everything? anyways, please help me trace the transactions somehow, thanks.
+
+  
+bitcoin:  
+bc1p36ru8jgxw6w53wgg0fe7s5pccr0hw47r0ph8zc9h38wcqrmsm9gqjlq0vz  
+bc1qk7a44056kqzll5nur7ds4yt082cfvsckr0jskl
+
+solana:   
+grcz7xefejqkfyxzuv9cbh5ahkviccdmjccbwcrf2hvn",0.9804
+2025-07-28 15:04:30+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbimvv/billionaire_ray_dalio_urges_investors_to_allocate/,"billionaire ray dalio urges investors to allocate 15% of portfolios to gold and bitcoin * billionaire asset manager ray dalio has argued that investors should allocate at least 15% of their portfolios to gold and bitcoin, as a hedge against macroeconomic risks.
+* dalio argued that rising government debts have not been priced into global markets.
+* the bridgewater associates founder added that he is “strongly preferring” gold over bitcoin, and doubts that any central bank would adopt the cryptocurrency on as a reserve currency.",-0.6249
+2025-07-28 16:10:58+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbkf6b/i_have_found_my_very_first_wallet_what_now/,"i have found my very first wallet - what now? i have been very fortunate to gain access back to my very first wallet from around 2014/2015 with approx 1 bitcoin, since then i have never dabbled in crypto, the wallet is quite obscure and i am afraid of keeping my bitcoin in there any longer, how can i safely transfer my bitcoin to a good alternative wallet and what wallet suggestions do you guys have? i don't know if this is the right subreddit so i do apologise, also, how would i go about cashing out my money? bank transfer preferably. thanks",0.96
+2025-07-28 16:23:37+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbkrh1/fed_chair_powell_bitcoin_is_like_digital_gold/,fed chair powell:  “bitcoin is like digital gold”,0.3612
+2025-07-28 17:41:08+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbmw5t/bitcoin_weekly_market_update_28_july_2025/,"bitcoin weekly market update, 28 july 2025 **bitcoin consolidated for another week.**
+
+in tradfi, stock markets across the world had a good week and overall everything looks great. in the us, both the s&p500 and the more tech-heavy nasdaq 100 closed at new all time highs. there is simply nothing bearish about tradfi right now. which is exactly where we want it to be for crypto to do well.
+
+turning to bitcoin. after breaking out two weeks ago, it has now spent two weeks consolidating in a narrow range between about $116k and $120k. on friday, the capital management firm [galaxy digital announced](https://investor.galaxy.com/news/news-details/2025/galaxy-executes-one-of-the-largest-notional-bitcoin-transactions-ever/default.aspx) that they had successfully completed the selling of over 80,000 btc on the behalf of an early bitcoin whale. part of this sale was likely what caused the dip on early friday morning.
+
+the fact that the market could absorb an enormous sale like this and still not move down much is a very good sign. purely looking at the bitcoin chart, it tells the same story: very much still bullish, with a conservative price target of $142k.
+
+in the altcoin space, this week we saw a pullback across the board. so far this looks like a healthy correction, with nothing yet to suggest that the recent altcoin rally has peaked.
+
+in summary, my view remains that this bull market is far from over. let’s see what the next week brings!
+
+*for more market updates and analyses like these, follow me on x:* [*https://x.com/itsdayagain*](https://x.com/itsdayagain)
+
+[btc\/usd weekly chart, 28 july 2025. consolidating around 118k after breaking out. price target 142k.](https://preview.redd.it/ebla4yiwinff1.jpg?width=4096&format=pjpg&auto=webp&s=c0730f0b94a0c82bd06a9b5d35fa40f8246d124d)",0.975
+2025-07-28 18:37:35+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbofip/bitcoin_is_now_ironically_being_modeled_hedged/,"bitcoin is now ironically being modeled, hedged, and priced by wall street",0.0
+2025-07-28 23:31:37+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mbvxl1/trumps_truth_social_bitcoin_etf_among_multiple/,trump’s truth social bitcoin etf among multiple crypto funds delayed by sec,0.1027
+2025-07-29 04:03:23+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mc1m2s/getting_paid_in_bitcoin_earning_btc_cashback_and/,"getting paid in bitcoin, earning btc cashback, and saving in a btc hysa, should i still track gains/losses or just keep stacking? i’m all in on bitcoin and need some advice. i get paid in btc, have a recurring purchase from my savings, use a gemini card with btc cashback, and store my savings in a hysa that pays interest in bitcoin. on top of that, i use btc to pay for bills and expenses, which is making things even messier. tracking all these transactions, gains, losses, and spending in coinmarketcap or excel is becoming a total headache.
+
+should i keep meticulously tracking every gain/loss, or just focus on stacking sats? anyone else managing a similar setup? any tools or tips to automate this chaos? thanks!",0.7075
+2025-07-29 07:23:55+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mc4zko/us_seeks_to_claim_24m_in_bitcoin_seized_from/,us seeks to claim $2.4m in bitcoin seized from ransomware group,0.0
+2025-07-29 13:17:13+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcb6wc/wen_your_belief_is_skyhigh_but_bank_balance/,"wen your belief is sky-high, but bank balance screams for mercy",0.1154
+2025-07-29 13:50:23+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcbz1r/bitcoin_surpasses_119200_237m_on_200k_rally/,"bitcoin surpasses $119,200 $23.7m on $200k rally",0.0
+2025-07-29 14:45:17+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcdcuy/bitcoin_is_becoming_the_credit_default_swap_on_a/,bitcoin is becoming the credit default swap on a collapsing fiat system,0.1027
+2025-07-29 16:23:49+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcfyxl/bitcoin_etfs_pull_157_million_while_ether_etfs/,bitcoin etfs pull $157 million while ether etfs stretch streak to 17 days,0.0
+2025-07-29 16:25:44+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcg0rt/mara_holder_of_nearly_6b_btc_raises_950m_to_buy/,"mara, holder of nearly $6b btc, raises $950m to buy more bitcoin",0.0
+2025-07-29 17:26:13+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcholl/the_51_attack_problem_and_how_networks_have/,"the 51% attack problem and how networks have overcome the problem! 
+
+we’ve been seeing recent news with coins/tokens such as even monero (xmr) being vulnerable to a 51% attack. a large xmr mining group/pool qubic shared with the world that they will attempt a takeover of the monero network by using the 51% attack. they would have easily succeeded in the attack, if they did not announce publicly that they were doing the 51% attack, the community got together and was able to stop the 51% attack.
+
+https://preview.redd.it/oky2q83aluff1.png?width=975&format=png&auto=webp&s=9ef7568d83918a7e35b526ef15996cf4476190a1
+
+https://preview.redd.it/ijhe9yoaluff1.png?width=975&format=png&auto=webp&s=62187a2353a1aaae0efd1a49fd9802c216b1c0a2
+
+thankfully, ethereum is much less vulnerable to a 51% attack with recent upgrades, but how and why?
+
+# first of all, what is a 51% attack exactly?
+
+51% attack can happen when one group or entity has control of greater than 50% of the validating power or mining power of the network, making that group or entity the central authority.
+
+# is it really that bad to have a centralized group with greater than 50% of the validating or mining power?
+
+yes!
+
+1.      with at least 51% of the validating or mining power, the entity can “double-spend” coins or tokens and this is done by reversing transactions that the group has made.
+
+2.      they have the power of preventing new transactions from being confirmed or validated which censors users. essentially they can pick and choose, that is a big no no (ahhh i’ve been doing too much baby talk lately irl haha)
+
+3.      the group can have a monopoly on the mining rewards or stop others from validating the block! that does not sound good because it isn’t!
+
+4.      the entity can rewrite the blockchain history by making chains that are longer than the honest participants! wow, that is a huge red flag!
+
+# proof of work, why is it vulnerable to 51% attack?
+
+proof of work relies on the miners that are competing to solve the puzzle or equation using their computational power which has inherent weaknesses.
+
+1.      the greater the mining power one has, the more influence you have on the network, making the network dependent on hash rate.
+
+2.      pooled mining teams or mining farms are larger, hence more control to the bigger and wealthier groups.
+
+3.      when chains are smaller with low volume of network participants, a group can overpower the network for cheap! (recommend reading up on bitcoin gold, they have had multiple 51% attacks…)
+
+4.      slashing is not available, even when a miner or group is found to have malicious behavior. the only punishment they get is possibly losing trust…
+
+**just imagine, if someone has more than 50% of the hash rate on the network, they can win every coin toss game because they can bring their own coin that is biased for them to win! that’s cheating!**
+
+# how is proof of stake less vulnerable to 51% attack?
+
+thankfully ethereum has moved on from proof of work to proof of stake with recent upgrades! instead of being dependent on hardware for mining, they selected validators determined from the quantity of the coin or token they are staking.
+
+1.      in proof of stake, the user or group needs to control at least 51% of the staked coin or token, which can be quite expensive such as billions of dollars for most high market cap coins or tokens. this is extremely difficult to achieve compared to just controlling at least 51% of the validating or mining power!
+
+2.      proof of stake actually has slashing penalties for malicious behavior by burning their stake! in proof of work, they only lose trust, what is huge improvement!
+
+3.      validators are selected in random to prevent power from being concentrated or centralized and takes away the predictability factor!
+
+4.      socially, users can coordinate to fork away from malicious users and further penalize them! users want attackers to try because they can burn away their stake and fortune hehe
+
+ share your thoughts on the 51% attack below!",-0.8123
+2025-07-29 18:09:45+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcive9/how_do_companies_raise_money_to_buy_btc_whats_the/,"how do companies “raise money” to buy btc? what’s the pitch to investors? why don’t the investors just buy btc themselves? help me understand how a company like microstrategy is “raising money” to buy bitcoin. if i were to give them $100 million am i not just getting, in return, $100 million worth of bitcoin plus any gains? how does micro strategy make money? if i have $100 million and want to invest it in bitcoin, why not just buy it myself? what’s the benefit of giving it to micro strategy just so they can buy bitcoin? it does not make sense to me—what is the value add here that microstrategy is providing to investors?",0.9482
+2025-07-29 18:27:10+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcjccy/grab_southeast_asias_largest_ride_app_now_accepts/,"grab, southeast asia’s largest ride app now accepts crypto grab, southeast asia's leading ride-hailing app, has introduced a new feature allowing filipino users to add cryptocurrency to their grabpay wallets. the supported coins include tether (usdt), bitcoin (btc), ethereum (eth), and usd coin (usdc). this move is part of grab's broader web3 goals, aiming to promote the adoption of cryptocurrencies in asia.
+
+**key points:**
+
+* supported cryptocurrencies: tether (usdt), bitcoin (btc), ethereum (eth), and usd coin (usdc)
+* users can cash in cryptocurrencies through the grab app
+* integration with pdax and triple-a promotes cryptocurrency adoption in the philippines
+* part of grab's web3 goals to expand blockchain and digital asset services",0.9287
+2025-07-29 18:28:14+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcjdcp/bitcoin_etf_demand_is_going_vertical_with_over/,"bitcoin etf demand is going vertical, with over 600,000 btc accumulated, 3.3% of the total supply, as demand and price continue to surge. source: [https://x.com/btc\_archive/status/1950235437789851723](https://x.com/btc_archive/status/1950235437789851723)",-0.25
+2025-07-29 19:22:27+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcktn8/over_75_billion_worth_of_bitcoin_shorts_will_be/,"over $7.5 billion worth of bitcoin shorts will be liquidated if bitcoin hits $123k over $5.5 billion shorts  will be liquidated at $121k
+
+over $8.3 billion shorts will be liquidated at $124.5k
+
+
+
+source: [https://www.coinglass.com/pro/futures/liquidationmap](https://www.coinglass.com/pro/futures/liquidationmap)",0.2263
+2025-07-29 19:45:24+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mclffs/bitcoin_price_gained_50_the_last_time_its/,bitcoin price gained 50% the last time its volatility fell this low,0.058
+2025-07-29 20:28:04+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcmkap/i_put_a_10000_short_via_biti_make_me_cover/,"i put a ~$10,000 short via biti. make me ""cover."" i put a $10,000 short via biti up in my traditional ira. i'm going to hold this and see what happens. i had an one-cancels-other order up, but i'm going to just wait and see where bitcoin lands after a $25,000 price movement from here. i'm at no risk of being liquidated since this is a all cash position and in a tax-free retirement account - at least, tax free until i retire in a few dozen years.
+
+given the price if $18 / share when bitcoin is $118,000 - i'm thinking that a 25k price movement would be about a 18% gain/loss. so let's see where this goes!",0.4753
+2025-07-29 21:19:23+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcnw6r/strategy_closes_252b_strc_ipo_acquires_21021/,"strategy closes $2.52b strc ipo, acquires 21,021 bitcoin at $117k each",0.0
+2025-07-29 21:21:08+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mcnxu6/21021_bitcoin_added_to_strategys_treasury/,"21,021 bitcoin added to strategy's treasury following ipo",0.2023
+2025-07-30 01:44:47+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mctx7f/el_salvador_and_pakistan_pledge_strategic/,el salvador and pakistan pledge “strategic collaboration” in bitcoin field,0.0
+2025-07-30 10:15:24+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1md2rwl/a_white_house_report_could_be_bitcoins_next/,a white house report could be bitcoin’s next catalyst. expectations are too high,0.0
+2025-07-30 10:41:09+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1md37bw/tether_usdt_in_europe/,"tether usdt in europe **hi fam, i need your advice/recommendations. i'm based in europe. i want to move some funds into tether (usdt), but it seems it's now unregulated or even forbidden in europe. kraken and binance are not allowing me to do it. what are the other ways to get usdt without exposing myself or breaking any laws?**
+
+**i saw that bitcoin keeper release 2.5.0 📢 supports savings in usdt, but i’m not sure if i can swap inside the wallet or only send and receive. i’m sure there are others in europe thinking the same thing. i want to park a fairly large sum, so the more anonymous the better. looking forward to your advice.**",0.408
+2025-07-30 17:23:36+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdco3y/galaxy_digital_abruptly_moves_447000000_worth_of/,"galaxy digital abruptly moves $447,000,000 worth of bitcoin (btc), sends most to crypto exchanges",0.2263
+2025-07-30 17:35:22+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdcziy/ethereum_investment_products_have_attracted_779/,"ethereum investment products have attracted $7.79 billion in new investments so far this year, already beating the total amount they received during all of 2024 according to coinshares, ethereum investment products have seen $7.79 billion in year-to-date inflows, surpassing the total for the full year 2024. this comes as a result of a 15-week streak of net inflows, with $1.59 billion in inflows last week, ethereum's second-largest weekly inflow on record.
+
+in contrast, bitcoin-linked products saw $175 million in outflows, despite leading monthly and year-to-date flows. other altcoins like solana and xrp also saw significant inflows, while some funds like litecoin and bitcoin cash experienced net redemptions.",0.6808
+2025-07-30 17:36:46+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdd0vr/are_these_coinbase_btc_sweepstakes_actually_legit/,"are these coinbase btc sweepstakes actually legit? what happened to their rewards quizzes? if users are actually winning whole bitcoins just for signing up for coinbase one, it feels like we should’ve heard a testimonial from someone by now.  i guess there could be a few good reasons for them not wanting to speak publicly about their winnings, but still.  do we have proof that people are even winning or is it all just a big psyop?
+
+i miss the good ol days of earning $3-5 from some bullshit alt coin quiz and then converting it to btc or dai instantaneously.  in a way, it felt like i had a purpose in this crazy world of ours...",0.8662
+2025-07-30 18:52:59+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdf2br/bitcoins_unrealized_gains_top_14_trillion_as/,bitcoin's unrealized gains top $1.4 trillion as investors resist selling pressure,0.25
+2025-07-30 19:30:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdg1ta/bitcoin_holds_steady_as_fed_leaves_interest_rate/,bitcoin holds steady as fed leaves interest rate intact - decrypt,0.5859
+2025-07-30 20:35:56+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdhqi5/white_house_releases_firstever_report_on_bitcoin/,white house releases first-ever report on bitcoin and crypto policy,0.0
+2025-07-30 21:14:44+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdiq0w/bitcoin_options_exposure_tops_57_billion_amid/,bitcoin options exposure tops $57 billion amid soaring institutional hedging demand,0.4215
+2025-07-31 07:20:40+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdv0pu/crypto_news_today_bitcoin_altcoins_rebound_after/,"crypto news today: bitcoin, altcoins rebound after powell sparks swift selloff and $200m shakeout",-0.128
+2025-07-31 07:34:58+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdv8ct/bitcoins_mvrv_ratio_nears_key_level_is_a_btc/,bitcoin’s mvrv ratio nears key level — is a btc breakout ahead?,0.0
+2025-07-31 08:04:20+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdvod8/trumps_crypto_report_is_out_no_bitcoin_reserve/,"trump’s crypto report is out - no bitcoin reserve, but real policy moves https://preview.redd.it/b44c7eu136gf1.png?width=1536&format=png&auto=webp&s=35c7f4ca87548d05d2ce287184774ba237721f49
+
+so the white house finally released its long-promised crypto strategy paper. and while some were expecting big headlines (like a u.s. bitcoin reserve or tokenized government assets), what we got instead was… policy.
+
+here’s a quick summary of what’s actually in the report:
+
+🔍 **key points:**
+
+* **cftc** will be granted authority over spot crypto markets
+* **stablecoin licensing** will be streamlined and accelerated
+* **regulatory sandboxes** will be expanded for developers and startups
+* **cbdc is officially ruled out** — the u.s. will *not* issue a digital dollar
+* no mention of any government crypto holdings (btc, eth, shib, or otherwise)
+
+📉 **what it means:**
+
+there’s no market-moving announcement — no surprise buying, no shib-on-the-balance-sheet moment.
+
+but this is the kind of structural clarity that markets have been waiting for.  
+if the u.s. follows through, we’re looking at a cleaner, more predictable environment for defi protocols, stablecoin issuers, and **centralized exchanges** — many of which are already adapting.
+
+**coinbase** has pushed heavily for regulatory engagement. **okx** has been proactive with transparency reports and licensing updates. and **whitebit** has recently expanded its integrations with on-chain assets through campaign-based engagement — especially in defi-friendly regions.
+
+some cexs are clearly preparing for a world where **compliance is infrastructure**, not a burden. the line between cefi and defi is thinning — and those who bridge it early may benefit most.
+
+💬 lets discussion**?**
+
+would you rather see bold moves like a national btc reserve?  
+or is this slower, regulatory clarity exactly what the space needs right now?",0.9882
+2025-07-31 08:34:05+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdw51s/nyselisted_turkish_mobility_company_marti_will/,nyse-listed turkish mobility company marti will put 20% of its cash into bitcoin,0.0
+2025-07-31 09:46:23+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mdx8ri/141000_could_be_next_key_bitcoin_resistance_if/,"$141,000 could be next key bitcoin resistance if price breaks higher, report says",0.0
+2025-07-31 13:01:17+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1me0y61/how_has_crypto_changed_since_2020/,"how has crypto changed since 2020? i got it to crypto for a year or so back in 2019/2020 i made somw money with shib and eth. 
+
+i got really lucky and got into a popular nft and sold it and made about 20k in a few weeks which was amazing. 
+
+i bought into polkadot and saitama when they were pretty new and then i got out after losing money on a couple other random crypto projects that were all the rage for about 15 minutes. i remember doge was gonna moon ""any day now $1 is just weeks away.""
+
+i want to get back in but i'm not sure where to start. nfts, where i made the most money, and had the most fun seem all but dead. the one i sold for $19k is now for sale for like $20 which is just crazy.
+
+so what are people doing in crypto in 2025? 
+where should i start? just bitcoin or are people still making money on meme coins? i found it a lot of fun trying to find the next big thing but they all seem to have to turned to nothing, polkadot seemed the most promising and exciting project back then. 
+
+ i looked at the new top performers and i dont recognize any of them lol.
+
+would love some suggestions.
+
+thanks!",0.9867
+2025-07-31 13:32:35+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1me1on2/bitcoins_true_potential_are_we_still/,"bitcoin's true potential: are we still underestimating it? over the past years, bitcoin has consistently defied expectations and exceeded even the most optimistic  ath projections. what once seemed implausible has become reality time and again, as btc has demonstrated remarkable resilience, adoption, and market momentum.
+
+given this trajectory, the idea of bitcoin reaching $1 million no longer feels like a wild fantasy, it’s increasingly viewed as a long-term possibility by some investors and analysts. however, the more provocative question is: could it go even higher? could we one day see btc at $5 million, or even $10 million?
+
+of course, such valuations would imply an astronomical market capitalization—well into the hundreds of trillions of dollars. achieving that would require not only widespread global adoption, but a significant reconfiguration of the global financial system, with bitcoin possibly absorbing functions of store of value, reserve asset, and even partial medium of exchange on a global scale.
+
+while such outcomes may seem far-fetched today, it’s worth noting that bitcoin has surprised us repeatedly in the past. from being dismissed as an experiment, to surpassing gold in performance, to being held by institutional investors and nation-states, btc’s history is defined by breaking boundaries that once seemed immovable. the question, then, may not be whether it can reach these prices—but under what conditions such a shift could happen.
+
+so what do you think? is $1m just the beginning, or are we reaching the ceiling? let’s discuss.",0.9643
+2025-07-31 14:05:55+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1me2ion/bitcoin_shakes_off_powell_jitters_crypto_daybook/,bitcoin shakes off powell jitters: crypto daybook americas,0.0
+2025-07-31 14:51:49+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1me3oao/what_is_the_real_number_of_bitcoins_in/,"what is the real number of bitcoins in circulation/available? how much of it was lost forever ie: lost harddrives,etc… would be interesting to see what is the real outstanding count of bitcoins that is considered live in the market. when someone says mstr owns 3% of bitcoin what would it really be if you count his position against live bitcoins not lost forever never to come back on the market. i heard that 40% of mined bitcoin is out of circulation due to this. not sure if it is possible to find out. the issue is the more concentrated holdings become the bigger the risks for adverse liquidity events/price action. how would mstr be able to unload its large position?",-0.5889
+2025-07-31 15:02:41+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1me3yc7/bitcoin_is_now_bigger_than_amazon_heres_how_it/,bitcoin is now bigger than amazon: here’s how it became a top-5 asset,0.4939
+2025-07-31 18:43:49+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1me9spa/bitcoin_tick_tock_fractal_predicts_150k_btc_price/,bitcoin ’tick tock’ fractal predicts $150k btc price top in october,0.2023
+2025-07-31 19:07:36+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1meaf8o/help_lost_account_2017/,"help lost account (2017) ""a friend of mine said he bought bitcoins around mid-2017, but he really doesn’t remember which exchange or website he used. could you recommend how i can help him recover that account or find out where it was? is there any tool for that? or would the only way be to check each exchange one by one to see if he has an account there?
+
+he is not involved with this market and i suggested to manage his cripto assets, but he really don't remember where it is, he is already rich so it's my interest to manage this lost bitcoin that he doesn't really care",0.9357
+2025-07-31 19:14:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1meal98/if_defi_is_the_future_why_do_so_many_bitcoin/,"if defi is the future, why do so many bitcoin believers reject ethereum and other altcoins? decentralization has always been a central promise of the crypto world. the idea of removing intermediaries, building open financial systems, and empowering individuals is what drew many into bitcoin in the first place.
+
+but today, much of that decentralized functionality,ike lending, trading, stablecoins, and daos, is being developed primarily on ethereum and other smart contract platforms. these ecosystems are creating real use cases that go beyond just storing value. they are expanding what crypto can do.
+
+and yet, a significant portion of the bitcoin community rejects these developments. many btc holders dismiss ethereum and most altcoins as too centralized, too risky, or simply unnecessary. their belief is that bitcoin, as the most secure and decentralized asset, is all that truly matters.
+
+this raises an important question: if people truly believe in the power of decentralization, why oppose the platforms that are actually building decentralized applications? could it be that ethereum and altcoins represent the next evolution of crypto, one that goes beyond just being digital gold?
+
+what do you think? is bitcoin’s minimalist approach the way forward, or is the future of crypto being built in the defi space? let’s talk.",0.9711
+2025-07-31 19:14:56+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1meam5e/new_whales_trigger_bitcoins_third_profittaking/,new whales trigger bitcoin’s third profit-taking wave of current cycle,0.0
+2025-07-31 19:31:16+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1meb1i4/bitcoin_whales_bought_1_of_circulating_btc_supply/,bitcoin whales bought 1% of circulating btc supply in past 4 months - decrypt,0.0
+2025-07-31 20:31:28+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1meclwq/whats_the_strongest_argument_against_bitcoin/,what's the strongest argument against bitcoin?,0.1027
+2025-07-31 20:32:38+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mecmyx/75_of_blackrocks_bitcoin_etf_customers_were/,75% of blackrock’s bitcoin etf customers were first-time buyers,0.0
+2025-07-31 21:09:02+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1medkwr/strategy_reports_10_billion_q2_profit_plans_to/,"strategy reports $10 billion q2 profit, plans to raise $4.2 billion to buy more bitcoin - decrypt",0.4404
+2025-08-01 04:17:55+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1memvj9/michael_saylors_strategy_is_raising_42_billion_to/,michael saylor's strategy is raising $4.2 billion to buy more bitcoin,0.0
+2025-08-01 09:23:50+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1meru64/metaplanet_plans_37_billion_stock_issuance_by/,metaplanet plans $3.7 billion stock issuance by 2027 to fund bitcoin accumulation,0.0
+2025-08-01 14:07:04+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mexfqh/anyone_using_crypto_virtual_cards_for_shopping/,"anyone using crypto virtual cards for shopping? i’ve been digging into this and found that you can actually fund virtual cards with crypto like bitcoin, ethereum, usdt, or even monero, which is pretty slick for keeping things low-key.
+
+another service i came across is [uncash.io](https://uncash.io). they offer instant virtual cards that you can set up in seconds, fund with crypto, and use anywhere that accepts major payment platforms (think apple pay, google pay, paypal, etc.). from what i've read you can set spending limits, monitor transactions, and even manage team cards if you’re running a project or business. plus, no waiting around for approval cause it's instant.
+
+has anyone here tried using virtual cards like this for online shopping or even team expenses? i’m curious about your experiences like did it make things easier, or were there any headaches?",0.9497
+2025-08-01 14:34:41+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mey4cx/bitcoin_surpasses_amazon_and_becomes_5th_largest/,bitcoin surpasses amazon and becomes 5th largest asset by market cap,0.4939
+2025-08-01 16:19:17+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mf0uu4/us_treasury_secretary_bessent_us_has_entered_the/,"u.s. treasury secretary bessent: ""us has entered the golden age of crypto."" - it's time to shill my bags source: [https://x.com/btc\_archive/status/1951309468429435106](https://x.com/btc_archive/status/1951309468429435106)",0.2023
+2025-08-01 19:32:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mf5x83/strategy_could_buy_as_much_as_7_of_bitcoin_supply/,"strategy could buy as much as 7% of bitcoin supply, says michael saylor - decrypt",0.0
+2025-08-01 21:05:41+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mf89cj/finalizing_the_patriot_act_mixer_rule/,"finalizing the patriot act ""mixer"" rule # finalizing the patriot act ""mixer"" rule
+
+according to the report, the white house is very concerned with how ""illicit actors, such as \[democratic people's republic of korea\] and ransomware actors, continue to use mixers to obfuscate and launder funds.""
+
+in 2023, the financial crimes enforcement network (fincen) proposed [a rule](https://www.federalregister.gov/documents/2023/10/23/2023-23449/proposal-of-special-measure-regarding-convertible-virtual-currency-mixing-as-a-class-of-transactions) that would require financial institutions to monitor and report transactions involving cryptocurrency ""mixers"". the white house now urges fincen to finalize its biden-era ""mixer"" rule, which applies section 311 of the patriot act to certain cryptocurrency transactions.
+
+fincen's ""mixer"" rule would deem any transaction facilitated in a manner that obfuscates the source, destination, or amount involved in one or more transactions a ""primary money laundering concern"", regardless of the type of protocol or service used, such as:
+
+* pooling or aggregating \[cryptocurrency\] from multiple persons, wallets, addresses, or accounts
+* using programmatic or algorithmic code to coordinate, manage, or manipulate the structure of a transaction
+* splitting \[cryptocurrency\] for transmittal and transmitting the \[cryptocurrency\] through a series of independent transactions
+* creating and using single-use wallets, addresses, or accounts, and sending \[cryptocurrency\] through such wallets, addresses, or accounts through a series of independent transactions
+* exchanging between types of \[cryptocurrency\] or other digital assets
+* facilitating user-initiated delays in transactional activity
+
+which means that fincen's ""mixer"" rule is not really a mixer rule, but really a rule that would criminalize **any attempt** at privacy on a transparent blockchain.
+
+notably, the white house's recommendation to finalize fincen's ""mixer"" rule stands in stark contrast to its promises to protect self-custody, individual liberty, and the privacy of cryptocurrency users, which it highlights numerous times throughout its report.
+
+the white house specifies that a guiding principle for the protection of self-custody should be the **lawful** peer-to-peer transmission of digital assets with another individual who **lawfully** self-custodies digital assets.
+
+""illicit actors may \[...\] use defi services, **along with self-custody**, to facilitate peer-to-peer transactions in the laundering process. while there are licit reasons to self-custody digital assets \[...\], illicit actors can use the pseudonymity of self-custody and peer-to-peer payments to conceal or to quickly move proceeds,"" the report states.
+
+to bring this into current context, section 311 of the patriot act is also the source of 18 usc §1960(b)(1)(c) that criminalizes the transfer of illicit proceeds, to which samourai wallet developers keonne rodriguez and william hill [plead guilty](https://www.therage.co/samourai-wallet-developers-plead-guilty-to-unlicensed-money-transmission/) last morning to avert a potential 25-year prison sentence.
+
+[samourai wallet developers plead guilty to unlicensed money transmissionthe developers had reaffirmed their not-guilty plea as recently as last week. money laundering charges will be dropped as part of the plea.](https://www.therage.co/samourai-wallet-developers-plead-guilty-to-unlicensed-money-transmission/)
+
+# expanding the patriot act and the bsa to apply to defi
+
+the patriot act, introduced post-september 11th under president george w. bush, authorizes the treasury to implement special measures to combat the financing of terrorism. at the moment, there are five special measures the treasury may prescribe, spanning increased information collection and reporting obligations, as well as the denial of service for specific actors.
+
+to ""protect the us financial system"" as well as the ""us digital assets ecosystem,"" the white house now recommends to ""add a sixth special measure to section 311 authorizing fincen to prohibit, or impose conditions upon, certain transmittals of funds. \[...\] this would enable treasury to target foreign digital asset exchanges or digital asset transactions involving criminal or state actors—without regard to the nature of their illicit activity.""
+
+again, this contrasts starkly with other sections in the report, where the white house reverses a fincen [rule making](https://www.federalregister.gov/documents/2020/10/27/2020-23756/threshold-for-the-requirement-to-collect-retain-and-transmit-information-on-funds-transfers-and) that requires digital assets transactions over $10,000 to be reported, as well as fincen's ""unhosted wallet rule,"" which was actually [already withdrawn](https://unchainedcrypto.com/u-s-treasury-withdraws-proposed-reporting-requirements-for-unhosted-wallets/) under the biden administration in 2024.
+
+the white house states that ""control"" should be a defining factor for whether digital assets service providers qualify as money transmitters and therefore fall under bank secrecy act (bsa) obligations, but at the same time states that fincen's 2019 guidance is not sufficient and should potentially be rescinded. instead, it recommends that congress should define asset-specific sub-types to be amended to the bsa, and that the treasury, at the direction of congress, should consider ""specified \[bsa\] obligations to actors in the defi ecosystem based on the role that they play and the attendant risks.""
+
+why? because ""the ability to transfer assets quickly across borders and perceptions of anonymity, which appeal to many digital asset users, also make digital assets attractive to illicit actors."" while highlighting that illicit actors, such as north korea, only make up a small portion of digital asset users in overall market capitalization, it also highlights the need to combat such actors, noting that such actors often ""exploit \[...\] digital asset service providers that fail to comply with applicable aml/cft and sanctions obligations, and anonymity-enhancing technologies.""
+
+specifically, the white house tasks legislators to ""consider specifying actors within the decentralized finance ecosystem that should have aml/cft obligations, taking into consideration those actors’ roles in the ecosystem and attendant risks."" this suggestion is specifically notable in light of the report's overall tone regarding what it describes as defi and privacy preserving technologies.
+
+the report again highlights illicit actor's use of ""mixers, anonymity-enhanced cryptocurrencies (aecs), and chain-hopping—to obfuscate transactional information that may be otherwise viewable on public blockchains,"" adding that ""these tools and methods can hinder law enforcement investigations"" and can ""heighten illicit finance risks if they do not simultaneously allow for or promote risk mitigation measures.""
+
+[what trump 2025 means for freedom of transactionwhy miners should brace for the application of sanctions law.](https://www.therage.co/trump-2025-sanctions-are-good-for-bitcoin-2/)
+
+# implementing digital identities: from permissonless to permissioned
+
+one of such risk mitigating measures are digital identities, the white house states.
+
+""these tools could potentially be used by regulated digital asset intermediaries to support onboarding or by a defi services’ smart contracts to automatically check for a credential before executing a user’s transaction,"" the white house states. ""these tools could also potentially incorporate a user’s transaction history on the public blockchain into their identity profile, providing additional information to digital asset intermediaries and other counterparties on a user’s behavior and exposure to illicit finance risks.""
+
+while the white house notes that some of these tools leverage zeroknowledge proofs to ""to confirm that their identity has been verified or subject to screening by a third party without revealing underlying personal information,"" it also states that ""access to underlying personal information could be allowed at the user’s request or with their permission.""
+
+ultimately, the implementation of digital identities would turn a permissionless system into a permissioned system, even if privacy-preserving measures are taken.",0.9967
+2025-08-01 21:25:37+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mf8r7a/ethenas_usde_outpaces_blackrocks_bitcoin_ether/,"ethena's usde outpaces blackrock’s bitcoin, ether etfs with $3.1b inflow surge",0.0
+2025-08-02 02:48:26+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mffmso/major_bitcoin_holders_control_771551_btc_as/,"major bitcoin holders control 771,551 btc as institutional confidence grows",0.5106
+2025-08-02 03:58:23+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfgz65/the_daily_bitcoin_records_highest_monthly_close/,"the daily: bitcoin records highest monthly close, coinbase re-enters top 10 public treasury companies with 2,509 btc buy, and more",0.3818
+2025-08-02 10:53:35+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfnnoi/why_ethereum_outperformed_bitcoin_in_2025/,"why ethereum outperformed bitcoin in 2025 considering etf momentum, stablecoin regulation, and institutional buy-in \- ethereum outperformed bitcoin in 2025, driven by regulatory clarity and institutional adoption, capturing 42.29% price growth.
+
+\- the genius act validated ethereum as the backbone of stablecoin infrastructure, boosting institutional confidence in its blockchain.
+
+\- $5.79b etf inflows, led by blackrock’s etha, amplified liquidity and institutional capital allocation to ethereum.
+
+\- defi’s $84.2b tvl and 4.5% staking yields made ethereum a preferred asset for yield-seeking institutions over bitcoin’s speculative appeal.",0.93
+2025-08-02 11:21:18+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfo48v/uk_police_officer_jailed_for_bitcoin_theft_after/,uk police officer jailed for bitcoin theft after 8-year investigation,-0.4939
+2025-08-02 11:21:55+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfo4n6/metaplanet_to_raise_another_37_billion_for/,metaplanet to raise another $3.7 billion for further bitcoin purchases,0.0
 2025-08-02 12:01:00+00:00,"Can Ethereum Break $4,000 and Lead the Next Crypto Bull Run?",news,,"can ethereum break $4,000 and lead the next crypto bull run?",0.0
+2025-08-02 12:58:11+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfpxdh/shortterm_holders_drive_1824b_bitcoin_btc_selloff/,"short-term holders drive $18.24b bitcoin (btc) sell-off in 24 hours, glassnode data reveals",0.0
+2025-08-02 15:54:02+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfty2v/microstrategy_bitcoin_holdings_drive_132_billion/,microstrategy bitcoin holdings drive $13.2 billion ytd gain as crypto firms earnings shape market sentiment,0.5267
+2025-08-02 19:07:51+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mfyk6v/bitcoin_mining_difficulty_hits_ath_but_is/,"bitcoin mining difficulty hits ath, but is projected to drop in august",-0.5187
+2025-08-02 20:22:49+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mg0amo/investor_brian_kelly_outlines_bitcoins_path_to_a/,"investor brian kelly outlines bitcoin’s path to a potential 7x rally, calls btc the most important financial ‘innovation’ in 600 years",0.2716
 2025-08-02 21:14:57+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mg1hxz/bitcoin_now_worth_145_billion_quietly_stolen_from/,bitcoin now worth $14.5 billion quietly stolen from chinese mining pool in 2020: arkham,-0.3182
 2025-08-02 21:58:02+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mg2h8g/14_billion_chinese_bitcoin_mining_pool_theft/,$14 billion chinese bitcoin mining pool theft exposed as biggest crypto hack ever,-0.0772
 2025-08-03 00:32:16+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mg5qyb/to_anyone_thats_worried/,"to anyone that’s worried…. you have to admit, the froth has been insane lately. michael saylor increases his bitcoin prediction literally every other day, cathie wood has just declared that bitcoin will breach one and a half million dollars by 2030 and tommy lee sees ethereum reaching fifteen thousand in 2026. who wouldn’t want to make easy money in such a short amount of time.
@@ -692,6 +1611,7 @@ would like to hear thoughts? looking for thoughts from a short-term investing pe
 2025-08-08 14:26:47+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mkwoah/crypto_analyst_says_bitcoin_primed_to_surge_back/,"crypto analyst says bitcoin primed to surge back to all-time highs, updates outlook on dogecoin",0.0
 2025-08-08 17:32:46+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1ml1kta/jack_dorseys_block_set_to_release_new_bitcoin/,jack dorsey's block set to release new bitcoin mining chips next week,-0.4404
 2025-08-08 20:07:56+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1ml5m7d/bitcoin_hashrate_approaches_milestone_of_1/,bitcoin hashrate approaches milestone of 1 zettahash almost there guys! i would not have believed that if you told me 5 years ago...,0.0
+2025-08-08 22:29:47+00:00,Harvard endowment invests $116M into BlackRock Bitcoin ETF,news,,harvard endowment invests $116m into blackrock bitcoin etf,0.0
 2025-08-09 03:53:19+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mlfv62/honey_badger_atm_need_help/,"honey badger atm (need help) so i used a honey badger atm to purchase 150$ cad worth of bitcoin. once the coin finally hit my wallet its saying that the coin percentage i have is worth 88$. i was kind of shocked at this and i am wondering if that is taking into account cad to usd exchange rate and the amount i have is worth 88 usd or if i actually have 88 cad in bitcoin and i got charged a 24 dollars service fee on 150 dollars canadian? from what i can find online badger atms only charge a 5$ fee on buys less then 1000$ and don't have percentage service fees. i don't even know how to feel right now. can someone please explain to me what exactly happened at what the actual value of my wallet is now. my wallet current bitcoin balance says  76,042. thanks to anyone who takes to the time",0.785
 2025-08-09 04:32:11+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mlgl9k/what_wallets_allow_same_day_purchases_and/,"what wallets allow same day purchases and transfers of bitcoin hi, i’ve posted this in a few crypto subreddits in hopes that someone will have an answer.
 
@@ -711,3 +1631,4 @@ this report is based on a comprehensive survey of 49 digital mining firms across
 2025-08-09 16:05:00+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mlt2gg/bitcoin_is_still_king_of_capital_inflows/,"bitcoin is still king of capital inflows, according to michael saylor",0.0
 2025-08-09 16:21:19+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mltgt3/france_held_the_world_reserve_currency_for_95/,"france held the world reserve currency for 95 years, britain for 105, the usa for 80 - bitcoin (btc) is next? source: [https://x.com/bitcoinmagazine/status/1953877442508054594](https://x.com/bitcoinmagazine/status/1953877442508054594)",0.0
 2025-08-09 20:29:57+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mlzfmg/uk_bitcoin_treasury_companies_on_the_rise_the/,"uk bitcoin treasury companies on the rise, the current leaders in focus",0.2023
+2025-08-09 22:11:13+00:00,,reddit,https://www.reddit.com/r/CryptoCurrency/comments/1mm1s73/bitcoin_investment_banks_coming_to_el_salvador/,bitcoin investment banks coming to el salvador — gov regulator,0.0

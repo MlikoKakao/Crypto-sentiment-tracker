@@ -26,7 +26,9 @@ from src.plotting.charts import (
     plot_sentiment_vs_price,
     plot_sentiment_with_price
 )
-from src.utils.cache import file_sha1
+from src.utils.helpers import file_sha1
+from src.analysis.lead_lag import load_or_build_features
+from src.plotting.charts import plot_lag_correlation
 
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
@@ -56,7 +58,10 @@ days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosin
 analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
                                                                                                     "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
 posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
-
+st.sidebar.header("Lead/Lag settings")
+lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
+lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
+metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
 
 end_date = pd.Timestamp.now(tz=utc)
 start_date = end_date - timedelta(days=int(days))
@@ -209,6 +214,21 @@ if st.sidebar.button("Run Analysis"):
     else:
         save_csv(merged_df, merged_path)
 
+    features_settings ={
+        "dataset": "features",
+        "coin": selected_coin,
+        "days": int(days),
+        "analyzer": analyzer_choice,
+        "posts_choice": posts_choice,
+        "depends_on": [file_sha1(merged_path)],
+        "lag_min_s": -lag_hours*3600,
+        "lag_max_s": lag_hours*3600,
+        "lag_step_s": lag_step_min*60,
+        "metric": metric_choice
+    }
+
+    feats = load_or_build_features(features_settings, merged_path)
+
     st.success("Data ready, showing visualization:")
     st.session_state["merged_path"] = merged_path
 
@@ -229,13 +249,18 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 
     #Price plot
     st.plotly_chart(plot_price_time_series(df, selected_coin), use_container_width=True)
-    #Sentiment vs price
-    st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
+   
     #Sentiment timeline
     st.plotly_chart(plot_sentiment_timeline(df, selected_coin), use_container_width=True)
 
     #Sentiment vs price timeline (smoothed)
     st.plotly_chart(plot_sentiment_with_price(df, selected_coin), use_container_width=True)
+
+    fig_lag = plot_lag_correlation(feats,  unit="min")
+    st.plotly_chart(fig_lag, use_container_width=True)
+
+    #Sentiment vs price
+    st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
 
     #Average sentiment
     avg_sent = df["sentiment"].mean()

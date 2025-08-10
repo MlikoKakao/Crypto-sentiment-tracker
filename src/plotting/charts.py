@@ -103,3 +103,43 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
     )
 
     return fig
+
+def plot_lag_correlation(feats: pd.DataFrame, unit: str = "min"):
+    if feats is None or feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
+        raise ValueError("Features DF must include lag_second and r")
+
+    df = feats.copy()
+
+    if unit == "min":
+        df["lag_axis"] = (df["lag_seconds"] / 60).astype(float)
+        x_label = "Lag (minutes)"
+    elif unit == "hours":
+        df["lag_axis"] = (df["lag_seconds"] / 3600).astype(float)
+        x_label = "Lag (hours)"
+    else:
+        df["lag_axis"]= df["lag_seconds"].astype(float)
+        x_label = "Lag (seconds)"
+
+    df = df.sort_values("lag_axis")
+
+    fig = px.line(
+        df,
+        x="lag_axis",
+        y="r",
+        title="Correlation vs Lag (positive = sentiment leads)",
+        labels={"lag_axis": x_label, "r": "Pearson r"},
+    )
+    fig.update_traces(line=dict(width=2))
+    fig.update_layout(margin=dict(l=20,r=20,t=50,b=20))
+    #Zero line
+    fig.add_hline(y=0, line_dash = "dot", line_width=1)
+
+    valid = df.dropna(subset=["r"])
+    if not valid.empty:
+        best_idx = valid["r"].abs().idxmax()
+        best_x = float(valid.loc[best_idx, "lag_axis"])
+        best_r = float(valid.loc[best_idx, "r"])
+        fig.add_vline(x=best_x,line_dash="dash",line_width=1,line_color="gray")
+        fig.add_scatter(x=[best_x],y=[best_r],mode="markers",
+                        name=f"Best lag: {best_x:g} {unit}", marker=dict(size=9))
+    return fig

@@ -103,6 +103,3 @@ def cache_csv(df: pd.DataFrame, settings:dict) -> Path:
     return path
 
 
-def file_sha1(p:str) -> str: #Returns content fingerprint of a file
-    with open(p, "rb") as f: #Opens file in binary
-        return file_digest(f, hashlib.sha1).hexdigest() #Automatically reads 1MiB chunks > feeds them to hasher, returns 40-char hex digest

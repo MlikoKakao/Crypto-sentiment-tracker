@@ -4,7 +4,8 @@ import os
 import time
 from datetime import datetime
 import logging
-import hashlib, pathlib
+import hashlib
+from pathlib import Path
 import json
 from config.settings import MAPPING_FILE, CACHE_DIR
 logger = logging.getLogger(__name__)
@@ -21,6 +22,30 @@ def load_csv(filepath, parse_dates=None):
 def save_csv(df, filepath):
     df.to_csv(filepath, index=False)
     logger.debug(f"Saved CSV to: {filepath} ({len(df)} rows)")
+
+def file_sha1(p:str | os.PathLike) -> str: #Returns content fingerprint of a file
+    p = Path(p)
+    if not p.exists():
+        raise FileNotFoundError(p)
+    if p.is_dir():
+        raise IsADirectoryError(p)
+
+    # Fast path (Py 3.11+)
+    try:
+        from hashlib import file_digest  # type: ignore[attr-defined]
+    except ImportError:
+        file_digest = None
+
+    if file_digest is not None:
+        with p.open("rb") as f:
+            return file_digest(f, hashlib.sha1).hexdigest()
+
+    # Fallback for <=3.10
+    h = hashlib.sha1()
+    with p.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest() #Automatically reads 1MiB chunks > feeds them to hasher, returns 40-char hex digest
 
 #DEPRECATED CACHING
 def is_file_fresh(path,freshness_minutes=10):
