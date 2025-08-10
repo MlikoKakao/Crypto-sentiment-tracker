@@ -18,7 +18,7 @@ from src.sentiment import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv
 from config.settings import(
-    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS, get_data_path, POSTS_KIND
+    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS, get_data_path, POSTS_KIND, DEFAULT_SUBS
 )
 from src.plotting.charts import (
     plot_price_time_series,
@@ -58,6 +58,12 @@ days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosin
 analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
                                                                                                     "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
 posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
+if posts_choice in ("All", "Reddit"):
+    subreddits = st.sidebar.multiselect(
+        "Subreddits",
+        DEFAULT_SUBS + ["ethtrader","ethereum","CryptoCurrencyTrading"],
+        default=DEFAULT_SUBS
+    )
 st.sidebar.header("Lead/Lag settings")
 lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
 lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
@@ -110,16 +116,17 @@ if st.sidebar.button("Run Analysis"):
             "dataset": "posts",
             "source": "reddit",
             "coin": selected_coin,
-            "query": selected_coin,
+            "query": f"({selected_coin} OR {selected_label})",
             "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
             "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
             "num_posts": num_posts,
-            "tz":"utc"
+            "tz":"utc",
+            "subreddits": subreddits
         }
         reddit_df = load_cached_csv(reddit_settings, parse_dates=["timestamp"],freshness_minutes = 30)
         if reddit_df is None:
                 with st.spinner("Fetching Reddit posts..."):
-                    reddit_df = fetch_reddit_posts(selected_coin, num_posts, start_date=start_date, end_date=end_date)
+                    reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
                     reddit_df["source"] = "reddit"
                     cache_csv(reddit_df, reddit_settings)
                     save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
@@ -228,7 +235,7 @@ if st.sidebar.button("Run Analysis"):
     }
 
     feats = load_or_build_features(features_settings, merged_path)
-
+   
     st.success("Data ready, showing visualization:")
     st.session_state["merged_path"] = merged_path
 

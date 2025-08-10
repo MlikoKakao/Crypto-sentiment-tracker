@@ -26,24 +26,42 @@ reddit = praw.Reddit(
 
 
 
-def fetch_reddit_posts(query="bitcoin",limit=1000, start_date=None, end_date=None):
-    logger.info(f"Fetching Reddit posts with query='{query}', limit={limit}")
-    posts = []
-    for submission in reddit.subreddit("CryptoCurrency").search(query, limit=limit, sort="new"):
+def fetch_reddit_posts(query="(btc OR bitcoin)",limit=1000, start_date=None, end_date=None, subreddits=("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
+    
+    subs = "+".join(sorted(set(map(str, subreddits))))
+
+    logger.info(f"Fetching Reddit posts with query='{query}', limit={limit}, subs={subs}")
+    posts, seen = [], set()
+    gen = reddit.subreddit(subs).search(query,sort="new",limit=None,time_filter="year")
+
+    for submission in gen:
         
-        timestamp = datetime.fromtimestamp(submission.created_utc, utc)
+        timestamp = datetime.fromtimestamp(submission.created_utc, tz=utc)
         if start_date and timestamp < start_date:
             continue
         if end_date and timestamp > end_date:
             continue
-        text = submission.title + " " + submission.selftext
+
+        sid = submission.id
+        if sid in seen:
+            continue
+        seen.add(sid)
+
+        text = f"{submission.title or ''} {submission.selftext or ''}".strip() 
         posts.append({
             "timestamp": timestamp,
             "text": text,
-            "url": f"https://www.reddit.com{submission.permalink}"
+            "url": f"https://www.reddit.com{submission.permalink}",
+            "subreddit": submission.subreddit.display_name,
+            "score": submission.score,
+            "num_comments": submission.num_comments,
+            "id": sid
         })
 
-    logger.info(f"Fetched {len(posts)} posts for query='{query}'")
+        if len(posts) >= limit:
+            break
+
+    logger.info(f"Fetched {len(posts)} posts for query='{query}' from {subs}")
     df = pd.DataFrame(posts)
     df["text"] = df["text"].apply(clean_text)
     return df

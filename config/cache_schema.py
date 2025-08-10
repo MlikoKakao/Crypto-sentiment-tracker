@@ -16,6 +16,11 @@ HASH_KEYS_BY_DATASET["features"] = (
 )
 #each dict entry maps a dataset type to the exact tuple of setting keys that define that file's bytes
 
+HASH_KEYS_BY_DATASET["posts"] = (
+    "dataset","coin","source","query","start_date","end_date","num_posts","subreddits"
+)
+
+
 DEFAULTS: Dict[str, Any] = { #Defaultes - unused for now, could implement later but dont really see use
 
 }

@@ -10,7 +10,7 @@ COINGECKO_INTERVALS = {
     "long": "daily" 
 }
 
-REDDIT_SUBREDDIT = "Cryptocurrency"
+DEFAULT_SUBS = ["CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets"]
 REDDIT_DEFAULT_QUERY = "bitcoin"
 
 SENTIMENT_NEG_THRESHOLD = -0.05
