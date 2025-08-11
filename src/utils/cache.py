@@ -5,6 +5,8 @@ from hashlib import file_digest
 import time
 from pathlib import Path
 from typing import Any, Dict, Optional
+import stat
+import shutil
 
 import pandas as pd
 
@@ -102,4 +104,29 @@ def cache_csv(df: pd.DataFrame, settings:dict) -> Path:
     save_mapping(mp) #saves properties of csv and it's settings
     return path
 
+def _remove_readonly_and_retry(func, path, exc_info)-> None:
+    try:
+        os.chmod(path,stat.S_IWRITE)
+        func(path)
+    except Exception:
+        pass
 
+def clear_cache_dir() -> dict:
+    bytes_freed = 0
+    files_count = 0
+
+    if CACHE_DIR.exists():
+        for p in CACHE_DIR.rglob("*"):
+            if p.is_file():
+                try:
+                    bytes_freed += p.stat().st_size
+                    files_count +=1
+                except Exception:
+                    pass
+        shutil.rmtree(CACHE_DIR, onexc=_remove_readonly_and_retry)
+    
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    MAPPING_FILE.parent.mkdir(parents=True,exist_ok=True)
+    MAPPING_FILE.write_text("{}", encoding="utf-8")
+
+    return {"files_removed": files_count, "bytes_freed": bytes_freed}

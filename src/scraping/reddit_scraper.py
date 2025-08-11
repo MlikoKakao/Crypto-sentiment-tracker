@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from src.utils.helpers import save_csv, clean_text
 import os
 import logging
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -26,44 +27,57 @@ reddit = praw.Reddit(
 
 
 
-def fetch_reddit_posts(query="(btc OR bitcoin)",limit=1000, start_date=None, end_date=None, subreddits=("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
+def fetch_reddit_posts(query="(btc OR bitcoin)"
+                       ,limit=1000,
+                       start_date=None,
+                       end_date=None,
+                       subreddits=("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
     
-    subs = "+".join(sorted(set(map(str, subreddits))))
+    terms = [t.strip(" ()") for t in re.split(r"\bOR\b", query, flags=re.I)]
+    kw = re.compile(r"|".join(map(re.escape, terms)), flags = re.I)
 
-    logger.info(f"Fetching Reddit posts with query='{query}', limit={limit}, subs={subs}")
+    logger.info(f"Fetching Reddit posts with query='{query}', limit={limit}, subs={subreddits}")
     posts, seen = [], set()
-    gen = reddit.subreddit(subs).search(query,sort="new",limit=None,time_filter="year")
+    
+    for sub in sorted(set(subreddits)):
+        for submission in reddit.subreddit(sub).new(limit=None):
+            ts = datetime.fromtimestamp(submission.created_utc, tz=utc)
+            
+            if end_date and ts > end_date:
+                continue
+            if start_date and ts < start_date:
+                break
 
-    for submission in gen:
-        
-        timestamp = datetime.fromtimestamp(submission.created_utc, tz=utc)
-        if start_date and timestamp < start_date:
-            continue
-        if end_date and timestamp > end_date:
-            continue
+            #Filter by keywords locally
+            text = f"{submission.title or ''} {submission.selftext or ''}"
+            if not kw.search(text):
+                continue 
 
-        sid = submission.id
-        if sid in seen:
-            continue
-        seen.add(sid)
+            sid = submission.id
+            if sid in seen:
+                continue
+            seen.add(sid)
 
-        text = f"{submission.title or ''} {submission.selftext or ''}".strip() 
-        posts.append({
-            "timestamp": timestamp,
-            "text": text,
-            "url": f"https://www.reddit.com{submission.permalink}",
-            "subreddit": submission.subreddit.display_name,
-            "score": submission.score,
-            "num_comments": submission.num_comments,
-            "id": sid
-        })
+            posts.append({
+                "timestamp": ts,
+                "text": text,
+                "url": f"https://www.reddit.com{submission.permalink}",
+                "subreddit": submission.subreddit.display_name,
+                "score": submission.score,
+                "num_comments": submission.num_comments,
+                "id": sid,
+                "source": "reddit"
+            })
 
-        if len(posts) >= limit:
+            if len(posts) >= limit:
+                break
+        if len(posts)>= limit:
             break
 
-    logger.info(f"Fetched {len(posts)} posts for query='{query}' from {subs}")
+    logger.info(f"Fetched {len(posts)} posts for query='{query}' from {subreddits}")
     df = pd.DataFrame(posts)
-    df["text"] = df["text"].apply(clean_text)
+    if not df.empty:
+        df["text"] = df["text"].apply(clean_text)
     return df
 
 if __name__ == "__main__":

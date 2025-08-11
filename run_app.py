@@ -16,7 +16,7 @@ from src.scraping.fetch_price import get_price_history
 from src.scraping.news_scraper import fetch_news_posts
 from src.sentiment import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
-from src.utils.cache import load_cached_csv, cache_csv
+from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir
 from config.settings import(
     COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS, get_data_path, POSTS_KIND, DEFAULT_SUBS
 )
@@ -69,6 +69,12 @@ lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
 lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
 metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
 
+if st.sidebar.button("Clear cache"):
+    res = clear_cache_dir()
+    mb = res["bytes_freed"]/ 1e6
+    st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
+    st.session_state.pop("merged_path",None)
+
 end_date = pd.Timestamp.now(tz=utc)
 start_date = end_date - timedelta(days=int(days))
 
@@ -88,12 +94,13 @@ if st.sidebar.button("Run Analysis"):
     news_path = f"data/{selected_coin}_news_posts.csv"
     reddit_path = f"data/{selected_coin}_posts.csv"
     
+    cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
     #News
     if posts_choice in ("All", "News"):
-        cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
+        
 
         news_settings = {
-            "dataset": "posts",
+            "dataset": "posts_news",
             "source": "news",
             "coin": selected_coin,
             "query": cryptopanic_coin,
@@ -113,10 +120,10 @@ if st.sidebar.button("Run Analysis"):
     #Reddit
     if posts_choice in ("All", "Reddit"):
         reddit_settings = {
-            "dataset": "posts",
+            "dataset": "posts_reddit",
             "source": "reddit",
             "coin": selected_coin,
-            "query": f"({selected_coin} OR {selected_label})",
+            "query": f"({selected_coin} OR {cryptopanic_coin})",
             "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
             "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
             "num_posts": num_posts,
@@ -130,6 +137,7 @@ if st.sidebar.button("Run Analysis"):
                     reddit_df["source"] = "reddit"
                     cache_csv(reddit_df, reddit_settings)
                     save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
+        save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
         use_reddit = True
 
     with st.spinner("Analyzing sentiment..."):
@@ -195,7 +203,7 @@ if st.sidebar.button("Run Analysis"):
             price_df = get_price_history(selected_coin, days)
             cache_csv(price_df, price_settings)
             save_csv(price_df,get_data_path(selected_coin, "prices"))
-
+    save_csv(price_df, get_data_path(selected_coin,"prices"))
     #Merge of price and data
     merged_settings = {
         "dataset": "merged",
