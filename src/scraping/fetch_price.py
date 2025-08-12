@@ -17,7 +17,7 @@ def get_price_history(symbol="bitcoin", days="1"):
     url = f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart"
     params = {
         "vs_currency": "usd",
-        "days": days
+        "days": str(int(days))
     }
     response = requests.get(url, params=params)
 

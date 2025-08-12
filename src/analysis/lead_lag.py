@@ -23,24 +23,24 @@ def compute_lead_lag(merged_df: pd.DataFrame,
 
     out = []
     for lag in lag_seconds:
-        k = int(round(lag/step))
+        k = int(round(lag / step))
         p_shift = p.shift(-k)
         valid = pd.concat([s, p_shift], axis = 1).dropna()
         n = len(valid)
         if n < min_points:
             out.append([lag, np.nan, np.nan, n])
             continue
-        if metric == "spearman":
+        if metric.lower() == "spearman":
             r = float(valid.corr(method="spearman").iloc[0,1])
             pval = np.nan
         else:
             r = float(valid.corr().iloc[0,1])
             try:
-                _,pval = pearsonr(valid.iloc[:,0].values, valid.iloc[:,1].values)
+                _,pval = pearsonr(valid.iloc[:,0].to_numpy(), valid.iloc[:,1].to_numpy())
             except Exception:
                 pval = np.nan
         out.append([lag,r,float(pval),int(n)])
-        return pd.DataFrame(out,columns=["lag_seconds","r","p_value","n"])
+    return pd.DataFrame(out,columns=["lag_seconds","r","p_value","n"])
 
 
 

@@ -1,1 +1,134 @@
-{}
+{
+  "924f7a8c95a7247db81e7618ae3b0440": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\924f7a8c95a7247db81e7618ae3b0440.csv",
+    "rows": 700,
+    "updated": 1755016090,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_reddit",
+      "end_date": "2025-08-12T16:27:55",
+      "num_posts": 700,
+      "query": "(bitcoin or btc)",
+      "source": "reddit",
+      "start_date": "2025-07-13T16:27:55"
+    }
+  },
+  "853fdf35d1c2d47d687ee6f60afe554f": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\853fdf35d1c2d47d687ee6f60afe554f.csv",
+    "rows": 700,
+    "updated": 1755016091,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "695fed87b78d05d8a2556200ea735d7c54529d05",
+      "source": "reddit"
+    }
+  },
+  "54658b7381788874b7c464225255fae9": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\54658b7381788874b7c464225255fae9.csv",
+    "rows": 720,
+    "updated": 1755016091,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "price",
+      "days": 30
+    }
+  },
+  "10126592b3c0f5eeb96114342599b00b": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\10126592b3c0f5eeb96114342599b00b.csv",
+    "rows": 700,
+    "updated": 1755016092,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 30,
+      "depends_on": [
+        "3d5e6e923cc8886236d446cd9dd9310c83ea40ee",
+        "e773cad0d026389bc05f8a8904ea2d35ff2cb8f1"
+      ],
+      "posts_choice": "all"
+    }
+  },
+  "1fdb8fd4de70745dfb4b01b0dba8c47d": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\1fdb8fd4de70745dfb4b01b0dba8c47d.csv",
+    "rows": 193,
+    "updated": 1755016092,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "features",
+      "days": 30,
+      "depends_on": [
+        "0615b8bfb3d31b1d8f6b83865c2db089e16a5217"
+      ],
+      "lag_max_s": 86400,
+      "lag_min_s": -86400,
+      "lag_step_s": 900,
+      "metric": "pearson",
+      "posts_choice": "all"
+    }
+  },
+  "9fb4f48293bb58607d6067abf1a6e27f": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\9fb4f48293bb58607d6067abf1a6e27f.csv",
+    "rows": 500,
+    "updated": 1755016258,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_reddit",
+      "end_date": "2025-08-12T16:30:47",
+      "num_posts": 500,
+      "query": "(bitcoin or btc)",
+      "source": "reddit",
+      "start_date": "2025-07-13T16:30:47"
+    }
+  },
+  "b80e1b4595f645ce3085baf3c78d4121": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\b80e1b4595f645ce3085baf3c78d4121.csv",
+    "rows": 500,
+    "updated": 1755016259,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "fb8ff8467ab5c0540d8d4eca9e42edff8d23a93c",
+      "source": "reddit"
+    }
+  },
+  "aead7b4f2509ed69e38113a130e21f88": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\aead7b4f2509ed69e38113a130e21f88.csv",
+    "rows": 500,
+    "updated": 1755016259,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 30,
+      "depends_on": [
+        "6a06ba9ea8abb66ff032564c72dc4d545fbd474e",
+        "9871dc1d28acc361eec00d3cb56b45f714ac94ee"
+      ],
+      "posts_choice": "reddit"
+    }
+  },
+  "5d1dabd427cb18da5d6b699c936e80c8": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\5d1dabd427cb18da5d6b699c936e80c8.csv",
+    "rows": 193,
+    "updated": 1755016260,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "features",
+      "days": 30,
+      "depends_on": [
+        "379e5542b7e1d000a02aabcdb2f16ade00395262"
+      ],
+      "lag_max_s": 86400,
+      "lag_min_s": -86400,
+      "lag_step_s": 900,
+      "metric": "pearson",
+      "posts_choice": "reddit"
+    }
+  }
+}

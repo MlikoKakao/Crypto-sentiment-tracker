@@ -5,6 +5,9 @@ import plotly.graph_objects as go
 import streamlit as st
 
 def plot_price_time_series(df: pd.DataFrame, coin:str):
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.dropna(subset=["timestamp"])
+
     fig = px.line(
         df,
         x="timestamp",
@@ -18,6 +21,9 @@ def plot_price_time_series(df: pd.DataFrame, coin:str):
     return fig
 
 def plot_sentiment_vs_price(df: pd.DataFrame):
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.dropna(subset=["timestamp"])
+
     df["date_str"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")
     fig = px.scatter(
         df,
@@ -32,6 +38,9 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
     return fig
 
 def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.dropna(subset=["timestamp"])
+
     df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.3)
     fig = px.line(
         df,
@@ -56,6 +65,9 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
 
 #Graph showing LOESS/BTC price
 def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.dropna(subset=["timestamp"])
+
     df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.3)
     fig = go.Figure()
 
@@ -105,10 +117,12 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
 
     return fig
 
-def plot_lag_correlation(feats: pd.DataFrame, unit: str = "min"):
+def plot_lag_correlation(feats: pd.DataFrame, unit: str = "min", metric_label: str= "r"):
     if feats is None or feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
-        st.exception("Features DF must include lag_second and r")
-
+        st.error("Features DF must include lag_second and r")
+        import plotly.graph_objects as go
+        return go.Figure()
+    
     df = feats.copy()
 
     if unit == "min":
@@ -128,7 +142,7 @@ def plot_lag_correlation(feats: pd.DataFrame, unit: str = "min"):
         x="lag_axis",
         y="r",
         title="Correlation vs Lag (positive = sentiment leads)",
-        labels={"lag_axis": x_label, "r": "Pearson r"},
+        labels={"lag_axis": x_label, "r": metric_label},
     )
     fig.update_traces(line=dict(width=2))
     fig.update_layout(margin=dict(l=20,r=20,t=50,b=20))

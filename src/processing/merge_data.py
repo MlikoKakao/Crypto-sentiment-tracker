@@ -1,5 +1,5 @@
 import pandas as pd
-from src.utils.helpers import load_csv, save_csv
+from src.utils.helpers import load_csv, save_csv, _to_naive
 from src.utils.cache import load_cached_csv, cache_csv
 
 def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_settings):
@@ -19,8 +19,8 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
 
 
     # Convert timestamp columns safely (handles ISO strings with +00:00)
-    sentiment_df["timestamp"] = pd.to_datetime(sentiment_df["timestamp"], errors="coerce")
-    price_df["timestamp"] = pd.to_datetime(price_df["timestamp"], errors="coerce")
+    sentiment_df["timestamp"] = _to_naive(pd.to_datetime(sentiment_df["timestamp"], errors="coerce"))
+    price_df["timestamp"] = _to_naive(pd.to_datetime(price_df["timestamp"], errors="coerce"))
 
     # Drop any rows with invalid timestamps
     sentiment_df = sentiment_df.dropna(subset=["timestamp"])
@@ -36,10 +36,11 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
 
     # Merge based on nearest timestamp
     merged = pd.merge_asof(
-        sentiment_df,
-        price_df,
+        sentiment_df.sort_values("timestamp"),
+        price_df.sort_values("timestamp"),
         on="timestamp",
-        direction="nearest"
+        direction="nearest",
+        tolerance=pd.Timedelta("1D")
     )
 
     # Save to file

@@ -5,16 +5,19 @@ from transformers import pipeline
 from src.utils.cache import load_cached_csv, cache_csv
 from src.utils.helpers import load_csv, save_csv
 import logging
-import nltk
-nltk.download("vader_lexicon", quiet=True)
+
+try:
+    SentimentIntensityAnalyzer()
+except LookupError:
+    import nltk; nltk.download("vader_lexicon", quiet=True)
 logger = logging.getLogger(__name__)
 _roberta = None
-
+_vader = SentimentIntensityAnalyzer()
 
 
 def vader_analyze(text: str) -> float:
-    analyzer = SentimentIntensityAnalyzer()
-    return analyzer.polarity_scores(str(text))["compound"]       
+
+    return _vader.polarity_scores(str(text))["compound"]       
 
 def textblob_analyze(text:str) -> float:
     return TextBlob(str(text)).sentiment.polarity

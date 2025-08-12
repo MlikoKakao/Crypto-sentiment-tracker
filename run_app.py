@@ -96,8 +96,8 @@ if st.sidebar.button("Run Analysis"):
     
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
     #News
-    if posts_choice in ("All", "News"):
-        
+    if posts_choice in ( "News"):
+        #Dont use news for now, API almost used up - add "All" in line above to allow again        
 
         news_settings = {
             "dataset": "posts_news",
@@ -270,10 +270,11 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 
     #Sentiment vs price timeline (smoothed)
     st.plotly_chart(plot_sentiment_with_price(df, selected_coin), use_container_width=True)
-
-    fig_lag = plot_lag_correlation(feats,  unit="min")
-    st.plotly_chart(fig_lag, use_container_width=True)
-
+    try:
+        fig_lag = plot_lag_correlation(feats,  unit="min")
+        st.plotly_chart(fig_lag, use_container_width=True)
+    except ValueError as e:
+        st.warning(f"Lag plot unavailable: {e}")
     #Sentiment vs price
     st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
 
