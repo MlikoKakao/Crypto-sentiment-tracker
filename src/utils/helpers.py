@@ -72,3 +72,9 @@ def map_to_cryptopanic_symbol(symbol):
     }
     return symbol_map.get(symbol.lower(),symbol.upper())
 
+#Convert to timezone naive (for merge)
+def _to_naive(s: pd.Series) -> pd.Series:
+    try:
+        return s.dt.tz_localize(None)
+    except(TypeError, AttributeError):
+        return s

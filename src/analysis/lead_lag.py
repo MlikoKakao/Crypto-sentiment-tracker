@@ -2,34 +2,47 @@ import numpy as np
 import pandas as pd
 from src.utils.cache import load_cached_csv, cache_csv
 from src.utils.helpers import file_sha1
+from scipy.stats import pearsonr
 
 def compute_lead_lag(merged_df: pd.DataFrame,
                      lag_seconds:list[int],
-                     metric: str = "pearson") -> pd.DataFrame:
-    df = merged_df[["timestamp", "price", "sentiment"]].dropna().sort_values("timestamp")
-    df = df.set_index("timestamp")
+                     metric: str = "pearson",
+                     resample: str = "5min",
+                     min_points: int = 50) -> pd.DataFrame:
+    df = (merged_df[["timestamp", "price", "sentiment"]].dropna().sort_values("timestamp"))
+    if df.empty:
+        return pd.DataFrame(columns=["lag_seconds","r","p_value","n"])
+    
+    g = (df.set_index("timestamp")
+         .resample(resample).mean()
+         .interpolate("time"))
+
+    s = g["sentiment"]
+    p = g["price"]
+    step = pd.to_timedelta(resample).total_seconds()
 
     out = []
     for lag in lag_seconds:
-        s = df["sentiment"].copy()
-        p = df["price"].copy()
-        #Shift sentiment in time(lag, either pos or neg)
-        s_lag = s.copy()
-        s_lag.index = s_lag.index + pd.to_timedelta(lag, unit="s")
-        aligned = (
-            pd.concat([p, s_lag], axis=1, join="inner")
-            .rename(columns={"sentiment": "sentiment_lag"})
-            .dropna()
-        )
-        if len(aligned) < 5:
-            out.append((lag, np.nan, np.nan, len(aligned)))
+        k = int(round(lag/step))
+        p_shift = p.shift(-k)
+        valid = pd.concat([s, p_shift], axis = 1).dropna()
+        n = len(valid)
+        if n < min_points:
+            out.append([lag, np.nan, np.nan, n])
             continue
-        if metric == "pearson":
-            r = aligned["price"].corr(aligned["sentiment_lag"])
-            out.append((lag, r, np.nan, len(aligned)))
+        if metric == "spearman":
+            r = float(valid.corr(method="spearman").iloc[0,1])
+            pval = np.nan
         else:
-            out.append((lag, np.nan,np.nan,len(aligned)))
-    return pd.DataFrame(out, columns=["lag_seconds","r","p_value","n"])
+            r = float(valid.corr().iloc[0,1])
+            try:
+                _,pval = pearsonr(valid.iloc[:,0].values, valid.iloc[:,1].values)
+            except Exception:
+                pval = np.nan
+        out.append([lag,r,float(pval),int(n)])
+        return pd.DataFrame(out,columns=["lag_seconds","r","p_value","n"])
+
+
 
 def load_or_build_features(settings: dict, merged_path: str) -> pd.DataFrame:
     df_cached = load_cached_csv(settings, parse_dates=None, freshness_minutes=None)

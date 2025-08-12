@@ -2,6 +2,7 @@ import plotly.express as px
 import pandas as pd
 from src.processing.smoothing import apply_loess
 import plotly.graph_objects as go
+import streamlit as st
 
 def plot_price_time_series(df: pd.DataFrame, coin:str):
     fig = px.line(
@@ -106,7 +107,7 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
 
 def plot_lag_correlation(feats: pd.DataFrame, unit: str = "min"):
     if feats is None or feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
-        raise ValueError("Features DF must include lag_second and r")
+        st.exception("Features DF must include lag_second and r")
 
     df = feats.copy()
 

@@ -1090,3 +1090,100 @@
 2025-08-11 18:31:03,832 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
 2025-08-11 18:31:03,913 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
 2025-08-11 18:31:04,297 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:13:31,660 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 11:13:32,043 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 11:13:32,076 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=300, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:13:38,577 | INFO | src.scraping.reddit_scraper | Fetched 300 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:13:38,658 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-12 11:13:38,755 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv. Total records: 6
+2025-08-12 11:13:38,790 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-12 11:13:41,961 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 300
+2025-08-12 11:13:41,975 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 11:13:41,988 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-12 11:13:42,386 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 11:13:42,399 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-12 11:13:42,497 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:13:42,927 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:50:10,746 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 11:50:11,067 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 11:50:11,093 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=400, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:50:22,211 | INFO | src.scraping.reddit_scraper | Fetched 400 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:50:22,300 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_news_posts.csv
+2025-08-12 11:50:22,393 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv. Total records: 6
+2025-08-12 11:50:22,427 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-12 11:50:26,135 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 400
+2025-08-12 11:50:26,148 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 11:50:26,160 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-12 11:50:26,518 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 11:50:26,531 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-12 11:50:26,605 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:50:26,710 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:51:46,992 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 11:51:47,323 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 11:51:47,353 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=400, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:51:54,020 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:51:56,228 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:51:57,284 | INFO | src.scraping.reddit_scraper | Fetched 400 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:52:02,398 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 11:52:02,701 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 11:52:02,778 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=400, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:52:12,535 | INFO | src.scraping.reddit_scraper | Fetched 400 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 11:52:12,613 | INFO | src.sentiment.analyzer | Loaded cached sentiment to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 11:52:12,639 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-12 11:52:16,425 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 400
+2025-08-12 11:52:16,439 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 11:52:16,444 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-12 11:52:16,581 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 11:52:16,593 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-12 11:52:16,680 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 11:52:16,780 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 12:13:16,370 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 12:13:16,724 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 12:13:16,750 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:13:28,218 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:13:28,302 | INFO | src.sentiment.analyzer | Loaded cached sentiment to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 12:13:28,326 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-12 12:13:32,923 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 500
+2025-08-12 12:13:32,942 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 12:13:32,946 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-12 12:13:33,435 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 12:13:33,447 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-12 12:14:19,657 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 12:14:19,993 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 12:14:20,029 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:14:31,083 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:14:31,168 | INFO | src.sentiment.analyzer | Loaded cached sentiment to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 12:14:31,193 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-12 12:14:35,761 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 500
+2025-08-12 12:14:35,778 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 12:14:35,784 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-12 12:14:35,894 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 12:14:35,907 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-12 12:15:11,625 | INFO | src.scraping.news_scraper | Attempting to fetch news for BTC..
+2025-08-12 12:15:11,947 | INFO | src.scraping.news_scraper | Fetched 6 news posts for BTC
+2025-08-12 12:15:11,973 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:15:23,539 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:15:23,625 | INFO | src.sentiment.analyzer | Loaded cached sentiment to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 12:15:23,647 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-12 12:15:28,164 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 500
+2025-08-12 12:15:28,182 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_news_sentiment.csv
+2025-08-12 12:15:28,186 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-12 12:15:28,288 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 12:15:28,301 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-12 12:15:28,376 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 12:15:28,474 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 12:18:02,331 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-12 12:18:10,569 | INFO | src.scraping.news_scraper | Attempting to fetch news for ETH..
+2025-08-12 12:18:10,855 | INFO | src.scraping.news_scraper | Fetched 20 news posts for ETH
+2025-08-12 12:18:10,878 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(ethereum OR ETH)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:18:45,178 | INFO | src.scraping.reddit_scraper | Fetched 427 posts for query='(ethereum OR ETH)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-12 12:18:45,285 | INFO | src.utils.helpers | Loaded CSV from: data/ethereum_news_posts.csv
+2025-08-12 12:18:45,533 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_news_sentiment.csv. Total records: 20
+2025-08-12 12:18:45,562 | INFO | src.utils.helpers | Loaded CSV from: data/ethereum_reddit_posts.csv
+2025-08-12 12:18:49,997 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_sentiment.csv. Total records: 427
+2025-08-12 12:18:50,012 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_news_sentiment.csv
+2025-08-12 12:18:50,029 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_sentiment.csv
+2025-08-12 12:18:50,443 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-12 12:18:50,458 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_prices.csv
+2025-08-12 12:18:50,551 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_merged.csv
+2025-08-12 12:18:50,661 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_merged.csv
