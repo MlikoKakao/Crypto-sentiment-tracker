@@ -158,3 +158,15 @@ def plot_lag_correlation(feats: pd.DataFrame, unit: str = "min", metric_label: s
         fig.add_scatter(x=[best_x],y=[best_r],mode="markers",
                         name=f"Best lag: {best_x:g} {unit}", marker=dict(size=9))
     return fig
+
+def plot_equity(df_bt: pd.DataFrame):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df_bt["timestamp"], y = df_bt["eq_strategy"], name="Strategy", mode="lines"))
+    fig.add_trace(go.Scatter(x=df_bt["timestamp"], y = df_bt["eq_hodl"], name="HODL", mode = "lines"))
+    fig.update_layout(title="Equity Curve (Strategy vs HODL)", yaxis_title="Growth (x)", xaxis_title="Time")
+    return fig
+
+def plot_drawdown(df_bt: pd.DataFrame):
+    fig = px.area(df_bt, x="timestamp", y="dd", title="Dradown (Strategy)")
+    fig.update_yaxes(ticksuffix="", tickformat=".0%")
+    return fig

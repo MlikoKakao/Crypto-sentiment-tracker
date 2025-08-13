@@ -14,7 +14,7 @@ from src.utils.helpers import load_csv,save_csv, filter_date_range, map_to_crypt
 from src.scraping.reddit_scraper import fetch_reddit_posts
 from src.scraping.fetch_price import get_price_history
 from src.scraping.news_scraper import fetch_news_posts
-from src.sentiment import add_sentiment_to_file
+from src.sentiment.analyzer import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir
 from config.settings import(
@@ -24,11 +24,14 @@ from src.plotting.charts import (
     plot_price_time_series,
     plot_sentiment_timeline,
     plot_sentiment_vs_price,
-    plot_sentiment_with_price
+    plot_sentiment_with_price,
+    plot_lag_correlation,
+    plot_equity,
+    plot_drawdown
 )
 from src.utils.helpers import file_sha1
 from src.analysis.lead_lag import load_or_build_features
-from src.plotting.charts import plot_lag_correlation
+from src.backtest.engine import run_backtest
 
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
@@ -64,6 +67,11 @@ if posts_choice in ("All", "Reddit"):
         DEFAULT_SUBS + ["ethtrader","ethereum","CryptoCurrencyTrading"],
         default=DEFAULT_SUBS
     )
+
+backtest = st.sidebar.checkbox("Run backtest")
+if backtest:
+    cost_bps = st.sidebar.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
+    slip_bps = st.sidebar.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
 st.sidebar.header("Lead/Lag settings")
 lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
 lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
@@ -243,13 +251,15 @@ if st.sidebar.button("Run Analysis"):
     }
 
     feats = load_or_build_features(features_settings, merged_path)
+
+    st.session_state["features_settings"] = features_settings
+    st.session_state["merged_path"] = merged_path
    
     st.success("Data ready, showing visualization:")
-    st.session_state["merged_path"] = merged_path
 
 if "merged_path" in st.session_state and os.path.exists(st.session_state["merged_path"]):
     #Timestamp things
-    df =load_csv(st.session_state["merged_path"], parse_dates=["timestamp"])
+    df = load_csv(st.session_state["merged_path"], parse_dates=["timestamp"])
     min_date = (df["timestamp"].max()-timedelta(days=int(days))).to_pydatetime()
     max_date = df["timestamp"].max().to_pydatetime()
     selected_range = st.slider(
@@ -262,6 +272,13 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
     #Time filter
     df = filter_date_range(df, selected_range[0],selected_range[1])
 
+    feats = None
+    if "features_settings" in st.session_state:
+        try:
+            feats = load_or_build_features(st.session_state["features_settings"], st.session_state["merged_path"])
+        except Exception as e:
+            st.warning(f"Could not build lag features: {e}")
+
     #Price plot
     st.plotly_chart(plot_price_time_series(df, selected_coin), use_container_width=True)
    
@@ -270,11 +287,29 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 
     #Sentiment vs price timeline (smoothed)
     st.plotly_chart(plot_sentiment_with_price(df, selected_coin), use_container_width=True)
-    try:
-        fig_lag = plot_lag_correlation(feats,  unit="min")
-        st.plotly_chart(fig_lag, use_container_width=True)
-    except ValueError as e:
-        st.warning(f"Lag plot unavailable: {e}")
+    
+    if feats is not None and not feats.empty:
+        try:
+            fig_lag = plot_lag_correlation(feats,  unit="min")
+            st.plotly_chart(fig_lag, use_container_width=True)
+        except ValueError as e:
+            st.warning(f"Lag plot unavailable: {e}")
+    else:
+        st.info("Lag features not available for the selected range.")
+
+    if backtest:
+        bt, stats  = run_backtest(df, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
+
+        st.plotly_chart(plot_equity(bt), use_container_width=True)
+        st.plotly_chart(plot_drawdown(bt), use_container_width=True)
+
+        st.write({
+            "CAGR": None if stats["CAGR"] is None else float(stats["CAGR"]),
+            "Sharpe": None if stats["Sharpe"] is None else float(stats["Sharpe"]),
+            "MaxDD": None if stats["MaxDD"] is None else float(stats["MaxDD"]),
+            "HitRate": None if stats["HitRate"] is None else float(stats["HitRate"]),
+        })
+
     #Sentiment vs price
     st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
 
