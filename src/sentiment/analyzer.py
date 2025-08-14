@@ -1,28 +1,35 @@
 import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+import torch.nn.functional as F
 from src.utils.cache import load_cached_csv, cache_csv
 from src.utils.helpers import load_csv, save_csv
 import logging
+import torch
+import os
 
 try:
     SentimentIntensityAnalyzer()
 except LookupError:
     import nltk; nltk.download("vader_lexicon", quiet=True)
 logger = logging.getLogger(__name__)
+
+
 _roberta = None
+
+_FINBERT_MODEL = None
+_FINBERT_TOKENIZER = None
+_HF_DEVICE = int(os.environ.get("HF_DEVICE", "-1"))
+
 _vader = SentimentIntensityAnalyzer()
 
 
 def vader_analyze(text: str) -> float:
-
     return _vader.polarity_scores(str(text))["compound"]       
 
 def textblob_analyze(text:str) -> float:
     return TextBlob(str(text)).sentiment.polarity
-
- 
 
 def roberta_analyze(text: str) -> float:
     global _roberta
@@ -34,22 +41,51 @@ def roberta_analyze(text: str) -> float:
             truncation=True,
             max_length = 512,
             padding=True)
+        
     short_text = str(text)[:1000]
     result = _roberta(short_text)[0]
     label = result["label"].lower()
     score = result["score"]
-    return -score if label == "negative" else (score if label == "positive" else 0)
+    return -score if label == "negative" else (score if label == "positive" else 0.0)
+
+def _get_finbert_raw():
+    global _FINBERT_MODEL,_FINBERT_TOKENIZER
+    if _FINBERT_MODEL is None:
+        _FINBERT_TOKENIZER = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
+        _FINBERT_MODEL = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone")
+        if _HF_DEVICE >= 0 and torch.cuda.is_available():
+            _FINBERT_MODEL = _FINBERT_MODEL.to(f"cuda:{_HF_DEVICE}")
+    return _FINBERT_MODEL, _FINBERT_TOKENIZER
+
+def finbert_analyze(text: str) -> float:
+    model, tok = _get_finbert_raw()
+    short = str(text)[:1000]
+    enc = tok(short, truncation=True, padding=True, max_length=512, return_tensors="pt")
+
+    if _HF_DEVICE >= 0 and torch.cuda.is_available():
+        enc = {k: v.to(f"cuda:{_HF_DEVICE}") for k, v in enc.items()}
+    
+    with torch.no_grad():
+        logits = model(**enc).logits[0]
+    
+    probs = F.softmax(logits, dim=-1).detach().cpu().numpy()
+    id2label = model.config.id2label
+    pdict = {id2label[i].lower(): float(probs[i]) for i in range(len(probs))}
+    
+    return pdict.get("positive", 0.0) - pdict.get("negative", 0.0)
 
 ANALYZER_UI_TO_FUNCTION = {
     "vader": vader_analyze,
     "textblob": textblob_analyze,
     "twitter-roberta": roberta_analyze,
-    "all": [vader_analyze, textblob_analyze, roberta_analyze]
+    "finbert": finbert_analyze,
+    "all": [vader_analyze, textblob_analyze, roberta_analyze, finbert_analyze]
 }
 ANALYZER_UI_LABELS = list(ANALYZER_UI_TO_FUNCTION.keys())
 
 
 def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader", cache_settings = None, freshness_minutes: int = 30):
+    
     if cache_settings:
         cached = load_cached_csv(cache_settings, freshness_minutes=freshness_minutes)
         if cached is not None:
@@ -63,6 +99,7 @@ def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader", c
     if analyzer_func is None:
         logger.error(f"Unknown analyzer: {analyzer_name}")
         raise ValueError(f"Unknown analyzer: {analyzer_name}")
+    
     if isinstance(analyzer_func, list):
         for func in analyzer_func:
             col_name = f"sentiment_{func.__name__.replace('_analyze','')}"
