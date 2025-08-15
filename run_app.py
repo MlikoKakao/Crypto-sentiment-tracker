@@ -32,6 +32,7 @@ from src.plotting.charts import (
 from src.utils.helpers import file_sha1
 from src.analysis.lead_lag import load_or_build_features
 from src.backtest.engine import run_backtest
+from src.benchmark.analyzer_eval import evaluate, to_table, confusion_figure
 
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
@@ -76,6 +77,9 @@ st.sidebar.header("Lead/Lag settings")
 lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
 lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
 metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
+
+run_bench = st.sidebar.checkbox("Run analyzer benchmark", value=False)
+
 
 if st.sidebar.button("Clear cache"):
     res = clear_cache_dir()
@@ -320,3 +324,49 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 else:
     st.info("Run the analysis from the sidebar to see visualization")
 
+@st.cache_data(show_spinner="Running bechmark...", ttl=3600)
+def _run_fixed_benchmark():
+    df_lab = pd.read_csv("data/benchmark_labeled.csv")
+    res = evaluate(df_lab, text_col="text", label_col="label", device=-1)
+    tbl = to_table(res)
+    return res, tbl
+
+if run_bench:
+    try:
+        results, table = _run_fixed_benchmark()
+
+        st.dataframe(
+            table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
+            use_container_width=True
+        )
+
+        fig_acc = px.bar(
+            table,
+            x="Model", y="Accuracy",
+            title = "Model Accuracy on bechmark_labeled.csv",
+            text=table["Accuracy"].map(lambda v: f"{v:.3f}")
+        )
+        fig_acc.update_traces(textposition="outside")
+        fig_acc.update_layout(yaxis=dict(range=[0,1]), margin=dict(l=20, r=20, t=50, b=20))
+        st.plotly_chart(fig_acc, use_container_width=True)
+
+        st.markdown("#### Confusion Matrices")
+        cols = st.columns(2)
+        names = list(results.keys())
+        for i, name in enumerate(names):
+            fig_cm = confusion_figure(results[name]["confusion"], title = f"{name} - Confusion")
+            cols[i % 2].plotly_chart(fig_cm, use_container_width=True)
+
+        st.markdown("#### Missclassified Examples")
+        model_for_examples = st.selectbox("Choose model", names, index=0)
+        examples = results[model_for_examples].get("examples",[])
+        if not examples:
+            st.info("No misclassified examples or dataset too small")
+        else:
+            for t, yt, yp in examples:
+                st.write(f"- **true:** '`{yt}' **pred:** '{yp}' - {t}")
+            
+    except FileNotFoundError:
+        st.error("data/benchmark_labeled.csv not found.")
+    except Exception as e:
+        st.exception(e)

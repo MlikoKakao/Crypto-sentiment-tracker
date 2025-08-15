@@ -61,7 +61,7 @@ def fetch_reddit_posts(query="(btc OR bitcoin)"
             posts.append({
                 "timestamp": ts,
                 "text": text,
-                "url": f"https://www.reddit.com{submission.permalink}",
+                "url": f"https://www.redd.it/{submission.permalink}",
                 "subreddit": submission.subreddit.display_name,
                 "score": submission.score,
                 "num_comments": submission.num_comments,
