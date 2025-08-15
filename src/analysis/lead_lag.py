@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from src.utils.cache import load_cached_csv, cache_csv
-from src.utils.helpers import file_sha1
 from scipy.stats import pearsonr
 
 def compute_lead_lag(merged_df: pd.DataFrame,

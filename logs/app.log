@@ -1438,3 +1438,25 @@
 2025-08-14 14:49:02,423 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
 2025-08-14 14:49:02,531 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
 2025-08-14 14:49:03,730 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-15 16:04:57,566 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=600, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets', 'CryptoCurrencyTrading']
+2025-08-15 16:05:10,980 | INFO | src.scraping.reddit_scraper | Fetched 600 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets', 'CryptoCurrencyTrading']
+2025-08-15 16:23:04,439 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets', 'CryptoCurrencyTrading']
+2025-08-15 16:23:15,607 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets', 'CryptoCurrencyTrading']
+2025-08-15 16:23:15,707 | WARNING | root | News sentiment will not be included
+2025-08-15 16:23:15,728 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-15 16:24:33,055 | INFO | src.sentiment.analyzer | Sentiment added using finBERT. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 500
+2025-08-15 16:24:33,074 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-15 16:24:33,644 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-15 16:24:33,659 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-15 16:24:33,785 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-15 16:24:36,240 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-15 16:28:13,988 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-15 19:14:41,604 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'bitcoin', 'source': 'reddit', 'query': '(bitcoin or btc)', 'start_date': '2025-05-17T17:14:41', 'end_date': '2025-08-15T17:14:41', 'num_posts': 500} -> bde4ea53755c0f0e338401f76b88fcd2.csv
+2025-08-15 19:14:41,608 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-15 19:14:53,926 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-15 19:14:54,027 | WARNING | root | News sentiment will not be included
+2025-08-15 19:14:54,062 | INFO | src.utils.cache | CACHE MISS {'dataset': 'sentiment', 'coin': 'bitcoin', 'source': 'reddit', 'analyzer': 'vader', 'input_sha1': 'f7968f1acb5cf7bb23407ff95d49f255507d9c11'} -> 2ae37adee8978db16b72060976ab7ae1.csv
+2025-08-15 19:14:54,065 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-15 19:17:29,640 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'bitcoin', 'source': 'reddit', 'query': '(bitcoin or btc)', 'start_date': '2025-05-17T17:17:29', 'end_date': '2025-08-15T17:17:29', 'num_posts': 500} -> cba9dfb5fb9c890efab92c8c39045905.csv
+2025-08-15 19:17:29,642 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-15 19:17:40,488 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']

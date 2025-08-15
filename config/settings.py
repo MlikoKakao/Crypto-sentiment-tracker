@@ -11,10 +11,6 @@ COINGECKO_INTERVALS = {
 }
 
 DEFAULT_SUBS = ["CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets"]
-REDDIT_DEFAULT_QUERY = "bitcoin"
-
-SENTIMENT_NEG_THRESHOLD = -0.05
-SENTIMENT_POS_THRESHOLD = 0.05
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"

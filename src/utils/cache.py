@@ -7,10 +7,12 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 import stat
 import shutil
-
+from contextlib import contextmanager
 import pandas as pd
+import logging
+logger = logging.getLogger(__name__)
 
-from config.cache_schema import canonicalize_settings
+from config.cache_schema import _canonicalize_settings
 from config.settings import MAPPING_FILE, CACHE_DIR
 
 #Do those paths exist? If not creates
@@ -18,6 +20,31 @@ CACHE_DIR = Path(CACHE_DIR)
 MAPPING_FILE = Path(MAPPING_FILE)
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 MAPPING_FILE.parent.mkdir(parents=True,exist_ok=True)
+#To avoid multiple writes to json > throws windows error
+LOCK_FILE = MAPPING_FILE.parent.parent / "cache_index.lock"
+
+@contextmanager
+def _file_lock(lock_path:Path, timeout: float = 5.0, poll: float = 0.05):
+    start = time.time()
+    fd = None
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    while True:
+        try:
+            fd = os.open(str(lock_path), os.O_CREAT | os.O_EXCL | os.O_RDWR)
+            break #if acquired
+        except FileExistsError:
+            if time.time() - start > timeout:
+                raise TimeoutError(f"Could not acquire lock: {lock_path}")
+            time.sleep(poll)
+    try:
+        yield
+    finally:
+        try:
+            if fd is not None:
+                os.close(fd)
+            os.unlink(lock_path)
+        except FileNotFoundError:
+            pass
 
 #Makes all formatting centralized instead of always having to convert
 def _normalize(obj: Any) -> Any:
@@ -47,7 +74,7 @@ def _settings_blob(settings: Dict[str, Any]) -> str:
     return json.dumps(norm, separators=(",",":"), ensure_ascii=False)
 
 def hash_settings(settings:dict) -> str:
-    canon = canonicalize_settings(settings) #1. Checks if settings have all required keys
+    canon = _canonicalize_settings(settings) #1. Checks if settings have all required keys
     blob = _settings_blob(canon) #2. Changes dict into json 
     return hashlib.md5(blob.encode("utf-8")).hexdigest() #3. Returns hashed json
 
@@ -63,16 +90,29 @@ def load_mapping() -> dict:
 
 #Takes in dictionary of settings puts it in MAPPING_FILE(cache_index)
 def save_mapping(mp: dict) -> None:
-    tmp = MAPPING_FILE.with_suffix(".tmp")
+    tmp = MAPPING_FILE.with_name(f"{MAPPING_FILE.stem}.{os.getpid()}.{int(time.time()*1000)}.tmp")
     tmp.write_text(json.dumps(mp, indent=2, ensure_ascii=False), encoding="utf-8")
-    tmp.replace(MAPPING_FILE) #puts it in MAPPING_FILE(cache_index)
+    with _file_lock(LOCK_FILE):
+        for _ in range(10):
+            try:
+                tmp.replace(MAPPING_FILE)
+                break
+            except PermissionError:
+                time.sleep(0.05)
+        else:
+            MAPPING_FILE.write_text(json.dumps(mp, indent=2, ensure_ascii=False), encoding="utf-8")
+        try:
+            if tmp.exists():
+                tmp.unlink()
+        except Exception:
+            pass
 
 #Checks last modified time of file
 def _is_fresh(path: Path, freshness_minutes: Optional[int]) -> bool:
     if freshness_minutes is None:
         return True
     age_min = (time.time() - path.stat().st_mtime) / 60
-    return age_min <= freshness_minutes #returns minutes since last edit
+    return age_min <= freshness_minutes #returns T/F if correct
 
 #Returns Path to sent settings, it builds the filename from settings hash
 def get_cached_path(settings: dict) -> Path:
@@ -80,17 +120,23 @@ def get_cached_path(settings: dict) -> Path:
 
 #1. Takes in settings
 def load_cached_csv(settings:dict, parse_dates=None, freshness_minutes: Optional[int] = None):
-    settings = canonicalize_settings(settings) #2. Check for required keys
+    settings = _canonicalize_settings(settings) #2. Check for required keys
     path = get_cached_path(settings) #3. Get path to settings
     
-    if not path.exists() or not _is_fresh(path, freshness_minutes):
+    if not path.exists():
+        logger.info("CACHE MISS %s -> %s", settings, path.name)
         return None #4. If doesnt exist or is too old > says theres nothing good cached
+    if not _is_fresh(path, freshness_minutes):
+        logger.info("CACHE STALE")
+        return None
+    logger.info("CACHE HIT %s", path.name)
     return pd.read_csv(path, parse_dates=parse_dates) #5. If is return cached
 
 #Takes in DataFrame and settings, returns filesystem path of CSV it just wrote
 def cache_csv(df: pd.DataFrame, settings:dict) -> Path:
-    settings = canonicalize_settings(settings) #Check if all keys
+    settings = _canonicalize_settings(settings) #Check if all keys
     path = get_cached_path(settings) #Get path to settings
+    path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False) #Converts df to CSV
 
     mp = load_mapping() #Checks if settings exist
@@ -114,19 +160,19 @@ def _remove_readonly_and_retry(func, path, exc_info)-> None:
 def clear_cache_dir() -> dict:
     bytes_freed = 0
     files_count = 0
-
-    if CACHE_DIR.exists():
-        for p in CACHE_DIR.rglob("*"):
-            if p.is_file():
-                try:
-                    bytes_freed += p.stat().st_size
-                    files_count +=1
-                except Exception:
-                    pass
-        shutil.rmtree(CACHE_DIR, onexc=_remove_readonly_and_retry)
-    
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    MAPPING_FILE.parent.mkdir(parents=True,exist_ok=True)
-    MAPPING_FILE.write_text("{}", encoding="utf-8")
+    with _file_lock(LOCK_FILE):
+        if CACHE_DIR.exists():
+            for p in CACHE_DIR.rglob("*"):
+                if p.is_file():
+                    try:
+                        bytes_freed += p.stat().st_size
+                        files_count +=1
+                    except Exception:
+                        pass
+            shutil.rmtree(CACHE_DIR, onexc=_remove_readonly_and_retry)
+        
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        MAPPING_FILE.parent.mkdir(parents=True,exist_ok=True)
+        MAPPING_FILE.write_text("{}", encoding="utf-8")
 
     return {"files_removed": files_count, "bytes_freed": bytes_freed}

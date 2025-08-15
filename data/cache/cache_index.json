@@ -1,1 +1,73 @@
-{}
+{
+  "026ba94b3ea61334a0beea48f2114342": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\026ba94b3ea61334a0beea48f2114342.csv",
+    "rows": 400,
+    "updated": 1755278785,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_reddit",
+      "end_date": "2025-08-15T17:26:16",
+      "num_posts": 400,
+      "query": "(bitcoin or btc)",
+      "source": "reddit",
+      "start_date": "2025-07-16T17:26:16"
+    }
+  },
+  "34ed557787545bb6dc6e71ef1ed94d06": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\34ed557787545bb6dc6e71ef1ed94d06.csv",
+    "rows": 400,
+    "updated": 1755278786,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "66fc81da2d316fb5213f82f15f74d50f053642c1",
+      "source": "reddit"
+    }
+  },
+  "54658b7381788874b7c464225255fae9": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\54658b7381788874b7c464225255fae9.csv",
+    "rows": 722,
+    "updated": 1755278786,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "price",
+      "days": 30
+    }
+  },
+  "87a59e1f075fac401449af9923ccc319": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\87a59e1f075fac401449af9923ccc319.csv",
+    "rows": 400,
+    "updated": 1755278787,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 30,
+      "depends_on": [
+        "328c242aa8ffa337f9140156c531f7ebcbe2eb52",
+        "79237a43feb2967568631239d51d4e7047fd5dee"
+      ],
+      "posts_choice": "all"
+    }
+  },
+  "a475a0da08a8eefd7981ade20e5bdd49": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\a475a0da08a8eefd7981ade20e5bdd49.csv",
+    "rows": 193,
+    "updated": 1755278787,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "features",
+      "days": 30,
+      "depends_on": [
+        "11986ff98888c933d0da0809e0219fc2d7ee8cfe"
+      ],
+      "lag_max_s": 86400,
+      "lag_min_s": -86400,
+      "lag_step_s": 900,
+      "metric": "pearson",
+      "posts_choice": "all"
+    }
+  }
+}
