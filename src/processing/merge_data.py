@@ -26,10 +26,6 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
     sentiment_df = sentiment_df.dropna(subset=["timestamp"])
     price_df = price_df.dropna(subset=["timestamp"])
 
-    # Remove timezone info
-    sentiment_df["timestamp"] = sentiment_df["timestamp"].dt.tz_localize(None)
-    price_df["timestamp"] = price_df["timestamp"].dt.tz_localize(None)
-
     # Sort both DataFrames by timestamp BEFORE merge_asof
     sentiment_df = sentiment_df.sort_values("timestamp")
     price_df = price_df.sort_values("timestamp")

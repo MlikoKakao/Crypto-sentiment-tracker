@@ -10,7 +10,16 @@ COINGECKO_INTERVALS = {
     "long": "daily" 
 }
 
-DEFAULT_SUBS = ["CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets"]
+DEFAULT_SUBS = ["CryptoCurrency","CryptoCurrencyTrading","CryptoMarkets"]
+COIN_SUBS = {
+    "bitcoin": ["Bitcoin", "btc", "BitcoinMarkets"],
+    "ethereum": ["ethereum", "ethtrader", "eth"],
+    "monero": ["xmrtrader", "monero"]
+}
+
+def subs_for_coin(coin: str) -> list[str]:
+    additional = COIN_SUBS.get(coin,[])
+    return list(dict.fromkeys(additional))
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = BASE_DIR / "data"
@@ -26,7 +35,7 @@ for p in (DATA_DIR, LOG_DIR, CACHE_DIR):
 def get_data_path(coin: str, filetype:str) -> str:
     return os.path.join(DATA_DIR,f"{coin.lower()}_{filetype}.csv")
 
-COINS_UI_LABELS = ["Bitcoin","Ethereum"]
+COINS_UI_LABELS = ["Bitcoin", "Ethereum", "Monero"]
 COINS_UI_TO_SYMBOL = {label: label.lower() for label in COINS_UI_LABELS}
 
 ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa", "finBERT", "All"]

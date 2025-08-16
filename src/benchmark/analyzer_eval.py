@@ -5,16 +5,18 @@ from typing import List, Dict, Any
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
 
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from transformers import pipeline
 
+from src.benchmark.benchmark_plot import to_table
+
 CANONICAL = ("negative", "neutral", "positive")
 
 
-# --- helpers ---------------------------------------------------------------
 
 def _normalize_label(s: str) -> str:
     """Map common label variants into the canonical 3-class set."""
@@ -113,28 +115,11 @@ def evaluate(df: pd.DataFrame,
     results["FinBERT"]  = run(lambda T=texts: pred_finbert(T, device=device))
     return results
 
-def to_table(results: Dict[str, Dict[str, Any]]) -> pd.DataFrame:
-    rows = []
-    for name, r in results.items():
-        rows.append({
-            "Model": name,
-            "Accuracy": r["accuracy"],
-            "F1 (macro)": r["f1_macro"],
-            "Throughput (texts/s)": r.get("throughput_txt_per_s", np.nan),
-            "Latency (ms/text)": (1000 * r["time_sec"] / max(r.get("n_texts", 1), 1)) if r.get("time_sec") else np.nan,
-        })
-    df = (pd.DataFrame(rows)
-            .sort_values(["F1 (macro)", "Accuracy"], ascending=False)
-            .reset_index(drop=True))
-    df.index = np.arange(1, len(df) +1)
-    df.index.name = "Rank"
-    return df
 
-def confusion_figure(cm: np.ndarray, labels=CANONICAL, title: str = "Confusion matrix"):
-    df_cm = pd.DataFrame(cm, index=labels, columns=labels)
-    fig = px.imshow(
-        df_cm, text_auto=True, color_continuous_scale="Blues",
-        labels=dict(x="Predicted", y="True", color="Count"),
-        title=title, aspect="equal"
-    )
-    return fig
+
+@st.cache_data(show_spinner="Running bechmark...", ttl=3600)
+def _run_fixed_benchmark():
+    df_lab = pd.read_csv("data/benchmark_labeled.csv")
+    res = evaluate(df_lab, text_col="text", label_col="label", device=-1)
+    tbl = to_table(res)
+    return res, tbl

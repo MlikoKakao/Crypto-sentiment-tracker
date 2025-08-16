@@ -10,7 +10,11 @@ import sys
 import hashlib, pathlib
 
 
-from src.utils.helpers import load_csv,save_csv, filter_date_range, map_to_cryptopanic_symbol, is_file_fresh
+from src.utils.helpers import (
+     load_csv,save_csv,
+     filter_date_range,
+     map_to_cryptopanic_symbol
+)
 from src.scraping.reddit_scraper import fetch_reddit_posts
 from src.scraping.fetch_price import get_price_history
 from src.scraping.news_scraper import fetch_news_posts
@@ -18,7 +22,15 @@ from src.sentiment.analyzer import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir
 from config.settings import(
-    COINS_UI_LABELS, COINS_UI_TO_SYMBOL, DEFAULT_DAYS, ANALYZER_UI_LABELS, get_data_path, POSTS_KIND, DEFAULT_SUBS
+    COINS_UI_LABELS,
+    COINS_UI_TO_SYMBOL,
+    DEFAULT_DAYS,
+    ANALYZER_UI_LABELS,
+    get_data_path,
+    POSTS_KIND,
+    DEFAULT_SUBS,
+    subs_for_coin,
+    COIN_SUBS
 )
 from src.plotting.charts import (
     plot_price_time_series,
@@ -30,10 +42,13 @@ from src.plotting.charts import (
     plot_drawdown
 )
 from src.utils.helpers import file_sha1
-from src.analysis.lead_lag import load_or_build_features
+from src.analysis.lead_lag import load_or_build_lead_lag_features
 from src.backtest.engine import run_backtest
-from src.benchmark.analyzer_eval import evaluate, to_table, confusion_figure
-
+from src.benchmark.analyzer_eval import _run_fixed_benchmark
+from src.benchmark.benchmark_plot import (
+    accuracy_figure,
+    confusion_matrices
+    )
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -65,8 +80,9 @@ posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to anal
 if posts_choice in ("All", "Reddit"):
     subreddits = st.sidebar.multiselect(
         "Subreddits",
-        DEFAULT_SUBS + ["ethtrader","ethereum","CryptoCurrencyTrading"],
-        default=DEFAULT_SUBS
+        DEFAULT_SUBS + 
+        subs_for_coin(selected_coin),
+        default=DEFAULT_SUBS+ subs_for_coin(selected_coin)[:1]
     )
 
 backtest = st.sidebar.checkbox("Run backtest")
@@ -78,7 +94,7 @@ lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
 lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
 metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
 
-run_bench = st.sidebar.checkbox("Run analyzer benchmark", value=False)
+benchtest = st.sidebar.button("Run analyzer benchmark")
 
 
 if st.sidebar.button("Clear cache"):
@@ -87,13 +103,13 @@ if st.sidebar.button("Clear cache"):
     st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
     st.session_state.pop("merged_path",None)
 
-end_date = pd.Timestamp.now(tz=utc)
-start_date = end_date - timedelta(days=int(days))
-
-
 
 #Fetching and merging all data
 if st.sidebar.button("Run Analysis"):
+
+    end_date = pd.Timestamp.now(tz=utc)
+    start_date = end_date - timedelta(days=int(days))
+
     #Check whether to use
     use_news = False
     use_reddit = False
@@ -102,13 +118,13 @@ if st.sidebar.button("Run Analysis"):
     news_sentiment_path = get_data_path(selected_coin, "news_sentiment")
     reddit_sentiment_path = get_data_path(selected_coin, "sentiment")
 
-    #Set data path for caching
+    #Set data path for simplified caching
     news_path = f"data/{selected_coin}_news_posts.csv"
     reddit_path = f"data/{selected_coin}_posts.csv"
     
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
     #News
-    if posts_choice in ( "News"):
+    if posts_choice in ("News"):
         #Dont use news for now, API almost used up - add "All" in line above to allow again        
 
         news_settings = {
@@ -148,7 +164,6 @@ if st.sidebar.button("Run Analysis"):
                     reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
                     reddit_df["source"] = "reddit"
                     cache_csv(reddit_df, reddit_settings)
-                    save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
         save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
         use_reddit = True
 
@@ -241,7 +256,7 @@ if st.sidebar.button("Run Analysis"):
     else:
         save_csv(merged_df, merged_path)
 
-    features_settings ={
+    lead_lag_settings ={
         "dataset": "features",
         "coin": selected_coin,
         "days": int(days),
@@ -254,9 +269,9 @@ if st.sidebar.button("Run Analysis"):
         "metric": metric_choice
     }
 
-    feats = load_or_build_features(features_settings, merged_path)
+    feats = load_or_build_lead_lag_features(lead_lag_settings, merged_path)
 
-    st.session_state["features_settings"] = features_settings
+    st.session_state["lead_lag_settings"] = lead_lag_settings
     st.session_state["merged_path"] = merged_path
    
     st.success("Data ready, showing visualization:")
@@ -277,11 +292,11 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
     df = filter_date_range(df, selected_range[0],selected_range[1])
 
     feats = None
-    if "features_settings" in st.session_state:
+    if "lead_lag_settings" in st.session_state:
         try:
-            feats = load_or_build_features(st.session_state["features_settings"], st.session_state["merged_path"])
+            feats = load_or_build_lead_lag_features(st.session_state["lead_lag_settings"], st.session_state["merged_path"])
         except Exception as e:
-            st.warning(f"Could not build lag features: {e}")
+            st.warning(f"Could not build lead/lag features: {e}")
 
     #Price plot
     st.plotly_chart(plot_price_time_series(df, selected_coin), use_container_width=True)
@@ -324,49 +339,27 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 else:
     st.info("Run the analysis from the sidebar to see visualization")
 
-@st.cache_data(show_spinner="Running bechmark...", ttl=3600)
-def _run_fixed_benchmark():
-    df_lab = pd.read_csv("data/benchmark_labeled.csv")
-    res = evaluate(df_lab, text_col="text", label_col="label", device=-1)
-    tbl = to_table(res)
-    return res, tbl
-
-if run_bench:
+if benchtest:
     try:
         results, table = _run_fixed_benchmark()
-
-        st.dataframe(
-            table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
-            use_container_width=True
-        )
-
-        fig_acc = px.bar(
-            table,
-            x="Model", y="Accuracy",
-            title = "Model Accuracy on bechmark_labeled.csv",
-            text=table["Accuracy"].map(lambda v: f"{v:.3f}")
-        )
-        fig_acc.update_traces(textposition="outside")
-        fig_acc.update_layout(yaxis=dict(range=[0,1]), margin=dict(l=20, r=20, t=50, b=20))
-        st.plotly_chart(fig_acc, use_container_width=True)
-
-        st.markdown("#### Confusion Matrices")
-        cols = st.columns(2)
-        names = list(results.keys())
-        for i, name in enumerate(names):
-            fig_cm = confusion_figure(results[name]["confusion"], title = f"{name} - Confusion")
-            cols[i % 2].plotly_chart(fig_cm, use_container_width=True)
-
-        st.markdown("#### Missclassified Examples")
-        model_for_examples = st.selectbox("Choose model", names, index=0)
-        examples = results[model_for_examples].get("examples",[])
-        if not examples:
-            st.info("No misclassified examples or dataset too small")
-        else:
-            for t, yt, yp in examples:
-                st.write(f"- **true:** '`{yt}' **pred:** '{yp}' - {t}")
-            
+        st.session_state["bench_results"] = results
+        st.session_state["bench_table"] = table
     except FileNotFoundError:
         st.error("data/benchmark_labeled.csv not found.")
     except Exception as e:
         st.exception(e)
+
+# Always render if we have results in session (survives reruns)
+if "bench_results" in st.session_state and "bench_table" in st.session_state:
+    table = st.session_state["bench_table"]
+    results = st.session_state["bench_results"]
+
+    st.dataframe(
+        table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
+        use_container_width=True
+    )
+    accuracy_figure(table)
+    st.markdown("#### Confusion Matrices")
+    confusion_matrices(results)
+
+    

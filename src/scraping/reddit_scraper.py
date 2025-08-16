@@ -61,12 +61,11 @@ def fetch_reddit_posts(query="(btc OR bitcoin)"
             posts.append({
                 "timestamp": ts,
                 "text": text,
-                "url": f"https://www.redd.it/{submission.permalink}",
-                "subreddit": submission.subreddit.display_name,
+                "url": getattr(submission,"url",None) or f"https://www.redd.it/{submission.permalink}",
                 "score": submission.score,
                 "num_comments": submission.num_comments,
                 "id": sid,
-                "source": "reddit"
+                "source": submission.subreddit.display_name
             })
 
             if len(posts) >= limit:

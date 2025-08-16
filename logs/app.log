@@ -1477,3 +1477,97 @@
 2025-08-15 19:26:27,087 | INFO | src.utils.cache | CACHE MISS {'dataset': 'features', 'coin': 'bitcoin', 'days': 30, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['11986ff98888c933d0da0809e0219fc2d7ee8cfe'], 'lag_min_s': -86400, 'lag_max_s': 86400, 'lag_step_s': 900, 'metric': 'pearson'} -> a475a0da08a8eefd7981ade20e5bdd49.csv
 2025-08-15 19:26:27,557 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
 2025-08-15 19:26:27,578 | INFO | src.utils.cache | CACHE HIT a475a0da08a8eefd7981ade20e5bdd49.csv
+2025-08-16 11:40:09,971 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'monero', 'source': 'reddit', 'query': '(monero or xmr)', 'start_date': '2025-08-09T09:40:09', 'end_date': '2025-08-16T09:40:09', 'num_posts': 500} -> e58ae0ab36294c9ae782826293b000e4.csv
+2025-08-16 11:40:09,979 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(monero OR XMR)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-16 11:40:28,774 | INFO | src.scraping.reddit_scraper | Fetched 10 posts for query='(monero OR XMR)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-16 11:40:28,826 | WARNING | root | News sentiment will not be included
+2025-08-16 11:40:28,860 | INFO | src.utils.cache | CACHE MISS {'dataset': 'sentiment', 'coin': 'monero', 'source': 'reddit', 'analyzer': 'vader', 'input_sha1': 'dd114df67c69e060a1093d563f030ceaba2a0530'} -> 65a5261b0d0dd220d720fd0b981457d7.csv
+2025-08-16 11:40:28,861 | INFO | src.utils.helpers | Loaded CSV from: data/monero_reddit_posts.csv
+2025-08-16 11:40:28,949 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_sentiment.csv. Total records: 10
+2025-08-16 11:40:28,974 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_sentiment.csv
+2025-08-16 11:40:28,997 | INFO | src.utils.cache | CACHE MISS {'dataset': 'price', 'coin': 'monero', 'days': 7} -> f4717a6f26ea9e81f39f84346ff8189f.csv
+2025-08-16 11:40:29,349 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'monero', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['be01c3b15268c735bee5b6fd5676e0751da34d05', 'fe3d48eacde356e5bec00825dcc5375aa9de4e6e']} -> 46e3d3eabf28ee394805b816b89d0114.csv
+2025-08-16 11:40:29,352 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'monero', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['be01c3b15268c735bee5b6fd5676e0751da34d05', 'fe3d48eacde356e5bec00825dcc5375aa9de4e6e']} -> 46e3d3eabf28ee394805b816b89d0114.csv
+2025-08-16 11:40:29,352 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-16 11:40:29,356 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_prices.csv
+2025-08-16 11:40:29,438 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 11:40:29,494 | INFO | src.utils.cache | CACHE MISS {'dataset': 'features', 'coin': 'monero', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['6643d15ac9834d4c179850f75be255b49dfb790e'], 'lag_min_s': -86400, 'lag_max_s': 86400, 'lag_step_s': 900, 'metric': 'pearson'} -> c0bf0d4da26a4cdb11ae4f58344c9aa7.csv
+2025-08-16 11:40:29,893 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 11:40:29,900 | INFO | src.utils.cache | CACHE HIT c0bf0d4da26a4cdb11ae4f58344c9aa7.csv
+2025-08-16 11:41:55,649 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 11:41:55,657 | INFO | src.utils.cache | CACHE HIT c0bf0d4da26a4cdb11ae4f58344c9aa7.csv
+2025-08-16 11:41:57,684 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'bitcoin', 'source': 'reddit', 'query': '(bitcoin or btc)', 'start_date': '2025-08-09T09:41:57', 'end_date': '2025-08-16T09:41:57', 'num_posts': 500} -> 106ffe20f61d73265e6bcbf0c01565a8.csv
+2025-08-16 11:41:57,686 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=500, subs=['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-16 11:42:13,505 | INFO | src.scraping.reddit_scraper | Fetched 500 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'Bitcoin', 'CryptoMarkets', 'BitcoinMarkets']
+2025-08-16 11:42:13,599 | WARNING | root | News sentiment will not be included
+2025-08-16 11:42:13,626 | INFO | src.utils.cache | CACHE MISS {'dataset': 'sentiment', 'coin': 'bitcoin', 'source': 'reddit', 'analyzer': 'vader', 'input_sha1': 'e1b039bcb710053653f9cfb56f6d3e93cff4c924'} -> add2b0df5d22e4110293a97d8f1c2cb4.csv
+2025-08-16 11:42:13,627 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-16 11:42:14,093 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv. Total records: 500
+2025-08-16 11:42:14,106 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_sentiment.csv
+2025-08-16 11:42:14,164 | INFO | src.utils.cache | CACHE MISS {'dataset': 'price', 'coin': 'bitcoin', 'days': 7} -> 0a2b0f4e46d6fc6c16b077317f022599.csv
+2025-08-16 11:42:14,328 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'bitcoin', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['e591612340929abe102fbf15bb37f14f21d3661f', 'ec7da172ad5c2a914981548e14dcfe9e9fc2e061']} -> 70a3c1e35fffe50e00d607397e59f6a5.csv
+2025-08-16 11:42:14,330 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'bitcoin', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['e591612340929abe102fbf15bb37f14f21d3661f', 'ec7da172ad5c2a914981548e14dcfe9e9fc2e061']} -> 70a3c1e35fffe50e00d607397e59f6a5.csv
+2025-08-16 11:42:14,331 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-16 11:42:14,342 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-16 11:42:14,424 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-16 11:42:14,485 | INFO | src.utils.cache | CACHE MISS {'dataset': 'features', 'coin': 'bitcoin', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['f8b1aabd2459455ee544db8753da6f84b9f656ce'], 'lag_min_s': -86400, 'lag_max_s': 86400, 'lag_step_s': 900, 'metric': 'pearson'} -> 67712343d912ff675571d4edfbf2cef9.csv
+2025-08-16 11:42:14,926 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-16 11:42:14,944 | INFO | src.utils.cache | CACHE HIT 67712343d912ff675571d4edfbf2cef9.csv
+2025-08-16 11:48:49,626 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-16 11:48:49,650 | INFO | src.utils.cache | CACHE HIT 67712343d912ff675571d4edfbf2cef9.csv
+2025-08-16 15:20:10,950 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'ethereum', 'source': 'reddit', 'query': '(ethereum or eth)', 'start_date': '2025-08-09T13:20:10', 'end_date': '2025-08-16T13:20:10', 'num_posts': 400} -> c17eb945b690dfdd76a4d930bb2a4078.csv
+2025-08-16 15:20:10,954 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(ethereum OR ETH)', limit=400, subs=['CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets', 'ethereum']
+2025-08-16 15:20:23,264 | INFO | src.scraping.reddit_scraper | Fetched 203 posts for query='(ethereum OR ETH)' from ['CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets', 'ethereum']
+2025-08-16 15:20:23,315 | WARNING | root | News sentiment will not be included
+2025-08-16 15:20:23,347 | INFO | src.utils.cache | CACHE MISS {'dataset': 'sentiment', 'coin': 'ethereum', 'source': 'reddit', 'analyzer': 'vader', 'input_sha1': '26e7acd20e7babdd577a135721ec10da8aaced91'} -> f278e445af1bda03df339e2628b65459.csv
+2025-08-16 15:20:23,348 | INFO | src.utils.helpers | Loaded CSV from: data/ethereum_reddit_posts.csv
+2025-08-16 15:20:23,847 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_sentiment.csv. Total records: 203
+2025-08-16 15:20:23,865 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_sentiment.csv
+2025-08-16 15:20:23,919 | INFO | src.utils.cache | CACHE MISS {'dataset': 'price', 'coin': 'ethereum', 'days': 7} -> 7875591ebee98e401b3f6a8cc7716bc7.csv
+2025-08-16 15:20:24,234 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'ethereum', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['5146429b2e25407714a5919ffe5157458e0efe0b', '8c8ac7e0fc60c74bf0dd3db8e99c01c221bb59cd']} -> fa98a1cad5f5b3ff434848ef4adb4ada.csv
+2025-08-16 15:20:24,237 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'ethereum', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['5146429b2e25407714a5919ffe5157458e0efe0b', '8c8ac7e0fc60c74bf0dd3db8e99c01c221bb59cd']} -> fa98a1cad5f5b3ff434848ef4adb4ada.csv
+2025-08-16 15:20:24,238 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-16 15:20:24,246 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_prices.csv
+2025-08-16 15:20:24,327 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_merged.csv
+2025-08-16 15:20:24,381 | INFO | src.utils.cache | CACHE MISS {'dataset': 'features', 'coin': 'ethereum', 'days': 7, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['843a546a221e6776cb5b6c824b6ccf705ee81b7e'], 'lag_min_s': -36000, 'lag_max_s': 36000, 'lag_step_s': 1800, 'metric': 'pearson'} -> 831e2fb08071c9febe8f490ac6c27999.csv
+2025-08-16 15:20:24,503 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_merged.csv
+2025-08-16 15:20:24,520 | INFO | src.utils.cache | CACHE HIT 831e2fb08071c9febe8f490ac6c27999.csv
+2025-08-16 15:20:33,007 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\ethereum_merged.csv
+2025-08-16 15:20:33,027 | INFO | src.utils.cache | CACHE HIT 831e2fb08071c9febe8f490ac6c27999.csv
+2025-08-16 15:38:08,211 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'monero', 'source': 'reddit', 'query': '(monero or xmr)', 'start_date': '2025-07-17T13:38:08', 'end_date': '2025-08-16T13:38:08', 'num_posts': 300} -> ca357313c4c22491e7b6fb925dc8a455.csv
+2025-08-16 15:38:08,214 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(monero OR XMR)', limit=300, subs=['CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets', 'xmrtrader']
+2025-08-16 15:38:30,753 | INFO | src.scraping.reddit_scraper | Fetched 37 posts for query='(monero OR XMR)' from ['CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets', 'xmrtrader']
+2025-08-16 15:38:30,795 | WARNING | root | News sentiment will not be included
+2025-08-16 15:38:30,830 | INFO | src.utils.cache | CACHE MISS {'dataset': 'sentiment', 'coin': 'monero', 'source': 'reddit', 'analyzer': 'vader', 'input_sha1': 'a2b17990007f846aece27ac8c521aa29f6763228'} -> 7de136f269e74d9df4fecc03db14654b.csv
+2025-08-16 15:38:30,831 | INFO | src.utils.helpers | Loaded CSV from: data/monero_reddit_posts.csv
+2025-08-16 15:38:30,974 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_sentiment.csv. Total records: 37
+2025-08-16 15:38:30,988 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_sentiment.csv
+2025-08-16 15:38:31,016 | INFO | src.utils.cache | CACHE MISS {'dataset': 'price', 'coin': 'monero', 'days': 30} -> abd6744f3a16645e2ded0e77b78c2d94.csv
+2025-08-16 15:38:31,429 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'monero', 'days': 30, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['8ffcffc4ce74de5dea72178a05e0f26802aefb8c', 'be14a3ebe6fead04e9e0efc5acb92c402c126ce7']} -> e6f72ad57e4272661b99f0c3ed23fe25.csv
+2025-08-16 15:38:31,433 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'monero', 'days': 30, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['8ffcffc4ce74de5dea72178a05e0f26802aefb8c', 'be14a3ebe6fead04e9e0efc5acb92c402c126ce7']} -> e6f72ad57e4272661b99f0c3ed23fe25.csv
+2025-08-16 15:38:31,434 | INFO | src.utils.helpers | Loaded CSV from: data/combined_sentiment.csv
+2025-08-16 15:38:31,443 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_prices.csv
+2025-08-16 15:38:31,530 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:38:31,574 | INFO | src.utils.cache | CACHE MISS {'dataset': 'features', 'coin': 'monero', 'days': 30, 'analyzer': 'vader', 'posts_choice': 'all', 'depends_on': ['86f2d55a95df28def96cb60274f535f3f702e0cc'], 'lag_min_s': -86400, 'lag_max_s': 86400, 'lag_step_s': 900, 'metric': 'pearson'} -> 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:38:32,071 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:38:32,080 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:13,246 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:13,255 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:36,033 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:36,039 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:43,839 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:43,849 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:45,025 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:45,035 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:46,046 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:46,055 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:47,081 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:47,090 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:48,025 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:48,033 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:48,876 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:48,885 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:49,741 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:49,749 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv
+2025-08-16 15:39:50,592 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\monero_merged.csv
+2025-08-16 15:39:50,602 | INFO | src.utils.cache | CACHE HIT 892f58231def7b0f3588e5415c668bdc.csv

@@ -7,12 +7,9 @@ from src.utils.cache import load_cached_csv, cache_csv
 from src.utils.helpers import load_csv, save_csv
 import logging
 import torch
+import nltk
 import os
 
-try:
-    SentimentIntensityAnalyzer()
-except LookupError:
-    import nltk; nltk.download("vader_lexicon", quiet=True)
 logger = logging.getLogger(__name__)
 
 
@@ -22,11 +19,19 @@ _FINBERT_MODEL = None
 _FINBERT_TOKENIZER = None
 _HF_DEVICE = int(os.environ.get("HF_DEVICE", "-1"))
 
-_vader = SentimentIntensityAnalyzer()
+_VADER = None
 
 
 def vader_analyze(text: str) -> float:
-    return _vader.polarity_scores(str(text))["compound"]       
+    global _VADER
+    if _VADER is None:
+        try:
+            _VADER = SentimentIntensityAnalyzer()
+        except LookupError:
+            nltk.download("vader_lexicon", quiet=True)
+            _VADER = SentimentIntensityAnalyzer()
+    s = "" if text is None else str(text)
+    return _VADER.polarity_scores(str(text))["compound"]    
 
 def textblob_analyze(text:str) -> float:
     return TextBlob(str(text)).sentiment.polarity
@@ -82,7 +87,6 @@ ANALYZER_UI_TO_FUNCTION = {
     "all": [vader_analyze, textblob_analyze, roberta_analyze, finbert_analyze]
 }
 ANALYZER_UI_LABELS = list(ANALYZER_UI_TO_FUNCTION.keys())
-
 
 def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader", cache_settings = None, freshness_minutes: int = 30):
     

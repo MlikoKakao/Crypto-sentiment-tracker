@@ -1,5 +1,5 @@
-timestamp,text,url,score,num_comments,id,source,sentiment
-2025-07-17 19:39:27+00:00,"new haveno network: dawnswap original post: https://monero.town/post/6380881
+timestamp,text,url,score,num_comments,id,source,sentiment,price
+2025-07-17 19:39:27,"new haveno network: dawnswap original post: https://monero.town/post/6380881
 
 dawnswap is a decentralized open-source non-custodial peer-to-peer exchange platform built with monero and tor at its core. it is based on the existing open-source codebase of the haveno project which aims to support the rapidly growing monero community and crypto in general all over the world. making it easier for everyone to trade crypto and fiat currencies without middlemen and trusting third parties. dawn will focus on improving the user experience while maintaining the core principles of decentralization, anonymity and autonomy. the project will leverage the existing open-source codebase of haveno and introduce several new features and improvements to better serve the needs of its users.
 
@@ -19,8 +19,8 @@ dawnswap github: https://github.com/dawn-collective/haveno-dawn/dawnswap contac
 
 we invite also xmr traders to offer their services on dawnswap.
 
-"" decentralization can only be achieved by many and freedom of choice. """,https://www.reddit.com/r/xmrtrader/comments/1m2h524/new_haveno_network_dawnswap/,4,1,1m2h524,reddit,0.9877
-2025-07-18 06:47:30+00:00,"nonkyc exchange has less than a third of xmr reserves **reserves**
+"" decentralization can only be achieved by many and freedom of choice. """,https://www.reddit.com/r/xmrtrader/comments/1m2h524/new_haveno_network_dawnswap/,4,1,1m2h524,reddit,0.9877,331.2513023907398
+2025-07-18 06:47:30,"nonkyc exchange has less than a third of xmr reserves **reserves**
 
 [https://nonkyc.io/asset/xmr](https://nonkyc.io/asset/xmr)
 
@@ -46,8 +46,8 @@ other pools and pairs have now around 25 xmr on offer.
 
 so together it is around 518 xmr ... so this exchange has less than third of xmr reserves (because not all xmr vouchers are visible in the order book).
 
-are others better off?",https://www.reddit.com/r/xmrtrader/comments/1m2v9yc/nonkyc_exchange_has_less_than_a_third_of_xmr/,23,10,1m2v9yc,reddit,0.4404
-2025-07-19 07:01:25+00:00,"[weekly discussion] altcoin saturday – july 19, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
+are others better off?",https://www.reddit.com/r/xmrtrader/comments/1m2v9yc/nonkyc_exchange_has_less_than_a_third_of_xmr/,23,10,1m2v9yc,reddit,0.4404,338.55574466160334
+2025-07-19 07:01:25,"[weekly discussion] altcoin saturday – july 19, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
 
 ---
 
@@ -63,12 +63,12 @@ are others better off?",https://www.reddit.com/r/xmrtrader/comments/1m2v9yc/nonk
 * **be excellent to each other.**
 * please do not create separate posts for the types of discussion mentioned above outside of the daily thread. **if you do, your post may be removed and/or heavily downvoted.**
 
-* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1m3pst2/weekly_discussion_altcoin_saturday_july_19_2025/,7,2,1m3pst2,reddit,0.843
-2025-07-25 02:02:13+00:00,"eigenwallet: the future of monero wallets http://eigenwu5vl53rjyd3zxfzy25mfoaeqlhpuvlu5s46ygggllfbb4beiid.onion/
+* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1m3pst2/weekly_discussion_altcoin_saturday_july_19_2025/,7,2,1m3pst2,reddit,0.843,324.6629532060954
+2025-07-25 02:02:13,"eigenwallet: the future of monero wallets http://eigenwu5vl53rjyd3zxfzy25mfoaeqlhpuvlu5s46ygggllfbb4beiid.onion/
 
-https://eigenwallet.org/",https://www.reddit.com/r/Monero/comments/1m8llk5/eigenwallet_the_future_of_monero_wallets/,7,1,1m8myxq,reddit,0.0
-2025-07-26 02:09:55+00:00,reminder: bitcoin is not monero,https://www.reddit.com/r/Monero/comments/1m9hdd9/reminder_bitcoin_is_not_monero/,24,0,1m9hn0w,reddit,0.0
-2025-07-26 07:01:52+00:00,"[weekly discussion] altcoin saturday – july 26, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
+https://eigenwallet.org/",https://www.reddit.com/r/Monero/comments/1m8llk5/eigenwallet_the_future_of_monero_wallets/,7,1,1m8myxq,reddit,0.0,331.6422576999687
+2025-07-26 02:09:55,reminder: bitcoin is not monero,https://www.reddit.com/r/Monero/comments/1m9hdd9/reminder_bitcoin_is_not_monero/,24,0,1m9hn0w,reddit,0.0,324.0097879399114
+2025-07-26 07:01:52,"[weekly discussion] altcoin saturday – july 26, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
 
 ---
 
@@ -84,8 +84,8 @@ https://eigenwallet.org/",https://www.reddit.com/r/Monero/comments/1m8llk5/eigen
 * **be excellent to each other.**
 * please do not create separate posts for the types of discussion mentioned above outside of the daily thread. **if you do, your post may be removed and/or heavily downvoted.**
 
-* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1m9mva8/weekly_discussion_altcoin_saturday_july_26_2025/,9,0,1m9mva8,reddit,0.843
-2025-07-27 00:40:15+00:00,"why i'm going hard in zcash thought i would share my thesis - eventually going to write a blog post
+* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1m9mva8/weekly_discussion_altcoin_saturday_july_26_2025/,9,0,1m9mva8,reddit,0.843,324.92412633660143
+2025-07-27 00:40:15,"why i'm going hard in zcash thought i would share my thesis - eventually going to write a blog post
 
 * best in market privacy tech - privacy will matter with ai sifting thru metadata for chain analysis 
 * priced for dead at 1/8th monero's market cap but better tech
@@ -97,25 +97,25 @@ https://eigenwallet.org/",https://www.reddit.com/r/Monero/comments/1m8llk5/eigen
 * zashi is probably the most user friendly wallet
 
   
-i know this is a straight up shill - i'm looking for people to argue. what i get most is ""yeah but the price action has sucked"". every time - every time i've made money in crypto is when fundamentals don't line up with price action.",https://www.reddit.com/r/CryptoMarkets/comments/1ma8ybw/why_im_going_hard_in_zcash/,82,77,1ma8ybw,reddit,0.9879
-2025-07-27 16:04:19+00:00,"where to trade xmr/btc (buy/sell) instantly? i am looking to buy and sell xmr to btc and vice versa, does anyone have a great suggestion for it?
+i know this is a straight up shill - i'm looking for people to argue. what i get most is ""yeah but the price action has sucked"". every time - every time i've made money in crypto is when fundamentals don't line up with price action.",https://www.reddit.com/r/CryptoMarkets/comments/1ma8ybw/why_im_going_hard_in_zcash/,82,77,1ma8ybw,reddit,0.9879,321.45672375276325
+2025-07-27 16:04:19,"where to trade xmr/btc (buy/sell) instantly? i am looking to buy and sell xmr to btc and vice versa, does anyone have a great suggestion for it?
 
 
 
-i need something by preference non-custodial, something safe enough and privacy top-notch.",https://www.reddit.com/r/xmrtrader/comments/1maq1bw/where_to_trade_xmrbtc_buysell_instantly/,11,8,1maq1bw,reddit,0.8105
-2025-07-29 15:00:49+00:00,"is it likely that the large btc wallet which recently swapped approximately 3,520 btc into monero will actually sell back, potentially crashing the xmr price? i’ve been following the recent significant price surge of monero, which was largely driven by a single large btc wallet which was allegedly hacked reportedly swapping around **3,520 btc** (worth over $300 million) into xmr.
+i need something by preference non-custodial, something safe enough and privacy top-notch.",https://www.reddit.com/r/xmrtrader/comments/1maq1bw/where_to_trade_xmrbtc_buysell_instantly/,11,8,1maq1bw,reddit,0.8105,323.28496794610464
+2025-07-29 15:00:49,"is it likely that the large btc wallet which recently swapped approximately 3,520 btc into monero will actually sell back, potentially crashing the xmr price? i’ve been following the recent significant price surge of monero, which was largely driven by a single large btc wallet which was allegedly hacked reportedly swapping around **3,520 btc** (worth over $300 million) into xmr.
 
 given the size of this transaction, i’m wondering how likely it is that this wallet owner will try to sell all of that xmr back into btc or other assets anytime soon. a mass sell-off of that magnitude would almost certainly cause a severe crash in the xmr price due to liquidity constraints.
 
 alternatively, is it more plausible that the owner will hold the xmr for the long term or gradually liquidate in small amounts to avoid impacting the market?
 
-i don't want to invest in xmr anymore because this single owner has such a huge influence.",https://www.reddit.com/r/xmrtrader/comments/1mcdrer/is_it_likely_that_the_large_btc_wallet_which/,7,18,1mcdrer,reddit,-0.559
-2025-08-01 14:07:04+00:00,"anyone using crypto virtual cards for shopping? i’ve been digging into this and found that you can actually fund virtual cards with crypto like bitcoin, ethereum, usdt, or even monero, which is pretty slick for keeping things low-key.
+i don't want to invest in xmr anymore because this single owner has such a huge influence.",https://www.reddit.com/r/xmrtrader/comments/1mcdrer/is_it_likely_that_the_large_btc_wallet_which/,7,18,1mcdrer,reddit,-0.559,316.02020030874166
+2025-08-01 14:07:04,"anyone using crypto virtual cards for shopping? i’ve been digging into this and found that you can actually fund virtual cards with crypto like bitcoin, ethereum, usdt, or even monero, which is pretty slick for keeping things low-key.
 
 another service i came across is [uncash.io](https://uncash.io). they offer instant virtual cards that you can set up in seconds, fund with crypto, and use anywhere that accepts major payment platforms (think apple pay, google pay, paypal, etc.). from what i've read you can set spending limits, monitor transactions, and even manage team cards if you’re running a project or business. plus, no waiting around for approval cause it's instant.
 
-has anyone here tried using virtual cards like this for online shopping or even team expenses? i’m curious about your experiences like did it make things easier, or were there any headaches?",https://www.reddit.com/r/CryptoCurrency/comments/1mexfqh/anyone_using_crypto_virtual_cards_for_shopping/,0,17,1mexfqh,reddit,0.9497
-2025-08-02 07:01:33+00:00,"[weekly discussion] altcoin saturday – august 02, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
+has anyone here tried using virtual cards like this for online shopping or even team expenses? i’m curious about your experiences like did it make things easier, or were there any headaches?",https://www.reddit.com/r/CryptoCurrency/comments/1mexfqh/anyone_using_crypto_virtual_cards_for_shopping/,0,17,1mexfqh,reddit,0.9497,299.5947087201445
+2025-08-02 07:01:33,"[weekly discussion] altcoin saturday – august 02, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
 
 ---
 
@@ -131,9 +131,9 @@ has anyone here tried using virtual cards like this for online shopping or even 
 * **be excellent to each other.**
 * please do not create separate posts for the types of discussion mentioned above outside of the daily thread. **if you do, your post may be removed and/or heavily downvoted.**
 
-* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1mfk4sg/weekly_discussion_altcoin_saturday_august_02_2025/,9,5,1mfk4sg,reddit,0.843
-2025-08-03 01:25:48+00:00,i am watching the monero network while cubic tries to attack it. i will update this post with any developments.,https://www.reddit.com/gallery/1mg6run,37,4,1mg6sko,reddit,-0.4767
-2025-08-03 09:55:11+00:00,"tool to check the monero blockchain - don't trust qubic's data hi guys! 
+* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1mfk4sg/weekly_discussion_altcoin_saturday_august_02_2025/,9,5,1mfk4sg,reddit,0.843,291.8027771084692
+2025-08-03 01:25:48,i am watching the monero network while cubic tries to attack it. i will update this post with any developments.,https://www.reddit.com/gallery/1mg6run,37,4,1mg6sko,reddit,-0.4767,296.37298480981843
+2025-08-03 09:55:11,"tool to check the monero blockchain - don't trust qubic's data hi guys! 
 
 i want to show you this tool: https://moneroconsensus.info/
 
@@ -143,13 +143,13 @@ don't trust qubic's information, they falsify information by saying they suppose
 
 do not trust any website that belongs to or is sponsored by qubic. the information is likely fake to tarnish the image of monero (xmr).
 
-stay smart, don't spread fud. if you want to know what's new, visit the monero subreddit.",https://moneroconsensus.info/,41,5,1mgff7b,reddit,-0.783
-2025-08-05 00:30:56+00:00,"what's the best instant exchange to buy xmr? i’m chasing a good instant exchange to swap some ethereum for xmr (eth -> xmr). been using changenow up until now, but they’ve just frozen a $60k order, claiming some “internal issue”, not exactly confidence inspiring.
+stay smart, don't spread fud. if you want to know what's new, visit the monero subreddit.",https://moneroconsensus.info/,41,5,1mgff7b,reddit,-0.783,299.69251953212193
+2025-08-05 00:30:56,"what's the best instant exchange to buy xmr? i’m chasing a good instant exchange to swap some ethereum for xmr (eth -> xmr). been using changenow up until now, but they’ve just frozen a $60k order, claiming some “internal issue”, not exactly confidence inspiring.
 
 so i’m on the hunt for a reliable alternative, ideally one that doesn’t ask for kyc and hasn’t got a rep for freezing funds. any solid options out there you’d trust?
 
-**\[edit\]:** thanks all for suggestions, i've solved via [**porkswap**](http://carltonsabis.click).",https://www.reddit.com/r/xmrtrader/comments/1mhupm4/whats_the_best_instant_exchange_to_buy_xmr/,33,30,1mhupm4,reddit,0.9233
-2025-08-05 15:45:28+00:00,"crypto payment statistics from 5000+ transactions on our own service hi all! we've [posted here before](https://np.reddit.com/r/cryptocurrency/comments/1l8q2ha/every_ai_model_including_o3_pro_veo_3_through/) - tl;dr we provide access to every ai model (text, image, video), fully privately, no subscription, pay only for what you use.
+**\[edit\]:** thanks all for suggestions, i've solved via [**porkswap**](http://carltonsabis.click).",https://www.reddit.com/r/xmrtrader/comments/1mhupm4/whats_the_best_instant_exchange_to_buy_xmr/,33,30,1mhupm4,reddit,0.9233,305.94240929451325
+2025-08-05 15:45:28,"crypto payment statistics from 5000+ transactions on our own service hi all! we've [posted here before](https://np.reddit.com/r/cryptocurrency/comments/1l8q2ha/every_ai_model_including_o3_pro_veo_3_through/) - tl;dr we provide access to every ai model (text, image, video), fully privately, no subscription, pay only for what you use.
 
 at this point i'm pretty sure we're in the top 10 of merchants doing most crypto payments with >5000 transactions last month alone. try us out for free by replying here (i'll send you an invite), or just [visit the website](https://nano-gpt.com/) and deposit as little as $0.10.
 
@@ -227,8 +227,8 @@ we know that there is a large community and that there is a lot of usage, so if 
 
 in a similar vein the typical payment coins like bitcoin cash and dash do not see the amount of usage on nanogpt that you would expect. we clearly need to up our outreach there!
 
-that's all for now - any questions we are of course happy to answer. and if you want to also read about some nanogpt updates, read the comment below.",https://www.reddit.com/r/CryptoCurrency/comments/1micqkz/crypto_payment_statistics_from_5000_transactions/,26,13,1micqkz,reddit,0.9948
-2025-08-05 19:34:13+00:00,"how qubic fakes its monero hashrate qubic shills like to use a [website ](https://explorer.jetskipool.ai/xmr-tracker.html)(that is related to qubic, so no credibility at all) to show their ""progress"" in their 51% attack. yesterday, this website showed qubic at close to 50% hashrate, and now at 32%. the army of bots on x are quick to push this narrative as a ""proof"" that the attack works and qubic is ""just about"" to cross the 51% line.
+that's all for now - any questions we are of course happy to answer. and if you want to also read about some nanogpt updates, read the comment below.",https://www.reddit.com/r/CryptoCurrency/comments/1micqkz/crypto_payment_statistics_from_5000_transactions/,26,13,1micqkz,reddit,0.9948,290.69846118015124
+2025-08-05 19:34:13,"how qubic fakes its monero hashrate qubic shills like to use a [website ](https://explorer.jetskipool.ai/xmr-tracker.html)(that is related to qubic, so no credibility at all) to show their ""progress"" in their 51% attack. yesterday, this website showed qubic at close to 50% hashrate, and now at 32%. the army of bots on x are quick to push this narrative as a ""proof"" that the attack works and qubic is ""just about"" to cross the 51% line.
 
 well, this is all false. monero is fine.
 
@@ -249,25 +249,25 @@ https://preview.redd.it/td7d2mgoi9hf1.png?width=734&format=png&auto=webp&s=3ab32
 
 so, yes, it seems those who said it was a pump and dump scheme based on propaganda more than reality were right.
 
-qubic failed miserably. but it helped to convince monero lovers how important it is to mine and how easy it is.",https://www.reddit.com/r/CryptoCurrency/comments/1miiycr/how_qubic_fakes_its_monero_hashrate/,125,18,1miiycr,reddit,0.6136
-2025-08-06 13:51:13+00:00,"monero user: ""they stole my money to protect the network"". being a simp is the most important mindset of an xmr community member.",https://i.redd.it/rq68r32ulehf1.png,0,12,1mj58hs,reddit,0.5709
-2025-08-07 16:17:54+00:00,"kucoin usdc volume i'm sure many of you have noticed the extremely large volume of monero being traded on kucoin for usdc. the cause of this is pretty clear when you look at the recent trades tab. there's one trading bot consistently trading around 1 to 1.5 xmr every 2 seconds or so. the vast majority of these trades have been market sells, which i believe is the cause of the recent dip. however, this behavior is costing this trader about $23k usd/day, and would require an absurd amount of liquidity, particularly in xmr.
+qubic failed miserably. but it helped to convince monero lovers how important it is to mine and how easy it is.",https://www.reddit.com/r/CryptoCurrency/comments/1miiycr/how_qubic_fakes_its_monero_hashrate/,125,18,1miiycr,reddit,0.6136,293.6077934086473
+2025-08-06 13:51:13,"monero user: ""they stole my money to protect the network"". being a simp is the most important mindset of an xmr community member.",https://i.redd.it/rq68r32ulehf1.png,0,12,1mj58hs,reddit,0.5709,287.4432346753953
+2025-08-07 16:17:54,"kucoin usdc volume i'm sure many of you have noticed the extremely large volume of monero being traded on kucoin for usdc. the cause of this is pretty clear when you look at the recent trades tab. there's one trading bot consistently trading around 1 to 1.5 xmr every 2 seconds or so. the vast majority of these trades have been market sells, which i believe is the cause of the recent dip. however, this behavior is costing this trader about $23k usd/day, and would require an absurd amount of liquidity, particularly in xmr.
 
 another strange thing is that the order book shows no orders for the amounts being sold and a relatively wide spread. 
 
 https://preview.redd.it/qip6xv25gmhf1.png?width=1194&format=png&auto=webp&s=7f8cf1d8dc1d47eb3edf981912320d105e32956b
 
-is it possible they are submitting a limit order at the exact same time as they submit a market buy for an exact amount so they can trade between their own accounts? they've been doing this for about 2 weeks now, a similar timeframe as the qubic ""attack."" market manipulation?",https://www.reddit.com/r/xmrtrader/comments/1mk4gfx/kucoin_usdc_volume/,28,12,1mk4gfx,reddit,0.533
-2025-08-07 18:15:20+00:00,discounted monero (: best time to buy,https://i.redd.it/3s5cm14g2nhf1.jpeg,100,57,1mk7lns,reddit,0.8225
-2025-08-07 18:57:44+00:00,why is xmr down today when everything else up ? it’s down a significant amount 8% while btc and eth are up ? is there any news i’m missing out on ?,https://www.reddit.com/r/xmrtrader/comments/1mk8q7d/why_is_xmr_down_today_when_everything_else_up/,24,33,1mk8q7d,reddit,-0.2359
-2025-08-07 19:28:38+00:00,"buy zone xmrusd hello everyone!
+is it possible they are submitting a limit order at the exact same time as they submit a market buy for an exact amount so they can trade between their own accounts? they've been doing this for about 2 weeks now, a similar timeframe as the qubic ""attack."" market manipulation?",https://www.reddit.com/r/xmrtrader/comments/1mk4gfx/kucoin_usdc_volume/,28,12,1mk4gfx,reddit,0.533,271.88591906925166
+2025-08-07 18:15:20,discounted monero (: best time to buy,https://i.redd.it/3s5cm14g2nhf1.jpeg,100,57,1mk7lns,reddit,0.8225,260.9578734714979
+2025-08-07 18:57:44,why is xmr down today when everything else up ? it’s down a significant amount 8% while btc and eth are up ? is there any news i’m missing out on ?,https://www.reddit.com/r/xmrtrader/comments/1mk8q7d/why_is_xmr_down_today_when_everything_else_up/,24,33,1mk8q7d,reddit,-0.2359,259.9510765426868
+2025-08-07 19:28:38,"buy zone xmrusd hello everyone!
 
 i was checking monero price, according to my strategy it is a very good zone to buy.
 
 it is bullish for next 3 months
 
-let me know your opinions",https://i.redd.it/6vpy54eifnhf1.png,25,7,1mk9j9c,reddit,0.54
-2025-08-09 07:01:19+00:00,"[weekly discussion] altcoin saturday – august 09, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
+let me know your opinions",https://i.redd.it/6vpy54eifnhf1.png,25,7,1mk9j9c,reddit,0.54,259.9510765426868
+2025-08-09 07:01:19,"[weekly discussion] altcoin saturday – august 09, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
 
 ---
 
@@ -283,11 +283,11 @@ let me know your opinions",https://i.redd.it/6vpy54eifnhf1.png,25,7,1mk9j9c,redd
 * **be excellent to each other.**
 * please do not create separate posts for the types of discussion mentioned above outside of the daily thread. **if you do, your post may be removed and/or heavily downvoted.**
 
-* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1mlj3bt/weekly_discussion_altcoin_saturday_august_09_2025/,11,1,1mlj3bt,reddit,0.843
-2025-08-10 09:31:15+00:00,"xmr price drop: should we pull our coins off centralized exchanges? haven't seen xmr price drop this hard and fast for awhile, it feels like it could be naked shorting by exchanges similar to the dumps that afflicted bch. the bch community organized a ""not your keys not your coins"" day and price rocketed upwards almost immediately. could this be a good idea for xmr holders as well? but maybe less xmr is held on exchanges?
+* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1mlj3bt/weekly_discussion_altcoin_saturday_august_09_2025/,11,1,1mlj3bt,reddit,0.843,281.0517429885888
+2025-08-10 09:31:15,"xmr price drop: should we pull our coins off centralized exchanges? haven't seen xmr price drop this hard and fast for awhile, it feels like it could be naked shorting by exchanges similar to the dumps that afflicted bch. the bch community organized a ""not your keys not your coins"" day and price rocketed upwards almost immediately. could this be a good idea for xmr holders as well? but maybe less xmr is held on exchanges?
 
-this price dump also correlates with the qubic attacks, they are likely selling all xmr they mine in an attempt to dump xmr price. would not be surprised if one or two exchanges are being bribed to participate in naked shorting. i notice some fairly large price differences on certain exchanges. xmr/qubic price ratio is ofc key to their scam.",https://www.reddit.com/r/xmrtrader/comments/1mme74o/xmr_price_drop_should_we_pull_our_coins_off/,19,24,1mme74o,reddit,-0.9538
-2025-08-10 16:21:41+00:00,"if monero doesnt growth, we are done. 8 year of circle jerking between 100 and 500$. our attacker liquidity and means have growth with the market at over 1000x their power they had in 2018.
+this price dump also correlates with the qubic attacks, they are likely selling all xmr they mine in an attempt to dump xmr price. would not be surprised if one or two exchanges are being bribed to participate in naked shorting. i notice some fairly large price differences on certain exchanges. xmr/qubic price ratio is ofc key to their scam.",https://www.reddit.com/r/xmrtrader/comments/1mme74o/xmr_price_drop_should_we_pull_our_coins_off/,19,24,1mme74o,reddit,-0.9538,275.20097018056384
+2025-08-10 16:21:41,"if monero doesnt growth, we are done. 8 year of circle jerking between 100 and 500$. our attacker liquidity and means have growth with the market at over 1000x their power they had in 2018.
 
 if we dont accept that number go up and price is actually more important than transaction, because without a secure network you gonna have zero transaction.  then good luck 
 
@@ -295,8 +295,8 @@ im speaking to all those cypherpunk who preach usage before price. its your time
 
 even if we survive, the next 5 year a 15m cap coin will fuck us up
 
-time to fucking wake up the kraken",https://www.reddit.com/r/xmrtrader/comments/1mmmsk9/if_monero_doesnt_growth_we_are_done/,30,54,1mmmsk9,reddit,-0.8959
-2025-08-10 17:30:48+00:00,"what a bunch of fucking loser in this sub. lets keep laughin for a moment so what did you eat this morning ?
+time to fucking wake up the kraken",https://www.reddit.com/r/xmrtrader/comments/1mmmsk9/if_monero_doesnt_growth_we_are_done/,30,54,1mmmsk9,reddit,-0.8959,264.0620262514851
+2025-08-10 17:30:48,"what a bunch of fucking loser in this sub. lets keep laughin for a moment so what did you eat this morning ?
 
 oh monero get 51% attack and now we switching to be a ethereum vassal or pos and died
 
@@ -304,8 +304,8 @@ great
 
 next project i guess ?
 
-that's all your into.",https://www.reddit.com/r/xmrtrader/comments/1mmokrj/what_a_bunch_of_fucking_loser_in_this_sub_lets/,0,7,1mmokrj,reddit,-0.7686
-2025-08-11 02:31:49+00:00,"monero seems really complicated i need to make some crypto transactions that can't be traced back to me.
+that's all your into.",https://www.reddit.com/r/xmrtrader/comments/1mmokrj/what_a_bunch_of_fucking_loser_in_this_sub_lets/,0,7,1mmokrj,reddit,-0.7686,262.9790012173082
+2025-08-11 02:31:49,"monero seems really complicated i need to make some crypto transactions that can't be traced back to me.
 
 after some research, i concluded using monero and an anonymous vpn service like mullvad (that doesn't collect your personal info) would be a good start.
 
@@ -313,8 +313,8 @@ but, as i do more research many people, especially privacy influencers are sayin
 
 this privacy rabbit hole i've fallen down has left me with a serious case of analysis paralysis, whereas i'm now too paranoid overwhelmed with excessive information to take any action toward my original objective.
 
-just using monero and mullvad for private crypto transactions should be enough.  i'm starting to think  monero is being made overly complicated for content purposes. any opinions or insights are welcomed.",https://www.reddit.com/r/CryptoCurrency/comments/1mn1c6b/monero_seems_really_complicated/,0,12,1mn1c6b,reddit,0.484
-2025-08-12 06:18:24+00:00,"stop the government taking a cut if you actually believe in free markets, monero isn’t optional, it’s a tool.
+just using monero and mullvad for private crypto transactions should be enough.  i'm starting to think  monero is being made overly complicated for content purposes. any opinions or insights are welcomed.",https://www.reddit.com/r/CryptoCurrency/comments/1mn1c6b/monero_seems_really_complicated/,0,12,1mn1c6b,reddit,0.484,266.2211785216144
+2025-08-12 06:18:24,"stop the government taking a cut if you actually believe in free markets, monero isn’t optional, it’s a tool.
 
 everyone loves to talk about “financial freedom” and “free markets” but most of you are still sitting with coins on exchanges, doing your taxes and trusting the same government you say you hate.
 
@@ -328,9 +328,9 @@ and for those who support drug legalization… you can talk all day about how th
 
 when talking about tax avoidance and drugs, most monero users see it as a flaw and try to hide it. they'll say “oh it’s only a small percent of the volume” or “fiat is worse.” screw that. the answer should be “fuck yes it’s used for this, that’s the point” and “fuck taxes, fuck government overreach” and “what does your shitcoin do for the average person?”
 
-we took the risk with crypto, it could have gone to zero. the government didn’t take the risk, so they don’t deserve a reward. they’ll never bail us out, so why are we letting them cash in when we win?",https://www.reddit.com/r/CryptoCurrency/comments/1mo1345/stop_the_government_taking_a_cut/,5,71,1mo1345,reddit,0.168
-2025-08-12 11:50:34+00:00,monero appears to be in the midst of a successful 51% attack.,https://i.redd.it/nnj02izcukif1.jpeg,2050,302,1mo6jwx,reddit,0.1779
-2025-08-12 20:50:05+00:00,"mining malincentives, withdraw shutdowns, price hits, and alt season let's take a deeper dive into what's likely happening with exchanges, xmr withdraw shutdowns, price attacks, mining malincentives, and how they're all interrelated.
+we took the risk with crypto, it could have gone to zero. the government didn’t take the risk, so they don’t deserve a reward. they’ll never bail us out, so why are we letting them cash in when we win?",https://www.reddit.com/r/CryptoCurrency/comments/1mo1345/stop_the_government_taking_a_cut/,5,71,1mo1345,reddit,0.168,259.2676890546657
+2025-08-12 11:50:34,monero appears to be in the midst of a successful 51% attack.,https://i.redd.it/nnj02izcukif1.jpeg,2050,302,1mo6jwx,reddit,0.1779,249.7430855504249
+2025-08-12 20:50:05,"mining malincentives, withdraw shutdowns, price hits, and alt season let's take a deeper dive into what's likely happening with exchanges, xmr withdraw shutdowns, price attacks, mining malincentives, and how they're all interrelated.
 
 1. background. we proved with a smoking gun that exchanges were fractional reserve xmr 2021-2024, as a means of price suppression. that gun was the repeated, long-running shutdown of withdraws from major exchanges, particularly when even minor pressure was applied against withdraws.
 
@@ -351,9 +351,9 @@ i believe exchanges are propping up qubic tokens as an economic subsidy hoping t
 
 while this might appear on the surface to be against their economic interest, it's a small price to pay to fud digital freedom money while they engage in another alt season, where they hope you'll buy their shitcoins instead of monero.
 
-you can tell them to go f*ck themselves by mining, buying, and using monero.",https://www.reddit.com/r/CryptoCurrency/comments/1mokkt2/mining_malincentives_withdraw_shutdowns_price/,7,1,1mokkt2,reddit,0.983
-2025-08-12 20:50:38+00:00,the goofs at qubic alleging 51% monero network takeover - recent post from qubic.org,https://qubic.org/blog-detail/historic-takeover-complete-qubic-miners-now-secure-monero-network,44,12,1moklbg,reddit,0.0
-2025-08-13 02:26:51+00:00,"psa: qubic is lying. they don't have >50% hash rate. don't fall for it. as long as we as a community don't fall for it, qubic will lose.
+you can tell them to go f*ck themselves by mining, buying, and using monero.",https://www.reddit.com/r/CryptoCurrency/comments/1mokkt2/mining_malincentives_withdraw_shutdowns_price/,7,1,1mokkt2,reddit,0.983,257.7180252196908
+2025-08-12 20:50:38,the goofs at qubic alleging 51% monero network takeover - recent post from qubic.org,https://qubic.org/blog-detail/historic-takeover-complete-qubic-miners-now-secure-monero-network,44,12,1moklbg,reddit,0.0,257.7180252196908
+2025-08-13 02:26:51,"psa: qubic is lying. they don't have >50% hash rate. don't fall for it. as long as we as a community don't fall for it, qubic will lose.
 
 qubic has been making a lot of noise over the past couple days about supposedly reaching over 50% of monero's hashrate. this means that they can, supposedly, take control of the network through a 51% attack by orphaning all other pools' blocks.
 
@@ -387,9 +387,9 @@ this is more than you'd think, since increasing their hashrate also increases th
 
 qubic shows up as ""unknown"" on miningpoolstats, because they stopped publicly reporting their hashrate. they specifically did this to obfuscate how much hash power they really have. qubic's hashrate is still available through the other sources mentioned, but they want to avoid it being easily visible and comparable to other pools, since that would expose their lies.
 
-random variation plays a huge role in mining, meaning that miners can find way more or way less blocks than expected over a short enough timeframe. qubic's luck in any given 100 block window varied wildly from 21% up to the high 40's percent. either way, they are not even close to sustaining a 51% attack.",https://np.reddit.com/r/Monero/comments/1mod130/psa_qubic_is_lying_they_dont_have_50_hash_rate/,213,36,1mosfyp,reddit,-0.9918
-2025-08-13 06:15:46+00:00,qubic vs. monero: the shockwave rocking the cryptosphere,https://sylvainsaurel.substack.com/p/qubic-vs-monero-the-shockwave-rocking,0,2,1mowq61,reddit,0.0
-2025-08-13 15:26:52+00:00,"the crypto bull market hasn't even gone full parabolic yet. here's what could help fuel a major melt-up: previous bull markets have all gone parabolic. because they recovered from a crash into oblivion. it's the nature of a volatile market.
+random variation plays a huge role in mining, meaning that miners can find way more or way less blocks than expected over a short enough timeframe. qubic's luck in any given 100 block window varied wildly from 21% up to the high 40's percent. either way, they are not even close to sustaining a 51% attack.",https://np.reddit.com/r/Monero/comments/1mod130/psa_qubic_is_lying_they_dont_have_50_hash_rate/,213,36,1mosfyp,reddit,-0.9918,250.28873217892945
+2025-08-13 06:15:46,qubic vs. monero: the shockwave rocking the cryptosphere,https://sylvainsaurel.substack.com/p/qubic-vs-monero-the-shockwave-rocking,0,2,1mowq61,reddit,0.0,246.7918523027283
+2025-08-13 15:26:52,"the crypto bull market hasn't even gone full parabolic yet. here's what could help fuel a major melt-up: previous bull markets have all gone parabolic. because they recovered from a crash into oblivion. it's the nature of a volatile market.
 
 if you get oversold price action that crashes into oblivion, then when the market recovers and is well gain, you can get insane over-buying as a natural reaction. kind of like ""for every action, there is an opposite reaction"".
 
@@ -445,10 +445,10 @@ the us government has continued its pro-crypto policies, as seen with its most r
 
 **-fud and negative narratives are fading from mainstream media, and getting increasingly replaced by hype.**
 
-there is still the occasional fud story, but if you look at when mainstream media has talked about crypto these past months, it's decreasingly less about ""scam"" and ""criminal money"" narratives, and increasingly more about ""big gains"", ""bull market"", ""technology"", ""pro-crypto policies"".",https://www.reddit.com/r/CryptoCurrency/comments/1mp7itl/the_crypto_bull_market_hasnt_even_gone_full/,296,87,1mp7itl,reddit,-0.9969
-2025-08-15 11:31:36+00:00,"digital euro is scheduled to come out for use on november 1st, 2025. where do you think this might lead us to? it is worth remembering that btc failed at keeping its promises. btc is transparent, btc is not fungible, btc has been hoarded and is being supported by the same very forces it was meant to free us from. btc has been corrupted by these same very forces who are acting malignantly against xmr and implanting false narratives in our brains. will we sell our kingdom for a dish of lentils?",https://www.reddit.com/r/xmrtrader/comments/1mqv4t0/digital_euro_is_scheduled_to_come_out_for_use_on/,23,13,1mqv4t0,reddit,0.7319
-2025-08-15 17:54:06+00:00,kraken: we have paused monero deposits after detecting that a single mining pool has gained more than 50% hashrate,https://www.reddit.com/gallery/1mr0lh2,253,108,1mr56by,reddit,0.3818
-2025-08-16 07:01:30+00:00,"[weekly discussion] altcoin saturday – august 16, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
+there is still the occasional fud story, but if you look at when mainstream media has talked about crypto these past months, it's decreasingly less about ""scam"" and ""criminal money"" narratives, and increasingly more about ""big gains"", ""bull market"", ""technology"", ""pro-crypto policies"".",https://www.reddit.com/r/CryptoCurrency/comments/1mp7itl/the_crypto_bull_market_hasnt_even_gone_full/,296,87,1mp7itl,reddit,-0.9969,254.68909550237169
+2025-08-15 11:31:36,"digital euro is scheduled to come out for use on november 1st, 2025. where do you think this might lead us to? it is worth remembering that btc failed at keeping its promises. btc is transparent, btc is not fungible, btc has been hoarded and is being supported by the same very forces it was meant to free us from. btc has been corrupted by these same very forces who are acting malignantly against xmr and implanting false narratives in our brains. will we sell our kingdom for a dish of lentils?",https://www.reddit.com/r/xmrtrader/comments/1mqv4t0/digital_euro_is_scheduled_to_come_out_for_use_on/,23,13,1mqv4t0,reddit,0.7319,237.394863290591
+2025-08-15 17:54:06,kraken: we have paused monero deposits after detecting that a single mining pool has gained more than 50% hashrate,https://www.reddit.com/gallery/1mr0lh2,253,108,1mr56by,reddit,0.3818,236.43744663226528
+2025-08-16 07:01:30,"[weekly discussion] altcoin saturday – august 16, 2025 **welcome to the /r/xmrtrader daily discussion thread!**
 
 ---
 
@@ -464,8 +464,8 @@ there is still the occasional fud story, but if you look at when mainstream medi
 * **be excellent to each other.**
 * please do not create separate posts for the types of discussion mentioned above outside of the daily thread. **if you do, your post may be removed and/or heavily downvoted.**
 
-* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1mrnmvx/weekly_discussion_altcoin_saturday_august_16_2025/,6,0,1mrnmvx,reddit,0.843
-2025-08-16 08:46:34+00:00,"which wallet to use? hi all,
+* news that may have a big impact on the market may be posted as a separate thread.",https://www.reddit.com/r/xmrtrader/comments/1mrnmvx/weekly_discussion_altcoin_saturday_august_16_2025/,6,0,1mrnmvx,reddit,0.843,237.04169671278595
+2025-08-16 08:46:34,"which wallet to use? hi all,
 
 i know that a cold wallet is the safest way. i’m searching for a wallet on my iphone. i downloaded cake and exodus so far. 
 
@@ -475,4 +475,4 @@ what i’d also like to know is, are there different fees when transferring cryp
 
 i want to store btc/eth/xmr in my wallet.
 
-thank you for your help and sorry for these beginner questions.",https://www.reddit.com/r/CryptoCurrency/comments/1mrpjc6/which_wallet_to_use/,0,11,1mrpjc6,reddit,0.8095
+thank you for your help and sorry for these beginner questions.",https://www.reddit.com/r/CryptoCurrency/comments/1mrpjc6/which_wallet_to_use/,0,11,1mrpjc6,reddit,0.8095,237.3023925038688
