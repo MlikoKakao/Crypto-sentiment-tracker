@@ -32,7 +32,7 @@ def file_sha1(p:str | os.PathLike) -> str: #Returns content fingerprint of a fil
 
     # Fast path (Py 3.11+)
     try:
-        from hashlib import file_digest  # type: ignore[attr-defined]
+        from hashlib import file_digest
     except ImportError:
         file_digest = None
 

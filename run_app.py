@@ -19,6 +19,7 @@ from src.utils.helpers import (
 from src.scraping.reddit_scraper import fetch_reddit_posts
 from src.scraping.fetch_price import get_price_history
 from src.scraping.news_scraper import fetch_news_posts
+from src.scraping.twitter_scraper import fetch_twitter_posts
 from src.sentiment.analyzer import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir
@@ -115,14 +116,17 @@ if submit:
     #Check whether to use
     use_news = False
     use_reddit = False
+    use_twitter = False
 
     #Set sentiment path already for caching
     news_sentiment_path = get_data_path(selected_coin, "news_sentiment")
-    reddit_sentiment_path = get_data_path(selected_coin, "sentiment")
+    reddit_sentiment_path = get_data_path(selected_coin, "reddit_sentiment")
+    twitter_sentiment_path = get_data_path(selected_coin, "twitter_sentiment")
 
     #Set data path for simplified caching
     news_path = f"data/{selected_coin}_news_posts.csv"
-    reddit_path = f"data/{selected_coin}_posts.csv"
+    reddit_path = f"data/{selected_coin}_reddit_posts.csv"
+    twitter_path = f"data/{selected_coin}_twitter_posts.csv"
     
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
     #News
@@ -168,6 +172,33 @@ if submit:
                     cache_csv(reddit_df, reddit_settings)
         save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
         use_reddit = True
+    #Twitter
+    if posts_choice in ("All", "Twitter/X"):
+        twitter_settings = {
+            "dataset": "posts_twitter",
+            "source": "twitter",
+            "coin": selected_coin,
+            "query": cryptopanic_coin.lower(),
+            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
+            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
+            "num_posts": num_posts,
+            "tz":"utc",
+        }
+        tweets_df = load_cached_csv(twitter_settings, parse_dates=["timestamp"],freshness_minutes = 30)
+        if tweets_df is None:
+            with st.spinner("Fetching Twitter posts.."):
+                tweets_df = fetch_twitter_posts(
+                    coin=cryptopanic_coin.lower(),
+                    limit=int(num_posts or 200),
+                    lang="en",
+                    sort="Top",
+                    start=start_date,
+                    end=end_date,
+                )
+                cache_csv(tweets_df, twitter_settings)
+            save_csv(tweets_df, twitter_path)
+            use_twitter = True
+        
 
     with st.spinner("Analyzing sentiment..."):
         if use_news:
@@ -193,23 +224,44 @@ if submit:
                 "coin": selected_coin,
                 "analyzer": analyzer_choice,
                 "num_posts": num_posts,
-                "input_sha1": file_sha1(f"data/{selected_coin}_reddit_posts.csv")
+                "input_sha1": file_sha1(reddit_path)
                                   }
-            add_sentiment_to_file(f"data/{selected_coin}_reddit_posts.csv",
+            add_sentiment_to_file(reddit_path,
                                   reddit_sentiment_path,
                                   analyzer_choice,
                                   cache_settings=reddit_sent_settings,
                                   freshness_minutes=30)
         else:
             logging.warning("Reddit sentiment will not be included")
+        if use_twitter:
+            twitter_sent_settings = {
+                "dataset": "sentiment",
+                "source": "twitter",
+                "coin": selected_coin,
+                "analyzer": analyzer_choice,
+                "num_posts": num_posts,
+                "input_sha1": file_sha1(twitter_path),
+            }
+            add_sentiment_to_file(
+                twitter_path,
+                twitter_sentiment_path,
+                analyzer_choice,
+                cache_settings=twitter_sent_settings,
+                freshness_minutes=30
+            )
+        else:
+            logging.warning("Twitter sentiment will not be included")
+
 
     with st.spinner("Combining sentiment..."):
         dfs = []
         if use_news and os.path.exists(news_sentiment_path):
             news_sent = load_csv(news_sentiment_path)
             dfs.append(news_sent)
-        if use_reddit and os.path.exists(get_data_path(selected_coin, "sentiment")):
+        if use_reddit and os.path.exists(reddit_sentiment_path):
             dfs.append(load_csv(get_data_path(selected_coin,"sentiment")))
+        if use_twitter and os.path.exists(twitter_sentiment_path):
+            dfs.append(load_csv(twitter_sentiment_path))
 
         if dfs:
             combined_df = pd.concat(dfs, ignore_index=True).sort_values("timestamp")

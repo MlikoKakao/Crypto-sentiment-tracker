@@ -24,7 +24,7 @@ def _norm_value(key: str, v: Any) -> Any:
     if isinstance(v, str):
         return v if key in ("start_date", "end_date") else v.lower()#if its not date makes it lower
     if isinstance(v,(list,tuple,set)):
-        return sorted([str(x).lower() for x in v]) or None #if its list, tuple or set, sorts them (what's the use for this?
+        return sorted([str(x).lower() for x in v]) or None #if its list, tuple or set, sorts them
     return v #Returns values
 
 #Checks if [] has all required keys to be settings
@@ -37,7 +37,7 @@ def _canonicalize_settings(raw: Dict[str, Any]) -> Dict[str, Any]:
     
     out: Dict[str, Any] = {} #Assigns empty dict
     for k in HASH_KEYS_BY_DATASET[ds]:
-        v = _norm_value(k, raw.get(k, DEFAULTS.get(k))) #normalize values inside the dictionary?
+        v = _norm_value(k, raw.get(k, DEFAULTS.get(k))) #normalize values inside the dictionary
         if v in (None, [], {}):#Treats empty values as invalid for required keys
             raise ValueError(f"settings for dataset {ds} missing key: {k}")
         out[k] = v
