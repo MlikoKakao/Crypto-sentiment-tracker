@@ -11,7 +11,8 @@ import hashlib, pathlib
 
 
 from src.utils.helpers import (
-     load_csv,save_csv,
+     load_csv,
+     save_csv,
      filter_date_range,
      map_to_cryptopanic_symbol
 )
@@ -70,42 +71,43 @@ st.markdown("Visualization of public sentiment based on keywords and further com
 
 #Config
 st.sidebar.header("Configuration")
-selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
-selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
-days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
-analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
-                                                                                                    "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
-posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
-if posts_choice in ("All", "Reddit"):
-    subreddits = st.sidebar.multiselect(
-        "Subreddits",
-        DEFAULT_SUBS + 
-        subs_for_coin(selected_coin),
-        default=DEFAULT_SUBS+ subs_for_coin(selected_coin)[:1]
-    )
+with st.sidebar.form("analysis_form"):
+    selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
+    selected_coin = COINS_UI_TO_SYMBOL[selected_label]
+    num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
+    days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
+    analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
+                                                                                                        "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
+    posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
+    if posts_choice in ("All", "Reddit"):
+        subreddits = st.sidebar.multiselect(
+            "Subreddits",
+            DEFAULT_SUBS + 
+            subs_for_coin(selected_coin),
+            default=DEFAULT_SUBS+ subs_for_coin(selected_coin)[:1]
+        )
 
-backtest = st.sidebar.checkbox("Run backtest")
-if backtest:
-    cost_bps = st.sidebar.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
-    slip_bps = st.sidebar.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
-st.sidebar.header("Lead/Lag settings")
-lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
-lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
-metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
-
-benchtest = st.sidebar.button("Run analyzer benchmark")
-
+    backtest = st.sidebar.checkbox("Run backtest")
+    if backtest:
+        cost_bps = st.sidebar.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
+        slip_bps = st.sidebar.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
+    st.sidebar.header("Lead/Lag settings")
+    lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
+    lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
+    metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
+    submit = st.sidebar.button("Run Analysis")
 
 if st.sidebar.button("Clear cache"):
     res = clear_cache_dir()
     mb = res["bytes_freed"]/ 1e6
     st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
     st.session_state.pop("merged_path",None)
+    
+benchtest = st.sidebar.button("Run analyzer benchmark")
 
 
 #Fetching and merging all data
-if st.sidebar.button("Run Analysis"):
+if submit:
 
     end_date = pd.Timestamp.now(tz=utc)
     start_date = end_date - timedelta(days=int(days))

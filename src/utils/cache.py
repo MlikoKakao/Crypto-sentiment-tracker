@@ -9,6 +9,7 @@ import stat
 import shutil
 from contextlib import contextmanager
 import pandas as pd
+import streamlit as st
 import logging
 logger = logging.getLogger(__name__)
 
@@ -174,5 +175,5 @@ def clear_cache_dir() -> dict:
         CACHE_DIR.mkdir(parents=True, exist_ok=True)
         MAPPING_FILE.parent.mkdir(parents=True,exist_ok=True)
         MAPPING_FILE.write_text("{}", encoding="utf-8")
-
+    st.cache_data.clear()
     return {"files_removed": files_count, "bytes_freed": bytes_freed}
