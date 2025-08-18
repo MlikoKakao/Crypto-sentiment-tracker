@@ -3,8 +3,8 @@ from typing import Any, Dict, Tuple
 
 HASH_KEYS_BY_DATASET: Dict[str, Tuple[str, ...]] = {
     "posts_news": ("dataset","coin", "source", "query","start_date","end_date","num_posts"),
-    "posts_reddit":  ("dataset", "coin", "source", "query", "start_date", "end_date", "num_posts"),
-    "posts_twitter": ("dataset", "coin", "source", "query", "start_date", "end_date", "num_posts"),
+    "posts_reddit":  ("dataset", "coin", "source", "query", "start_date", "end_date", "num_posts", "subreddits", "tz"),
+    "posts_twitter": ("dataset", "coin", "source", "query", "start_date", "end_date", "num_posts", "tz"),
     "price":     ("dataset", "coin", "days"),
     "sentiment": ("dataset", "coin", "source", "analyzer", "input_sha1"),
     "merged":    ("dataset", "coin", "days", "analyzer", "posts_choice", "depends_on"),

@@ -55,18 +55,28 @@ def run_backtest(df_merged: pd.DataFrame,
                  cost_bps: float,
                  slippage_bps: float,
                  resample: str = "5min"):
-    df5 = (df_merged.set_index("timestamp")
-           .resample(resample).ffill()
-           .reset_index())
+    dm = df_merged[["timestamp", "price", "sentiment"]].copy()
+    dm["timestamp"] = pd.to_datetime(dm["timestamp"], errors="coerce")
+    dm["price"] = pd.to_numeric(dm["price"], errors="coerce")
+    dm["sentiment"] = pd.to_numeric(dm["sentiment"], errors="coerce")
+    dm = dm.dropna(subset=["timestamp", "price", "sentiment"]).sort_values("timestamp")
+
+    dm = (dm.groupby("timestamp", as_index=False)
+            .agg({"price": "last", "sentiment": "mean"}))
+
+    df5 = (dm.set_index("timestamp")
+             .resample(resample)
+             .ffill()
+             .reset_index())
+
     df_ind = compute_indicators(df5, ema_window=20, med_window_bars=96)
     bt = backtest_long_only(df_ind, cost_bps=cost_bps, slippage_bps=slippage_bps)
 
     dt = df5["timestamp"].diff().median()
-
     if pd.isna(dt) or getattr(dt, "total_seconds", lambda: 0)() <= 0:
         bars_per_year = 52560
     else:
-        bars_per_year = int(round((365*24*3600) / dt.total_seconds()))
-    
+        bars_per_year = int(round((365 * 24 * 3600) / dt.total_seconds()))
+
     stats = summarize(bt, bars_per_year=bars_per_year)
-    return bt,stats
+    return bt, stats

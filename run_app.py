@@ -170,7 +170,11 @@ if submit:
                     reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
                     reddit_df["source"] = "reddit"
                     cache_csv(reddit_df, reddit_settings)
-        save_csv(reddit_df, f"data/{selected_coin}_reddit_posts.csv")
+        reddit_df["source"] = "reddit"
+        reddit_df["coin"] = cryptopanic_coin.lower()
+        if "lang" not in reddit_df.columns:
+            reddit_df["lang"] = "en"
+        save_csv(reddit_df, reddit_path)
         use_reddit = True
     #Twitter
     if posts_choice in ("All", "Twitter/X"):
@@ -196,8 +200,13 @@ if submit:
                     end=end_date,
                 )
                 cache_csv(tweets_df, twitter_settings)
-            save_csv(tweets_df, twitter_path)
-            use_twitter = True
+
+        tweets_df["source"] = "twitter"
+        tweets_df["coin"] = cryptopanic_coin.lower()
+        if "lang" not in tweets_df.columns:
+            tweets_df["lang"] = "en"
+        save_csv(tweets_df, twitter_path)
+        use_twitter = True
         
 
     with st.spinner("Analyzing sentiment..."):
@@ -259,12 +268,19 @@ if submit:
             news_sent = load_csv(news_sentiment_path)
             dfs.append(news_sent)
         if use_reddit and os.path.exists(reddit_sentiment_path):
-            dfs.append(load_csv(get_data_path(selected_coin,"sentiment")))
+            dfs.append(load_csv(reddit_sentiment_path))
         if use_twitter and os.path.exists(twitter_sentiment_path):
             dfs.append(load_csv(twitter_sentiment_path))
 
         if dfs:
-            combined_df = pd.concat(dfs, ignore_index=True).sort_values("timestamp")
+            combined_df = pd.concat(dfs, ignore_index=True)
+            combined_df["timestamp"] = pd.to_datetime(combined_df["timestamp"], errors="coerce", utc=True).dt.tz_localize(None)
+            combined_df["source"] = combined_df["source"].astype(str).str.strip().str.lower()
+
+            combined_df = combined_df.dropna(subset=["timestamp"]).sort_values("timestamp")
+
+    # optional sanity to see both are present
+            logging.info("Combined counts by source: %s", combined_df["source"].value_counts(dropna=False).to_dict())
             save_csv(combined_df, "data/combined_sentiment.csv")
         else:
             logging.error(f"No sentiment data. use_news={use_news}, use_reddit={use_reddit}")
@@ -375,7 +391,10 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 
         st.plotly_chart(plot_equity(bt), use_container_width=True)
         st.plotly_chart(plot_drawdown(bt), use_container_width=True)
-
+        st.write("CAGR =  Compounded Annual Growth Rate\n" \
+                    "Sharpe = Metric used to assess performance of investment by measuring risk-adjusted return, higher = better \n" \
+                    "MaxDD = the measure of the decline from a historical peak in running cumulative profit of the strategy \n" \
+                    "HitRate = the percentage of profitable transactions or trades compared to the total number of trades executed")
         st.write({
             "CAGR": None if stats["CAGR"] is None else float(stats["CAGR"]),
             "Sharpe": None if stats["Sharpe"] is None else float(stats["Sharpe"]),

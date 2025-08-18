@@ -33,8 +33,8 @@ def fetch_reddit_posts(query="(btc OR bitcoin)"
                        end_date=None,
                        subreddits=("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
     
-    terms = [t.strip(" ()") for t in re.split(r"\bOR\b", query, flags=re.I)]
-    kw = re.compile(r"|".join(map(re.escape, terms)), flags = re.I)
+    terms = [t.strip(" ()") for t in re.split(" OR ", query, flags=re.I)]
+    kw = re.compile("|".join(map(re.escape, terms)), flags = re.I)
 
     logger.info(f"Fetching Reddit posts with query='{query}', limit={limit}, subs={subreddits}")
     posts, seen = [], set()
@@ -65,7 +65,8 @@ def fetch_reddit_posts(query="(btc OR bitcoin)"
                 "score": submission.score,
                 "num_comments": submission.num_comments,
                 "id": sid,
-                "source": submission.subreddit.display_name
+                "source": "reddit",
+                "subreddit": submission.subreddit.display_name
             })
 
             if len(posts) >= limit:

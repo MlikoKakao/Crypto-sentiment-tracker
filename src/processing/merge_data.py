@@ -18,25 +18,23 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
     price_df = load_csv(price_file)
 
 
-    # Convert timestamp columns safely (handles ISO strings with +00:00)
-    sentiment_df["timestamp"] = _to_naive(pd.to_datetime(sentiment_df["timestamp"], errors="coerce"))
-    price_df["timestamp"] = _to_naive(pd.to_datetime(price_df["timestamp"], errors="coerce"))
+    # Convert timestamp columns safely
+    sentiment_df["timestamp"] = pd.to_datetime(sentiment_df["timestamp"], errors="coerce", utc=True).dt.tz_localize(None)
+    price_df["timestamp"]     = pd.to_datetime(price_df["timestamp"], errors="coerce", utc=True).dt.tz_localize(None)
 
-    # Drop any rows with invalid timestamps
-    sentiment_df = sentiment_df.dropna(subset=["timestamp"])
-    price_df = price_df.dropna(subset=["timestamp"])
+    sentiment_df = sentiment_df.dropna(subset=["timestamp"]).sort_values("timestamp")
+    price_df     = price_df.dropna(subset=["timestamp","price"]).sort_values("timestamp")
 
-    # Sort both DataFrames by timestamp BEFORE merge_asof
-    sentiment_df = sentiment_df.sort_values("timestamp")
-    price_df = price_df.sort_values("timestamp")
+    # dynamic tolerance
+    span = sentiment_df["timestamp"].max() - sentiment_df["timestamp"].min()
+    tol  = pd.Timedelta("30min") if span <= pd.Timedelta("2D") else (pd.Timedelta("2H") if span <= pd.Timedelta("14D") else pd.Timedelta("1D"))
 
-    # Merge based on nearest timestamp
     merged = pd.merge_asof(
-        sentiment_df.sort_values("timestamp"),
-        price_df.sort_values("timestamp"),
+        sentiment_df,
+        price_df[["timestamp","price"]],
         on="timestamp",
-        direction="nearest",
-        tolerance=pd.Timedelta("1D")
+        direction="backward",
+        tolerance=tol,
     )
 
     # Save to file
