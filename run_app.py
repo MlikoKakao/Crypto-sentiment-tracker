@@ -20,7 +20,7 @@ from src.scraping.reddit_scraper import fetch_reddit_posts
 from src.scraping.fetch_price import get_price_history
 from src.scraping.news_scraper import fetch_news_posts
 from src.scraping.twitter_scraper import fetch_twitter_posts
-from src.sentiment.analyzer import add_sentiment_to_file
+from src.sentiment.analyzer import add_sentiment_to_file, load_sentiment_df
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir
 from config.settings import(
@@ -202,7 +202,7 @@ if submit:
                 cache_csv(tweets_df, twitter_settings)
 
         tweets_df["source"] = "twitter"
-        tweets_df["coin"] = cryptopanic_coin.lower()
+        tweets_df["coin"] = selected_coin
         if "lang" not in tweets_df.columns:
             tweets_df["lang"] = "en"
         save_csv(tweets_df, twitter_path)
@@ -263,14 +263,26 @@ if submit:
 
 
     with st.spinner("Combining sentiment..."):
+        #This is gonna break when news will be allowed
+        sentiment_df = load_sentiment_df(
+            reddit_sentiment_path,
+            twitter_sentiment_path,
+            posts_choice,
+            )
+        combined_sentiment_path = "data/combined_sentiment.csv"
+        save_csv(sentiment_df, combined_sentiment_path)
         dfs = []
         if use_news and os.path.exists(news_sentiment_path):
             news_sent = load_csv(news_sentiment_path)
             dfs.append(news_sent)
-        if use_reddit and os.path.exists(reddit_sentiment_path):
+        if posts_choice == "Reddit" and os.path.exists(reddit_sentiment_path):
             dfs.append(load_csv(reddit_sentiment_path))
-        if use_twitter and os.path.exists(twitter_sentiment_path):
+        if posts_choice =="Twitter/X" and os.path.exists(twitter_sentiment_path):
             dfs.append(load_csv(twitter_sentiment_path))
+        else:
+            dfs = [
+                sentiment_df
+            ]
 
         if dfs:
             combined_df = pd.concat(dfs, ignore_index=True)
@@ -279,7 +291,6 @@ if submit:
 
             combined_df = combined_df.dropna(subset=["timestamp"]).sort_values("timestamp")
 
-    # optional sanity to see both are present
             logging.info("Combined counts by source: %s", combined_df["source"].value_counts(dropna=False).to_dict())
             save_csv(combined_df, "data/combined_sentiment.csv")
         else:

@@ -17,13 +17,11 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
     sentiment_df = load_csv(sentiment_file)
     price_df = load_csv(price_file)
 
-
-    # Convert timestamp columns safely
-    sentiment_df["timestamp"] = pd.to_datetime(sentiment_df["timestamp"], errors="coerce", utc=True).dt.tz_localize(None)
-    price_df["timestamp"]     = pd.to_datetime(price_df["timestamp"], errors="coerce", utc=True).dt.tz_localize(None)
+    for df in (sentiment_df, price_df):
+        df["timestamp"] = pd.to_datetime(df["timestamp"], utc = True, errors = "coerce").dt.tz_convert(None)
 
     sentiment_df = sentiment_df.dropna(subset=["timestamp"]).sort_values("timestamp")
-    price_df     = price_df.dropna(subset=["timestamp","price"]).sort_values("timestamp")
+    price_df     = price_df.dropna(subset=["timestamp"]).sort_values("timestamp")
 
     # dynamic tolerance
     span = sentiment_df["timestamp"].max() - sentiment_df["timestamp"].min()
@@ -42,3 +40,4 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
     save_csv(merged, output_file)
     print("✅ Merged data saved:", output_file)
     print(merged.head())
+    return merged.dropna(subset=["price"])

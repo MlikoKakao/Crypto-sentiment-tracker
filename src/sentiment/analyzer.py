@@ -120,5 +120,22 @@ def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader", c
     print("Sentiment added. Preview:")
     print(df.head())
 
+def load_sentiment_df(reddit_path, twitter_path, posts_choice):
+    if posts_choice == "Reddit":
+        return pd.read_csv(reddit_path, parse_dates=["timestamp"])
+    if posts_choice in ("Twitter", "Twitter/X"):
+        return pd.read_csv(twitter_path, parse_dates=["timestamp"])
+
+    r = pd.read_csv(reddit_path, parse_dates=["timestamp"]) if reddit_path else None
+    t = pd.read_csv(twitter_path, parse_dates=["timestamp"]) if twitter_path else None
+
+    frames = [df for df in (r, t) if df is not None and not df.empty]
+    if not frames:
+        return pd.DataFrame(columns=["timestamp", "text", "sentiment", "source"])
+    
+    all_cols = sorted(set().union(*[f.columns for f in frames]))
+    frames = [f.reindex(columns=all_cols) for f in frames]
+    return pd.concat(frames, ignore_index=True)
+
 if __name__ == "__main__":
     add_sentiment_to_file("data/bitcoin_posts.csv","data/bitcoin_posts_with_sentiment.csv")

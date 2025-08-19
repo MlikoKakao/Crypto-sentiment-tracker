@@ -1,16 +1,16 @@
 {
-  "2df308c938c002fcd3891741f36e78e5": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\2df308c938c002fcd3891741f36e78e5.csv",
-    "rows": 200,
-    "updated": 1755516274,
+  "d9c6b920bf75fb2102e540068448bd3d": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\d9c6b920bf75fb2102e540068448bd3d.csv",
+    "rows": 74,
+    "updated": 1755629433,
     "settings": {
       "coin": "bitcoin",
       "dataset": "posts_reddit",
-      "end_date": "2025-08-18T11:24:30",
-      "num_posts": 200,
+      "end_date": "2025-08-19T18:50:27",
+      "num_posts": 100,
       "query": "(bitcoin or btc)",
       "source": "reddit",
-      "start_date": "2025-08-11T11:24:30",
+      "start_date": "2025-08-18T18:50:27",
       "subreddits": [
         "bitcoin",
         "cryptocurrency",
@@ -20,82 +20,82 @@
       "tz": "utc"
     }
   },
-  "9764f05c44e9ab3fe5e95cb1e30223a9": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\9764f05c44e9ab3fe5e95cb1e30223a9.csv",
-    "rows": 200,
-    "updated": 1755516368,
+  "1a73f6c0337a27d66c894d5d8b1afa96": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\1a73f6c0337a27d66c894d5d8b1afa96.csv",
+    "rows": 100,
+    "updated": 1755629490,
     "settings": {
       "coin": "bitcoin",
       "dataset": "posts_twitter",
-      "end_date": "2025-08-18T11:24:30",
-      "num_posts": 200,
+      "end_date": "2025-08-19T18:50:27",
+      "num_posts": 100,
       "query": "btc",
       "source": "twitter",
-      "start_date": "2025-08-11T11:24:30",
+      "start_date": "2025-08-18T18:50:27",
       "tz": "utc"
     }
   },
-  "9749c3cb1fecb311e020467b6f70a0b4": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\9749c3cb1fecb311e020467b6f70a0b4.csv",
-    "rows": 200,
-    "updated": 1755516368,
+  "d739ac5c2e8792501b3b3daee040e3d0": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\d739ac5c2e8792501b3b3daee040e3d0.csv",
+    "rows": 74,
+    "updated": 1755629490,
     "settings": {
       "analyzer": "vader",
       "coin": "bitcoin",
       "dataset": "sentiment",
-      "input_sha1": "b091f0de4943280a6c6ea3418a5e93e4230199c5",
+      "input_sha1": "63b17721c7179fc2ef823848390e031e38fd85ef",
       "source": "reddit"
     }
   },
-  "d6fec6b68cb6af44a2f36c8eb69dba6f": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\d6fec6b68cb6af44a2f36c8eb69dba6f.csv",
-    "rows": 200,
-    "updated": 1755516368,
+  "2a5b5ed9f4738204df4d733d612d3fb5": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\2a5b5ed9f4738204df4d733d612d3fb5.csv",
+    "rows": 100,
+    "updated": 1755629490,
     "settings": {
       "analyzer": "vader",
       "coin": "bitcoin",
       "dataset": "sentiment",
-      "input_sha1": "c4058a6810884f01d5a0e640155fece1e23982ee",
+      "input_sha1": "5b6c1c291efc24b7e86d28e2d75e96d5078e97a3",
       "source": "twitter"
     }
   },
-  "0a2b0f4e46d6fc6c16b077317f022599": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\0a2b0f4e46d6fc6c16b077317f022599.csv",
-    "rows": 170,
-    "updated": 1755516368,
+  "0edd9d3a9daff40ce1c22fd1c2b2027d": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\0edd9d3a9daff40ce1c22fd1c2b2027d.csv",
+    "rows": 283,
+    "updated": 1755629490,
     "settings": {
       "coin": "bitcoin",
       "dataset": "price",
-      "days": 7
+      "days": 1
     }
   },
-  "4cbdb05d2510424107337eadcc40c9bc": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\4cbdb05d2510424107337eadcc40c9bc.csv",
-    "rows": 200,
-    "updated": 1755516369,
+  "22bdd60603f011be117cb25fb4ec9d4d": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\22bdd60603f011be117cb25fb4ec9d4d.csv",
+    "rows": 174,
+    "updated": 1755629491,
     "settings": {
       "analyzer": "vader",
       "coin": "bitcoin",
       "dataset": "merged",
-      "days": 7,
+      "days": 1,
       "depends_on": [
-        "8b023341c4b6e2a272addc7d13226064c7945295",
-        "a9afd3283f7fc197dbb39d5bd7a047683492bcaa"
+        "130cfbc623bfb816228a3c9b09598eb3e11d5243",
+        "f7803b6847f877e3d761cf2f7c11f2a3cf5c2bbd"
       ],
       "posts_choice": "all"
     }
   },
-  "142c731a0dff7e9d9765f136ef85e41e": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\142c731a0dff7e9d9765f136ef85e41e.csv",
+  "da3eb7ff7158a0b20a4c9bc037c8e7bb": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\da3eb7ff7158a0b20a4c9bc037c8e7bb.csv",
     "rows": 193,
-    "updated": 1755516369,
+    "updated": 1755629491,
     "settings": {
       "analyzer": "vader",
       "coin": "bitcoin",
       "dataset": "features",
-      "days": 7,
+      "days": 1,
       "depends_on": [
-        "f492bd99c0542d18ff1589628ae75ea26f77968d"
+        "fecf2365a54100df886f6e6ffa5c716361b3bcca"
       ],
       "lag_max_s": 86400,
       "lag_min_s": -86400,
