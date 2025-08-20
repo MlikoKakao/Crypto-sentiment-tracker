@@ -76,7 +76,7 @@ st.sidebar.header("Configuration")
 with st.sidebar.form("analysis_form"):
     selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-    num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
+    num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=3000, step=100, value=300)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
     analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
                                                                                                         "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
