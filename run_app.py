@@ -78,7 +78,6 @@ with st.sidebar.form("analysis_form"):
     selected_coin = COINS_UI_TO_SYMBOL[selected_label]
     num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
-    window_hours, per_window_limit = window_params(int(days), int(num_posts))
     analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
                                                                                                         "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
     posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
@@ -155,65 +154,53 @@ if submit:
 
     #Reddit
     if posts_choice in ("All", "Reddit"):
-        reddit_base = {
+        reddit_settings = {
             "dataset": "posts_reddit",
             "source": "reddit",
             "coin": selected_coin,
             "query": f"({selected_coin} OR {cryptopanic_coin})",
+            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
+            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
+            "num_posts": num_posts,
             "tz":"utc",
-            "subreddits": tuple(sorted(subreddits))
+            "subreddits": subreddits
         }
-        
-        with st.spinner("Fetching Reddit posts..."):
-            reddit_df = fetching_windows(
-                fetch_func=lambda start, end, limit: fetch_reddit_posts(
-                query=reddit_base["query"],
-                limit=limit,
-                start_date=start,      # reddit function wants start_date/end_date
-                end_date=end,
-                subreddits=subreddits
-            ),
-            base_settings=reddit_base,
-            start=start_date,
-            end=end_date,
-            window_hours=window_hours,
-            per_window_limit=per_window_limit,
-            cache_key_fields=[],    # not used by helper, safe to ignore
-            id_col="id"
-        )
-
+        reddit_df = load_cached_csv(reddit_settings, parse_dates=["timestamp"],freshness_minutes = 30)
+        if reddit_df is None:
+                with st.spinner("Fetching Reddit posts..."):
+                    reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
+                    reddit_df["source"] = "reddit"
+                    cache_csv(reddit_df, reddit_settings)
         reddit_df["source"] = "reddit"
-        reddit_df["coin"] = map_to_cryptopanic_symbol(selected_coin).lower()
+        reddit_df["coin"] = cryptopanic_coin.lower()
         if "lang" not in reddit_df.columns:
             reddit_df["lang"] = "en"
         save_csv(reddit_df, reddit_path)
         use_reddit = True
     #Twitter
     if posts_choice in ("All", "Twitter/X"):
-        twitter_base = {
+        twitter_settings = {
             "dataset": "posts_twitter",
             "source": "twitter",
             "coin": selected_coin,
             "query": cryptopanic_coin.lower(),
-            "tz": "utc",
+            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
+            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
+            "num_posts": num_posts,
+            "tz":"utc",
         }
-        with st.spinner(f"Fetching Twitter posts in {window_hours}h windows..."):
-            tweets_df = fetching_windows(
-                fetch_func=lambda start, end, limit: fetch_twitter_posts(
-                    coin=twitter_base["query"],
-                    limit=limit,
+        tweets_df = load_cached_csv(twitter_settings, parse_dates=["timestamp"],freshness_minutes = 30)
+        if tweets_df is None:
+            with st.spinner("Fetching Twitter posts.."):
+                tweets_df = fetch_twitter_posts(
+                    coin=cryptopanic_coin.lower(),
+                    limit=int(num_posts or 200),
                     lang="en",
                     sort="Top",
-                    start=start,
-                    end=end,
-                ),
-                base_settings=twitter_base,
-                start=start_date,
-                end=end_date,
-                window_hours=window_hours,
-                per_window_limit=per_window_limit,
-                id_col="id",
-            )
+                    start=start_date,
+                    end=end_date,
+                )
+                cache_csv(tweets_df, twitter_settings)
 
         tweets_df["source"] = "twitter"
         tweets_df["coin"] = map_to_cryptopanic_symbol(selected_coin).lower()
