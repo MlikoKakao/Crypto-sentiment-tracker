@@ -31,7 +31,7 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
         sentiment_df,
         price_df[["timestamp","price"]],
         on="timestamp",
-        direction="backward",
+        direction="nearest",
         tolerance=tol,
     )
 

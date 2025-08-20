@@ -1,0 +1,44 @@
+timestamp,text,url,score,num_comments,id,source,subreddit
+2025-06-18 09:43:20+00:00,"sol/usd 12% swing trade: setup triggered overnight signal generated: 17/06/2025 at 12:32  
+  
+entry: $147.50  
+stop: $141.00  
+target: $165.00  
+r:r: 2.69:1  
+potential gain: 11.86%  
+potential loss: 4.41%  
+trade type: swing
+
+# this sol setup caught my attention due to a classic accumulation structure forming just above key weekly support. the trade was triggered at $147.50 following a measured pullback to the 1h ma50 — a level that's consistently acted as dynamic support over the last few weeks.
+
+key confluence:
+
+* **weekly**: price is holding above the $140–$143 base, with the 200ma flattening — signalling potential trend exhaustion rather than continuation down.
+* **daily**: buyers have consistently defended the $141–$143 zone, giving confidence that this is more than just a dead-cat bounce.
+* **4h**: higher lows are forming. structure looks to be shifting from bearish to neutral-bullish.
+* **rsi** across timeframes is stable (not oversold), suggesting controlled consolidation — not panic selling.
+* **volume** has remained steady during the range, supporting an accumulation narrative.
+
+this is a swing, not a scalp. i'm giving this room to work, provided the structure holds. the invalidation point is clear — any breakdown through $141 and this trade thesis fails.
+
+# profit management
+
+i’m using a staged exit to lock in gains progressively and ride any extended move:
+
+* **tp1** (50%): $156.00 – first resistance, locking in profits and reducing risk.
+* **tp2** (30%): $165.00 – main target based on the width of the consolidation range.
+* **tp3** (20%): $175.00 – extended target into weekly resistance zone. would need clean breakout + volume.
+
+# key price levels
+
+* **pivot**: $150.30
+* **support zones**: $141.5 / $143.0 / $147.5
+* **4h levels**: support – 143.02 / 147.51, resistance – 158.27 / 167.50
+* **daily resistance**: 167.50 / 175.43
+
+# risk factors to monitor
+
+* a decisive break below $141 would invalidate the setup.
+* sol typically follows btc on major moves — if bitcoin tanks, expect sol to follow.
+* watch general crypto market sentiment. even clean technicals won’t hold up in a widespread sell-off.
+* volume is key — need to see increasing buy volume on the push toward $156+ to confirm breakout strength.",https://www.reddit.com/r/CryptoCurrencyTrading/comments/1lecxwr/solusd_12_swing_trade_setup_triggered_overnight/,2,1,1lecxwr,reddit,CryptoCurrencyTrading

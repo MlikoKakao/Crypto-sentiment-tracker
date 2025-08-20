@@ -51,6 +51,7 @@ from src.benchmark.benchmark_plot import (
     accuracy_figure,
     confusion_matrices
     )
+from src.scraping.fetch_helpers import fetching_windows, window_params
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -77,6 +78,7 @@ with st.sidebar.form("analysis_form"):
     selected_coin = COINS_UI_TO_SYMBOL[selected_label]
     num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1000, step=100, value=300)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
+    window_hours, per_window_limit = window_params(int(days), int(num_posts))
     analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
                                                                                                         "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
     posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
@@ -153,56 +155,68 @@ if submit:
 
     #Reddit
     if posts_choice in ("All", "Reddit"):
-        reddit_settings = {
+        reddit_base = {
             "dataset": "posts_reddit",
             "source": "reddit",
             "coin": selected_coin,
             "query": f"({selected_coin} OR {cryptopanic_coin})",
-            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
-            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
-            "num_posts": num_posts,
             "tz":"utc",
-            "subreddits": subreddits
+            "subreddits": tuple(sorted(subreddits))
         }
-        reddit_df = load_cached_csv(reddit_settings, parse_dates=["timestamp"],freshness_minutes = 30)
-        if reddit_df is None:
-                with st.spinner("Fetching Reddit posts..."):
-                    reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
-                    reddit_df["source"] = "reddit"
-                    cache_csv(reddit_df, reddit_settings)
+        
+        with st.spinner("Fetching Reddit posts..."):
+            reddit_df = fetching_windows(
+                fetch_func=lambda start, end, limit: fetch_reddit_posts(
+                query=reddit_base["query"],
+                limit=limit,
+                start_date=start,      # reddit function wants start_date/end_date
+                end_date=end,
+                subreddits=subreddits
+            ),
+            base_settings=reddit_base,
+            start=start_date,
+            end=end_date,
+            window_hours=window_hours,
+            per_window_limit=per_window_limit,
+            cache_key_fields=[],    # not used by helper, safe to ignore
+            id_col="id"
+        )
+
         reddit_df["source"] = "reddit"
-        reddit_df["coin"] = cryptopanic_coin.lower()
+        reddit_df["coin"] = map_to_cryptopanic_symbol(selected_coin).lower()
         if "lang" not in reddit_df.columns:
             reddit_df["lang"] = "en"
         save_csv(reddit_df, reddit_path)
         use_reddit = True
     #Twitter
     if posts_choice in ("All", "Twitter/X"):
-        twitter_settings = {
+        twitter_base = {
             "dataset": "posts_twitter",
             "source": "twitter",
             "coin": selected_coin,
             "query": cryptopanic_coin.lower(),
-            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
-            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
-            "num_posts": num_posts,
-            "tz":"utc",
+            "tz": "utc",
         }
-        tweets_df = load_cached_csv(twitter_settings, parse_dates=["timestamp"],freshness_minutes = 30)
-        if tweets_df is None:
-            with st.spinner("Fetching Twitter posts.."):
-                tweets_df = fetch_twitter_posts(
-                    coin=cryptopanic_coin.lower(),
-                    limit=int(num_posts or 200),
+        with st.spinner(f"Fetching Twitter posts in {window_hours}h windows..."):
+            tweets_df = fetching_windows(
+                fetch_func=lambda start, end, limit: fetch_twitter_posts(
+                    coin=twitter_base["query"],
+                    limit=limit,
                     lang="en",
                     sort="Top",
-                    start=start_date,
-                    end=end_date,
-                )
-                cache_csv(tweets_df, twitter_settings)
+                    start=start,
+                    end=end,
+                ),
+                base_settings=twitter_base,
+                start=start_date,
+                end=end_date,
+                window_hours=window_hours,
+                per_window_limit=per_window_limit,
+                id_col="id",
+            )
 
         tweets_df["source"] = "twitter"
-        tweets_df["coin"] = selected_coin
+        tweets_df["coin"] = map_to_cryptopanic_symbol(selected_coin).lower()
         if "lang" not in tweets_df.columns:
             tweets_df["lang"] = "en"
         save_csv(tweets_df, twitter_path)
@@ -264,12 +278,13 @@ if submit:
 
     with st.spinner("Combining sentiment..."):
         #This is gonna break when news will be allowed
+        #Just have to add it here and to analyzer.py when they're allowed, now cannot do anything with it.
         sentiment_df = load_sentiment_df(
             reddit_sentiment_path,
             twitter_sentiment_path,
             posts_choice,
             )
-        combined_sentiment_path = "data/combined_sentiment.csv"
+        combined_sentiment_path = get_data_path(selected_coin, "combined_sentiment")
         save_csv(sentiment_df, combined_sentiment_path)
         dfs = []
         if use_news and os.path.exists(news_sentiment_path):
@@ -277,12 +292,10 @@ if submit:
             dfs.append(news_sent)
         if posts_choice == "Reddit" and os.path.exists(reddit_sentiment_path):
             dfs.append(load_csv(reddit_sentiment_path))
-        if posts_choice =="Twitter/X" and os.path.exists(twitter_sentiment_path):
+        elif posts_choice =="Twitter/X" and os.path.exists(twitter_sentiment_path):
             dfs.append(load_csv(twitter_sentiment_path))
-        else:
-            dfs = [
-                sentiment_df
-            ]
+        elif posts_choice == "All":
+            dfs = [sentiment_df]
 
         if dfs:
             combined_df = pd.concat(dfs, ignore_index=True)
@@ -292,7 +305,7 @@ if submit:
             combined_df = combined_df.dropna(subset=["timestamp"]).sort_values("timestamp")
 
             logging.info("Combined counts by source: %s", combined_df["source"].value_counts(dropna=False).to_dict())
-            save_csv(combined_df, "data/combined_sentiment.csv")
+            save_csv(combined_df, combined_sentiment_path)
         else:
             logging.error(f"No sentiment data. use_news={use_news}, use_reddit={use_reddit}")
             st.error("No sentiment data could be loaded. Check API limits or local files.")
@@ -321,7 +334,7 @@ if submit:
         "posts_choice": posts_choice,
         "depends_on": [
             file_sha1(get_data_path(selected_coin,"prices")),
-            file_sha1("data/combined_sentiment.csv")
+            file_sha1(combined_sentiment_path)
         ]
     }
     merged_path = get_data_path(selected_coin, "merged")
@@ -358,6 +371,15 @@ if submit:
     st.success("Data ready, showing visualization:")
 
 if "merged_path" in st.session_state and os.path.exists(st.session_state["merged_path"]):
+    price_settings = {
+        "dataset": "price",
+        "coin": selected_coin,
+        "days": int(days),
+        "tz": "utc",
+    }
+    price_df = load_cached_csv(price_settings, parse_dates=["timestamp"], freshness_minutes=30)
+
+
     #Timestamp things
     df = load_csv(st.session_state["merged_path"], parse_dates=["timestamp"])
     min_date = (df["timestamp"].max()-timedelta(days=int(days))).to_pydatetime()
@@ -380,7 +402,7 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
             st.warning(f"Could not build lead/lag features: {e}")
 
     #Price plot
-    st.plotly_chart(plot_price_time_series(df, selected_coin), use_container_width=True)
+    st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
    
     #Sentiment timeline
     st.plotly_chart(plot_sentiment_timeline(df, selected_coin), use_container_width=True)
