@@ -1391,3 +1391,23 @@
 2025-08-23 21:27:08,029 | INFO | src.utils.cache | CACHE HIT f0c5f323ab5bd023a349ce02d3fb4bed.csv
 2025-08-23 21:27:08,034 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
 2025-08-23 21:27:08,056 | INFO | src.utils.cache | CACHE HIT 87f805b441184a12a4b7959239a187d1.csv
+2025-08-23 21:28:54,598 | INFO | src.utils.cache | CACHE MISS {'dataset': 'posts_reddit', 'coin': 'bitcoin', 'source': 'reddit', 'query': '(bitcoin or btc)', 'start_date': '2025-08-13T19:28:54', 'end_date': '2025-08-23T19:28:54', 'num_posts': 1100, 'subreddits': ['bitcoin', 'cryptocurrency', 'cryptocurrencytrading', 'cryptomarkets'], 'tz': 'utc'} -> c5050eae0f1867d6d76133e08af3c86d.csv
+2025-08-23 21:28:54,600 | INFO | src.scraping.reddit_scraper | Fetching Reddit posts with query='(bitcoin OR BTC)', limit=1100, subs=['CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets', 'Bitcoin']
+2025-08-23 21:29:19,368 | INFO | src.scraping.reddit_scraper | Fetched 749 posts for query='(bitcoin OR BTC)' from ['CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets', 'Bitcoin']
+2025-08-23 21:29:19,480 | WARNING | root | News sentiment will not be included
+2025-08-23 21:29:19,499 | INFO | src.utils.cache | CACHE MISS {'dataset': 'sentiment', 'coin': 'bitcoin', 'source': 'reddit', 'analyzer': 'vader', 'input_sha1': 'c8bc53c6383f56a88ae62254f512c27b4590f865'} -> 3d2742bf81233f0dd649e29003818ce5.csv
+2025-08-23 21:29:19,500 | INFO | src.utils.helpers | Loaded CSV from: data/bitcoin_reddit_posts.csv
+2025-08-23 21:29:20,480 | INFO | src.sentiment.analyzer | Sentiment added using VADER. Saved to D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_reddit_sentiment.csv. Total records: 749
+2025-08-23 21:29:20,497 | WARNING | root | Twitter sentiment will not be included
+2025-08-23 21:29:20,598 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_reddit_sentiment.csv
+2025-08-23 21:29:20,622 | INFO | root | Combined counts by source: {'reddit': 749}
+2025-08-23 21:29:20,649 | INFO | src.utils.cache | CACHE MISS {'dataset': 'price', 'coin': 'bitcoin', 'days': 10} -> f0c5f323ab5bd023a349ce02d3fb4bed.csv
+2025-08-23 21:29:21,044 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'bitcoin', 'days': 10, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['04b3f6b91ed89cde7424ede4dc3e8cf48985b036', '9f06c06076bad6fe1245baa3c32378ca7838cfba']} -> 7481f069e03db0f0a9734b2be50d3c48.csv
+2025-08-23 21:29:21,046 | INFO | src.utils.cache | CACHE MISS {'dataset': 'merged', 'coin': 'bitcoin', 'days': 10, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['04b3f6b91ed89cde7424ede4dc3e8cf48985b036', '9f06c06076bad6fe1245baa3c32378ca7838cfba']} -> 7481f069e03db0f0a9734b2be50d3c48.csv
+2025-08-23 21:29:21,047 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_combined_sentiment.csv
+2025-08-23 21:29:21,064 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_prices.csv
+2025-08-23 21:29:21,211 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-23 21:29:21,302 | INFO | src.utils.cache | CACHE MISS {'dataset': 'features', 'coin': 'bitcoin', 'days': 10, 'analyzer': 'vader', 'posts_choice': 'reddit', 'depends_on': ['3a826f0bc5232f956960877b7240159aff92e638'], 'lag_min_s': -86400, 'lag_max_s': 86400, 'lag_step_s': 900, 'metric': 'pearson'} -> 516a7d50258aacb22b0b0ba8b42327bc.csv
+2025-08-23 21:29:21,787 | INFO | src.utils.cache | CACHE HIT f0c5f323ab5bd023a349ce02d3fb4bed.csv
+2025-08-23 21:29:21,826 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
+2025-08-23 21:29:21,849 | INFO | src.utils.cache | CACHE HIT 516a7d50258aacb22b0b0ba8b42327bc.csv
