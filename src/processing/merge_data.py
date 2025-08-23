@@ -1,6 +1,7 @@
 import pandas as pd
 from src.utils.helpers import load_csv, save_csv, _to_naive
 from src.utils.cache import load_cached_csv, cache_csv
+from src.processing.indicators import add_indicators
 
 def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_settings):
     merged_cached = load_cached_csv(    
@@ -25,19 +26,30 @@ def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_set
 
     # dynamic tolerance
     span = sentiment_df["timestamp"].max() - sentiment_df["timestamp"].min()
-    tol  = pd.Timedelta("30min") if span <= pd.Timedelta("2D") else (pd.Timedelta("2H") if span <= pd.Timedelta("14D") else pd.Timedelta("1D"))
+    tol  = pd.Timedelta("30min") if span <= pd.Timedelta("2D") else (pd.Timedelta("12H") if span <= pd.Timedelta("14D") else pd.Timedelta("1D"))
 
     merged = pd.merge_asof(
         sentiment_df,
         price_df[["timestamp","price"]],
         on="timestamp",
-        direction="nearest",
+        direction="backward",
         tolerance=tol,
     )
+    merged = add_indicators(
+        merged,
+        price_col="price",
+        sma_windows=(20,50),
+        rsi_period=14,
+        macd_fast=12,
+        macd_slow=26,
+        macd_signal=9
+    )
+
+
 
     # Save to file
     cache_csv(merged, cache_settings)
     save_csv(merged, output_file)
     print("✅ Merged data saved:", output_file)
     print(merged.head())
-    return merged.dropna(subset=["price"])
+    return merged

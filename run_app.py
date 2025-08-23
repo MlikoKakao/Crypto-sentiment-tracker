@@ -41,7 +41,10 @@ from src.plotting.charts import (
     plot_sentiment_with_price,
     plot_lag_correlation,
     plot_equity,
-    plot_drawdown
+    plot_drawdown,
+    plot_rsi,
+    plot_macd,
+    plot_price_with_sma
 )
 from src.utils.helpers import file_sha1
 from src.analysis.lead_lag import load_or_build_lead_lag_features
@@ -51,7 +54,7 @@ from src.benchmark.benchmark_plot import (
     accuracy_figure,
     confusion_matrices
     )
-from src.scraping.fetch_helpers import fetching_windows, window_params
+from src.processing.indicators import add_indicators
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
@@ -76,7 +79,7 @@ st.sidebar.header("Configuration")
 with st.sidebar.form("analysis_form"):
     selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-    num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=3000, step=100, value=300)
+    num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1100, step=100, value=300)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
     analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
                                                                                                         "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
@@ -97,6 +100,16 @@ with st.sidebar.form("analysis_form"):
     lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
     lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
     metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
+    #Indicators
+    st.sidebar.markdown("### Indicators")
+    use_sma = st.sidebar.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
+    use_rsi = st.sidebar.checkbox("RSI (14)", value=True, help="Relative Strength Index")
+    use_macd = st.sidebar.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
+
+    sma_fast = st.sidebar.number_input("SMA fast", 5, 200, 20, 1)
+    sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
+    rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
+
     submit = st.sidebar.button("Run Analysis")
 
 if st.sidebar.button("Clear cache"):
@@ -170,6 +183,11 @@ if submit:
                 with st.spinner("Fetching Reddit posts..."):
                     reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
                     reddit_df["source"] = "reddit"
+                    reddit_df["timestamp"] = pd.to_datetime(reddit_df["timestamp"], utc=True)
+
+                    mask = (reddit_df["timestamp"] >= start_date) & (reddit_df["timestamp"] <= end_date)
+                    reddit_df = reddit_df.loc[mask].copy()
+
                     cache_csv(reddit_df, reddit_settings)
         reddit_df["source"] = "reddit"
         reddit_df["coin"] = cryptopanic_coin.lower()
@@ -333,6 +351,13 @@ if submit:
                                         merged_path,
                                         cache_settings=merged_settings)
             merged_df = load_csv(merged_path, parse_dates=["timestamp"])
+            merged_df = add_indicators(
+                            merged_df,
+                            price_col="price",
+                            sma_windows=(sma_fast, sma_slow),
+                            rsi_period=int(rsi_period),
+                            macd_fast=12, macd_slow=26, macd_signal=9
+                        )
             cache_csv(merged_df, merged_settings)
     else:
         save_csv(merged_df, merged_path)
@@ -411,16 +436,25 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 
         st.plotly_chart(plot_equity(bt), use_container_width=True)
         st.plotly_chart(plot_drawdown(bt), use_container_width=True)
-        st.write("CAGR =  Compounded Annual Growth Rate\n" \
-                    "Sharpe = Metric used to assess performance of investment by measuring risk-adjusted return, higher = better \n" \
-                    "MaxDD = the measure of the decline from a historical peak in running cumulative profit of the strategy \n" \
-                    "HitRate = the percentage of profitable transactions or trades compared to the total number of trades executed")
-        st.write({
-            "CAGR": None if stats["CAGR"] is None else float(stats["CAGR"]),
-            "Sharpe": None if stats["Sharpe"] is None else float(stats["Sharpe"]),
-            "MaxDD": None if stats["MaxDD"] is None else float(stats["MaxDD"]),
-            "HitRate": None if stats["HitRate"] is None else float(stats["HitRate"]),
-        })
+        with st.expander("What the metrics mean"):
+            st.markdown("""
+                - **CAGR** — Compounded Annual Growth Rate.
+                - **Sharpe** — Risk-adjusted return (higher is better).
+                - **MaxDD** — Maximum drawdown from peak equity.
+                - **Hit Rate** — Share of profitable trades.
+                """.strip())
+            
+        CAGR   = stats.get("CAGR")
+        Sharpe = stats.get("Sharpe")
+        MaxDD  = stats.get("MaxDD")
+        Hit    = stats.get("HitRate")
+
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("CAGR",    "—" if (CAGR   is None or (isinstance(CAGR,   float) and np.isnan(CAGR)))   else f"{CAGR:.2%}")
+        c2.metric("Sharpe",  "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
+        c3.metric("MaxDD",   "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
+        c4.metric("Hit Rate","—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
+
 
     #Sentiment vs price
     st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
@@ -428,6 +462,21 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
     #Average sentiment
     avg_sent = df["sentiment"].mean()
     st.metric(label=f"Average Sentiment {selected_label}", value=f"{avg_sent:.3f}")
+    
+    sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
+    view = filter_date_range(merged_df, selected_range[0],selected_range[1])
+
+    if use_sma:
+        st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
+
+
+    if use_rsi:
+        fig = plot_rsi(view, rsi_col=f"rsi_{int(rsi_period)}")
+        if fig: st.plotly_chart(fig, use_container_width=True)
+
+    if use_macd:
+        fig = plot_macd(view)
+        if fig: st.plotly_chart(fig, use_container_width=True)
 
 else:
     st.info("Run the analysis from the sidebar to see visualization")

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 DEFAULT_CURRENCY = "usd"
-DEFAULT_DAYS = ["1", "7", "30", "90", "180", "365"]
+DEFAULT_DAYS = ["1", "7","10", "30", "90", "180", "365"]
 
 COINGECKO_URL = "https://api.coingecko.com/api/v3/coins/{symbol}/market_chart"
 COINGECKO_INTERVALS = {

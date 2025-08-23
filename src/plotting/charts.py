@@ -168,6 +168,40 @@ def plot_equity(df_bt: pd.DataFrame):
     return fig
 
 def plot_drawdown(df_bt: pd.DataFrame):
-    fig = px.area(df_bt, x="timestamp", y="dd", title="Dradown (Strategy)")
+    fig = px.area(df_bt, x="timestamp", y="dd", title="Drawdown (Strategy)")
     fig.update_yaxes(ticksuffix="", tickformat=".0%")
+    return fig
+
+def plot_price_with_sma(df, coin, sma_cols):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df["timestamp"], y=df["price"], name="Price", mode="lines"))
+    for col in sma_cols:
+        if col in df.columns:
+            fig.add_trace(go.Scatter(x=df["timestamp"], y=df[col], name=col, mode="lines"))
+    fig.update_layout(
+        title=f"{coin.upper()} Price + SMA",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        template="plotly_dark",
+    )
+    return fig
+
+def plot_rsi(df, rsi_col="rsi_14"):
+    if rsi_col not in df.columns: return None
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df["timestamp"], y=df[rsi_col], name=rsi_col, mode="lines"))
+    fig.add_hrect(y0=30, y1=70, fillcolor="gray", opacity=0.1, line_width=0)
+    fig.update_yaxes(range=[0, 100])
+    fig.update_layout(title="RSI", xaxis_title="Date", yaxis_title="Value", template="plotly_dark")
+    return fig
+
+def plot_macd(df):
+    if not {"macd", "macd_signal", "macd_hist"}.issubset(df.columns): return None
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df["timestamp"], y=df["macd"], name="MACD", mode="lines"))
+    fig.add_trace(go.Scatter(x=df["timestamp"], y=df["macd_signal"], name="Signal", mode="lines"))
+    fig.add_trace(go.Bar(x=df["timestamp"], y=df["macd_hist"], name="Hist", opacity=0.4))
+    fig.update_layout(title="MACD", xaxis_title="Date", yaxis_title="Value", barmode="overlay",
+                      template="plotly_dark")
     return fig
