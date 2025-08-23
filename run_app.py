@@ -346,7 +346,7 @@ if submit:
     merged_df = load_cached_csv(merged_settings, parse_dates=["timestamp"], freshness_minutes=30)
     if merged_df is None:
         with st.spinner("Merging sentiment and price data..."):
-            merge_sentiment_and_price("data/combined_sentiment.csv",
+            merge_sentiment_and_price(get_data_path(selected_coin, "combined_sentiment"),
                                       get_data_path(selected_coin, "prices"),
                                         merged_path,
                                         cache_settings=merged_settings)

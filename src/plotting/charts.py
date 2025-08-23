@@ -198,10 +198,17 @@ def plot_rsi(df, rsi_col="rsi_14"):
 
 def plot_macd(df):
     if not {"macd", "macd_signal", "macd_hist"}.issubset(df.columns): return None
+    ts = pd.to_datetime(df["timestamp"])
+    if len(ts) > 1 and ts.diff().median() is not pd.NaT:
+        bar_width = ts.diff().median().total_seconds() * 1000 * 0.8 
+    else:
+        bar_width = 24*60*60*1000
+
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=df["timestamp"], y=df["macd"], name="MACD", mode="lines"))
-    fig.add_trace(go.Scatter(x=df["timestamp"], y=df["macd_signal"], name="Signal", mode="lines"))
-    fig.add_trace(go.Bar(x=df["timestamp"], y=df["macd_hist"], name="Hist", opacity=0.4))
-    fig.update_layout(title="MACD", xaxis_title="Date", yaxis_title="Value", barmode="overlay",
-                      template="plotly_dark")
+    fig.add_trace(go.Scatter(x=ts, y=df["macd"], name="MACD", mode="lines"))
+    fig.add_trace(go.Scatter(x=ts, y=df["macd_signal"], name="Signal", mode="lines"))
+    fig.add_trace(go.Bar(x=ts, y=df["macd_hist"], name="Hist", width=bar_width, opacity=0.7))
+    fig.add_hline(y=0, line_dash="dot", opacity=0.6)
+    fig.update_layout(title="MACD", xaxis_title="Date", yaxis_title="Value",
+                      barmode="overlay", template="plotly_dark")
     return fig
