@@ -651,12 +651,18 @@ if "bench_results" in st.session_state and "bench_table" in st.session_state:
     table = st.session_state["bench_table"]
     results = st.session_state["bench_results"]
 
-    st.dataframe(
-        table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
-        use_container_width=True
-    )
-    accuracy_figure(table)
-    st.markdown("#### Confusion Matrices")
-    confusion_matrices(results)
+    try:
+        from src.benchmark.benchmark_plot import accuracy_figure, confusion_matrices
+    except Exception as e:
+        st.warning(f"Benchmark plotting not available: {e}")
+    else:
+        st.dataframe(
+            table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
+            use_container_width=True
+        )
+        accuracy_figure(table)
+        st.markdown("#### Confusion Matrices")
+        confusion_matrices(results)
+
 
     
