@@ -121,6 +121,8 @@ def get_cached_path(settings: dict) -> Path:
 
 #1. Takes in settings
 def load_cached_csv(settings:dict, parse_dates=None, freshness_minutes: Optional[int] = None):
+    if DEMO_MODE:
+        return None
     settings = _canonicalize_settings(settings) #2. Check for required keys
     path = get_cached_path(settings) #3. Get path to settings
     
