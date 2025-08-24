@@ -54,7 +54,7 @@ from src.plotting.charts import (
 from src.utils.helpers import file_sha1
 from src.analysis.lead_lag import load_or_build_lead_lag_features
 from src.backtest.engine import run_backtest
-from src.benchmark.analyzer_eval import _run_fixed_benchmark
+from src.benchmark.analyzer_eval import run_fixed_benchmark
 from src.benchmark.benchmark_plot import (
     accuracy_figure,
     confusion_matrices
@@ -162,11 +162,15 @@ if submit:
 
     if DEMO_MODE:
         st.info("Demo mode is ON — using frozen CSVs (no scraping).")
+        st.session_state.pop("merged_path", None)
+
+        selected_coin = "bitcoin"
+        selected_label = "Bitcoin"
 
         #Load demo files
-        merged_path_demo   = get_demo_data_path("bitcoin_merged.csv")
-        price_path_demo    = get_demo_data_path("bitcoin_prices.csv")
-        combined_path_demo = get_demo_data_path("bitcoin_combined_sentiment.csv")
+        merged_path_demo   = pathlib.Path("data/demo/bitcoin_merged.csv")
+        price_path_demo    = pathlib.Path("data/demo/bitcoin_prices.csv")
+        combined_path_demo = pathlib.Path("data/demo/bitcoin_combined_sentiment.csv")
 
         try:
             merged_df   = pd.read_csv(merged_path_demo,   parse_dates=["timestamp"])
@@ -255,7 +259,7 @@ if submit:
 
         if run_bench:
             try:
-                results, table = _run_fixed_benchmark()
+                results, table = run_fixed_benchmark()
                 st.session_state["bench_results"] = results
                 st.session_state["bench_table"] = table
             except FileNotFoundError:
@@ -527,7 +531,7 @@ if submit:
    
     st.success("Data ready, showing visualization:")
 
-if "merged_path" in st.session_state and os.path.exists(st.session_state["merged_path"]):
+if (not DEMO_MODE) and "merged_path" in st.session_state and os.path.exists(st.session_state["merged_path"]):
     price_settings = {
         "dataset": "price",
         "coin": selected_coin,
@@ -630,7 +634,7 @@ else:
 
 if benchtest:
     try:
-        results, table = _run_fixed_benchmark()
+        results, table = run_fixed_benchmark()
         st.session_state["bench_results"] = results
         st.session_state["bench_table"] = table
     except FileNotFoundError:

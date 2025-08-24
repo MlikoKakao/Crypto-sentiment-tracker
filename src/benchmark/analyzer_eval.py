@@ -12,7 +12,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from transformers import pipeline
 
-from src.benchmark.benchmark_plot import to_table
+from .benchmark_plot import to_table
 
 CANONICAL = ("negative", "neutral", "positive")
 
@@ -118,7 +118,7 @@ def evaluate(df: pd.DataFrame,
 
 
 @st.cache_data(show_spinner="Running bechmark...", ttl=3600)
-def _run_fixed_benchmark():
+def run_fixed_benchmark():
     df_lab = pd.read_csv("data/benchmark_labeled.csv")
     res = evaluate(df_lab, text_col="text", label_col="label", device=-1)
     tbl = to_table(res)
