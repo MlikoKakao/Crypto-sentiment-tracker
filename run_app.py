@@ -115,7 +115,7 @@ with st.sidebar.form("analysis_form"):
     sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
     rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
 
-    submit = st.sidebar.button("Run Analysis")
+    submit = st.form_submit_button("Run Analysis")
 
 if st.sidebar.button("Clear cache"):
     res = clear_cache_dir()
@@ -600,8 +600,7 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
     if use_macd:
         fig = plot_macd(view)
         if fig: st.plotly_chart(fig, use_container_width=True)
-
-    st.session_state["merged_path"] = str(merged_path_demo)
+    
 
    
 else:
