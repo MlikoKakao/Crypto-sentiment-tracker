@@ -81,49 +81,60 @@ st.markdown("Visualization of public sentiment based on keywords and further com
 
 #Config
 st.sidebar.header("Configuration")
-with st.sidebar.form("analysis_form"):
-    selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
-    selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-    num_posts = st.sidebar.slider("Number of posts to fetch", min_value = 100, max_value=1100, step=100, value=300)
-    days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, help="Choosing day range longer than 90 days causes to only show price point once per day.")
-    analyzer_choice = st.sidebar.selectbox("Choose sentiment analyzer:", ANALYZER_UI_LABELS, help="VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, " \
-                                                                                                        "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
-    posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
-    if posts_choice in ("All", "Reddit"):
-        subreddits = st.sidebar.multiselect(
-            "Subreddits",
-            DEFAULT_SUBS + 
-            subs_for_coin(selected_coin),
-            default=DEFAULT_SUBS+ subs_for_coin(selected_coin)[:1]
-        )
-
-    backtest = st.sidebar.checkbox("Run backtest")
-    if backtest:
-        cost_bps = st.sidebar.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
-        slip_bps = st.sidebar.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
-    st.sidebar.header("Lead/Lag settings")
-    lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
-    lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
-    metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
-    #Indicators
-    st.sidebar.markdown("### Indicators")
-    use_sma = st.sidebar.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
-    use_rsi = st.sidebar.checkbox("RSI (14)", value=True, help="Relative Strength Index")
-    use_macd = st.sidebar.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
-
-    sma_fast = st.sidebar.number_input("SMA fast", 5, 200, 20, 1)
-    sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
-    rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
-
-    submit = st.form_submit_button("Run Analysis")
 
 if st.sidebar.button("Clear cache"):
     res = clear_cache_dir()
-    mb = res["bytes_freed"]/ 1e6
+    mb = res["bytes_freed"]/1e6
     st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
-    st.session_state.pop("merged_path",None)
-    
+    st.session_state.pop("merged_path", None)
+
+
 benchtest = st.sidebar.button("Run analyzer benchmark")
+
+st.sidebar.divider()
+
+with st.sidebar.form("analysis_form") as form:
+    selected_label = form.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
+    selected_coin = COINS_UI_TO_SYMBOL[selected_label]
+    num_posts = form.slider("Number of posts to fetch", min_value=100, max_value=1100, step=100, value=300)
+    days = form.selectbox("Price history in days", DEFAULT_DAYS,
+                          help="Choosing day range longer than 90 days causes to only show price point once per day.")
+    analyzer_choice = form.selectbox(
+        "Choose sentiment analyzer:", ANALYZER_UI_LABELS,
+        help=("VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, "
+              "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
+    )
+    posts_choice = form.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
+    if posts_choice in ("All", "Reddit"):
+        subreddits = form.multiselect(
+            "Subreddits",
+            DEFAULT_SUBS + subs_for_coin(selected_coin),
+            default=DEFAULT_SUBS + subs_for_coin(selected_coin)[:1]
+        )
+
+    backtest = form.checkbox("Run backtest")
+    if backtest:
+        cost_bps = form.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
+        slip_bps = form.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
+
+    form.header("Lead/Lag settings")
+    lag_hours = form.slider("Lag window (±hours)", 1, 48, 24)
+    lag_step_min = form.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
+    metric_choice = form.selectbox("Correlation metric", ["pearson"], index=0)
+
+    form.markdown("### Indicators")
+    use_sma = form.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
+    use_rsi = form.checkbox("RSI (14)", value=True, help="Relative Strength Index")
+    use_macd = form.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
+
+    sma_fast = form.number_input("SMA fast", 5, 200, 20, 1)
+    sma_slow = form.number_input("SMA slow", 5, 400, 50, 1)
+    rsi_period = form.number_input("RSI period", 5, 50, 14, 1)
+    run_bench = form.checkbox("Also run analyzer benchmark")
+
+
+    submit = form.form_submit_button("Run Analysis")
+
 
 
 #Fetching and merging all data
@@ -241,6 +252,17 @@ if submit:
         
         if "sentiment" in view.columns and not view["sentiment"].empty:
             st.metric(label=f"Average Sentiment {selected_label}", value=f"{view['sentiment'].mean():.3f}")
+
+        if run_bench:
+            try:
+                results, table = _run_fixed_benchmark()
+                st.session_state["bench_results"] = results
+                st.session_state["bench_table"] = table
+            except FileNotFoundError:
+                st.error("data/benchmark_labeled.csv not found.")
+            except Exception as e:
+                st.exception(e)
+
 
         st.stop()
     #News
