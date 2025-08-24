@@ -54,11 +54,6 @@ from src.plotting.charts import (
 from src.utils.helpers import file_sha1
 from src.analysis.lead_lag import load_or_build_lead_lag_features
 from src.backtest.engine import run_backtest
-from src.benchmark.analyzer_eval import run_fixed_benchmark
-from src.benchmark.benchmark_plot import (
-    accuracy_figure,
-    confusion_matrices
-    )
 from src.processing.indicators import add_indicators
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
@@ -259,6 +254,11 @@ if submit:
 
         if run_bench:
             try:
+                from src.benchmark.analyzer_eval import run_fixed_benchmark
+                from src.benchmark.benchmark_plot import (
+                    accuracy_figure,
+                    confusion_matrices
+                    )
                 results, table = run_fixed_benchmark()
                 st.session_state["bench_results"] = results
                 st.session_state["bench_table"] = table
@@ -634,6 +634,11 @@ else:
 
 if benchtest:
     try:
+        from src.benchmark.analyzer_eval import run_fixed_benchmark
+        from src.benchmark.benchmark_plot import (
+            accuracy_figure,
+            confusion_matrices
+            )
         results, table = run_fixed_benchmark()
         st.session_state["bench_results"] = results
         st.session_state["bench_table"] = table
