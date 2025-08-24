@@ -137,23 +137,13 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 
 ## Dev Notes
 
-- Indicators are computed in `utils/indicators.py` (or in helpers). Ensure indicator columns exist before plotting MACD/RSI.
+- Indicators are computed in `processing/indicators.py`. Ensure indicator columns exist before plotting MACD/RSI.
 - The **Sentiment vs Price** overlay is activated by:
   ```python
   # Sentiment vs price
   st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
   ```
 - Keep API calls minimal during demos; prefer cached paths.
-
----
-
-## Roadmap
-
-- [ ] Lightweight **backtest** of simple rules
-- [ ] **Analyzer benchmark** view (same posts, multiple models)
-- [ ] Per-source overlays & filters
-- [ ] Docker + CI
-- [ ] Model registry (HF transformers, etc.)
 
 ---
 
