@@ -18,7 +18,7 @@ Streamlit app that scrapes posts about **Bitcoin / Ethereum**, runs **sentiment 
 - **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
 - **Indicators**: EMA, RSI, MACD
 - **Sentiment vs Price overlay**: `plot_sentiment_vs_price(df)` in UI
-- **Caching**: file-based (CSV) + `st.cache_data` to keep API usage low
+- **Caching**: file-based (CSV) + own-made with settings map and hashing to keep API usage low
 - **Modular**: re-use ETL in notebooks or other apps
 
 > Goal = quick signal intuition. Swap in heavier models/sources when needed.
