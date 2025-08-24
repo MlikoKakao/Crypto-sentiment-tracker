@@ -601,8 +601,11 @@ if (not DEMO_MODE) and "merged_path" in st.session_state and os.path.exists(st.s
     avg_sent = df["sentiment"].mean()
     st.metric(label=f"Average Sentiment {selected_label}", value=f"{avg_sent:.3f}")
     
+    st.plotly_chart(plot_sentiment_vs_price(view), use_container_width=True)
+
     sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
     view = filter_date_range(df, selected_range[0], selected_range[1])
+
 
     if use_sma:
         st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
