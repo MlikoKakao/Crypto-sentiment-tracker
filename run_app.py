@@ -187,7 +187,22 @@ if DEMO_MODE:
             c4.metric("Hit Rate", "—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
         except Exception as e:
             st.warning(f"Backtest unavailable in demo: {e}")
-
+    if benchtest:
+        try:
+            from src.benchmark.analyzer_eval import run_fixed_benchmark
+            from src.benchmark.benchmark_plot import accuracy_figure, confusion_matrices
+            results, table = run_fixed_benchmark()
+            st.dataframe(
+                table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
+                use_container_width=True
+            )
+            accuracy_figure(table)
+            st.markdown("#### Confusion Matrices")
+            confusion_matrices(results)
+        except FileNotFoundError:
+            st.error("data/benchmark_labeled.csv not found for benchmark.")
+        except Exception as e:
+            st.exception(e)
     # Do not proceed to scraping/caching pipeline
     st.stop()
 
