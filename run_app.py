@@ -22,7 +22,7 @@ from src.scraping.news_scraper import fetch_news_posts
 from src.scraping.twitter_scraper import fetch_twitter_posts
 from src.sentiment.analyzer import add_sentiment_to_file, load_sentiment_df
 from src.processing.merge_data import merge_sentiment_and_price
-from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir
+from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir, day_str
 from config.settings import(
     COINS_UI_LABELS,
     COINS_UI_TO_SYMBOL,
@@ -32,7 +32,9 @@ from config.settings import(
     POSTS_KIND,
     DEFAULT_SUBS,
     subs_for_coin,
-    COIN_SUBS
+    COIN_SUBS,
+    DEMO_MODE,
+    get_demo_data_path
 )
 from src.plotting.charts import (
     plot_price_time_series,
@@ -144,7 +146,7 @@ if submit:
     
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
     #News
-    if posts_choice in ("News"):
+    if posts_choice in ("All", "News"):
         #Dont use news for now, API almost used up - add "All" in line above to allow again        
 
         news_settings = {
@@ -159,11 +161,33 @@ if submit:
         news_df = load_cached_csv(news_settings, parse_dates=["timestamp"], freshness_minutes=30)
         if news_df is None:
                 with st.spinner("Fetching news..."):
-                    news_df = fetch_news_posts(cryptopanic_coin, num_posts)
+                # keep signature compatible with your fetcher
+                    news_df = fetch_news_posts(cryptopanic_coin, int(num_posts or 200))
+                    # normalize
+                    news_df["timestamp"] = pd.to_datetime(news_df["timestamp"], utc=True)
+
+                    # enforce selected date window
+                    mask = (news_df["timestamp"] >= start_date) & (news_df["timestamp"] <= end_date)
+                    news_df = news_df.loc[mask].copy()
+
                     news_df["source"] = "news"
+                    news_df["coin"] = cryptopanic_coin.lower()
+                    if "lang" not in news_df.columns:
+                        news_df["lang"] = "en"
+
                     cache_csv(news_df, news_settings)
+
+        # ensure columns even when loaded from cache
+        news_df["source"] = "news"
+        if "coin" not in news_df.columns:
+            news_df["coin"] = cryptopanic_coin.lower()
+        if "lang" not in news_df.columns:
+            news_df["lang"] = "en"
+
         save_csv(news_df, news_path)
         use_news = True
+    else:
+        use_news = False
 
     #Reddit
     if posts_choice in ("All", "Reddit"):
@@ -202,8 +226,8 @@ if submit:
             "source": "twitter",
             "coin": selected_coin,
             "query": cryptopanic_coin.lower(),
-            "start_date": start_date.tz_convert(None).isoformat(timespec="seconds"),
-            "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
+            "start_date": day_str(start_date),
+            "end_date": day_str(end_date),
             "num_posts": num_posts,
             "tz":"utc",
         }
@@ -282,9 +306,8 @@ if submit:
 
 
     with st.spinner("Combining sentiment..."):
-        #This is gonna break when news will be allowed
-        #Just have to add it here and to analyzer.py when they're allowed, now cannot do anything with it.
         sentiment_df = load_sentiment_df(
+            news_sentiment_path,
             reddit_sentiment_path,
             twitter_sentiment_path,
             posts_choice,
@@ -292,29 +315,33 @@ if submit:
         combined_sentiment_path = get_data_path(selected_coin, "combined_sentiment")
         save_csv(sentiment_df, combined_sentiment_path)
         dfs = []
-        if use_news and os.path.exists(news_sentiment_path):
-            news_sent = load_csv(news_sentiment_path)
-            dfs.append(news_sent)
-        if posts_choice == "Reddit" and os.path.exists(reddit_sentiment_path):
-            dfs.append(load_csv(reddit_sentiment_path))
-        elif posts_choice =="Twitter/X" and os.path.exists(twitter_sentiment_path):
-            dfs.append(load_csv(twitter_sentiment_path))
-        elif posts_choice == "All":
+        
+        if posts_choice == "All":
             dfs = [sentiment_df]
+        elif use_news and os.path.exists(news_sentiment_path):
+            dfs.append(load_csv(news_sentiment_path))
+        elif use_reddit and os.path.exists(reddit_sentiment_path):
+            dfs.append(load_csv(reddit_sentiment_path))
+        elif use_twitter and os.path.exists(twitter_sentiment_path):
+            dfs.append(load_csv(twitter_sentiment_path))
+        
 
-        if dfs:
-            combined_df = pd.concat(dfs, ignore_index=True)
-            combined_df["timestamp"] = pd.to_datetime(combined_df["timestamp"], errors="coerce", utc=True).dt.tz_localize(None)
-            combined_df["source"] = combined_df["source"].astype(str).str.strip().str.lower()
-
-            combined_df = combined_df.dropna(subset=["timestamp"]).sort_values("timestamp")
-
-            logging.info("Combined counts by source: %s", combined_df["source"].value_counts(dropna=False).to_dict())
-            save_csv(combined_df, combined_sentiment_path)
-        else:
-            logging.error(f"No sentiment data. use_news={use_news}, use_reddit={use_reddit}")
+        if not dfs:
+            logging.error(f"No sentiment data. use_news={use_news}, use_reddit={use_reddit}, use_twitter={use_twitter}")
             st.error("No sentiment data could be loaded. Check API limits or local files.")
             st.stop()
+
+        combined_df = pd.concat(dfs, ignore_index=True)
+        combined_df["timestamp"] = (
+            pd.to_datetime(combined_df["timestamp"], errors="coerce", utc=True)
+            .dt.tz_localize(None)
+        )
+        combined_df["source"] = combined_df["source"].astype(str).str.strip().str.lower()
+        combined_df = combined_df.dropna(subset=["timestamp"]).sort_values("timestamp")
+
+        logging.info("Combined counts by source: %s", combined_df["source"].value_counts(dropna=False).to_dict())
+        combined_sentiment_path = get_data_path(selected_coin, "combined_sentiment")
+        save_csv(combined_df, combined_sentiment_path)
 
     #Price data
     price_settings={
@@ -381,6 +408,8 @@ if submit:
     st.session_state["merged_path"] = merged_path
    
     st.success("Data ready, showing visualization:")
+    if DEMO_MODE:
+        st.info("Demo mode is ON")
 
 if "merged_path" in st.session_state and os.path.exists(st.session_state["merged_path"]):
     price_settings = {

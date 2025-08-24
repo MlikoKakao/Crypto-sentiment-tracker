@@ -7,7 +7,7 @@ import logging
 import hashlib
 from pathlib import Path
 import json
-from config.settings import MAPPING_FILE, CACHE_DIR
+from config.settings import DEMO_MODE
 logger = logging.getLogger(__name__)
 
 
@@ -20,6 +20,8 @@ def load_csv(filepath, parse_dates=None):
     return pd.read_csv(filepath,parse_dates=parse_dates)
 
 def save_csv(df, filepath):
+    if DEMO_MODE:
+        return
     df.to_csv(filepath, index=False)
     logger.debug(f"Saved CSV to: {filepath} ({len(df)} rows)")
 

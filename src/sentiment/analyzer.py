@@ -120,16 +120,19 @@ def add_sentiment_to_file(input_csv, output_csv, analyzer_name: str = "vader", c
     print("Sentiment added. Preview:")
     print(df.head())
 
-def load_sentiment_df(reddit_path, twitter_path, posts_choice):
+def load_sentiment_df(news_path, reddit_path, twitter_path, posts_choice):
+    if posts_choice == "News":
+        return pd.read_csv(news_path, parse_dates=["timestamp"])
     if posts_choice == "Reddit":
         return pd.read_csv(reddit_path, parse_dates=["timestamp"])
     if posts_choice in ("Twitter", "Twitter/X"):
         return pd.read_csv(twitter_path, parse_dates=["timestamp"])
 
+    n =pd.read_csv(news_path, parse_dates=["timestamp"]) if news_path else None
     r = pd.read_csv(reddit_path, parse_dates=["timestamp"]) if reddit_path else None
     t = pd.read_csv(twitter_path, parse_dates=["timestamp"]) if twitter_path else None
 
-    frames = [df for df in (r, t) if df is not None and not df.empty]
+    frames = [df for df in (n, r, t) if df is not None and not df.empty]
     if not frames:
         return pd.DataFrame(columns=["timestamp", "text", "sentiment", "source"])
     

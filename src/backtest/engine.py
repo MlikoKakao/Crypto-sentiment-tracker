@@ -43,11 +43,25 @@ def backtest_long_only(df: pd.DataFrame,
 def summarize(df_bt: pd.DataFrame, bars_per_year: int)-> dict:
     ret_series = df_bt["ret_net"].dropna()
     total_years = len(ret_series) / bars_per_year if bars_per_year else np.nan
-    cagr = (df_bt["eq_strategy"].iloc[-1])**(1/max(total_years, 1e-9)) - 1 if len(df_bt)>0 else np.nan
+    cagr = (df_bt["eq_strategy"].iloc[-1])**(1/max(total_years, 1e-9)) - 1 if len(df_bt) > 0 else np.nan
     vol_ann = ret_series.std() * np.sqrt(bars_per_year) if bars_per_year else np.nan
-    sharpe = (ret_series.mean()*bars_per_year) / vol_ann if vol_ann and vol_ann > 0 else np.nan
+    sharpe = (ret_series.mean() * bars_per_year) / vol_ann if vol_ann and vol_ann > 0 else np.nan
     max_dd = df_bt["dd"].min() if "dd" in df_bt else np.nan
-    hit = (ret_series > 0).mean()
+
+    pos = df_bt["pos"].fillna(0).astype(int)
+    changes = pos.diff().fillna(pos.iloc[0])          
+    opens = df_bt.index[changes == 1]
+    closes = df_bt.index[changes == -1]
+
+    if len(closes) < len(opens):
+        closes = closes.append(pd.Index([df_bt.index[-1]]))
+
+    wins = []
+    for o, c in zip(opens, closes):
+        pnl_log = df_bt.loc[o:c, "ret_net"].sum()      
+        wins.append(pnl_log > 0)
+
+    hit = float(np.mean(wins)) if wins else np.nan
 
     return {"CAGR": cagr, "Sharpe": sharpe, "MaxDD": max_dd, "HitRate": hit}
 

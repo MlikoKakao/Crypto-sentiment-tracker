@@ -40,3 +40,12 @@ COINS_UI_TO_SYMBOL = {label: label.lower() for label in COINS_UI_LABELS}
 
 ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa", "finBERT", "All"]
 POSTS_KIND = ["All", "Reddit", "Twitter/X", "News"]
+
+DEMO_MODE = os.getenv("DEMO", "0") == "1"
+
+DEMO_DATA_DIR = Path(os.getenv("DEMO_DATA_DIR", "data"))
+DEMO_DIR = DEMO_DATA_DIR / "demo"
+
+def get_demo_data_path(*parts) -> Path:
+    base = DEMO_DIR if DEMO_MODE else DATA_DIR
+    return base.joinpath(*parts)

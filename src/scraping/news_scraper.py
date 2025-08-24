@@ -6,12 +6,15 @@ from dotenv import load_dotenv
 from src.utils.helpers import save_csv, clean_text
 import os
 import logging
+from config.settings import DEMO_MODE, get_demo_data_path
 
 logger = logging.getLogger(__name__)
 load_dotenv()
 
 CRYPTOPANIC_API_KEY = os.getenv("CRYPTOPANIC_API_KEY")
 def fetch_news_posts(currency ="BTC", limit=100):
+    if DEMO_MODE:
+        return pd.read_csv(get_demo_data_path("news_posts.csv"), parse_dates=["timestamp"])
     logger.info(f"Attempting to fetch news for {currency}..")
     url = "https://cryptopanic.com/api/v1/posts/"
     params={

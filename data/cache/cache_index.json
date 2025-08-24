@@ -1,18 +1,34 @@
 {
-  "c5050eae0f1867d6d76133e08af3c86d": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\c5050eae0f1867d6d76133e08af3c86d.csv",
-    "rows": 749,
-    "updated": 1755977359,
+  "24695c49c40458258fe2189c88faef0e": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\24695c49c40458258fe2189c88faef0e.csv",
+    "rows": 6,
+    "updated": 1756057164,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_news",
+      "end_date": "2025-08-24T17:39:24",
+      "num_posts": 1100,
+      "query": "btc",
+      "source": "news",
+      "start_date": "2025-08-14T17:39:24"
+    }
+  },
+  "626dcc63ebf51a23b9f221ff6568e07b": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\626dcc63ebf51a23b9f221ff6568e07b.csv",
+    "rows": 794,
+    "updated": 1756057192,
     "settings": {
       "coin": "bitcoin",
       "dataset": "posts_reddit",
-      "end_date": "2025-08-23T19:28:54",
+      "end_date": "2025-08-24T17:39:24",
       "num_posts": 1100,
       "query": "(bitcoin or btc)",
       "source": "reddit",
-      "start_date": "2025-08-13T19:28:54",
+      "start_date": "2025-08-14T17:39:24",
       "subreddits": [
         "bitcoin",
+        "bitcoinmarkets",
+        "btc",
         "cryptocurrency",
         "cryptocurrencytrading",
         "cryptomarkets"
@@ -20,61 +36,100 @@
       "tz": "utc"
     }
   },
-  "3d2742bf81233f0dd649e29003818ce5": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\3d2742bf81233f0dd649e29003818ce5.csv",
-    "rows": 749,
-    "updated": 1755977360,
+  "e0afd0f74ae1ef14dfbee29f8c0f8aa6": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\e0afd0f74ae1ef14dfbee29f8c0f8aa6.csv",
+    "rows": 757,
+    "updated": 1756057502,
     "settings": {
-      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "posts_twitter",
+      "end_date": "2025-08-24",
+      "num_posts": 1100,
+      "query": "btc",
+      "source": "twitter",
+      "start_date": "2025-08-14",
+      "tz": "utc"
+    }
+  },
+  "a55ceb3f4c5fe9f970838c4bf50860d7": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\a55ceb3f4c5fe9f970838c4bf50860d7.csv",
+    "rows": 6,
+    "updated": 1756057505,
+    "settings": {
+      "analyzer": "twitter-roberta",
       "coin": "bitcoin",
       "dataset": "sentiment",
-      "input_sha1": "c8bc53c6383f56a88ae62254f512c27b4590f865",
+      "input_sha1": "0c595169dab9dc1f01f3b555d26ca7873fdba453",
+      "source": "news"
+    }
+  },
+  "bf30889918f24b7131bae22d86e82baa": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\bf30889918f24b7131bae22d86e82baa.csv",
+    "rows": 794,
+    "updated": 1756057629,
+    "settings": {
+      "analyzer": "twitter-roberta",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "aab0f2c76fee161bd41dc081bec0f54688f1c873",
       "source": "reddit"
+    }
+  },
+  "7c2ab4459adc634dbd4195508cc96f4a": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\7c2ab4459adc634dbd4195508cc96f4a.csv",
+    "rows": 757,
+    "updated": 1756057711,
+    "settings": {
+      "analyzer": "twitter-roberta",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "7fd20877cbec1434ae455641ef7a76a7f1cbc488",
+      "source": "twitter"
     }
   },
   "f0c5f323ab5bd023a349ce02d3fb4bed": {
     "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\f0c5f323ab5bd023a349ce02d3fb4bed.csv",
-    "rows": 242,
-    "updated": 1755977360,
+    "rows": 241,
+    "updated": 1756057711,
     "settings": {
       "coin": "bitcoin",
       "dataset": "price",
       "days": 10
     }
   },
-  "7481f069e03db0f0a9734b2be50d3c48": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\7481f069e03db0f0a9734b2be50d3c48.csv",
-    "rows": 749,
-    "updated": 1755977361,
+  "6a1354121d4dfcf4a418f770e1d34efc": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\6a1354121d4dfcf4a418f770e1d34efc.csv",
+    "rows": 1557,
+    "updated": 1756057712,
     "settings": {
-      "analyzer": "vader",
+      "analyzer": "twitter-roberta",
       "coin": "bitcoin",
       "dataset": "merged",
       "days": 10,
       "depends_on": [
-        "04b3f6b91ed89cde7424ede4dc3e8cf48985b036",
-        "9f06c06076bad6fe1245baa3c32378ca7838cfba"
+        "705716158cf1180f516ff220999cf912f185dd53",
+        "97b1c1d60171d92417f092cba2fa7bd77f4ce070"
       ],
-      "posts_choice": "reddit"
+      "posts_choice": "all"
     }
   },
-  "516a7d50258aacb22b0b0ba8b42327bc": {
-    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\516a7d50258aacb22b0b0ba8b42327bc.csv",
+  "99c5a852bed2fe0c0a4c9079ce5fe029": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\99c5a852bed2fe0c0a4c9079ce5fe029.csv",
     "rows": 193,
-    "updated": 1755977361,
+    "updated": 1756057712,
     "settings": {
-      "analyzer": "vader",
+      "analyzer": "twitter-roberta",
       "coin": "bitcoin",
       "dataset": "features",
       "days": 10,
       "depends_on": [
-        "3a826f0bc5232f956960877b7240159aff92e638"
+        "c674a2f8b31f181f7986c84ad4159fa18ce7c3e6"
       ],
       "lag_max_s": 86400,
       "lag_min_s": -86400,
       "lag_step_s": 900,
       "metric": "pearson",
-      "posts_choice": "reddit"
+      "posts_choice": "all"
     }
   }
 }

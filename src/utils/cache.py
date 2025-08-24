@@ -14,7 +14,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from config.cache_schema import _canonicalize_settings
-from config.settings import MAPPING_FILE, CACHE_DIR
+from config.settings import MAPPING_FILE, CACHE_DIR, DEMO_MODE
 
 #Do those paths exist? If not creates
 CACHE_DIR = Path(CACHE_DIR)
@@ -135,6 +135,8 @@ def load_cached_csv(settings:dict, parse_dates=None, freshness_minutes: Optional
 
 #Takes in DataFrame and settings, returns filesystem path of CSV it just wrote
 def cache_csv(df: pd.DataFrame, settings:dict) -> Path:
+    if DEMO_MODE:
+        return
     settings = _canonicalize_settings(settings) #Check if all keys
     path = get_cached_path(settings) #Get path to settings
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -177,3 +179,6 @@ def clear_cache_dir() -> dict:
         MAPPING_FILE.write_text("{}", encoding="utf-8")
     st.cache_data.clear()
     return {"files_removed": files_count, "bytes_freed": bytes_freed}
+
+def day_str(ts):
+    return pd.Timestamp(ts).tz_convert(None).normalize().strftime("%Y-%m-%d")

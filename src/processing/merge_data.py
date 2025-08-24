@@ -2,8 +2,11 @@ import pandas as pd
 from src.utils.helpers import load_csv, save_csv, _to_naive
 from src.utils.cache import load_cached_csv, cache_csv
 from src.processing.indicators import add_indicators
+from config.settings import DEMO_MODE, get_demo_data_path
 
 def merge_sentiment_and_price(sentiment_file, price_file, output_file, cache_settings):
+    if DEMO_MODE:
+        return pd.read_csv(get_demo_data_path("combined_sentiment.csv"), parse_dates=["timestamp"])
     merged_cached = load_cached_csv(    
         cache_settings, parse_dates=["timestamp"], freshness_minutes=30
     )

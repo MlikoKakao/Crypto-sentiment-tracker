@@ -6,6 +6,7 @@ import pandas as pd
 from apify_client import ApifyClient
 from dotenv import load_dotenv
 from src.utils.cache import get_cached_path, load_cached_csv
+from config.settings import DEMO_MODE, get_demo_data_path
 
 load_dotenv()
 
@@ -38,6 +39,8 @@ def fetch_twitter_posts(coin: str,
                         start: Optional[str] = None,
                         end: Optional[str] = None
                         ) -> pd.DataFrame:
+    if DEMO_MODE:
+        return pd.read_csv(get_demo_data_path("twitter_posts.csv"), parse_dates=["timestamp"])
     client = ApifyClient(os.getenv("APIFY_API"))
     if not client:
         raise RuntimeError("Set APIFY_API in .env file")

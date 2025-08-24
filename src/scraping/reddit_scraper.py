@@ -8,6 +8,7 @@ from src.utils.helpers import save_csv, clean_text
 import os
 import logging
 import re
+from config.settings import DEMO_MODE, get_demo_data_path
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,8 @@ def fetch_reddit_posts(query="(btc OR bitcoin)"
                        start_date=None,
                        end_date=None,
                        subreddits=("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
-    
+    if DEMO_MODE:
+        return pd.read_csv(get_demo_data_path("reddit_posts.csv"), parse_dates=["timestamp"])
     terms = [t.strip(" ()") for t in re.split(" OR ", query, flags=re.I)]
     kw = re.compile("|".join(map(re.escape, terms)), flags = re.I)
 

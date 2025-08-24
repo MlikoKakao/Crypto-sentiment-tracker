@@ -7,11 +7,14 @@ import logging
 import os
 from dotenv import load_dotenv
 from src.utils.helpers import save_csv
+from config.settings import DEMO_MODE, get_demo_data_path
 
 logger = logging.getLogger(__name__)
 
 
 def get_price_history(symbol="bitcoin", days="1"):
+    if DEMO_MODE:
+        return pd.read_csv(get_demo_data_path("price_history.csv"), parse_dates=["timestamp"])
     load_dotenv()
     API_COINGECKO_ID = os.getenv("API_COINGECKO_ID")
     url = f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart"
