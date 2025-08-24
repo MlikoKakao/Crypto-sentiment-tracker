@@ -15,7 +15,7 @@ Streamlit app that scrapes posts about **Bitcoin / Ethereum**, runs **sentiment 
 
 - **One-click pipeline**: fetch → analyze → merge → visualize
 - **Sources**: Reddit, X (Twitter), crypto news (CryptoPanic mapping)
-- **Analyzers**: TextBlob (default) + optional VADER (plug-in friendly)
+- **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
 - **Indicators**: EMA, RSI, MACD
 - **Sentiment vs Price overlay**: `plot_sentiment_vs_price(df)` in UI
 - **Caching**: file-based (CSV) + `st.cache_data` to keep API usage low
