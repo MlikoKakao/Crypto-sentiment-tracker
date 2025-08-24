@@ -93,47 +93,47 @@ benchtest = st.sidebar.button("Run analyzer benchmark")
 
 st.sidebar.divider()
 
-with st.sidebar.form("analysis_form") as form:
-    selected_label = form.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
+with st.sidebar.form("analysis_form"):
+    selected_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-    num_posts = form.slider("Number of posts to fetch", min_value=100, max_value=1100, step=100, value=300)
-    days = form.selectbox("Price history in days", DEFAULT_DAYS,
+    num_posts = st.slider("Number of posts to fetch", min_value=100, max_value=1100, step=100, value=300)
+    days = st.selectbox("Price history in days", DEFAULT_DAYS,
                           help="Choosing day range longer than 90 days causes to only show price point once per day.")
-    analyzer_choice = form.selectbox(
+    analyzer_choice = st.selectbox(
         "Choose sentiment analyzer:", ANALYZER_UI_LABELS,
         help=("VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, "
               "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
     )
-    posts_choice = form.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
+    posts_choice = st.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
     if posts_choice in ("All", "Reddit"):
-        subreddits = form.multiselect(
+        subreddits = st.multiselect(
             "Subreddits",
             DEFAULT_SUBS + subs_for_coin(selected_coin),
             default=DEFAULT_SUBS + subs_for_coin(selected_coin)[:1]
         )
 
-    backtest = form.checkbox("Run backtest")
+    backtest = st.checkbox("Run backtest")
     if backtest:
-        cost_bps = form.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
-        slip_bps = form.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
+        cost_bps = st.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
+        slip_bps = st.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
 
-    form.header("Lead/Lag settings")
-    lag_hours = form.slider("Lag window (±hours)", 1, 48, 24)
-    lag_step_min = form.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
-    metric_choice = form.selectbox("Correlation metric", ["pearson"], index=0)
+    st.header("Lead/Lag settings")
+    lag_hours = st.slider("Lag window (±hours)", 1, 48, 24)
+    lag_step_min = st.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
+    metric_choice = st.selectbox("Correlation metric", ["pearson"], index=0)
 
-    form.markdown("### Indicators")
-    use_sma = form.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
-    use_rsi = form.checkbox("RSI (14)", value=True, help="Relative Strength Index")
-    use_macd = form.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
+    st.markdown("### Indicators")
+    use_sma = st.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
+    use_rsi = st.checkbox("RSI (14)", value=True, help="Relative Strength Index")
+    use_macd = st.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
 
-    sma_fast = form.number_input("SMA fast", 5, 200, 20, 1)
-    sma_slow = form.number_input("SMA slow", 5, 400, 50, 1)
-    rsi_period = form.number_input("RSI period", 5, 50, 14, 1)
-    run_bench = form.checkbox("Also run analyzer benchmark")
+    sma_fast = st.number_input("SMA fast", 5, 200, 20, 1)
+    sma_slow = st.number_input("SMA slow", 5, 400, 50, 1)
+    rsi_period = st.number_input("RSI period", 5, 50, 14, 1)
+    run_bench = st.checkbox("Also run analyzer benchmark")
 
 
-    submit = form.form_submit_button("Run Analysis")
+    submit = st.form_submit_button("Run Analysis")
 
 
 
