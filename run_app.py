@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -5,9 +6,11 @@ import numpy as np
 from pytz import utc
 from datetime import timedelta
 import logging
-import os
 import sys
 import hashlib, pathlib
+
+for k, v in st.secrets.items():
+    os.environ.setdefault(k, str(v))
 
 
 from src.utils.helpers import (
@@ -145,6 +148,20 @@ if submit:
     twitter_path = f"data/{selected_coin}_twitter_posts.csv"
     
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
+
+    if DEMO_MODE:
+        st.info("Demo mode is ON — using frozen CSVs (no scraping).")
+        merged_path_demo   = get_demo_data_path("bitcoin_merged.csv")
+        price_path_demo    = get_demo_data_path("bitcoin_prices.csv")  # <-- your real filename
+        combined_path_demo = get_demo_data_path("bitcoin_combined_sentiment.csv")
+
+        try:
+            merged_df   = pd.read_csv(merged_path_demo,   parse_dates=["timestamp"])
+            price_df    = pd.read_csv(price_path_demo,    parse_dates=["timestamp"])
+            combined_df = pd.read_csv(combined_path_demo, parse_dates=["timestamp"])
+        except FileNotFoundError as e:
+            st.error(f"Missing demo file: {e.filename}. Place it under data/demo/ or adjust get_demo_data_path().")
+            st.stop()
     #News
     if posts_choice in ("All", "News"):
         #Dont use news for now, API almost used up - add "All" in line above to allow again        
@@ -408,8 +425,6 @@ if submit:
     st.session_state["merged_path"] = merged_path
    
     st.success("Data ready, showing visualization:")
-    if DEMO_MODE:
-        st.info("Demo mode is ON")
 
 if "merged_path" in st.session_state and os.path.exists(st.session_state["merged_path"]):
     price_settings = {
@@ -493,7 +508,7 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
     st.metric(label=f"Average Sentiment {selected_label}", value=f"{avg_sent:.3f}")
     
     sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
-    view = filter_date_range(merged_df, selected_range[0],selected_range[1])
+    view = filter_date_range(df, selected_range[0], selected_range[1])
 
     if use_sma:
         st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
@@ -507,6 +522,9 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
         fig = plot_macd(view)
         if fig: st.plotly_chart(fig, use_container_width=True)
 
+    st.session_state["merged_path"] = str(merged_path_demo)
+
+    st.stop()
 else:
     st.info("Run the analysis from the sidebar to see visualization")
 
