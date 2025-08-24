@@ -9,8 +9,12 @@ import logging
 import sys
 import hashlib, pathlib
 
-for k, v in st.secrets.items():
-    os.environ[str(k)] = str(v)
+try:
+    for k, v in st.secrets.items():
+        os.environ[str(k)] = str(v)
+except Exception:
+    import logging
+    logging.info("No .streamlit/secrets.toml found; continuing with environment variables only.")
 
 
 from src.utils.helpers import (
