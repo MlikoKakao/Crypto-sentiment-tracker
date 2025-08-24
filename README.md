@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 
 Streamlit app that scrapes posts about **Bitcoin / Ethereum**, runs **sentiment analysis**, merges with **price data**, and plots **EMA/RSI/MACD**. Built for **fast demos** and exploratory analysis with CSV caching.
-
+Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 <img width="3835" height="1746" alt="image" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
 
 
