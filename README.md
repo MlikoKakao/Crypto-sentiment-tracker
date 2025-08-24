@@ -37,16 +37,29 @@ Streamlit app that scrapes posts about **Bitcoin / Ethereum**, runs **sentiment 
 │  │  ├─ reddit_scraper.py
 │  │  ├─ twitter_scraper.py
 │  │  └─ news_scraper.py
+│  │  └─ fetch_helpers.py
+│  │  └─ fetch_price.py
 │  ├─ sentiment/
 │  │  └─ analyzer.py         # add_sentiment_to_file(), analyzer selection
 │  ├─ processing/
 │  │  └─ merge_data.py       # merge_sentiment_and_price()
+│  │  └─ indicators.py       # calculating indicators
+│  │  └─ smoothing.py        # smoothing for graphs
+│  ├─ plotting/
+│  │  └─ charts.py           # all functionality of graphs, charts
+│  ├─ analysis/
+│  │  └─ lead_lag.py         # calculate lead/lag
+│  ├─ backtest/
+│  │  └─ engine.py           # simulate trading strategy based on sentiment and trend on backtest data
+│  ├─ benchmark/
+│  │  └─ analyzer_eval.py    # benchmarking sentiment models
+│  │  └─ benchmark:plot.py   # plotting benchmarking results
 │  └─ utils/
 │     ├─ helpers.py          # load_csv(), save_csv(), filter_date_range(), map_to_cryptopanic_symbol()
 │     ├─ cache.py            # load_cached_csv(), cache_csv(), clear_cache_dir()
-│     └─ indicators.py       # EMA/RSI/MACD helpers
 └─ config/
    └─ settings.py            # UI labels, defaults, paths
+   └─ cache_schema.py        # Caching and hashing functionality
 ```
 
 ---
