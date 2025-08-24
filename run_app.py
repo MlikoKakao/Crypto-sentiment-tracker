@@ -151,8 +151,10 @@ if submit:
 
     if DEMO_MODE:
         st.info("Demo mode is ON — using frozen CSVs (no scraping).")
+
+        #Load demo files
         merged_path_demo   = get_demo_data_path("bitcoin_merged.csv")
-        price_path_demo    = get_demo_data_path("bitcoin_prices.csv")  # <-- your real filename
+        price_path_demo    = get_demo_data_path("bitcoin_prices.csv")
         combined_path_demo = get_demo_data_path("bitcoin_combined_sentiment.csv")
 
         try:
@@ -160,8 +162,87 @@ if submit:
             price_df    = pd.read_csv(price_path_demo,    parse_dates=["timestamp"])
             combined_df = pd.read_csv(combined_path_demo, parse_dates=["timestamp"])
         except FileNotFoundError as e:
-            st.error(f"Missing demo file: {e.filename}. Place it under data/demo/ or adjust get_demo_data_path().")
+            st.error(f"Missing demo file: {e.filename}. Put it under data/demo/ or adjust get_demo_data_path().")
             st.stop()
+
+        #Time-range UI for demo
+        min_date = (merged_df["timestamp"].max() - timedelta(days=int(days))).to_pydatetime()
+        max_date = merged_df["timestamp"].max().to_pydatetime()
+        selected_range = st.slider(
+            "Select time range:",
+            min_value=min_date,
+            max_value=max_date,
+            value=(min_date, max_date)
+        )
+
+        view = filter_date_range(merged_df, selected_range[0], selected_range[1])
+
+        #Plots
+        st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
+        st.plotly_chart(plot_sentiment_timeline(view, selected_coin),   use_container_width=True)
+        st.plotly_chart(plot_sentiment_with_price(view, selected_coin), use_container_width=True)
+
+        #Lead/lag on demo
+        try:
+            lead_lag_settings = {
+                "dataset": "features",
+                "coin": selected_coin,
+                "days": int(days),
+                "analyzer": analyzer_choice,
+                "posts_choice": posts_choice,
+                "depends_on": [0],
+                "lag_min_s": -lag_hours * 3600,
+                "lag_max_s":  lag_hours * 3600,
+                "lag_step_s": lag_step_min * 60,
+                "metric": metric_choice,
+            }
+            feats = load_or_build_lead_lag_features(lead_lag_settings, str(merged_path_demo))
+            if feats is not None and not feats.empty:
+                st.plotly_chart(plot_lag_correlation(feats, unit="min"), use_container_width=True)
+            else:
+                st.info("Lag features not available for the selected range.")
+        except Exception as e:
+            st.warning(f"Lead/lag unavailable in demo: {e}")
+
+        #Backtest in demo
+        if backtest:
+            try:
+                bt, stats = run_backtest(view, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
+                st.plotly_chart(plot_equity(bt),   use_container_width=True)
+                st.plotly_chart(plot_drawdown(bt), use_container_width=True)
+                with st.expander("What the metrics mean"):
+                    st.markdown("""
+                    - **CAGR** — Compounded Annual Growth Rate.
+                    - **Sharpe** — Risk-adjusted return (higher is better).
+                    - **MaxDD** — Maximum drawdown from peak equity.
+                    - **Hit Rate** — Share of profitable trades.
+                    """.strip())
+                CAGR = stats.get("CAGR"); Sharpe = stats.get("Sharpe")
+                MaxDD = stats.get("MaxDD"); Hit = stats.get("HitRate")
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("CAGR",     "—" if (CAGR   is None or (isinstance(CAGR,   float) and np.isnan(CAGR)))   else f"{CAGR:.2%}")
+                c2.metric("Sharpe",   "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
+                c3.metric("MaxDD",    "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
+                c4.metric("Hit Rate", "—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
+            except Exception as e:
+                st.warning(f"Backtest unavailable in demo: {e}")
+
+        #Indicators
+        sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
+        if use_sma:
+            st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
+        if use_rsi:
+            fig = plot_rsi(view, rsi_col=f"rsi_{int(rsi_period)}")
+            if fig: st.plotly_chart(fig, use_container_width=True)
+        if use_macd:
+            fig = plot_macd(view)
+            if fig: st.plotly_chart(fig, use_container_width=True)
+
+        
+        if "sentiment" in view.columns and not view["sentiment"].empty:
+            st.metric(label=f"Average Sentiment {selected_label}", value=f"{view['sentiment'].mean():.3f}")
+
+        st.stop()
     #News
     if posts_choice in ("All", "News"):
         #Dont use news for now, API almost used up - add "All" in line above to allow again        
@@ -178,12 +259,10 @@ if submit:
         news_df = load_cached_csv(news_settings, parse_dates=["timestamp"], freshness_minutes=30)
         if news_df is None:
                 with st.spinner("Fetching news..."):
-                # keep signature compatible with your fetcher
                     news_df = fetch_news_posts(cryptopanic_coin, int(num_posts or 200))
-                    # normalize
                     news_df["timestamp"] = pd.to_datetime(news_df["timestamp"], utc=True)
 
-                    # enforce selected date window
+                    #Enforce selected date window
                     mask = (news_df["timestamp"] >= start_date) & (news_df["timestamp"] <= end_date)
                     news_df = news_df.loc[mask].copy()
 
@@ -194,7 +273,7 @@ if submit:
 
                     cache_csv(news_df, news_settings)
 
-        # ensure columns even when loaded from cache
+        #Ensure columns even when loaded from cache
         news_df["source"] = "news"
         if "coin" not in news_df.columns:
             news_df["coin"] = cryptopanic_coin.lower()
@@ -524,7 +603,7 @@ if "merged_path" in st.session_state and os.path.exists(st.session_state["merged
 
     st.session_state["merged_path"] = str(merged_path_demo)
 
-    st.stop()
+   
 else:
     st.info("Run the analysis from the sidebar to see visualization")
 
@@ -538,7 +617,6 @@ if benchtest:
     except Exception as e:
         st.exception(e)
 
-# Always render if we have results in session (survives reruns)
 if "bench_results" in st.session_state and "bench_table" in st.session_state:
     table = st.session_state["bench_table"]
     results = st.session_state["bench_results"]
