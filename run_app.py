@@ -88,6 +88,109 @@ benchtest = st.sidebar.button("Run analyzer benchmark")
 
 st.sidebar.divider()
 
+if DEMO_MODE:
+    st.info("Demo mode is ON — using only files from data/demo (no scraping, no cache).")
+
+    # Lock coin/UI to Bitcoin so titles/labels are consistent
+    selected_label = "Bitcoin"
+    selected_coin  = "bitcoin"
+
+    # Hard-coded demo paths
+    merged_path_demo   = pathlib.Path("data/demo/bitcoin_merged.csv")
+    price_path_demo    = pathlib.Path("data/demo/bitcoin_prices.csv")
+    combined_path_demo = pathlib.Path("data/demo/bitcoin_combined_sentiment.csv")
+
+    # Load strictly from data/demo
+    try:
+        merged_df   = pd.read_csv(merged_path_demo,   parse_dates=["timestamp"])
+        price_df    = pd.read_csv(price_path_demo,    parse_dates=["timestamp"])
+        combined_df = pd.read_csv(combined_path_demo, parse_dates=["timestamp"])
+    except FileNotFoundError as e:
+        st.error(f"Missing demo file: {e.filename}. Ensure it lives in data/demo/.")
+        st.stop()
+
+    # Minimal controls (no scraping involved)
+    days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, index=1)
+    st.sidebar.markdown("### Indicators")
+    use_sma  = st.sidebar.checkbox("SMA (20/50)", value=True)
+    use_rsi  = st.sidebar.checkbox("RSI (14)", value=True)
+    use_macd = st.sidebar.checkbox("MACD (12,26,9)", value=True)
+    sma_fast = st.sidebar.number_input("SMA fast", 5, 200, 20, 1)
+    sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
+    rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
+
+    # Backtest controls (demo)
+    backtest = st.sidebar.checkbox("Run backtest", value=False)
+    if backtest:
+        cost_bps = st.sidebar.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
+        slip_bps = st.sidebar.number_input("Slippage (bps)", 0.0, 100.0, 5.0, 0.5)
+
+    # Time range slider (based on merged_df timestamps)
+    min_date = (merged_df["timestamp"].max() - pd.to_timedelta(int(days), unit="D")).to_pydatetime()
+    max_date = merged_df["timestamp"].max().to_pydatetime()
+    selected_range = st.slider(
+        "Select time range:",
+        min_value=min_date,
+        max_value=max_date,
+        value=(min_date, max_date),
+    )
+
+    # Filter view
+    view = filter_date_range(merged_df, selected_range[0], selected_range[1])
+
+    # Charts fed straight from demo CSVs
+    st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
+    st.plotly_chart(plot_sentiment_timeline(view,  selected_coin),   use_container_width=True)
+    st.plotly_chart(plot_sentiment_with_price(view, selected_coin),  use_container_width=True)
+
+    # Indicators
+    if use_sma:
+        st.plotly_chart(
+            plot_price_with_sma(view, selected_coin, [f"sma_{int(sma_fast)}", f"sma_{int(sma_slow)}"]),
+            use_container_width=True,
+        )
+    if use_rsi:
+        fig = plot_rsi(view, rsi_col=f"rsi_{int(rsi_period)}")
+        if fig: st.plotly_chart(fig, use_container_width=True)
+    if use_macd:
+        fig = plot_macd(view)
+        if fig: st.plotly_chart(fig, use_container_width=True)
+
+    # Quick metric
+    if "sentiment" in view.columns and not view["sentiment"].empty:
+        st.metric(label=f"Average Sentiment {selected_label} (demo)", value=f"{view['sentiment'].mean():.3f}")
+
+    # Backtest on demo data
+    if backtest:
+        try:
+            bt, stats = run_backtest(view, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
+            st.plotly_chart(plot_equity(bt),   use_container_width=True)
+            st.plotly_chart(plot_drawdown(bt), use_container_width=True)
+
+            with st.expander("What the metrics mean"):
+                st.markdown("""
+                - **CAGR** — Compounded Annual Growth Rate.
+                - **Sharpe** — Risk-adjusted return (higher is better).
+                - **MaxDD** — Maximum drawdown from peak equity.
+                - **Hit Rate** — Share of profitable trades.
+                """.strip())
+
+            CAGR   = stats.get("CAGR")
+            Sharpe = stats.get("Sharpe")
+            MaxDD  = stats.get("MaxDD")
+            Hit    = stats.get("HitRate")
+
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("CAGR",     "—" if (CAGR   is None or (isinstance(CAGR,   float) and np.isnan(CAGR)))   else f"{CAGR:.2%}")
+            c2.metric("Sharpe",   "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
+            c3.metric("MaxDD",    "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
+            c4.metric("Hit Rate", "—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
+        except Exception as e:
+            st.warning(f"Backtest unavailable in demo: {e}")
+
+    # Do not proceed to scraping/caching pipeline
+    st.stop()
+
 with st.sidebar.form("analysis_form"):
     selected_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     selected_coin = COINS_UI_TO_SYMBOL[selected_label]
@@ -155,120 +258,6 @@ if submit:
     
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
 
-    if DEMO_MODE:
-        st.info("Demo mode is ON — using frozen CSVs (no scraping).")
-        st.session_state.pop("merged_path", None)
-
-        selected_coin = "bitcoin"
-        selected_label = "Bitcoin"
-
-        #Load demo files
-        merged_path_demo   = pathlib.Path("data/demo/bitcoin_merged.csv")
-        price_path_demo    = pathlib.Path("data/demo/bitcoin_prices.csv")
-        combined_path_demo = pathlib.Path("data/demo/bitcoin_combined_sentiment.csv")
-
-        try:
-            merged_df   = pd.read_csv(merged_path_demo,   parse_dates=["timestamp"])
-            price_df    = pd.read_csv(price_path_demo,    parse_dates=["timestamp"])
-            combined_df = pd.read_csv(combined_path_demo, parse_dates=["timestamp"])
-        except FileNotFoundError as e:
-            st.error(f"Missing demo file: {e.filename}. Put it under data/demo/ or adjust get_demo_data_path().")
-            st.stop()
-
-        #Time-range UI for demo
-        min_date = (merged_df["timestamp"].max() - timedelta(days=int(days))).to_pydatetime()
-        max_date = merged_df["timestamp"].max().to_pydatetime()
-        selected_range = st.slider(
-            "Select time range:",
-            min_value=min_date,
-            max_value=max_date,
-            value=(min_date, max_date)
-        )
-
-        view = filter_date_range(merged_df, selected_range[0], selected_range[1])
-
-        #Plots
-        st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
-        st.plotly_chart(plot_sentiment_timeline(view, selected_coin),   use_container_width=True)
-        st.plotly_chart(plot_sentiment_with_price(view, selected_coin), use_container_width=True)
-
-        #Lead/lag on demo
-        try:
-            lead_lag_settings = {
-                "dataset": "features",
-                "coin": selected_coin,
-                "days": int(days),
-                "analyzer": analyzer_choice,
-                "posts_choice": posts_choice,
-                "depends_on": [0],
-                "lag_min_s": -lag_hours * 3600,
-                "lag_max_s":  lag_hours * 3600,
-                "lag_step_s": lag_step_min * 60,
-                "metric": metric_choice,
-            }
-            feats = load_or_build_lead_lag_features(lead_lag_settings, str(merged_path_demo))
-            if feats is not None and not feats.empty:
-                st.plotly_chart(plot_lag_correlation(feats, unit="min"), use_container_width=True)
-            else:
-                st.info("Lag features not available for the selected range.")
-        except Exception as e:
-            st.warning(f"Lead/lag unavailable in demo: {e}")
-
-        #Backtest in demo
-        if backtest:
-            try:
-                bt, stats = run_backtest(view, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
-                st.plotly_chart(plot_equity(bt),   use_container_width=True)
-                st.plotly_chart(plot_drawdown(bt), use_container_width=True)
-                with st.expander("What the metrics mean"):
-                    st.markdown("""
-                    - **CAGR** — Compounded Annual Growth Rate.
-                    - **Sharpe** — Risk-adjusted return (higher is better).
-                    - **MaxDD** — Maximum drawdown from peak equity.
-                    - **Hit Rate** — Share of profitable trades.
-                    """.strip())
-                CAGR = stats.get("CAGR"); Sharpe = stats.get("Sharpe")
-                MaxDD = stats.get("MaxDD"); Hit = stats.get("HitRate")
-                c1, c2, c3, c4 = st.columns(4)
-                c1.metric("CAGR",     "—" if (CAGR   is None or (isinstance(CAGR,   float) and np.isnan(CAGR)))   else f"{CAGR:.2%}")
-                c2.metric("Sharpe",   "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
-                c3.metric("MaxDD",    "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
-                c4.metric("Hit Rate", "—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
-            except Exception as e:
-                st.warning(f"Backtest unavailable in demo: {e}")
-
-        #Indicators
-        sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
-        if use_sma:
-            st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
-        if use_rsi:
-            fig = plot_rsi(view, rsi_col=f"rsi_{int(rsi_period)}")
-            if fig: st.plotly_chart(fig, use_container_width=True)
-        if use_macd:
-            fig = plot_macd(view)
-            if fig: st.plotly_chart(fig, use_container_width=True)
-
-        
-        if "sentiment" in view.columns and not view["sentiment"].empty:
-            st.metric(label=f"Average Sentiment {selected_label}", value=f"{view['sentiment'].mean():.3f}")
-
-        if run_bench:
-            try:
-                from src.benchmark.analyzer_eval import run_fixed_benchmark
-                from src.benchmark.benchmark_plot import (
-                    accuracy_figure,
-                    confusion_matrices
-                    )
-                results, table = run_fixed_benchmark()
-                st.session_state["bench_results"] = results
-                st.session_state["bench_table"] = table
-            except FileNotFoundError:
-                st.error("data/benchmark_labeled.csv not found.")
-            except Exception as e:
-                st.exception(e)
-
-
-        st.stop()
     #News
     if posts_choice in ("All", "News"):
         #Dont use news for now, API almost used up - add "All" in line above to allow again        
