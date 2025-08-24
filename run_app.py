@@ -10,7 +10,7 @@ import sys
 import hashlib, pathlib
 
 for k, v in st.secrets.items():
-    os.environ.setdefault(k, str(v))
+    os.environ[str(k)] = str(v)
 
 
 from src.utils.helpers import (
