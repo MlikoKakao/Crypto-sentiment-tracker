@@ -5,7 +5,8 @@ import plotly.graph_objects as go
 import streamlit as st
 
 def plot_price_time_series(df: pd.DataFrame, coin:str):
-    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.copy()
+    df.loc[:,"timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
 
     fig = px.line(
@@ -21,10 +22,10 @@ def plot_price_time_series(df: pd.DataFrame, coin:str):
     return fig
 
 def plot_sentiment_vs_price(df: pd.DataFrame):
-    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.copy()
+    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
-
-    df["date_str"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")
+    df.loc[:, "date_str"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")
     fig = px.scatter(
         df,
         x="sentiment",
@@ -38,11 +39,11 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
     return fig
 
 def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
-    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
-    df["sentiment"] = pd.to_numeric(df["sentiment"], errors= "coerce")
+    df = df.copy()
+    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df.loc[:, "sentiment"] = pd.to_numeric(df["sentiment"], errors="coerce")
     df = df.dropna(subset=["timestamp", "sentiment"])
-
-    df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.3)
+    df = apply_loess(df, x_col="timestamp", y_col="sentiment", frac=0.3)
     fig = px.line(
         df,
         x="timestamp",
@@ -66,7 +67,8 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
 
 #Graph showing LOESS/BTC price
 def plot_sentiment_with_price(df: pd.DataFrame, coin:str):
-    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = df.copy()
+    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
 
     df = apply_loess(df, x_col="timestamp",y_col="sentiment",frac=0.3)
