@@ -79,7 +79,7 @@ st.title("Crypto sentiment tracker")
 st.markdown("Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies")
 
 #Config
-st.sidebar.header("Configuration")
+st.sidebar.header("Main controls")
 
 if st.sidebar.button("Clear cache"):
     res = clear_cache_dir()
@@ -92,19 +92,21 @@ benchtest = st.sidebar.button("Run analyzer benchmark")
 
 st.sidebar.divider()
 
+st.sidebar.header("Settings")
+
 if DEMO_MODE:
     st.info("Demo mode is ON — using only files from data/demo (no scraping, no cache).")
 
-    # Lock coin/UI to Bitcoin so titles/labels are consistent
+    #Locking coin for demo
     selected_label = "Bitcoin"
     selected_coin  = "bitcoin"
 
-    # Hard-coded demo paths
+    #Hard-coded demo paths
     merged_path_demo   = pathlib.Path("data/demo/bitcoin_merged.csv")
     price_path_demo    = pathlib.Path("data/demo/bitcoin_prices.csv")
     combined_path_demo = pathlib.Path("data/demo/bitcoin_combined_sentiment.csv")
 
-    # Load strictly from data/demo
+    #Load strictly from data/demo
     try:
         merged_df   = pd.read_csv(merged_path_demo,   parse_dates=["timestamp"])
         price_df    = pd.read_csv(price_path_demo,    parse_dates=["timestamp"])
@@ -113,7 +115,8 @@ if DEMO_MODE:
         st.error(f"Missing demo file: {e.filename}. Ensure it lives in data/demo/.")
         st.stop()
 
-    # Minimal controls (no scraping involved)
+    #Minimal controls (no scraping)
+    demo_fake_selected_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, index=1)
     st.sidebar.markdown("### Indicators")
     use_sma  = st.sidebar.checkbox("SMA (20/50)", value=True)
@@ -123,13 +126,13 @@ if DEMO_MODE:
     sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
     rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
 
-    # Backtest controls (demo)
+    #Backtest controls (demo)
     backtest = st.sidebar.checkbox("Run backtest", value=False)
     if backtest:
         cost_bps = st.sidebar.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
         slip_bps = st.sidebar.number_input("Slippage (bps)", 0.0, 100.0, 5.0, 0.5)
 
-    # Time range slider (based on merged_df timestamps)
+    #Time range slider (based on merged_df timestamps)
     min_date = (merged_df["timestamp"].max() - pd.to_timedelta(int(days), unit="D")).to_pydatetime()
     max_date = merged_df["timestamp"].max().to_pydatetime()
     selected_range = st.slider(
@@ -139,15 +142,15 @@ if DEMO_MODE:
         value=(min_date, max_date),
     )
 
-    # Filter view
+    #Filter view
     view = filter_date_range(merged_df, selected_range[0], selected_range[1])
 
-    # Charts fed straight from demo CSVs
+    #Charts
     st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
     st.plotly_chart(plot_sentiment_timeline(view,  selected_coin),   use_container_width=True)
     st.plotly_chart(plot_sentiment_with_price(view, selected_coin),  use_container_width=True)
     st.plotly_chart(plot_sentiment_vs_price(view), use_container_width=True)
-    # Indicators
+    #Indicators
     if use_sma:
         st.plotly_chart(
             plot_price_with_sma(view, selected_coin, [f"sma_{int(sma_fast)}", f"sma_{int(sma_slow)}"]),
@@ -160,11 +163,10 @@ if DEMO_MODE:
         fig = plot_macd(view)
         if fig: st.plotly_chart(fig, use_container_width=True)
 
-    # Quick metric
     if "sentiment" in view.columns and not view["sentiment"].empty:
         st.metric(label=f"Average Sentiment {selected_label} (demo)", value=f"{view['sentiment'].mean():.3f}")
 
-    # Backtest on demo data
+    #Backtest on demo data
     if backtest:
         try:
             bt, stats = run_backtest(view, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
@@ -207,7 +209,7 @@ if DEMO_MODE:
             st.error("data/benchmark_labeled.csv not found for benchmark.")
         except Exception as e:
             st.exception(e)
-    # Do not proceed to scraping/caching pipeline
+    #Do not proceed to scraping/caching pipeline
     st.stop()
 
 with st.sidebar.form("analysis_form"):
