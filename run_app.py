@@ -24,6 +24,7 @@ from src.utils.helpers import (
      map_to_cryptopanic_symbol
 )
 from src.scraping.fetch_price import get_price_history
+from config.settings import DEMO_MODE
 if DEMO_MODE:
     def fetch_reddit_posts(*args, **kwargs): return pd.DataFrame()
     def fetch_twitter_posts(*args, **kwargs): return pd.DataFrame()
