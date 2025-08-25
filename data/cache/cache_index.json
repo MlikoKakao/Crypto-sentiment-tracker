@@ -221,7 +221,7 @@
   "0edd9d3a9daff40ce1c22fd1c2b2027d": {
     "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\0edd9d3a9daff40ce1c22fd1c2b2027d.csv",
     "rows": 287,
-    "updated": 1756067726,
+    "updated": 1756108960,
     "settings": {
       "coin": "bitcoin",
       "dataset": "price",
@@ -261,6 +261,74 @@
       "lag_step_s": 900,
       "metric": "pearson",
       "posts_choice": "all"
+    }
+  },
+  "32f767e183b171ab922c1c85f555afaf": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\32f767e183b171ab922c1c85f555afaf.csv",
+    "rows": 72,
+    "updated": 1756108959,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_reddit",
+      "end_date": "2025-08-25T08:02:33",
+      "num_posts": 300,
+      "query": "(bitcoin or btc)",
+      "source": "reddit",
+      "start_date": "2025-08-24T08:02:33",
+      "subreddits": [
+        "bitcoin",
+        "cryptocurrency",
+        "cryptocurrencytrading",
+        "cryptomarkets"
+      ],
+      "tz": "utc"
+    }
+  },
+  "168b3f844acf879b60d2443b3eddaba0": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\168b3f844acf879b60d2443b3eddaba0.csv",
+    "rows": 72,
+    "updated": 1756108960,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "97db8010c17c2f25a0484256fe17bc6c8387f96b",
+      "source": "reddit"
+    }
+  },
+  "f5822921e7a2df6b021758a771442cc4": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\f5822921e7a2df6b021758a771442cc4.csv",
+    "rows": 72,
+    "updated": 1756108960,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 1,
+      "depends_on": [
+        "10b41c68773fcdf3884562f4eb54e41719b2db90",
+        "27487dd14c48e35e7c55b6e9076637f64be38230"
+      ],
+      "posts_choice": "reddit"
+    }
+  },
+  "773e8420f0e045adb2bc194cc236308a": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\773e8420f0e045adb2bc194cc236308a.csv",
+    "rows": 193,
+    "updated": 1756108960,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "features",
+      "days": 1,
+      "depends_on": [
+        "65170ba02f7e56e77da89687b26bce1566a7c511"
+      ],
+      "lag_max_s": 86400,
+      "lag_min_s": -86400,
+      "lag_step_s": 900,
+      "metric": "pearson",
+      "posts_choice": "reddit"
     }
   }
 }
