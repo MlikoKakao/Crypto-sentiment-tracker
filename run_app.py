@@ -116,7 +116,7 @@ if DEMO_MODE:
         st.stop()
 
     #Minimal controls (no scraping)
-    demo_fake_selected_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
+    demo_fake_selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, index=1)
     st.sidebar.markdown("### Indicators")
     use_sma  = st.sidebar.checkbox("SMA (20/50)", value=True)
