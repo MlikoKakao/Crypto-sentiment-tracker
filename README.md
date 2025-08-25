@@ -17,7 +17,7 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 - **Sources**: Reddit, X (Twitter), crypto news (CryptoPanic mapping)
 - **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
 - **Indicators**: EMA, RSI, MACD
-- **Sentiment vs Price overlay**: `plot_sentiment_vs_price(df)` in UI
+- **Several graph visualizations comparing sentiment and price**
 - **Caching**: file-based (CSV) + own-made with settings map and hashing to keep API usage low
 - **Modular**: re-use ETL in notebooks or other apps
 
