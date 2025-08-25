@@ -118,6 +118,13 @@ if DEMO_MODE:
     #Minimal controls (no scraping)
     demo_fake_selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, index=1)
+    posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
+    analyzer_choice = st.sidebar.selectbox(
+        "Choose sentiment analyzer:", ANALYZER_UI_LABELS,
+        help=("VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, "
+              "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
+    )
+
     st.sidebar.markdown("### Indicators")
     use_sma  = st.sidebar.checkbox("SMA (20/50)", value=True)
     use_rsi  = st.sidebar.checkbox("RSI (14)", value=True)
