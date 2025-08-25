@@ -23,10 +23,15 @@ from src.utils.helpers import (
      filter_date_range,
      map_to_cryptopanic_symbol
 )
-from src.scraping.reddit_scraper import fetch_reddit_posts
 from src.scraping.fetch_price import get_price_history
-from src.scraping.news_scraper import fetch_news_posts
-from src.scraping.twitter_scraper import fetch_twitter_posts
+if DEMO_MODE:
+    def fetch_reddit_posts(*args, **kwargs): return pd.DataFrame()
+    def fetch_twitter_posts(*args, **kwargs): return pd.DataFrame()
+    def fetch_news_posts(*args, **kwargs): return pd.DataFrame()
+else:
+    from src.scraping.reddit_scraper import fetch_reddit_posts
+    from src.scraping.twitter_scraper import fetch_twitter_posts
+    from src.scraping.news_scraper import fetch_news_posts
 from src.sentiment.analyzer import add_sentiment_to_file, load_sentiment_df
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir, day_str
