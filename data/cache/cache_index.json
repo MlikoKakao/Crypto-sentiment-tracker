@@ -221,7 +221,7 @@
   "0edd9d3a9daff40ce1c22fd1c2b2027d": {
     "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\0edd9d3a9daff40ce1c22fd1c2b2027d.csv",
     "rows": 287,
-    "updated": 1756108960,
+    "updated": 1756240554,
     "settings": {
       "coin": "bitcoin",
       "dataset": "price",
@@ -323,6 +323,74 @@
       "days": 1,
       "depends_on": [
         "65170ba02f7e56e77da89687b26bce1566a7c511"
+      ],
+      "lag_max_s": 86400,
+      "lag_min_s": -86400,
+      "lag_step_s": 900,
+      "metric": "pearson",
+      "posts_choice": "reddit"
+    }
+  },
+  "2d90c4c212bbca660e2a3eb519139c98": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\2d90c4c212bbca660e2a3eb519139c98.csv",
+    "rows": 78,
+    "updated": 1756240554,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_reddit",
+      "end_date": "2025-08-26T20:35:48",
+      "num_posts": 300,
+      "query": "(bitcoin or btc)",
+      "source": "reddit",
+      "start_date": "2025-08-25T20:35:48",
+      "subreddits": [
+        "bitcoin",
+        "cryptocurrency",
+        "cryptocurrencytrading",
+        "cryptomarkets"
+      ],
+      "tz": "utc"
+    }
+  },
+  "d44649f84f97fb8feb323d67e58b8834": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\d44649f84f97fb8feb323d67e58b8834.csv",
+    "rows": 78,
+    "updated": 1756240554,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "a3acf09a3a4f49dc8c8a403d84f593076297e99d",
+      "source": "reddit"
+    }
+  },
+  "54c64a7fd6cb087bde6553bcc6575cb2": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\54c64a7fd6cb087bde6553bcc6575cb2.csv",
+    "rows": 78,
+    "updated": 1756240555,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 1,
+      "depends_on": [
+        "1056791b4fcbb89a3513e41f261c5d0bd80dfc82",
+        "4c774d8dd555f97dd37f98d65b86ded2660eff4d"
+      ],
+      "posts_choice": "reddit"
+    }
+  },
+  "b93c624fbdd4b13cf14155e29610b8b5": {
+    "path": "D:\\Projects\\Crypto-tracker\\Crypto-sentiment-tracker\\data\\cache\\b93c624fbdd4b13cf14155e29610b8b5.csv",
+    "rows": 193,
+    "updated": 1756240555,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "features",
+      "days": 1,
+      "depends_on": [
+        "01d491b5741794a49af99f87790f140a681706a4"
       ],
       "lag_max_s": 86400,
       "lag_min_s": -86400,

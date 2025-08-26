@@ -8,7 +8,6 @@ import plotly.express as px
 import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
 
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from textblob import TextBlob
 from transformers import pipeline
 
@@ -16,6 +15,18 @@ from .benchmark_plot import to_table
 
 CANONICAL = ("negative", "neutral", "positive")
 
+def get_vader_analyzer():
+    try:
+        from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+        return SentimentIntensityAnalyzer()
+    except Exception:
+        import nltk
+        from nltk.sentiment import SentimentIntensityAnalyzer
+        try:
+            return SentimentIntensityAnalyzer()
+        except LookupError:
+            nltk.download("vader_lexicon", quiet=True)
+            return SentimentIntensityAnalyzer()
 
 
 def _normalize_label(s: str) -> str:
@@ -36,7 +47,7 @@ def _to_trinary_from_score(x: float, pos: float = 0.05, neg: float = -0.05) -> s
 
 
 def pred_vader(texts: List[str]) -> List[str]:
-    sid = SentimentIntensityAnalyzer()
+    sid = get_vader_analyzer()
     scores = [sid.polarity_scores(str(t))["compound"] for t in texts]
     return [_to_trinary_from_score(s) for s in scores]
 
