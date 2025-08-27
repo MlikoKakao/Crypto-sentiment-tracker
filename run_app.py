@@ -262,7 +262,6 @@ with st.sidebar.form("analysis_form"):
     sma_fast = st.number_input("SMA fast", 5, 200, 20, 1)
     sma_slow = st.number_input("SMA slow", 5, 400, 50, 1)
     rsi_period = st.number_input("RSI period", 5, 50, 14, 1)
-    run_bench = st.checkbox("Also run analyzer benchmark")
 
 
     submit = st.form_submit_button("Run Analysis")
