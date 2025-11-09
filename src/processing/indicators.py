@@ -1,18 +1,19 @@
 from __future__ import annotations
 import pandas as pd
 
+
 def add_indicators(
-        df: pd.DataFrame,
-        price_col: str = "price",
-        sma_windows=(20,50),
-        rsi_period: int = 14,
-        macd_fast: int = 12,
-        macd_slow: int = 26,
-        macd_signal: int = 9
+    df: pd.DataFrame,
+    price_col: str = "price",
+    sma_windows=(20, 50),
+    rsi_period: int = 14,
+    macd_fast: int = 12,
+    macd_slow: int = 26,
+    macd_signal: int = 9,
 ) -> pd.DataFrame:
     if df.empty or price_col not in df.columns:
         return df
-    
+
     df = df.sort_values("timestamp").copy()
     p = df[price_col].astype(float)
 
@@ -38,3 +39,4 @@ def add_indicators(
     df["macd_hist"] = hist
 
     return df
+
