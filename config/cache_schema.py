@@ -42,3 +42,11 @@ def _canonicalize_settings(raw: Dict[str, Any]) -> Dict[str, Any]:
             raise ValueError(f"settings for dataset {ds} missing key: {k}")
         out[k] = v
     return out
+
+
+def canonicalize_settings(raw: Dict[str, Any]) -> Dict[str, Any]:
+    """Public wrapper for the internal _canonicalize_settings.
+
+    Use this instead of importing the private symbol from other modules.
+    """
+    return _canonicalize_settings(raw)
