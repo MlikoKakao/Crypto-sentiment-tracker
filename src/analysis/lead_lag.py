@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import os
 from src.utils.cache import load_cached_csv, cache_csv
-from scipy.stats import pearsonr, spearmanr
+from scipy.stats import pearsonr
 
 
 def compute_lead_lag(
@@ -20,10 +20,10 @@ def compute_lead_lag(
     if df.empty:
         return pd.DataFrame(columns=["lag_seconds", "r", "p_value", "n"])
 
-    g = df.set_index("timestamp").resample(resample).mean().interpolate("time")
+    df_time_interpolated = df.set_index("timestamp").resample(resample).mean().interpolate("time")
 
-    s = g["sentiment"]
-    p = g["price"]
+    s = df_time_interpolated["sentiment"]
+    p = df_time_interpolated["price"]
     step = pd.to_timedelta(resample).total_seconds()
 
     out = []

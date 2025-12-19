@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 CRYPTOPANIC_API_KEY = os.getenv("CRYPTOPANIC_API_KEY")
-def fetch_news_posts(currency ="BTC", limit=100):
+def fetch_news_posts(currency:str = "BTC", limit:int = 100):
     if DEMO_MODE:
         return pd.read_csv(get_demo_data_path("news_posts.csv"), parse_dates=["timestamp"])
     logger.info(f"Attempting to fetch news for {currency}..")

@@ -1,6 +1,5 @@
 from pytz import utc
-import praw
-import requests
+import praw #type: ignore # type: ignore added because praw stubs are incomplete / missing
 import pandas as pd
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
@@ -8,6 +7,7 @@ from src.utils.helpers import save_csv, clean_text
 import os
 import logging
 import re
+from typing import Optional
 from config.settings import DEMO_MODE, get_demo_data_path
 
 logger = logging.getLogger(__name__)
@@ -19,20 +19,21 @@ REDDIT_CLIENT_ID = os.getenv("REDDIT_CLIENT_ID")
 REDDIT_CLIENT_SECRET = os.getenv("REDDIT_CLIENT_SECRET")
 REDDIT_USER_AGENT = os.getenv("REDDIT_USER_AGENT")
 
-reddit = praw.Reddit(
+reddit = praw.Reddit( 
     client_id=REDDIT_CLIENT_ID,
     client_secret=REDDIT_CLIENT_SECRET,
     user_agent=REDDIT_USER_AGENT
-)
+) 
 
 
 
 
-def fetch_reddit_posts(query="(btc OR bitcoin)"
-                       ,limit=1000,
-                       start_date=None,
-                       end_date=None,
-                       subreddits=("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
+
+def fetch_reddit_posts(query: str = "(btc OR bitcoin)"
+                       ,limit: int = 1000,
+                       start_date: Optional[datetime] = None,
+                       end_date: Optional[datetime] = None,
+                       subreddits:tuple[str, ...] = ("CryptoCurrency","Bitcoin","CryptoMarkets","BitcoinMarkets")):
     if DEMO_MODE:
         return pd.read_csv(get_demo_data_path("reddit_posts.csv"), parse_dates=["timestamp"])
     terms = [t.strip(" ()") for t in re.split(" OR ", query, flags=re.I)]
@@ -42,7 +43,7 @@ def fetch_reddit_posts(query="(btc OR bitcoin)"
     posts, seen = [], set()
     
     for sub in sorted(set(subreddits)):
-        for submission in reddit.subreddit(sub).new(limit=None):
+        for submission in reddit.subreddit(sub).new(limit=limit):
             ts = datetime.fromtimestamp(submission.created_utc, tz=utc)
             
             if end_date and ts > end_date:

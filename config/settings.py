@@ -46,6 +46,6 @@ DEMO_MODE = os.getenv("DEMO", "0") == "1"
 DEMO_DATA_DIR = Path(os.getenv("DEMO_DATA_DIR", "data"))
 DEMO_DIR = DEMO_DATA_DIR / "demo"
 
-def get_demo_data_path(*parts) -> Path:
+def get_demo_data_path(demo_path: str) -> Path:
     base = DEMO_DIR if DEMO_MODE else DATA_DIR
-    return base.joinpath(*parts)
+    return base.joinpath(demo_path)
