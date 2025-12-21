@@ -3,7 +3,26 @@ import pandas as pd
 import os
 from src.utils.cache import load_cached_csv, cache_csv
 from scipy.stats import pearsonr
+from typing import Any
 
+def _to_float(x: Any) -> float:
+    """Safely convert pandas/numpy scalars and builtins to Python float.
+
+    Raises TypeError for complex / non-convertible values so the type checker
+    sees we've excluded complex before calling float(...).
+
+    Come back to this later, this is a mess.
+    """
+    if isinstance(x, np.generic):
+        x = x.item()
+    if isinstance(x, complex):
+        raise TypeError("complex cannot be converted to float")
+    if isinstance(x, (int, float, bool)):
+        return float(x)
+    try:
+        return float(x)
+    except (TypeError, ValueError) as exc:
+        raise TypeError(f"Cannot convert {type(x)!r} to float") from exc
 
 def compute_lead_lag(
     merged_df: pd.DataFrame,
@@ -27,30 +46,34 @@ def compute_lead_lag(
     step = pd.to_timedelta(resample).total_seconds()
 
     out = []
-    for lag in lag_seconds:
-        k = int(round(lag / step))
-        p_shift = p.shift(-k)
-        valid = pd.concat([s, p_shift], axis=1).dropna()
+    for lag_seconds_value in lag_seconds:
+        lag_steps = int(round(lag_seconds_value / step))
+        shifted_price = p.shift(-lag_steps)
+        valid = pd.concat([s, shifted_price], axis=1).dropna()
         n = len(valid)
         if n < min_points:
-            out.append([lag, np.nan, np.nan, n])
+            out.append([lag_seconds_value, np.nan, np.nan, n])
             continue
         if metric.lower() == "spearman":
-            r = float(valid.corr(method="spearman").iloc[0, 1])
+            r_val = valid.corr(method="spearman").iloc[0, 1]
+            r = _to_float(r_val)
             pval = np.nan
         else:
-            r = float(valid.corr().iloc[0, 1])
+            r_val = valid.corr().iloc[0, 1]
+            r = _to_float(r_val)
             try:
                 _, pval = pearsonr(
                     valid.iloc[:, 0].to_numpy(), valid.iloc[:, 1].to_numpy()
                 )
             except Exception:
                 pval = np.nan
-        out.append([lag, r, float(pval), int(n)])
+
+        pval = _to_float(pval) if not isinstance(pval, float) or not np.isnan(pval) else float(pval)
+        out.append([lag_seconds_value, r, pval, int(n)])
     return pd.DataFrame(out, columns=["lag_seconds", "r", "p_value", "n"])
 
 
-def load_or_build_lead_lag_features(settings: dict, merged_path: str) -> pd.DataFrame:
+def load_or_build_lead_lag_features(settings: dict[str, Any], merged_path: str) -> pd.DataFrame:
     if "depends_on" not in settings:
         from src.utils.helpers import file_sha1
 

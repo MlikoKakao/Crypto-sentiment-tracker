@@ -2,9 +2,7 @@ from __future__ import annotations
 import time
 from typing import List, Dict, Any
 
-import numpy as np
 import pandas as pd
-import plotly.express as px
 import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
 

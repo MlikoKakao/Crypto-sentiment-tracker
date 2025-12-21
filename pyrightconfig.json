@@ -1,6 +1,7 @@
 {
-	"typeCheckingMode": "strict",
-	"reportUnknownMemberType": "none",
-	"reportUnknownArgumentType": "none",
-	"reportUnknownVariableType": "none"
+  "typeCheckingMode": "strict",
+  "reportUnknownMemberType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownVariableType": "none",
+  "stubPath": "stubs"
 }
