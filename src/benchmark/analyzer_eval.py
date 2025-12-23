@@ -5,6 +5,7 @@ from typing import List, Dict, Any
 import pandas as pd
 import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
+from transformers.pipelines import Pipeline
 
 from textblob import TextBlob
 from transformers import pipeline
@@ -15,11 +16,11 @@ CANONICAL = ("negative", "neutral", "positive")
 
 def get_vader_analyzer():
     try:
-        from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+        from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer # type: ignore #not worth the effort to make stub
         return SentimentIntensityAnalyzer()
     except Exception:
-        import nltk
-        from nltk.sentiment import SentimentIntensityAnalyzer
+        import nltk # type: ignore #not worth the effort to make stub
+        from nltk.sentiment import SentimentIntensityAnalyzer   # type: ignore #not worth the effort to make stub
         try:
             return SentimentIntensityAnalyzer()
         except LookupError:
@@ -54,10 +55,9 @@ def pred_textblob(texts: List[str]) -> List[str]:
     return [_to_trinary_from_score(s) for s in scores]
 
 def pred_roberta(texts: List[str], batch_size: int = 32, device: int = -1) -> List[str]:
-    clf = pipeline(
-        "sentiment-analysis",
+    clf: Pipeline = pipeline(
+        task: str = "sentiment-analysis",
         model="cardiffnlp/twitter-roberta-base-sentiment-latest",
-        truncation=True,
         device=device,
     )
     out = clf(texts, batch_size=batch_size)
