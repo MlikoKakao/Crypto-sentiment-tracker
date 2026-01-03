@@ -1,1 +1,12 @@
-{}
+{
+  "952db4ac49ca5a4f3c0ca41bee3c389c": {
+    "path": "C:\\Users\\PC\\crypto-tracker\\data\\cache\\952db4ac49ca5a4f3c0ca41bee3c389c.csv",
+    "rows": 2,
+    "updated": 1764938396,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "price",
+      "days": "1"
+    }
+  }
+}

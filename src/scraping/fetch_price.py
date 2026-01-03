@@ -2,7 +2,6 @@ from pytz import utc
 import requests
 import pandas as pd
 from datetime import datetime
-import sys
 import logging
 import os
 from dotenv import load_dotenv
@@ -12,11 +11,11 @@ from config.settings import DEMO_MODE, get_demo_data_path
 logger = logging.getLogger(__name__)
 
 
-def get_price_history(symbol="bitcoin", days="1"):
+def get_price_history(symbol: str = "bitcoin", days: str = "1"): 
     if DEMO_MODE:
         return pd.read_csv(get_demo_data_path("price_history.csv"), parse_dates=["timestamp"])
     load_dotenv()
-    API_COINGECKO_ID = os.getenv("API_COINGECKO_ID")
+    API_COINGECKO_ID = os.getenv("API_COINGECKO_ID") #type: ignore # for now not in use, but may need it later for higher rate limits
     url = f"https://api.coingecko.com/api/v3/coins/{symbol}/market_chart"
     params = {
         "vs_currency": "usd",

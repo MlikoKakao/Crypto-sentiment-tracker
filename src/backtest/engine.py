@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import datetime
 
 def compute_indicators(df: pd.DataFrame, ema_window: int = 20, med_window_bars: int = 96) -> pd.DataFrame:
     out = df.copy()
@@ -25,7 +26,7 @@ def backtest_long_only(df: pd.DataFrame,
                        slippage_bps: float = 5.0
                        ) -> pd.DataFrame:
     out = df.copy()
-    out["ret"] = np.log(out["price"]).diff()
+    out["ret"] = out["price"].apply(np.log).diff()
     pos = build_signal(out)
     out["pos"] = pos
 
@@ -40,7 +41,7 @@ def backtest_long_only(df: pd.DataFrame,
     out["dd"] = out["eq_strategy"]/peak -1.0
     return out
 
-def summarize(df_bt: pd.DataFrame, bars_per_year: int)-> dict:
+def summarize(df_bt: pd.DataFrame, bars_per_year: int)-> dict[str, float]:
     ret_series = df_bt["ret_net"].dropna()
     total_years = len(ret_series) / bars_per_year if bars_per_year else np.nan
     cagr = (df_bt["eq_strategy"].iloc[-1])**(1/max(total_years, 1e-9)) - 1 if len(df_bt) > 0 else np.nan
@@ -86,11 +87,24 @@ def run_backtest(df_merged: pd.DataFrame,
     df_ind = compute_indicators(df5, ema_window=20, med_window_bars=96)
     bt = backtest_long_only(df_ind, cost_bps=cost_bps, slippage_bps=slippage_bps)
 
-    dt = df5["timestamp"].diff().median()
-    if pd.isna(dt) or getattr(dt, "total_seconds", lambda: 0)() <= 0:
+    delta = df5["timestamp"].diff().median()
+    seconds = 0.0
+    if pd.isna(delta):
+        seconds = 0.0
+    elif isinstance(delta, (pd.Timedelta, datetime.timedelta)):
+        seconds = delta.total_seconds()
+    elif isinstance(delta, np.timedelta64):
+        seconds = pd.Timedelta(delta).total_seconds()
+    else:
+        try:
+            seconds = float(delta)
+        except Exception:
+            seconds = 0.0
+
+    if seconds <= 0:
         bars_per_year = 52560
     else:
-        bars_per_year = int(round((365 * 24 * 3600) / dt.total_seconds()))
+        bars_per_year = int(round((365 * 24 * 3600) / seconds))
 
     stats = summarize(bt, bars_per_year=bars_per_year)
     return bt, stats

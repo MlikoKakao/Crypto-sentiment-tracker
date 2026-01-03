@@ -1,20 +1,12 @@
 from __future__ import annotations
-import os, time, math
-from datetime import datetime, timezone
-from typing import Dict, List, Optional
+import os
+from typing import List, Optional
 import pandas as pd
 from apify_client import ApifyClient
 from dotenv import load_dotenv
-from src.utils.cache import get_cached_path, load_cached_csv
 from config.settings import DEMO_MODE, get_demo_data_path
 
 load_dotenv()
-
-_ALIAS = {
-    "bitcoin": "btc",
-    "ethereum": "eth",
-    "monero": "xmr"
-}
 
 _COIN_TERMS = {
     "btc": ["bitcoin", "btc", "$btc", "#bitcoin", "#btc"],
@@ -22,9 +14,9 @@ _COIN_TERMS = {
     "xmr": ["monero", "xmr", "$xmr", "#monero", "#xmr"]
 }
 
-actor_id = "xtdata/twitter-x-scraper"
+actor_id = "apidojo/tweet-scraper"
 
-def _to_date(val) -> Optional[str]:
+def _to_date(val: Optional[str]) -> Optional[str]:
     if val is None or val == "":
         return None
     ts = pd.to_datetime(val, utc=True, errors="coerce")
@@ -59,8 +51,10 @@ def fetch_twitter_posts(coin: str,
     }
 
     run = client.actor(actor_id).call(run_input=input_data)
-    items = client.dataset(run["defaultDatasetId"]).list_items(limit=limit).items
-    
+    items = client.dataset(run["defaultDatasetId"]).list_items(limit=limit).items #type: ignore[attr-defined]
+    # ignore because it can only get to this point after check for API key, theoretically API key could be
+    # None, but that's only if APIFY_API = "" in .env, which is stupid
+
     rows = []
     for it in items:
         author_obj = it.get("author") or {}
@@ -85,10 +79,10 @@ def fetch_twitter_posts(coin: str,
     if df.empty:
         return df
     
+    # Timestamp hygiene, maybe make into utility function later
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
-    if getattr(df["timestamp"].dt, "tz", None) is not None:
-        df["timestamp"] = df["timestamp"].dt.tz_convert(None)
+    df["timestamp"] = df["timestamp"].tz_convert(None)
     df = df.sort_values("timestamp").drop_duplicates(subset=["id"])
 
     cols = ["timestamp", "text", "source", "url", "author",

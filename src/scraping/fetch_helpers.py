@@ -1,7 +1,13 @@
+"""
 import pandas as pd
 from src.utils.cache import load_cached_csv, cache_csv
 
+Code was made to get around rate limits on twitter, didn't work.
+Keeping for reference.
 
+"""
+
+"""
 def time_windows(start, end, freq_hours: int):
     cur = start
     delta = pd.Timedelta(hours=freq_hours)
@@ -9,7 +15,7 @@ def time_windows(start, end, freq_hours: int):
         nxt = min(cur + delta, end)
         yield cur, nxt
         cur = nxt
-
+# 
 def fetching_windows(fetch_func, base_settings: dict, start, end,
                      window_hours: int, per_window_limit: int,
                      cache_key_fields: list, id_col:str):
@@ -49,3 +55,4 @@ def window_params(days: int, num_posts: int):
         window_hours = 72
     per_window_limit = max(25, int(posts_per_day * window_hours / 24))
     return window_hours, per_window_limit
+"""
