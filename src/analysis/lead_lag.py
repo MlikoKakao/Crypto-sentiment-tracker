@@ -62,13 +62,21 @@ def compute_lead_lag(
             r_val = valid.corr().iloc[0, 1]
             r = _to_float(r_val)
             try:
-                _, pval = pearsonr(
+                pearson_res = pearsonr(
                     valid.iloc[:, 0].to_numpy(), valid.iloc[:, 1].to_numpy()
                 )
+                pval = float(pearson_res[1])
             except Exception:
-                pval = np.nan
+                pval = float("nan")
 
-        pval = _to_float(pval) if not isinstance(pval, float) or not np.isnan(pval) else float(pval)
+            # Ensure pval is a Python float for downstream consumption and typing
+            try:
+                if not isinstance(pval, float):
+                    pval = _to_float(pval)
+                else:
+                    pval = float(pval)
+            except TypeError:
+                pval = float("nan")
         out.append([lag_seconds_value, r, pval, int(n)])
     return pd.DataFrame(out, columns=["lag_seconds", "r", "p_value", "n"])
 

@@ -1,11 +1,10 @@
 from __future__ import annotations
 import time
-from typing import List, Dict, Any
+from typing import List, Dict, Any, cast, Sequence, Tuple, Callable
 
 import pandas as pd
 import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
-from transformers.pipelines import Pipeline
 
 from textblob import TextBlob
 from transformers import pipeline
@@ -55,17 +54,18 @@ def pred_textblob(texts: List[str]) -> List[str]:
     return [_to_trinary_from_score(s) for s in scores]
 
 def pred_roberta(texts: List[str], batch_size: int = 32, device: int = -1) -> List[str]:
-    clf: Pipeline = pipeline(
-        task: str = "sentiment-analysis",
+    clf: Any = pipeline( # type: ignore[call-arg]
+        cast(Any, "sentiment-analysis"),
         model="cardiffnlp/twitter-roberta-base-sentiment-latest",
+        truncation=True,
         device=device,
     )
     out = clf(texts, batch_size=batch_size)
     return [str(r["label"]).lower() for r in out]  # negative/neutral/positive
 
 def pred_finbert(texts: List[str], batch_size: int = 16, device: int = -1) -> List[str]:
-    clf = pipeline(
-        "sentiment-analysis",
+    clf: Any = pipeline( # type: ignore[call-arg]
+        cast(Any, "sentiment-analysis"),
         model="yiyanghkust/finbert-tone",
         truncation=True,
         device=device,
@@ -82,7 +82,7 @@ def _metrics(y_true: List[str], y_pred: List[str]) -> Dict[str, Any]:
     report = classification_report(y_true, y_pred, labels=list(CANONICAL), zero_division=0, digits=3)
     return {"accuracy": acc, "f1_macro": f1m, "confusion": cm, "report": report}
 
-def _examples(y_true, y_pred, texts, k=4):
+def _examples(y_true: Sequence[str], y_pred: Sequence[str], texts: Sequence[str], k: int = 4) -> List[Tuple[str, str, str]]:
     bad = [(t, yt, yp) for t, yt, yp in zip(texts, y_true, y_pred) if yt != yp]
     return bad[:k]
 
@@ -107,7 +107,7 @@ def evaluate(df: pd.DataFrame,
 
     results: Dict[str, Dict[str, Any]] = {}
 
-    def run(fn):
+    def run(fn: Callable[[List[str]], List[str]]) -> Dict[str, Any]:
         t0 = time.perf_counter()
         y_hat = fn(texts)
         t1 = time.perf_counter()
@@ -120,8 +120,8 @@ def evaluate(df: pd.DataFrame,
 
     results["VADER"]    = run(pred_vader)
     results["TextBlob"] = run(pred_textblob)
-    results["RoBERTa"]  = run(lambda T=texts: pred_roberta(T, device=device))
-    results["FinBERT"]  = run(lambda T=texts: pred_finbert(T, device=device))
+    results["RoBERTa"]  = run(lambda t: pred_roberta(t, device=device))
+    results["FinBERT"]  = run(lambda t: pred_finbert(t, device=device))
     return results
 
 

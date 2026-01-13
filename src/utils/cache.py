@@ -58,6 +58,7 @@ def _file_lock(lock_path: Path, timeout: float = 5.0, poll: float = 0.05):
 #Makes all formatting centralized instead of always having to convert
 def _normalize(obj: Any) -> Any:
     import datetime as dt
+    np: Any = None
     try:
         import numpy as np
     except ImportError:

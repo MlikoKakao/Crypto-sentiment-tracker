@@ -1,7 +1,7 @@
 import pandas as pd
 import plotly.express as px
 import numpy as np
-from typing import List, Dict, Any
+from typing import Dict, Any, Sequence
 import streamlit as st
 
 
@@ -34,7 +34,9 @@ def to_table(results: Dict[str, Dict[str, Any]]) -> pd.DataFrame:
     return df
 
 
-def confusion_figure(cm: np.ndarray, labels=CANONICAL, title: str = "Confusion matrix"):
+def confusion_figure(
+    cm: np.ndarray, labels: Sequence[str] = CANONICAL, title: str = "Confusion matrix"
+) -> Any:
     df_cm = pd.DataFrame(cm, index=labels, columns=labels)
     fig = px.imshow(
         df_cm,
@@ -47,7 +49,7 @@ def confusion_figure(cm: np.ndarray, labels=CANONICAL, title: str = "Confusion m
     return fig
 
 
-def accuracy_figure(table: pd.DataFrame):
+def accuracy_figure(table: pd.DataFrame) -> None:
     fig_acc = px.bar(
         table,
         x="Model",
@@ -60,7 +62,7 @@ def accuracy_figure(table: pd.DataFrame):
     st.plotly_chart(fig_acc, use_container_width=True)
 
 
-def confusion_matrices(results):
+def confusion_matrices(results: Dict[str, Dict[str, Any]]) -> None:
     cols = st.columns(2)
     names = list(results.keys())
     for i, name in enumerate(names):

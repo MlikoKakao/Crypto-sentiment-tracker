@@ -33,6 +33,8 @@ def file_sha1(p:str | os.PathLike) -> str: #Returns content fingerprint of a fil
         raise IsADirectoryError(p)
 
     # Fast path (Py 3.11+)
+    from typing import Any as _Any
+    file_digest: _Any = None
     try:
         from hashlib import file_digest
     except ImportError:
