@@ -3,7 +3,7 @@ import pandas as pd
 from src.processing.smoothing import apply_loess
 import plotly.graph_objects as go
 import streamlit as st
-from typing import Optional
+from typing import Optional, cast
 
 
 def plot_price_time_series(df: pd.DataFrame, coin: str):
@@ -28,7 +28,7 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
     df = df.copy()
     df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
-    df.loc[:, "date_str"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")
+    df.loc[:, "date_str"] = cast(pd.Series, df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")) #type: ignore
     fig = px.scatter(
         df,
         x="sentiment",

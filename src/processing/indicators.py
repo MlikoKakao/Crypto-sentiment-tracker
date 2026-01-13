@@ -1,11 +1,12 @@
 from __future__ import annotations
 import pandas as pd
+from typing import Tuple
 
 
 def add_indicators(
     df: pd.DataFrame,
     price_col: str = "price",
-    sma_windows=(20, 50),
+    sma_windows: Tuple[int, int] = (20, 50),
     rsi_period: int = 14,
     macd_fast: int = 12,
     macd_slow: int = 26,

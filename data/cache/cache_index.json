@@ -8,5 +8,83 @@
       "dataset": "price",
       "days": "1"
     }
+  },
+  "a86df76682a72720dd5f0cd59963253c": {
+    "path": "C:\\Users\\PC\\crypto-tracker\\data\\cache\\a86df76682a72720dd5f0cd59963253c.csv",
+    "rows": 63,
+    "updated": 1768263588,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "posts_reddit",
+      "end_date": "2026-01-13T00:19:41",
+      "num_posts": 300,
+      "query": "(bitcoin or btc)",
+      "source": "reddit",
+      "start_date": "2026-01-12T00:19:41",
+      "subreddits": [
+        "bitcoin",
+        "cryptocurrency",
+        "cryptocurrencytrading",
+        "cryptomarkets"
+      ],
+      "tz": "utc"
+    }
+  },
+  "563abeb05ab2a8b275d8c4604ab93090": {
+    "path": "C:\\Users\\PC\\crypto-tracker\\data\\cache\\563abeb05ab2a8b275d8c4604ab93090.csv",
+    "rows": 63,
+    "updated": 1768263588,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "sentiment",
+      "input_sha1": "7b43a3b963ba3f47a39b403d61600d46b6334a8f",
+      "source": "reddit"
+    }
+  },
+  "0edd9d3a9daff40ce1c22fd1c2b2027d": {
+    "path": "C:\\Users\\PC\\crypto-tracker\\data\\cache\\0edd9d3a9daff40ce1c22fd1c2b2027d.csv",
+    "rows": 289,
+    "updated": 1768263588,
+    "settings": {
+      "coin": "bitcoin",
+      "dataset": "price",
+      "days": 1
+    }
+  },
+  "fdf3372b900f6f52abf7051499607ca6": {
+    "path": "C:\\Users\\PC\\crypto-tracker\\data\\cache\\fdf3372b900f6f52abf7051499607ca6.csv",
+    "rows": 63,
+    "updated": 1768263588,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "merged",
+      "days": 1,
+      "depends_on": [
+        "2bc752240a1f3ecc1189df01a9bc02453121dc71",
+        "7129705b4cab5e6af3c7c0ef135fde639084309c"
+      ],
+      "posts_choice": "reddit"
+    }
+  },
+  "624797c5ccd5aa3f852f930a0dc8a8c8": {
+    "path": "C:\\Users\\PC\\crypto-tracker\\data\\cache\\624797c5ccd5aa3f852f930a0dc8a8c8.csv",
+    "rows": 193,
+    "updated": 1768263589,
+    "settings": {
+      "analyzer": "vader",
+      "coin": "bitcoin",
+      "dataset": "features",
+      "days": 1,
+      "depends_on": [
+        "8df612baed72e3e7cfd0544393e45b118654bb84"
+      ],
+      "lag_max_s": 86400,
+      "lag_min_s": -86400,
+      "lag_step_s": 900,
+      "metric": "pearson",
+      "posts_choice": "reddit"
+    }
   }
 }

@@ -51,7 +51,7 @@ def fetch_twitter_posts(coin: str,
     }
 
     run = client.actor(actor_id).call(run_input=input_data)
-    if not run or not isinstance(run, dict) or "defaultDatasetId" not in run:
+    if not run or "defaultDatasetId" not in run:
         raise RuntimeError("Unexpected response from Apify actor; missing defaultDatasetId")
     items = client.dataset(run["defaultDatasetId"]).list_items(limit=limit).items #type: ignore[attr-defined]
     # ignore because it can only get to this point after check for API key, theoretically API key could be
