@@ -3,26 +3,29 @@ import pandas as pd
 from src.processing.smoothing import apply_loess
 import plotly.graph_objects as go
 import streamlit as st
-from typing import Optional, cast
+from typing import Optional, cast, Sequence
 
 
-def plot_price_time_series(df: pd.DataFrame, coin: str):
-    df = df.copy()
-    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
-    df = df.dropna(subset=["timestamp"])
+def plot_price_time_series(df: Optional[pd.DataFrame], coin: str):
+    if isinstance(df, pd.DataFrame):
+        df = df.copy()
+        df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+        df = df.dropna(subset=["timestamp"])
 
-    fig = px.line(
-        df,
-        x="timestamp",
-        y="price",
-        title=f"{coin.capitalize()} Price Over Time",
-        labels={"timestamp": "Date", "price": "Price (USD)"},
-    )
+        fig = px.line(
+            df,
+            x="timestamp",
+            y="price",
+            title=f"{coin.capitalize()} Price Over Time",
+            labels={"timestamp": "Date", "price": "Price (USD)"},
+        )
 
-    fig.update_traces(line=dict(width=2))
-    fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
-    return fig
-
+        fig.update_traces(line=dict(width=2))
+        fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
+        return fig
+    else:
+        st.warning("No dataframe delivered to plot price/time function.")
+        return 1
 
 def plot_sentiment_vs_price(df: pd.DataFrame):
     df = df.copy()
@@ -155,7 +158,7 @@ def plot_lag_correlation(
     else:
         df["lag_axis"] = df["lag_seconds"].astype(float)
         x_label = "Lag (seconds)"
-
+    
     df = df.sort_values("lag_axis")
 
     fig = px.line(
@@ -170,11 +173,14 @@ def plot_lag_correlation(
     # Zero line
     fig.add_hline(y=0, line_dash="dot", line_width=1)
 
-    valid = df.dropna(subset=["r"])
+    df["lag_axis"] = pd.to_numeric(df["lag_axis"], errors="coerce")
+    df["r"] = pd.to_numeric(df["r"], errors="coerce")
+
+    valid = df.dropna(subset=["r", "lag_axis"])
     if not valid.empty:
-        best_idx = valid["r"].abs().idxmax()
-        best_x = float(valid.loc[best_idx, "lag_axis"])
-        best_r = float(valid.loc[best_idx, "r"])
+        best_pos = valid["r"].abs().to_numpy().argmax()
+        best_x = float(valid["lag_axis"].to_numpy()[best_pos])
+        best_r = float(valid["r"].to_numpy()[best_pos])
         fig.add_vline(x=best_x, line_dash="dash", line_width=1, line_color="gray")
         fig.add_scatter(
             x=[best_x],
@@ -210,7 +216,7 @@ def plot_drawdown(df_bt: pd.DataFrame):
     return fig
 
 
-def plot_price_with_sma(df, coin, sma_cols):
+def plot_price_with_sma(df: pd.DataFrame, coin: str, sma_cols: Sequence[str]):
     fig = go.Figure()
     fig.add_trace(
         go.Scatter(x=df["timestamp"], y=df["price"], name="Price", mode="lines")
@@ -230,7 +236,7 @@ def plot_price_with_sma(df, coin, sma_cols):
     return fig
 
 
-def plot_rsi(df, rsi_col="rsi_14"):
+def plot_rsi(df: pd.DataFrame, rsi_col: str = "rsi_14"):
     if rsi_col not in df.columns:
         return None
     fig = go.Figure()
@@ -245,7 +251,7 @@ def plot_rsi(df, rsi_col="rsi_14"):
     return fig
 
 
-def plot_macd(df):
+def plot_macd(df: pd.DataFrame):
     if not {"macd", "macd_signal", "macd_hist"}.issubset(df.columns):
         return None
     ts = pd.to_datetime(df["timestamp"])

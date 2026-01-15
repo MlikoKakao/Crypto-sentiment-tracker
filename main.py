@@ -1,6 +1,7 @@
 import subprocess
 
-from src.scraping import fetch_reddit_posts, get_price_history
+from src.scraping.reddit_scraper import fetch_reddit_posts
+from src.scraping.fetch_price import get_price_history
 from src.sentiment import add_sentiment_to_file
 from src.processing.merge_data import merge_sentiment_and_price
 
@@ -39,6 +40,7 @@ class CryptoSentimentApp:
     def merge_data(self):
         print("Merging data")
         merge_sentiment_and_price(self.sentiment_file, self.price_file, self.merged_file)
+        # Doesn't work bcs merge now needs cache_settings, this is basically just test file so idc
         print(f"Merged to {self.merged_file}")
 
     def launch_dashboard(self):

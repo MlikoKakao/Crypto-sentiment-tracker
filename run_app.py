@@ -1,13 +1,12 @@
 import os
 import streamlit as st
 import pandas as pd
-import plotly.express as px
 import numpy as np
 from pytz import utc
 from datetime import timedelta
 import logging
 import sys
-import hashlib, pathlib
+import pathlib
 
 try:
     for k, v in st.secrets.items():
@@ -26,9 +25,9 @@ from src.utils.helpers import (
 from src.scraping.fetch_price import get_price_history
 from config.settings import DEMO_MODE
 if DEMO_MODE:
-    def fetch_reddit_posts(*args, **kwargs): return pd.DataFrame()
-    def fetch_twitter_posts(*args, **kwargs): return pd.DataFrame()
-    def fetch_news_posts(*args, **kwargs): return pd.DataFrame()
+    def fetch_reddit_posts(*args, **kwargs): return pd.DataFrame() #type: ignore
+    def fetch_twitter_posts(*args, **kwargs): return pd.DataFrame() #type: ignore
+    def fetch_news_posts(*args, **kwargs): return pd.DataFrame() #type: ignore
 else:
     from src.scraping.reddit_scraper import fetch_reddit_posts
     from src.scraping.twitter_scraper import fetch_twitter_posts
@@ -45,9 +44,7 @@ from config.settings import(
     POSTS_KIND,
     DEFAULT_SUBS,
     subs_for_coin,
-    COIN_SUBS,
     DEMO_MODE,
-    get_demo_data_path
 )
 from src.plotting.charts import (
     plot_price_time_series,
@@ -182,7 +179,7 @@ if DEMO_MODE:
     #Backtest on demo data
     if backtest:
         try:
-            bt, stats = run_backtest(view, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
+            bt, stats = run_backtest(view, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min") #type: ignore 
             st.plotly_chart(plot_equity(bt),   use_container_width=True)
             st.plotly_chart(plot_drawdown(bt), use_container_width=True)
 
@@ -243,6 +240,8 @@ with st.sidebar.form("analysis_form"):
             DEFAULT_SUBS + subs_for_coin(selected_coin),
             default=DEFAULT_SUBS + subs_for_coin(selected_coin)[:1]
         )
+        if subreddits == []:
+            st.warning("Must select at least 1 subreddit")
 
     backtest = st.checkbox("Run backtest")
     if backtest:
@@ -344,12 +343,12 @@ if submit:
             "end_date": end_date.tz_convert(None).isoformat(timespec="seconds"),
             "num_posts": num_posts,
             "tz":"utc",
-            "subreddits": subreddits
+            "subreddits": subreddits #type: ignore - added warning
         }
         reddit_df = load_cached_csv(reddit_settings, parse_dates=["timestamp"],freshness_minutes = 30)
         if reddit_df is None:
                 with st.spinner("Fetching Reddit posts..."):
-                    reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits)
+                    reddit_df = fetch_reddit_posts(query=reddit_settings["query"], limit=num_posts, start_date=start_date, end_date=end_date, subreddits=subreddits) #type: ignore
                     reddit_df["source"] = "reddit"
                     reddit_df["timestamp"] = pd.to_datetime(reddit_df["timestamp"], utc=True)
 
@@ -603,7 +602,7 @@ if (not DEMO_MODE) and "merged_path" in st.session_state and os.path.exists(st.s
         st.info("Lag features not available for the selected range.")
 
     if backtest:
-        bt, stats  = run_backtest(df, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min")
+        bt, stats  = run_backtest(df, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min") #type: ignore - always bound bcs is slider
 
         st.plotly_chart(plot_equity(bt), use_container_width=True)
         st.plotly_chart(plot_drawdown(bt), use_container_width=True)
@@ -615,13 +614,13 @@ if (not DEMO_MODE) and "merged_path" in st.session_state and os.path.exists(st.s
                 - **Hit Rate** — Share of profitable trades.
                 """.strip())
             
-        CAGR   = stats.get("CAGR")
+        Cagr   = stats.get("CAGR")
         Sharpe = stats.get("Sharpe")
         MaxDD  = stats.get("MaxDD")
         Hit    = stats.get("HitRate")
 
         c1, c2, c3, c4 = st.columns(4)
-        c1.metric("CAGR",    "—" if (CAGR   is None or (isinstance(CAGR,   float) and np.isnan(CAGR)))   else f"{CAGR:.2%}")
+        c1.metric("CAGR",    "—" if (Cagr   is None or (isinstance(Cagr,   float) and np.isnan(Cagr)))   else f"{Cagr:.2%}")
         c2.metric("Sharpe",  "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
         c3.metric("MaxDD",   "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
         c4.metric("Hit Rate","—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")

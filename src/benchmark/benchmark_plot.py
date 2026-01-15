@@ -3,6 +3,7 @@ import plotly.express as px
 import numpy as np
 from typing import Dict, Any, Sequence
 import streamlit as st
+import plotly.graph_objects as go
 
 
 CANONICAL = ("negative", "neutral", "positive")
@@ -36,16 +37,33 @@ def to_table(results: Dict[str, Dict[str, Any]]) -> pd.DataFrame:
 
 def confusion_figure(
     cm: np.ndarray, labels: Sequence[str] = CANONICAL, title: str = "Confusion matrix"
-) -> Any:
-    df_cm = pd.DataFrame(cm, index=labels, columns=labels)
-    fig = px.imshow(
-        df_cm,
-        text_auto=True,
-        color_continuous_scale="Blues",
-        labels=dict(x="Predicted", y="True", color="Count"),
-        title=title,
-        aspect="equal",
+) -> go.Figure:
+    z = np.asarray(cm)
+    n = len(labels)
+
+    x = list(range(n))
+    y = list(range(n))
+    
+    fig = go.Figure(
+        data=go.Heatmap(
+            z=z,
+            x=x,
+            y=y,
+            colorscale="Blues",
+            showscale=True,
+            text=z,
+            texttemplate="%{text}",
+            hovertemplate="True: %{y}<br>Pred: %{x}<br>Count: %{z}<extra></extra>"
+        )
     )
+
+    fig.update_layout(
+        title=title,
+        xaxis_title="Predicted",
+        yaxis_title="True",
+        yaxis_autorange="reversed"
+    )
+
     return fig
 
 
