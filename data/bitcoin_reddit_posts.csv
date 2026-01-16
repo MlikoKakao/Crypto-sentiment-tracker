@@ -1,372 +1,149 @@
 timestamp,text,url,score,num_comments,id,source,subreddit,coin,lang
-2026-01-12 23:38:30+00:00,"1m bitcoin when? 2030?
+2026-01-16 10:42:06+00:00,"récupération et verification presence portefeuille bitcoincore bonjour à tous,
 
-2035?
+j’ai besoin d’aide concernant un ancien wallet bitcoin.
 
-2040?",https://www.reddit.com/r/Bitcoin/comments/1qbb7yt/1m_bitcoin_when/,0,16,1qbb7yt,reddit,Bitcoin,btc,en
-2026-01-12 22:32:04+00:00,"transak processing time made a btc sell order 10h ago, confirmed on the network and the sats have left my account, but transak is still processing the payment to my revolut. 
+j’ai acheté des bitcoins vers 2013. j’avais un wallet à l’époque, pour lequel j’ai fait plusieurs copies de sauvegarde. le wallet est protégé par mot de passe (je me souviens qu’il fallait entrer un mot de passe pour accéder / envoyer), mais je n’ai plus la clé privée en clair.
 
-i looked at the btc wallet my sats were sent to, and it seems that most funds move through within 2 hours.
+aujourd’hui, j’ai encore le fichier du wallet et l’application d’origine, mais elle date de 2013. en essayant de la relancer, elle me demande de resynchroniser la blockchain, ce qui génère plus de 20 go de données. le problème, c’est qu’après extraction, les adresses affichées ne correspondent pas à celles que j’avais à l’époque.
 
-i can see on transak's customer portal that the payment is still processing but this seems to be taking far too long.
+j’ai bien une adresse bitcoin dont je suis sûr qu’elle est la bonne, mais je ne me souviens plus comment je l’avais récupérée à l’origine, ni comment vérifier qu’elle correspond bien à ce wallet précis.
 
-anyone have any experience using transak to revolut account?  thanks!",https://www.reddit.com/r/Bitcoin/comments/1qb9jsw/transak_processing_time/,3,3,1qb9jsw,reddit,Bitcoin,btc,en
-2026-01-12 22:29:47+00:00,bitcoin is on a need to know basis,https://i.redd.it/5eg257bvvzcg1.jpeg,47,8,1qb9hmc,reddit,Bitcoin,btc,en
-2026-01-12 22:20:02+00:00,"two charts, two realities — pick your fighter 🐂🐻 chart 1 screams doom:
+mon objectif est simplement :
 
-“bull trap → new lows → 40k incoming.”
+* vérifier que mon adresse est bien liée à ce wallet
+* réussir à extraire la bonne adresse / les bonnes clés depuis le wallet
+* sans faire de manipulation risquée (je sais que c’est sensible)
 
-chart 2 whispers patience:
+si certains ont déjà récupéré des wallets anciens (2012–2014), ou savent comment gérer ce type de situation (wallet.dat, vieux clients, compatibilité, outils sûrs), je suis preneur de toute aide ou piste.
 
-“bounce off trendline → higher lows → 120k+ still in play.”
+merci d’avance 🙏",https://www.reddit.com/r/Bitcoin/comments/1qecqq6/récupération_et_verification_presence/,0,0,1qecqq6,reddit,Bitcoin,btc,en
+2026-01-16 10:40:45+00:00,"m31, private loan for more bitcoin? do you think, it is a good idea to take a private loan (i am thinking of ca. chf 50'000.-/ usd 63'000) to buy more of bitcoin. i have almost a whole coin because of stacking for the last year, but i think in 5 years we are going to be at a complete new level with bitcoin.
 
-bears see disaster.
+the interest rates in switzerland are at the moment not that high. for a private loan at about 5-7% p.a. and 1.5-2% for mortgages up to 10 years, dipends on your income and the amount of the loan. i could get chf 50'000.- at a payment of chf 961.- for 5 years. best case is bitcoin goes up much earlier or something else i own and i pay it back before the 5 years. 
 
-bulls see opportunity.
+what do you think about the idea? my net monthly income after tax is chf 7'560.-, so liquidity is not a problem.",https://www.reddit.com/r/Bitcoin/comments/1qecpwa/m31_private_loan_for_more_bitcoin/,0,13,1qecpwa,reddit,Bitcoin,btc,en
+2026-01-16 10:21:06+00:00,"an infinitely generated digital story with bitcoin use-case you can use your bitcoin to add to an infinitely generated story, half of all revenue is going to charity. simply enter what you want to add and it generates your addition based on size selected. 0.00001 btc for 100 words, the name is in the top left.",https://i.redd.it/twmn8xcjsodg1.png,0,1,1qece8q,reddit,Bitcoin,btc,en
+2026-01-16 10:07:37+00:00,"got a question: in a hyperbitcoinized world, how does wealth get distributed? hey,
 
-and bitcoin?
+this question is on my mind lately. obviously,  the early hodlers get rewarded through their hard commitment to their currency by obtaining a stagerring amounts of wealth. if\\when bitcoin becomes the world dominating currency, and everything will be measured against it, what will happen to these early bitcoiners? 
 
-it usually wrecks the loud mouths…
+obviously some will sell a bit along the way to make their life easier or to pass along the grandchildren, and then they will spent it along in unreasonable ways.
 
-and rewards whoever keeps stacking quie",https://www.reddit.com/gallery/1qb98h7,1,8,1qb98h7,reddit,Bitcoin,btc,en
-2026-01-12 22:18:10+00:00,"after the recent 2k btc move by a historical whale, how much btc actually hasn't moved since say 2014? people talk a lot about lost btc from the circulating supply, but it seems to me that there might be a lot less ""lost"" or ""abandoned"" than the conventional wisdom conceives. rather, people are just sitting patiently.",https://www.reddit.com/r/Bitcoin/comments/1qb96r1/after_the_recent_2k_btc_move_by_a_historical/,0,3,1qb96r1,reddit,Bitcoin,btc,en
-2026-01-12 21:51:17+00:00,can bitcoin fixes this? 🇮🇷🟠,https://i.redd.it/4fog5220pzcg1.png,0,11,1qb8gwh,reddit,Bitcoin,btc,en
-2026-01-12 21:42:40+00:00,my heart belongs to only btc,https://i.redd.it/bh7gukddnzcg1.png,307,12,1qb88fs,reddit,Bitcoin,btc,en
-2026-01-12 21:19:45+00:00,your daily bitcoin breakdown newsletter is now live. check out today’s top stories and a sneak peek at the latest quick bits snippets. full issue link is in the comments.,https://www.reddit.com/gallery/1qb7lyo,6,1,1qb7lyo,reddit,Bitcoin,btc,en
-2026-01-12 21:17:40+00:00,when fiat falls and bitcoin marches,https://i.redd.it/dsu60p60jzcg1.jpeg,4,10,1qb7jzg,reddit,Bitcoin,btc,en
-2026-01-12 20:23:47+00:00,made a silly btc site out of boredom for those who are also bored and don’t care 🚀🌕 https://pointless-crypto-ent-ved8.bolt.host/,https://i.redd.it/c3lagf3e9zcg1.jpeg,0,9,1qb641u,reddit,Bitcoin,btc,en
-2026-01-12 18:38:58+00:00,"paying for an order with btc i want to order something from my online and pay using bitcoin, and i know you can use cash app to buy bitcoin, but i wasn’t sure if i could use cash app to send it. if anybody could give me recommendations on another app or website to use if cash app doesn’t work, thank you so much. happy new year’s, by the way.",https://www.reddit.com/r/Bitcoin/comments/1qb35vx/paying_for_an_order_with_btc/,0,1,1qb35vx,reddit,Bitcoin,btc,en
-2026-01-12 18:03:02+00:00,"analyze my bc buying workflow hey lads,
+one could argue; well then these early bitcoiners just stay rich, and thats ok, they cannot really print more of it anyway, so who cares? 
 
-i’m looking to try a new way to buy bitcoin to keep them off the radar.
+or will there be just a natural tendency to have it be difficult to hoard vast amount of wealth in a democratic system like bitcoin? that everything you do will make you probably loose money because you are inefficient and allocating your bitcoin in a way that creates more bitcoin?",https://www.reddit.com/r/Bitcoin/comments/1qec63x/got_a_question_in_a_hyperbitcoinized_world_how/,1,6,1qec63x,reddit,Bitcoin,btc,en
+2026-01-16 09:56:41+00:00,"i built spectator, a free read-only bitcoin wallet tracker i was looking for a way to track the value of my bitcoin. i store my crypto in a hardware wallet, and most apps are full-featured wallets designed for sending transactions. but i just wanted to monitor my investments without exposing my private key.
 
-currently, i buy via safepal (using binance) or bybit and then send it directly to my cold wallet. i know this isn’t the most robust method, so i wanted to ask for your opinion.
+so i built spectator, an ios app where you only need to enter your public wallet address. there's no security risk because it cannot access your bitcoin at all. it just reads data from the public blockchain. no authentication, no cloud sync, no tracking or other bs.
 
-i’ve done some research and came up with this possible workflow:
+features:
 
-1. strike (replacing bybit and safepal)
-2. send to phoenix wallet via lightning
-3. use boltz to swap via tor
-4. send to my cold wallet
+* track multiple wallets
+* home screen widget
+* interactive charts showing gains and losses
+* full transaction history with usd value at time of each transaction
 
-any thoughts on this? thanks.",https://www.reddit.com/r/Bitcoin/comments/1qb2634/analyze_my_bc_buying_workflow/,0,7,1qb2634,reddit,Bitcoin,btc,en
-2026-01-12 17:57:00+00:00,"if you're not bullish on bitcoin you don't understand this (big picture) on my podcast ‘bitcoin for millennials’ i talked with vijay boyapati, the author of *the bullish case for bitcoin*. we discuss the roadmap of bitcoin’s monetization, why nation-state adoption has moved from theory to certainty, and how the world’s transition to a bitcoin standard represents the ultimate fight for human freedom.",https://youtu.be/jyGIn6lRWO4,0,1,1qb1zn5,reddit,Bitcoin,btc,en
-2026-01-12 17:45:43+00:00,"does my strategy make sense for the next 3–4 months? does my strategy make sense for the next 3–4 months?
+the app is completely free with no ads. this is my first ios app, so i'd really appreciate any feedback or feature requests!
 
-at the moment, i’ve opened small long positions on bitcoin. i’m waiting for bitcoin to break above 97k. around that level, i plan to close my longs and start building a short position.
-
-my assumption is that the price could rise to a maximum of around 102–103k. i’m planning to enter the short with a large percentage of my deposit, targeting a move down to the 60–70k range.
-
-around those price levels, i intend to start accumulating big long positions",https://www.reddit.com/r/Bitcoin/comments/1qb1o4i/does_my_strategy_make_sense_for_the_next_34_months/,0,20,1qb1o4i,reddit,Bitcoin,btc,en
-2026-01-12 16:46:18+00:00,"where to buy btc p2p using uk bank account hi, that will be my first post, so let me ask you as i seen all topics about it and i am confused.
-
-what p2p is legit to use it?
-i have money on uk bank account and want to make bank transfer in exchange btc.
-
-i noticed guy who answer on posts like mine with links and description like robosat or bisq etc. 
-
-but when i google them, lot of people say about scams, that page is llm generated etc. 
-
-i cannot use exchanges because, i have closed account by revolut, and zempler bank and monzo. reason? no reason, they wrote base on policy which is defined so broadly that my assumption is they just do not like crypto. i did verification, face and id checks, address on 8th of jan and 9th i tried to buy for try 50 gbp then next day account restricted, withdraw money before 6th of february. 
-
-that is ridiculous.
-
-money legit, proof of funds, as are from sfe, and i wanted to buy to invest. but banks do not allow me to. 
-
-is there any p2p where someone been using?
-
-i do not want to pay in deposits in order to buy like robotsats, before buy i need to pay deposit to prevent malicious fake orders which will bump up prices. i have funds and someone have btc and that is it. deal or no deal.
-
-can anyone help? 
-
-banks and governments restricted exchanges, put  marketing that this is scammers tools to steal, and they blocking from purchase. now they put tax on it. 
-
-is crypto not a freedom ? 
-
-guide me please < just not to telegram- i have been there too, and i am lighter by £400>.",https://www.reddit.com/r/Bitcoin/comments/1qb005w/where_to_buy_btc_p2p_using_uk_bank_account/,1,3,1qb005w,reddit,Bitcoin,btc,en
-2026-01-12 16:32:32+00:00,on this day 17 years ago bitcoin first transaction took place: 10 $btc from satoshi to hal finney.,https://i.redd.it/lb6in7w44ycg1.jpeg,7,5,1qazmi6,reddit,Bitcoin,btc,en
-2026-01-12 16:19:48+00:00,"the ownership shift bitcoin doesn’t win arguments.
-
-it outlasts failure.
-
-when trust erodes, people don’t look for better narratives.
-
-they look for neutral systems.
-
-the ownership shift
-
-— hodlhero ₿",https://v.redd.it/ezsg9apu1ycg1,0,1,1qaz9m8,reddit,Bitcoin,btc,en
-2026-01-12 16:18:07+00:00,"question on how to control criminals i fully understand btc and think it is the future (would consider myself a complete btc maxi) but i do question how governments would stop bad guys. if the money of people committing actual harm is borderless and can't be controlled, won't they simply escape? of course, the words ""actual harm"" is vague and needs to be defined instead of anything that the government says is ""bad"" which i think is where btc will have a huge impact in terms of preserving an individual's liberty, but i'm just curious to know how the ""bad bad"" guys will be stopped on a bitcoin standard.
-
-thanks for your responses in advance.",https://www.reddit.com/r/Bitcoin/comments/1qaz7un/question_on_how_to_control_criminals/,0,10,1qaz7un,reddit,Bitcoin,btc,en
-2026-01-12 15:46:20+00:00,"bitcoin rap - kreep artist: bitcoin philosopher
-
-[https://www.youtube.com/@bitcoinphilosopher](https://www.youtube.com/@bitcoinphilosopher)",https://v.redd.it/0bxdsa9ovxcg1,4,0,1qayc0f,reddit,Bitcoin,btc,en
-2026-01-12 15:45:26+00:00,"interactive sha-256 visualizer for years i kept seeing sha-256 everywhere, in bitcoin, tls, git, proofs, ... but every explanation either skipped the details or showed the same diagram that hides the actual work.
-
-most resources explain hashing as:
-
->input → black box → hash
-
-which is fine for beginners, but it leaves out the interesting part: how the message is padded, how w\[0..63\] is generated, and how all 64 rounds update the internal state.
-
-so i built a tool to finally see those steps in real time
-
-https://i.redd.it/osow4190wxcg1.gif
-
-**live demo:** [https://hashexplained.com/](https://hashexplained.com/)  
-**source (mit):** [https://github.com/bitcoin-dev-project/hashes-visualizer](https://github.com/bitcoin-dev-project/hashes-visualizer)
-
-**what it shows:**  
-• message preprocessing & padding  
-• the 64-word schedule (w\[0..63\])  
-• round constants & bitwise functions  
-• (a..h) updating each round  
-• final digest construction
-
-built out of frustration and curiosity, hopefully useful to others too",https://www.reddit.com/r/Bitcoin/comments/1qayb4r/interactive_sha256_visualizer/,29,6,1qayb4r,reddit,Bitcoin,btc,en
-2026-01-12 15:25:55+00:00,"lost btc! i have an old wallet file, named wallet.aes.json from 2013 september. i am trying to gain access to it, however i am puzzled, i have a 30 word seed phrase and a password. the 30 word seedphrase has words that do not follow the bip39 word list, some of them do but not all. i suspect that it is a blockchain wallet with a custom word seedphrase, however i am not 100% sure. i know there is quite a substantial amount of coins in there and urgently need advice or help to get into my wallet!",https://www.reddit.com/r/Bitcoin/comments/1qaxslf/lost_btc/,0,47,1qaxslf,reddit,Bitcoin,btc,en
-2026-01-12 13:43:35+00:00,"is it too late for someone new to get into bitcoin? i’m still learning about bitcoin and trying to understand it from a long-term point of view.
-
-on one hand, i often hear that bitcoin is already “too expensive.” on the other, many people say adoption is still ongoing and that price alone doesn’t tell the full story. as someone who didn’t get involved early, it’s hard to know how to think about this properly.
-
-for those with more experience, how do you personally look at this question today? is it more about understanding bitcoin and having a long-term mindset, or does timing really matter as much as people say?
-
-i’d like to hear different perspectives.",https://www.reddit.com/r/Bitcoin/comments/1qav84z/is_it_too_late_for_someone_new_to_get_into_bitcoin/,0,35,1qav84z,reddit,Bitcoin,btc,en
-2026-01-12 13:22:15+00:00,"rise and shine, hodlers! don’t forget your cold storage wallets ‘cause institutions want your bitcoin! that’s right, diamond-handed degens, stack those sats while it’s cold out there! don’t forget your hardware wallets, ‘cause the bears looking to hibernate and the price can pump any minute!
-
-and remember, no paper hands today—hodl strong, check your node, and maybe dca a little more before coffee. it’s gonna be a beautiful day in bitcoin town!",https://i.redd.it/sbg8avq66xcg1.jpeg,88,3,1qauq8n,reddit,Bitcoin,btc,en
-2026-01-12 12:59:52+00:00,"in the last 5 years, the global money supply increased by over 16 trillion dollars. buy bitcoin.",https://i.redd.it/r0yw3f172xcg1.jpeg,489,42,1qau84f,reddit,Bitcoin,btc,en
-2026-01-12 11:40:30+00:00,when will bitcoin reach the top ranks?,https://i.redd.it/vb03a790owcg1.png,56,31,1qasoq7,reddit,Bitcoin,btc,en
-2026-01-12 11:19:49+00:00,bitcoin cycle keep calm while the storm pass,https://i.redd.it/8z05gjm9kwcg1.jpeg,138,146,1qasblm,reddit,Bitcoin,btc,en
-2026-01-12 11:07:11+00:00,".45 btc i just wanted to say that if it was not this group i would have panic-sold!
-
-i would add …  also thanks to the book! bitcoin standard. i recommend it.
-
-i keep stacking every day small amounts… monthly about 350 usd
-
-thank you bitcoin community  👍🙌",https://www.reddit.com/r/Bitcoin/comments/1qas3mj/45_btc/,34,7,1qas3mj,reddit,Bitcoin,btc,en
-2026-01-12 11:00:57+00:00,"to anyone who thinks they're smarter than bitcoin this message is for you yo guys, don't do what i did back in 2023 and 2024. to any newbie in this space,  
-or anyone who thinks they're smarter than bitcoin this message is for you. back at the start of 2023, i bought bitcoin around $16,500 and sold it at $25,000.  
-then, just a few months later, bitcoin shot up to $126,000. watching that happen, my brain was exploding thinking about how i let go of bitcoin.  
-  
-i realized the problem was that i thought i was smarter than bitcoin, that i could sell at the top and buy at the bottom. so don't do what i did. now, i buy bitcoin no matter what the price is, i never let go of it, and i don't even think about selling
-
-because of what i did back then, i'm suffering in my life right now and i've fallen way behind. my life was supposed to change for the better, but it didn't.  
-don't do what i did",https://www.reddit.com/r/Bitcoin/comments/1qarzlo/to_anyone_who_thinks_theyre_smarter_than_bitcoin/,65,54,1qarzlo,reddit,Bitcoin,btc,en
-2026-01-12 09:57:53+00:00,bitcoin holders in 2026 https://preview.redd.it/2x8asr3p5wcg1.jpg?width=2553&format=pjpg&auto=webp&s=4057492a2faca9f6bc11914cffa948da40764bec,https://www.reddit.com/r/Bitcoin/comments/1qaqxzd/bitcoin_holders_in_2026/,0,4,1qaqxzd,reddit,Bitcoin,btc,en
-2026-01-12 09:56:54+00:00,"i choose btc although it may seem like we're late to this market, we're just getting started.
-
-don't despair on your journey 💪",https://i.redd.it/vgi85bqj5wcg1.jpeg,53,67,1qaqxf6,reddit,Bitcoin,btc,en
-2026-01-12 09:53:05+00:00,"the real risk to your crypto seed phrase isn’t hackers or fires — it’s moving house when people talk about bitcoin self-custody risks, the same scenarios always come up: hackers, malware, house fires, floods. all real risks, sure.
-
-but there’s one risk that almost never gets mentioned, despite being far more likely: **moving**.
-
-in most european countries (including spain), people move houses around **3–4 times during their lives** on average. that means boxes, stress, rushed decisions, storage units, “important stuff” getting mixed with junk, and things not being touched for years.
-
-now think about how most people store their seed phrases:
-
-* paper backups
-* notebooks
-* envelopes
-* usb sticks
-
-these are technically offline, but they rely entirely on **perfect human behavior during chaotic moments**.
-
-the probability of your house burning down is low.  
-the probability that you’ll move multiple times? almost guaranteed.
-
-this isn’t a cryptography problem. bitcoin works fine.  
-it’s a **human systems problem**.
-
-self-custody assumes:
-
-* you’ll remember where things are
-* you won’t accidentally throw them away
-* other people won’t touch them
-* future-you will understand past-you’s organization
-
-that assumption breaks down fast in real life.
-
-i’m curious how people here think about this.  
-do you treat moving, reorganizing, or life changes as part of your threat model?  
-or do you mainly plan for extreme edge cases like fires and hacks?
-
-genuine discussion question — not selling anything, just interested in how others approach this.
-
-https://preview.redd.it/hj7rwadn4wcg1.png?width=1432&format=png&auto=webp&s=eb3851e256d35189dfc9c1fcaedd59e1939b8b7f",https://www.reddit.com/r/Bitcoin/comments/1qaqv9l/the_real_risk_to_your_crypto_seed_phrase_isnt/,0,19,1qaqv9l,reddit,Bitcoin,btc,en
-2026-01-12 09:50:10+00:00,"am i on the right track? please suggest 21m b.tech cse student from india focused on financial independence.
-got into crypto in 2017. invested ₹17k, grew it to ₹36k, then lost it all. i was new and learned my lesson. stayed away for a while.
-did small graphic design gigs during school for daily expenses. later tried forex with around ₹8k, doubled it, but the broker ran away after forex got banned.
-after school, i got back into crypto through airdrops and telegram bot farming.
-
-current status: 
-
-•contributor to a depin project
-
-•rank 1 contributor in another depin project with around 2 million users
-
-•holding 0.029 btc (~$2,600). earlier had 0.033 btc but sold some during an emergency
-
-•stopped trading and now only holding and accumulating btc
-
-•depin earnings last month were around $130
-
-plan: 
-
-•continue farming depin projects
-
-•hold btc long term
-
-•sell btc around $200k to $250k and buy back lower
-
-goal:
-
-•become financially independent
-
-•retire between age 30 to 35
-
-question: 
-
-•am i on the right track or should i change something? open to both positive and negative feedback",https://www.reddit.com/r/Bitcoin/comments/1qaqtmc/am_i_on_the_right_track_please_suggest/,4,18,1qaqtmc,reddit,Bitcoin,btc,en
-2026-01-12 08:43:34+00:00,"selling half my stack. will sell half my stack to buy ibit and do covered on it to generate income. 
-
-wondering if anyone else has done similar things? 
-
-the whole argument made by bitcoin purists to only hold real bitcoin is silly imo. when the real risk of losing your keys via house fire etc is much greater than blackrock losing or dumping their holdings.
-
-plus with ibit i can run the wheel strategy on ibit as an income vehicle. 
-
-edit.
-
-just to add context on why i'm considering this. 
-
-i started buying in 2019 my average is under 30k. i only sold a small piece of my holdings to close on a house when it was trading at 50k. 
-
-currently sitting at over 300% gain so the logical thing to do is diversify out and hold half forever. also 90% of my networth is in btc so i watch the chart literally everyday like every 10 minutes.
-
-doing this will give piece of mind and even lynn alden said she doesn't like to be 100% into anything. 
-
-a side note most of you guys criticizing this idea might have an average over 100k and less than .1 bitcoin so likely any ideas outside of buying and holding forever is seen as an attack.",https://www.reddit.com/r/Bitcoin/comments/1qapsb9/selling_half_my_stack/,0,28,1qapsb9,reddit,Bitcoin,btc,en
-2026-01-12 07:11:52+00:00,"mentor monday, january 12, 2026: ask all your bitcoin questions! ask (and answer!) away! here are the general rules:
-
-* if you'd like to learn something, ask.
-* if you'd like to share knowledge, answer.
-* any question about bitcoin is fair game.
-
-and don't forget to check out /r/bitcoinbeginners
-
-you can sort by new to see the latest questions that may not be answered yet.",https://www.reddit.com/r/Bitcoin/comments/1qaoc7c/mentor_monday_january_12_2026_ask_all_your/,9,4,1qaoc7c,reddit,Bitcoin,btc,en
-2026-01-12 06:27:19+00:00,"most people when bitcoin drops, meanwhile bitcoin",https://i.redd.it/fbelu6pi3vcg1.jpeg,147,7,1qanks6,reddit,Bitcoin,btc,en
-2026-01-12 06:03:47+00:00,"daily discussion, january 12, 2026 please utilize this sticky thread for all general **bitcoin** discussions! if you see posts on the front page or /r/bitcoin/new which are better suited for this daily discussion thread, please help out by directing the op to this thread instead. thank you!
+[app store link](https://apps.apple.com/us/app/spectator-bitcoin-tracker/id6757076843)",https://i.redd.it/1li2sfxpoodg1.png,4,0,1qebz8b,reddit,Bitcoin,btc,en
+2026-01-16 06:07:24+00:00,"daily discussion, january 16, 2026 please utilize this sticky thread for all general **bitcoin** discussions! if you see posts on the front page or /r/bitcoin/new which are better suited for this daily discussion thread, please help out by directing the op to this thread instead. thank you!
 
 if you don't get an answer to your question, you can try phrasing it differently or commenting again tomorrow.
 
-please check the [previous discussion thread](https://www.reddit.com/r/bitcoin/comments/1q9rnwr/daily_discussion_january_11_2026/) for unanswered questions.",https://www.reddit.com/r/Bitcoin/comments/1qan5ra/daily_discussion_january_12_2026/,26,37,1qan5ra,reddit,Bitcoin,btc,en
-2026-01-12 04:37:27+00:00,".21 btc started with small amounts back in february 2024 and i’ve finally reached 0.21 btc.
+please check the [previous discussion thread](https://www.reddit.com/r/bitcoin/comments/1qdcxhy/lightning_thursday_january_15_2026_explore_the/) for unanswered questions.",https://www.reddit.com/r/Bitcoin/comments/1qe85pi/daily_discussion_january_16_2026/,16,6,1qe85pi,reddit,Bitcoin,btc,en
+2026-01-16 03:16:23+00:00,"looking for help coding crypto setups recently became interested in btc and how the actual foundation of it works, in the depths of addresses, seeds, how the real info works. was wondering if anyone know how to automate moving btc from wallet to wallet and how it would work without using apps or anything with the wallet being non-custodial",https://www.reddit.com/r/Bitcoin/comments/1qe4qpf/looking_for_help_coding_crypto_setups/,3,8,1qe4qpf,reddit,Bitcoin,btc,en
+2026-01-15 22:35:48+00:00,gm bitcoin community,https://i.redd.it/5ytjd9dobldg1.jpeg,91,5,1qdy5yi,reddit,Bitcoin,btc,en
+2026-01-15 22:07:40+00:00,"cagr projections ok group, i am trying to put together some projections over the next 10 to 15 years in terms of the bitcoin price. i would like to try to get an organic survey here so:
 
-nothing special, just consistently stacking sats over time.
+give me your projected compound annual grow three for bitcoin over the next 15 years average",https://www.reddit.com/r/Bitcoin/comments/1qdxg58/cagr_projections/,0,30,1qdxg58,reddit,Bitcoin,btc,en
+2026-01-15 20:45:37+00:00,"does peter ever get tired of being constantly wrong? [peter schiff once again saying \\""sell bitcoin\\"" like he does...](https://preview.redd.it/rvtzfjowrkdg1.png?width=1162&format=png&auto=webp&s=82c9df5e5b58608ad72da7a2185c475a42e28daa)
 
-i joined reddit a few days ago and this community has already helped me better understand bitcoin, thanks for that !
+it's like ""just do the opposite of whatever he does...""",https://www.reddit.com/r/Bitcoin/comments/1qdv9h8/does_peter_ever_get_tired_of_being_constantly/,21,16,1qdv9h8,reddit,Bitcoin,btc,en
+2026-01-15 19:26:54+00:00,"looking for ideas hey there, everyone! i am new to this group and i am a big bitcoin guy and i’m always looking for ways to stack more sats. currently, i utilize a cashback credit card for all of my monthly purchases and i funnel all of the cashback rewards into a constant monthly bitcoin by. i also utilize uphold to get 4% rewards back for direct depositing my paycheck every two weeks. i take those rewards and i also buy bitcoin constantly. but of course i am addicted to buying as many satoshi’s as possible.  so i was just curious to get other people‘s ideas on other passive ways that they generate additional funds to purchase bitcoin each month.  any ideas are welcome and i would love to hear them.",https://www.reddit.com/r/Bitcoin/comments/1qdt5r0/looking_for_ideas/,16,5,1qdt5r0,reddit,Bitcoin,btc,en
+2026-01-15 18:36:20+00:00,"one of us - this billionaire said about bitcoin ""you can try to talk me out of it but i'm going to do it""",https://v.redd.it/za94spcr4kdg1,136,18,1qdrrcv,reddit,Bitcoin,btc,en
+2026-01-15 18:22:24+00:00,"is anyone else a bit worried that btc is not moving up today as much as it was yesterday? i understand it moves up, down, and sideways. however when it goes up it usually goes up a lot faster and by more?
 
-sharing this mostly for motivation, it really shows how staying disciplined adds up !",https://www.reddit.com/r/Bitcoin/comments/1qali5m/21_btc/,251,52,1qali5m,reddit,Bitcoin,btc,en
-2026-01-12 03:30:32+00:00,jerome down bad - got bitcoin ? source is from the federal reserves twitter account: [https://x.com/federalreserve/status/2010510130970849338](https://x.com/federalreserve/status/2010510130970849338),https://v.redd.it/1ljwdx1i8ucg1,376,14,1qak4f0,reddit,Bitcoin,btc,en
-2026-01-12 02:29:30+00:00,"is it a good idea use personal line of credit to buy bitcoin? my interest rate is 6.8% (variable). assuming a 30% yoy growth for bitcoin, this looks like a no brainer--you're using fiat to buy more bitcoin. i have no debt.",https://www.reddit.com/r/Bitcoin/comments/1qaiswo/is_it_a_good_idea_use_personal_line_of_credit_to/,0,64,1qaiswo,reddit,Bitcoin,btc,en
-2026-01-12 01:17:38+00:00,"why is this not true? “i think central banks will realize that there are limitations to gold and limitations to bitcoin and will seek out a completely new cryptographic paradigm that they can control on their balance sheet, one that is fungible, tradable, and completely secure and private.”  why is this not bearish for bitcoin?",https://x.com/arjunkhemani/status/2010086216243568747,0,12,1qah7ac,reddit,Bitcoin,btc,en
-2026-01-12 00:38:12+00:00,tax exempt to buy btc curious. has anyone ever went tax exempt and use that money to buy btc all year then pay your taxes with it?,https://www.reddit.com/r/Bitcoin/comments/1qaga0m/tax_exempt_to_buy_btc/,0,9,1qaga0m,reddit,Bitcoin,btc,en
-2026-01-12 19:07:13+00:00,will central banks soon begin adding bitcoin to their reserves?,https://internationalbanker.com/banking/will-central-banks-soon-begin-adding-bitcoin-to-their-reserves/,0,17,1qb3zdq,reddit,CryptoCurrency,btc,en
-2026-01-12 17:57:26+00:00,if you're not bullish on bitcoin you don't understand this (big picture),https://youtu.be/jyGIn6lRWO4,0,14,1qb202x,reddit,CryptoCurrency,btc,en
-2026-01-12 17:35:29+00:00,my feelings when bitcoin is... source: [https://x.com/djdharani17/status/2010757864001060931](https://x.com/djdharani17/status/2010757864001060931),https://i.redd.it/yv1u2er7fycg1.png,0,7,1qb1dgl,reddit,CryptoCurrency,btc,en
-2026-01-12 16:35:19+00:00,"mstr stock at a make-or-break price as strategy buys 13,627 bitcoins",https://crypto.news/mstr-stock-price-make-or-break-strategy-buys-more-btc/,81,41,1qazp6p,reddit,CryptoCurrency,btc,en
-2026-01-12 16:34:25+00:00,"saylor’s strategy shells out $1.25 billion for 13,627 more bitcoins ahead of crypto policy vote",https://www.cryptopolitan.com/saylors-strategy-buys-13627-more-bitcoins/,57,15,1qazobf,reddit,CryptoCurrency,btc,en
-2026-01-12 13:03:19+00:00,bitcoin is being hijacked by three “boring” institutional dials that are overpowering the halving’s supply shock,https://cryptoslate.com/bitcoin-is-being-hijacked-by-three-boring-institutional-dials-that-are-overpowering-the-halvings-supply-shock/,53,16,1qaub4b,reddit,CryptoCurrency,btc,en
-2026-01-12 09:32:29+00:00,fed rate cuts under fire: 5 things to know in bitcoin this week,https://cointelegraph.com/news/fed-rate-cuts-under-fire-5-things-bitcoin-this-week,9,3,1qaqjnb,reddit,CryptoCurrency,btc,en
-2026-01-12 06:49:12+00:00,us stole a chinese scam king’s $15b bitcoin? here’s “how”,https://beincrypto.com/us-stole-chinese-scam-kings-15b-bitcoin/,128,19,1qanyec,reddit,CryptoCurrency,btc,en
-2026-01-12 01:46:36+00:00,blackrock warns crypto’s love affair with ai is over as an energy war with bitcoin miners begins,https://cryptoslate.com/blackrock-ai-energy-forecast-bitcoin-mining-impact-2026/,103,37,1qahulh,reddit,CryptoCurrency,btc,en
-2026-01-12 01:10:35+00:00,"why bitcoin’s tight range could be setting up for a major breakout soon aka nobody knows anything but buy hold & gamble i guess is all we can do
+is anyone else a little worried about this slowdown in velocity? 
 
-bitcoin’s tight range signals potential for a breakout. key levels to watch include $87,600, $94,700, and $96,500 for next major move.
+may this even be a dead cat bounce before new lows in october?",https://www.reddit.com/r/Bitcoin/comments/1qdrde4/is_anyone_else_a_bit_worried_that_btc_is_not/,0,21,1qdrde4,reddit,Bitcoin,btc,en
+2026-01-15 18:09:35+00:00,"don’t trust, verify. i also started staking silver to fight the money printer, but later found bitcoin and never looked back. 
+for all the gold bugs lurking here, be careful out there.",https://i.redd.it/ybggt0l60kdg1.jpeg,1403,181,1qdr04o,reddit,Bitcoin,btc,en
+2026-01-15 17:14:19+00:00,"bitcoin paperwallet or ledger? bitcoin paperwallet or ledger?
 
-bitcoin has been in a tight range for several weeks, with limited price movement. while the lack of volatility has frustrated some traders, it may be a sign that bitcoin is gearing up for a larger move.
+whats the safest cold storage?",https://www.reddit.com/r/Bitcoin/comments/1qdpfey/bitcoin_paperwallet_or_ledger/,0,13,1qdpfey,reddit,Bitcoin,btc,en
+2026-01-15 16:10:27+00:00,bitcoin is the answer. the new deal.  the knight in shining armor.  the currently banking system is awful and stacked against you.  i have venmo bank transfers that are listed “pending” after 8 days.  8!   how is this possibly acceptable in today’s technology.  i’ll tolerate banks for me to use debt to my personal advantage.  i will not tolerate the banks awful treatment of deposit customers with my assets.  pulled from the system.,https://www.reddit.com/r/Bitcoin/comments/1qdno1g/bitcoin_is_the_answer/,21,3,1qdno1g,reddit,Bitcoin,btc,en
+2026-01-15 16:06:18+00:00,"wall street advisors lift crypto allocations, but old doubts refuse to die this feels like bitcoin crossing a psychological line rather than a financial one. advisors aren’t arguing about legitimacy anymore, they’re just arguing about sizing and wrappers. sub-5% allocations... mostly etfs, zero appetite for operational risk. not bullish or bearish, jus institutional...",https://www.sandmark.com/news/top-news/wall-street-advisors-lift-crypto-allocations-old-doubts-refuse-die,16,3,1qdnjv7,reddit,Bitcoin,btc,en
+2026-01-15 15:51:36+00:00,"has anyone here lost a lot of money in bitcoin? we often hear success stories about bitcoin, but i’m curious about the other side. are there people in this community who have lost a significant amount of money in bitcoin?
 
-market participants are carefully watching for a breakout, as bitcoin’s recent consolidation could set the stage for significant price action in the coming weeks.",https://www.livebitcoinnews.com/why-bitcoins-tight-range-could-be-setting-up-for-a-major-breakout-soon/,7,13,1qah1fs,reddit,CryptoCurrency,btc,en
-2026-01-12 23:01:20+00:00,"santiment reveals the top 10 crypto projects by developer activity — a quiet signal before the next cycle santiment just released its ranking of the top 10 crypto projects by developer activity over the last 30 days — and the list is very different from what twitter hype would suggest.
+if you’re comfortable sharing, i’d really appreciate hearing about your experience — what happened, what you learned from it, and what you’re doing now. 
 
-instead of meme tokens or short-term narratives, the leaders are infrastructure-heavy projects focused on wallets, data layers, l2 scaling, interoperability and security tooling.
+i think these stories are just as important as the success stories.",https://www.reddit.com/r/Bitcoin/comments/1qdn58f/has_anyone_here_lost_a_lot_of_money_in_bitcoin/,267,255,1qdn58f,reddit,Bitcoin,btc,en
+2026-01-15 15:08:20+00:00,"who do you follow for the purest bitcoin signal? twitter, nostr, youtube, personal website, newsletter... gimme your favorites.",https://www.reddit.com/r/Bitcoin/comments/1qdm05k/who_do_you_follow_for_the_purest_bitcoin_signal/,0,27,1qdm05k,reddit,Bitcoin,btc,en
+2026-01-15 15:04:01+00:00,the bitcoin you buy. the bitcoin you sell.,https://i.redd.it/xw0h3mn23jdg1.jpeg,0,9,1qdlw46,reddit,Bitcoin,btc,en
+2026-01-15 12:24:53+00:00,"my parents bank has paid them basically nothing for 30 years and they never questioned it once had this realization over the holidays talking to my dad about money. hes had money at the same bank for literally 30 years earning what, maybe 0.5% on a good day? meanwhile that bank has been lending his deposits out at 7-8% and pocketing the spread this entire time and he just accepted it as normal because what alternative did he have.
 
-top names this month include metamask usd (musd), filecoin, starknet, hedera, chainlink, safe, internet computer, defichain, cardano and avalanche.
+now we have bitcoin as an actual alternative to the legacy system and stablecoin yields paying 6-7% for people who want to stay in dollars, and most people still have no idea this stuff exists or dismiss it as scam because media told them crypto is for criminals. the amount of value traditional banks extract from regular people is actually insane when you stop and think about it.
 
-why this matters: sustained developer activity often leads real adoption cycles by months. before new products, new ecosystems and enterprise integrations go live, engineers are already pushing code in silence.
+not saying everyone needs to go full bitcoin maxi but the fact that alternatives to the legacy banking system exist now and are accessible to anyone with internet should be a bigger deal than it is. our parents generation had no choice but to accept getting screwed by banks. we actually have options.
 
-full breakdown and analysis here:  
-[https://btcusa.com/santiment-ranks-top-10-crypto-projects-by-developer-activity-over-the-last-30-days/](https://btcusa.com/santiment-ranks-top-10-crypto-projects-by-developer-activity-over-the-last-30-days/)
+anyone else have these conversations with family and just feel like youre speaking different languages?",https://www.reddit.com/r/Bitcoin/comments/1qdi4pr/my_parents_bank_has_paid_them_basically_nothing/,351,160,1qdi4pr,reddit,Bitcoin,btc,en
+2026-01-15 12:19:19+00:00,your daily bitcoin breakdown newsletter is now live. check out today’s top stories and a sneak peek at the latest opinion & analysis pieces. full issue link is in the comments.,https://www.reddit.com/gallery/1qdi0uh,15,1,1qdi0uh,reddit,Bitcoin,btc,en
+2026-01-15 11:25:48+00:00,"mining since 2013 bitcoin mining since 2013 and i’m still not leaving. ama.
 
-curious what others think — do you use dev activity as part of your research, or do you focus purely on price and narratives?",https://www.reddit.com/r/CryptoCurrencyTrading/comments/1qbaauk/santiment_reveals_the_top_10_crypto_projects_by/,2,0,1qbaauk,reddit,CryptoCurrencyTrading,btc,en
-2026-01-12 06:49:59+00:00,"how 2025 reshaped crypto trading strategies: from robots to grid orders and ai by 2025, a growing number of crypto traders had switched to using robots. market conditions necessitated the automation of algorithms. as can be seen from the chart, bitcoin was only trending for six weeks out of 52.
+r/bitcoin 
 
-sideways movement is ideal for strategies involving grids of limit orders. crypto traders take a 'long' position, opening positions on pullbacks and automatically closing them when local and historical highs are reached.
+https://preview.redd.it/51dk9zn10idg1.jpg?width=576&format=pjpg&auto=webp&s=73582308981b5892b1e6c71e1a3e53f5b221b56e",https://www.reddit.com/r/Bitcoin/comments/1qdh1bc/mining_since_2013/,0,27,1qdh1bc,reddit,Bitcoin,btc,en
+2026-01-16 08:24:41+00:00,bitcoin etfs pull $844 million as crypto etf rally extends,https://news.bitcoin.com/bitcoin-etfs-pull-844-million-as-crypto-etf-rally-extends/,7,1,1qeaiwz,reddit,CryptoCurrency,btc,en
+2026-01-16 07:45:45+00:00,why wall street refuses to sell bitcoin – and actually bought way more – even while losing 25% of its value,https://cryptoslate.com/why-wall-street-refuses-to-sell-bitcoin-and-actually-bought-way-more-even-while-losing-25-of-its-value/,49,8,1qe9vkk,reddit,CryptoCurrency,btc,en
+2026-01-16 05:39:20+00:00,"early adoption coin - to invest or not to invest? one of my colleagues is a crypto nerd and he came across this early adoption coin video, he said he did his own research and spectral might be a good coin to invest in...i am fairly new to investing and want to invest in something that has a low value and will potentially go up in the future. according to him - "" spectral has decent market cap, its definitely no bitcoin, but it has the potential to go up by a decent amount"". 
 
-using robots enables round-the-clock trading, with profits locked in automatically and new limit orders placed immediately within the day. according to the data, the volume of trades using grid strategies increased by 97% over the year and the amount of capital invested in them doubled.
-
-the most explosive growth, at 352%, was observed in pairs with stablecoins. thanks to their peg to the dollar, crypto traders can open sell and buy limit orders when the exchange rate deviates from $1, locking in profits when the peg disappears.
-while the profit from such trading is relatively small, it is stable due to the arbitrage of the dollar peg and the predictability of volatility spikes. 
-
-at the same time, there has been growing interest among crypto traders in more complex strategies based on artificial intelligence. large platforms offer their users ready-made ai products, including ai agents that can interact with the blockchain independently.
-
-i would like to remind you of the fundamental principle of ai. unlike a robot, where the code is clearly written, it is a 'black box'; none of its creators know exactly how ai makes decisions.",https://www.reddit.com/gallery/1qanyv6,3,1,1qanyv6,reddit,CryptoCurrencyTrading,btc,en
-2026-01-12 20:09:17+00:00,"the four year cycle is dead. bitcoin is heading for one more massive leg up, solid alts are going to follow and the whole market is going to melt faces. my estimate is btc to between a quarter and a half a million dollars before the end of this year. more would not be a huge surprise to me.
-
-this time is different, the halving has lost most of it's influence and much of that perceived influence was little more than coincidence anyway. 
-
-so bearish halveners tell me i'm wrong and tell me why. the beautiful thing is we're going to find out but please don't delete your posts as you fomo back in in the coming weeks/months.",https://www.reddit.com/r/CryptoMarkets/comments/1qb5ppv/the_four_year_cycle_is_dead/,59,45,1qb5ppv,reddit,CryptoMarkets,btc,en
-2026-01-12 19:33:43+00:00,"bitcoin’s current structure vs 2020 — similar expansion phase or different cycle? looking at bitcoin’s structure today compared to 2020, the similarities are hard to ignore.
-
-back then, btc broke out of a long accumulation phase before entering a strong expansion.
-now we’re seeing:
-- higher highs and higher lows
-- strong momentum
-- increasing macro attention
-
-of course, nothing is guaranteed and history doesn’t repeat perfectly — but the setup feels familiar.
-
-curious to hear thoughts:
-do you see a similar cycle playing out, or is this time different?",https://www.reddit.com/r/CryptoMarkets/comments/1qb4q2t/bitcoins_current_structure_vs_2020_similar/,3,3,1qb4q2t,reddit,CryptoMarkets,btc,en
-2026-01-12 17:07:16+00:00,"scalping bitcoin? my daughter has asked me to lend her money so she can finish these tasks with this group chat for scalping bitcoin.  she has paid back the smaller amounts she's borrowed but now is asking for a significant amount of money - and she can't provide me with a link, a website, anything. 
-
-my spidey-senses are going off that this is a scam and she will lose out on the money eventually - that they're just giving back the money to hook her. 
-
-she's doing this through a group chat on telegram.  
-
-has anyone heard about this? know anything about it? is it legit or a scam?",https://www.reddit.com/r/CryptoMarkets/comments/1qb0l8s/scalping_bitcoin/,9,15,1qb0l8s,reddit,CryptoMarkets,btc,en
-2026-01-12 16:38:39+00:00,"i need some quick advice. how do i trade on robinhood to get the best prices? got the 3% back on everything robinhood gold card (likely because they saw i am a revolver that doesn't miss payments or i had 100% of the deposited assets i made under their control for over half a decade.)  
-anyway. i've noticed to buy btc with robinhood they're charging me a 0.85% fee. so i tried a limit order, but it's not going through. do i just need to wait a while for it to go through? i'm getting confused. i'm not saying robinhood is ""scamming"" but i am saying i don't want to give up almost all of the benefit of my 3% back card just to get an instant buy order to go through.
-
+please give me any advice that might help me with investing or let me know if i'm totally off in my approach here.",https://youtu.be/tNlTXmsIXGY?si=J-YxjhaJnJPenCs1,0,0,1qe7mgr,reddit,CryptoCurrency,btc,en
+2026-01-16 01:22:18+00:00,"in december 2020, guy takes our $46k loan to buy 2.55 bitcoin. i’d say it worked out for him",https://i.redd.it/kg64o3yd5mdg1.jpeg,3365,191,1qe26os,reddit,CryptoCurrency,btc,en
+2026-01-15 16:36:31+00:00,"iren's west texas bitcoin mine & ai campus is taking shape - 1,200+ workers on site >construction picture updates of iren’s new bitcon mine and ai computing facilities on the plains of west texas.  
   
-any advice? ai is starting to annoy me.",https://www.reddit.com/r/CryptoMarkets/comments/1qazsij/i_need_some_quick_advice_how_do_i_trade_on/,1,3,1qazsij,reddit,CryptoMarkets,btc,en
-2026-01-12 14:19:21+00:00,"while most assets chop sideways, monero is quietly setting new highs — what does it signal? monero has been one of the most resilient majors over the last weeks. while btc, sol, and eth show indecision, xmr has been climbing toward new ath territory.
+horizon 1 electrical and mechanical works are well underway, horizon 2 data halls are rising, horizon 3-4 civils have commenced, with 1,200+ workers active on site.
 
-the interesting part isn't just the price — it's the narrative:
+source: [https://x.com/documentingbtc/status/2011547592552034701](https://x.com/documentingbtc/status/2011547592552034701)",https://www.reddit.com/gallery/1qdodtz,33,19,1qdodtz,reddit,CryptoCurrency,btc,en
+2026-01-15 15:40:15+00:00,bitcoin etfs post $840m inflows as btc rallies above $97k,https://cointelegraph.com/news/blackrock-leads-840-million-bitcoin-etf-inflows,12,0,1qdmubl,reddit,CryptoCurrency,btc,en
+2026-01-15 14:29:02+00:00,"arthur hayes claims bitcoin’s 2025 decline was due to liquidity tightening, not a failure.",https://coinedition.com/bitcoins-2025-decline-was-a-liquidity-event-not-a-failure/,34,27,1qdkzrn,reddit,CryptoCurrency,btc,en
+2026-01-16 10:40:35+00:00,the great monetary migration: why we are entering phase 3 of hyperbitcoinization.,https://inbitcoinwetrust.substack.com/p/the-great-monetary-migration-why,2,2,1qecpsf,reddit,CryptoMarkets,btc,en
+2026-01-15 22:11:27+00:00,help! 2k portfolio so i have a modest 2000$ to make a portfolio. risk-wise i want to go 'middle of the road' risk-to-reward ratio. no number 200 meme coin but not bitcoin either. how much would you allocate in which currencies? thank you!,https://www.reddit.com/r/CryptoMarkets/comments/1qdxjou/help_2k_portfolio/,5,33,1qdxjou,reddit,CryptoMarkets,btc,en
+2026-01-15 18:00:51+00:00,"2026 strategy: is “only btc” still enough? i’m seeing more discussions suggesting 2026 could lean more toward altcoins, especially if btc becomes more institutional and less volatile.
 
-• privacy demand is growing fast
+a “2026 powerlist” that keeps popping up across trader conversations includes:
+xrp, eth, sol, wbt, zec, ada, xmr.
 
-• more jurisdictions are tightening surveillance
+if btc holds its trend, the usual rotation tends to be:
+btc → major alts → broader altcoins.
 
-• capital is looking for permissionless exit channels
+curious to hear different views —
+what’s your top pick for 2026, and why?",https://www.reddit.com/r/CryptoMarkets/comments/1qdqr0c/2026_strategy_is_only_btc_still_enough/,13,38,1qdqr0c,reddit,CryptoMarkets,btc,en
+2026-01-15 16:02:00+00:00,thoughts on a btc emotion tracker app?,/r/Bitcoin/comments/1qdmcvb/thoughts_on_a_btc_emotion_tracker_app/,1,1,1qdnffe,reddit,CryptoMarkets,btc,en
+2026-01-15 15:57:23+00:00,"btc scenarios: $100k–$103k first, then a possible pullback to ~$57.8k? both scenarios are possible depending on how higher timeframes develop.
 
-do you think “privacy coins” become the next narrative cycle (like ai, rwa, memes, etc), or we are just looking at money flowing from zec into only reliable private coin solution?",https://www.reddit.com/r/CryptoMarkets/comments/1qaw3fu/while_most_assets_chop_sideways_monero_is_quietly/,1,12,1qaw3fu,reddit,CryptoMarkets,btc,en
-2026-01-12 13:34:07+00:00,"btc reclaimed $91.2k — support flip or fakeout? btc just reclaimed the $91.2k level, which previously acted as strong local resistance.
+a push toward $100k–$103k can happen if btc breaks and holds above key resistance levels.
+on the other hand, a deeper pullback toward ~$57.8k would also make sense if momentum fades. that zone is important because it aligns with the 0.618 fibonacci retracement and the 200-week moving average, levels long-term buyers tend to watch closely.
 
-the key question now is acceptance:
-can price hold above this level and turn it into support?
+historically, altcoin season usually accelerates after btc confirms a breakout and holds, not before.
 
-• holding above $91.2k could open the path toward the $94k area
-• losing it likely means more range-bound price action and consolidation
+which altcoin are you watching right now?",https://www.reddit.com/r/CryptoMarkets/comments/1qdnarx/btc_scenarios_100k103k_first_then_a_possible/,0,28,1qdnarx,reddit,CryptoMarkets,btc,en
+2026-01-15 13:16:03+00:00,"thursday recap: btc above $97k, strong etf inflows, and steady infrastructure progress btc pushed above $97k while price action remained relatively calm, but underlying signals were constructive. spot bitcoin etfs recorded ~$753m in net inflows (the largest daily inflow since october), suggesting institutions are still accumulating rather than chasing.
 
-this looks like a classic support-flip test.
-curious to hear how others are positioning around this level.",https://www.reddit.com/r/CryptoMarkets/comments/1qav07l/btc_reclaimed_912k_support_flip_or_fakeout/,13,33,1qav07l,reddit,CryptoMarkets,btc,en
-2026-01-12 12:36:31+00:00,"btc vs eth at these levels, what are you buying? seeing btc \~28% down, eth \~38%. tracking daily on coinswitch from quite some time but curious how others are thinking about it. are you sticking to btc, or taking the extra drawdown risk with eth?",https://www.reddit.com/r/CryptoMarkets/comments/1qatrbp/btc_vs_eth_at_these_levels_what_are_you_buying/,47,38,1qatrbp,reddit,CryptoMarkets,btc,en
-2026-01-12 10:09:47+00:00,"i rotate based on btc dominance. nothing fancy, but it works for me. my entire rotation logic is pretty boring.
+on the infrastructure and regulatory side, progress continues:
+	•	visa and bvnk launched stablecoin payout infrastructure
+	•	pakistan moved forward with usd1 integration
+	•	germany’s dz bank received approval to launch a crypto platform
+	•	nyse listed a chainlink etf
 
-when btc dominance drops below \~50%, i start moving into alts. when it pushes past \~55%, i rotate back to btc. no predictions. no narratives. just reacting to the chart. been tracking this lately on the coinswitch app and marking entries on the dominance chart. results aren’t crazy, but they’re consistent enough. curious if anyone else uses btc dominance this mechanically??",https://www.reddit.com/r/CryptoMarkets/comments/1qar4xp/i_rotate_based_on_btc_dominance_nothing_fancy_but/,12,8,1qar4xp,reddit,CryptoMarkets,btc,en
-2026-01-12 10:07:11+00:00,the bitcoin builder's manifesto: a checklist for sovereignty. from passive observer to sovereign architect: the practical roadmap.,https://inbitcoinwetrust.substack.com/p/the-bitcoin-builders-manifesto-a,31,1,1qar3i1,reddit,CryptoMarkets,btc,en
-2026-01-12 05:54:21+00:00,"bitcoin rises 1%, nasdaq futures and dollar index drop as trump-powell feud escalates",https://www.coindesk.com/markets/2026/01/12/bitcoin-rises-1-nasdaq-futures-and-dollar-index-drop-as-trump-powell-fued-escalates,8,3,1qamzd4,reddit,CryptoMarkets,btc,en
+price may look quiet, but the ecosystem continues to build steadily beneath the surface.",https://www.reddit.com/r/CryptoMarkets/comments/1qdj7vh/thursday_recap_btc_above_97k_strong_etf_inflows/,10,6,1qdj7vh,reddit,CryptoMarkets,btc,en
+2026-01-15 12:01:40+00:00,"the anatomy of a ""liquidity grab"": why bitcoin wicked down to stop you out (and then pumped immediately)",/r/cryptopatternai/comments/1qdhmgb/the_anatomy_of_a_liquidity_grab_why_bitcoin/,1,3,1qdhoj5,reddit,CryptoMarkets,btc,en
+2026-01-15 11:46:04+00:00,"crypto vs. the rising dollar ... what’s next? lately crypto has been consolidating while the us dollar continues to climb, reaching levels we haven’t seen in months.
+
+a strong dollar can create short-term pressure on bitcoin and ethereum, but it also attracts institutional capital since crypto is still seen as a hedge against inflation, which could boost demand over the medium term. 
+
+at the same time, a rising dollar makes crypto more expensive for international buyers, and some long-term holders are taking profits, adding potential volatility. short-term traders should watch for dips, but long-term hodlers still have reason to stay bullish. 
+
+
+
+how do you see it, right now we have a solid bounce ... how long will it continue?",https://www.reddit.com/r/CryptoMarkets/comments/1qdhe9m/crypto_vs_the_rising_dollar_whats_next/,7,11,1qdhe9m,reddit,CryptoMarkets,btc,en

@@ -86,7 +86,7 @@ st.sidebar.header("Main controls")
 
 if st.sidebar.button("Clear cache"):
     res = clear_cache_dir()
-    mb = res["bytes_freed"]/1e6
+    mb = res["bytes_freed"]/1000000 
     st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
     st.session_state.pop("merged_path", None)
 
@@ -97,6 +97,7 @@ st.sidebar.divider()
 
 st.sidebar.header("Settings")
 
+# Eventually move this whole thing to separate demo.py
 if DEMO_MODE:
     st.info("Demo mode is ON — using only files from data/demo (no scraping, no cache).")
 
@@ -222,53 +223,55 @@ if DEMO_MODE:
     #Do not proceed to scraping/caching pipeline
     st.stop()
 
-with st.sidebar.form("analysis_form"):
-    selected_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
-    selected_coin = COINS_UI_TO_SYMBOL[selected_label]
-    num_posts = st.slider("Number of posts to fetch", min_value=100, max_value=1100, step=100, value=300)
-    days = st.selectbox("Price history in days", DEFAULT_DAYS,
-                          help="Choosing day range longer than 90 days causes to only show price point once per day.")
-    analyzer_choice = st.selectbox(
-        "Choose sentiment analyzer:", ANALYZER_UI_LABELS,
-        help=("VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, "
-              "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
+sentiment, finance = st.tabs(["Sentiment", "Finance"])
+selected_label = st.sidebar.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
+selected_coin = COINS_UI_TO_SYMBOL[selected_label]
+num_posts = st.sidebar.slider("Number of posts to fetch", min_value=100, max_value=1100, step=100, value=300)
+days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS,
+                        help="Choosing day range longer than 90 days causes to only show price point once per day.")
+analyzer_choice = st.sidebar.selectbox(
+    "Choose sentiment analyzer:", ANALYZER_UI_LABELS,
+    help=("VADER - all-rounder, decent speed and analysis; Text-Blob - fastest, but least accurate, "
+            "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative")
+)
+posts_choice = st.sidebar.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND, index=1)
+default_subreddits = DEFAULT_SUBS + subs_for_coin(selected_coin)[:1]
+if posts_choice in ("All", "Reddit"):
+    subreddits = st.sidebar.multiselect(
+        "Subreddits",
+        DEFAULT_SUBS + subs_for_coin(selected_coin),
+        default = default_subreddits
     )
-    posts_choice = st.selectbox("Choose which kind of posts you want to analyze:", POSTS_KIND)
-    if posts_choice in ("All", "Reddit"):
-        subreddits = st.multiselect(
-            "Subreddits",
-            DEFAULT_SUBS + subs_for_coin(selected_coin),
-            default=DEFAULT_SUBS + subs_for_coin(selected_coin)[:1]
-        )
-        if subreddits == []:
-            st.warning("Must select at least 1 subreddit")
+    if subreddits == []:
+        subreddits = default_subreddits
+        st.sidebar.warning("No subreddits chosen, defaulted.")
 
-    backtest = st.checkbox("Run backtest")
-    if backtest:
-        cost_bps = st.number_input("Cost (bps)", 0.0, 100.0, 5.0, 0.5)
-        slip_bps = st.number_input("Slippage (bds)", 0.0, 100.0, 5.0, 0.5)
+backtest = st.sidebar.checkbox("Run backtest")
+if backtest:
+    cost_bps = st.sidebar.number_input("Cost (bps)", min_value=0.0, max_value=100.0, value=5.0, step=0.5)
+    slip_bps = st.sidebar.number_input("Slippage (bds)", min_value=0.0, max_value=100.0, value=5.0, step=0.5)
 
-    st.header("Lead/Lag settings")
-    lag_hours = st.slider("Lag window (±hours)", 1, 48, 24)
-    lag_step_min = st.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
-    metric_choice = st.selectbox("Correlation metric", ["pearson"], index=0)
+st.sidebar.header("Lead/Lag settings")
+lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
+lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
+metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
 
-    st.markdown("### Indicators")
-    use_sma = st.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
-    use_rsi = st.checkbox("RSI (14)", value=True, help="Relative Strength Index")
-    use_macd = st.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
+st.sidebar.markdown("### Indicators")
+use_sma = st.sidebar.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
+use_rsi = st.sidebar.checkbox("RSI (14)", value=True, help="Relative Strength Index")
+use_macd = st.sidebar.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
 
-    sma_fast = st.number_input("SMA fast", 5, 200, 20, 1)
-    sma_slow = st.number_input("SMA slow", 5, 400, 50, 1)
-    rsi_period = st.number_input("RSI period", 5, 50, 14, 1)
+sma_fast = st.sidebar.number_input("SMA fast", 5, 200, 20, 1)
+sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
+rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
 
 
-    submit = st.form_submit_button("Run Analysis")
+run = st.sidebar.button("Run Analysis", type="primary")
 
 
 
 #Fetching and merging all data
-if submit:
+if run:
 
     end_date = pd.Timestamp.now(tz=utc)
     start_date = end_date - timedelta(days=int(days))
@@ -572,83 +575,88 @@ if (not DEMO_MODE) and "merged_path" in st.session_state and os.path.exists(st.s
         max_value=max_date,
         value=(min_date, max_date)
     )
-
-    #Time filter
-    df = filter_date_range(df, selected_range[0],selected_range[1])
-
-    feats = None
-    if "lead_lag_settings" in st.session_state:
-        try:
-            feats = load_or_build_lead_lag_features(st.session_state["lead_lag_settings"], st.session_state["merged_path"])
-        except Exception as e:
-            st.warning(f"Could not build lead/lag features: {e}")
-
-    #Price plot
-    st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
-   
-    #Sentiment timeline
-    st.plotly_chart(plot_sentiment_timeline(df, selected_coin), use_container_width=True)
-
-    #Sentiment vs price timeline (smoothed)
-    st.plotly_chart(plot_sentiment_with_price(df, selected_coin), use_container_width=True)
     
-    if feats is not None and not feats.empty:
-        try:
-            fig_lag = plot_lag_correlation(feats,  unit="min")
-            st.plotly_chart(fig_lag, use_container_width=True)
-        except ValueError as e:
-            st.warning(f"Lag plot unavailable: {e}")
-    else:
-        st.info("Lag features not available for the selected range.")
+    
+    with sentiment:
+        #Time filter
+        df = filter_date_range(df, selected_range[0],selected_range[1])
 
-    if backtest:
-        bt, stats  = run_backtest(df, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min") #type: ignore - always bound bcs is slider
+        feats = None
+        if "lead_lag_settings" in st.session_state:
+            try:
+                feats = load_or_build_lead_lag_features(st.session_state["lead_lag_settings"], st.session_state["merged_path"])
+            except Exception as e:
+                st.warning(f"Could not build lead/lag features: {e}")
 
-        st.plotly_chart(plot_equity(bt), use_container_width=True)
-        st.plotly_chart(plot_drawdown(bt), use_container_width=True)
-        with st.expander("What the metrics mean"):
-            st.markdown("""
-                - **CAGR** — Compounded Annual Growth Rate.
-                - **Sharpe** — Risk-adjusted return (higher is better).
-                - **MaxDD** — Maximum drawdown from peak equity.
-                - **Hit Rate** — Share of profitable trades.
-                """.strip())
-            
-        Cagr   = stats.get("CAGR")
-        Sharpe = stats.get("Sharpe")
-        MaxDD  = stats.get("MaxDD")
-        Hit    = stats.get("HitRate")
+        #Price plot
+        st.plotly_chart(plot_price_time_series(price_df, selected_coin), use_container_width=True)
+    
+        #Sentiment timeline
+        st.plotly_chart(plot_sentiment_timeline(df, selected_coin), use_container_width=True)
 
-        c1, c2, c3, c4 = st.columns(4)
-        c1.metric("CAGR",    "—" if (Cagr   is None or (isinstance(Cagr,   float) and np.isnan(Cagr)))   else f"{Cagr:.2%}")
-        c2.metric("Sharpe",  "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
-        c3.metric("MaxDD",   "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
-        c4.metric("Hit Rate","—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
+        #Sentiment vs price timeline (smoothed)
+        st.plotly_chart(plot_sentiment_with_price(df, selected_coin), use_container_width=True)
+
+        #Sentiment vs price
+        st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
+
+        #Average sentiment
+        avg_sent = df["sentiment"].mean()
+        st.metric(label=f"Average Sentiment {selected_label}", value=f"{avg_sent:.3f}")
+
+    with finance:
+        if feats is not None and not feats.empty:
+            try:
+                fig_lag = plot_lag_correlation(feats,  unit="min")
+                st.plotly_chart(fig_lag, use_container_width=True)
+            except ValueError as e:
+                st.warning(f"Lag plot unavailable: {e}")
+        else:
+            st.info("Lag features not available for the selected range.")
+
+        if backtest:
+            bt, stats  = run_backtest(df, cost_bps=cost_bps, slippage_bps=slip_bps, resample="5min") #type: ignore - always bound bcs is slider
+
+            st.plotly_chart(plot_equity(bt), use_container_width=True)
+            st.plotly_chart(plot_drawdown(bt), use_container_width=True)
+            with st.expander("What the metrics mean"):
+                st.markdown("""
+                    - **CAGR** — Compounded Annual Growth Rate.
+                    - **Sharpe** — Risk-adjusted return (higher is better).
+                    - **MaxDD** — Maximum drawdown from peak equity.
+                    - **Hit Rate** — Share of profitable trades.
+                    """.strip())
+                
+            Cagr   = stats.get("CAGR")
+            Sharpe = stats.get("Sharpe")
+            MaxDD  = stats.get("MaxDD")
+            Hit    = stats.get("HitRate")
+
+            c1, c2, c3, c4 = st.columns(4)
+            c1.metric("CAGR",    "—" if (Cagr   is None or (isinstance(Cagr,   float) and np.isnan(Cagr)))   else f"{Cagr:.2%}")
+            c2.metric("Sharpe",  "—" if (Sharpe is None or (isinstance(Sharpe, float) and np.isnan(Sharpe))) else f"{Sharpe:.2f}")
+            c3.metric("MaxDD",   "—" if (MaxDD  is None or (isinstance(MaxDD,  float) and np.isnan(MaxDD)))  else f"{abs(MaxDD):.2%}")
+            c4.metric("Hit Rate","—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
 
 
-    #Sentiment vs price
-    st.plotly_chart(plot_sentiment_vs_price(df), use_container_width=True)
-
-    #Average sentiment
-    avg_sent = df["sentiment"].mean()
-    st.metric(label=f"Average Sentiment {selected_label}", value=f"{avg_sent:.3f}")
+    
     
 
-    sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
-    view = filter_date_range(df, selected_range[0], selected_range[1])
+        sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]
+        view = filter_date_range(df, selected_range[0], selected_range[1])
 
 
-    if use_sma:
-        st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
+        if use_sma:
+            st.plotly_chart(plot_price_with_sma(view, selected_coin, sma_cols), use_container_width=True)
 
 
-    if use_rsi:
-        fig = plot_rsi(view, rsi_col=f"rsi_{int(rsi_period)}")
-        if fig: st.plotly_chart(fig, use_container_width=True)
+        if use_rsi:
+            fig = plot_rsi(view, rsi_col=f"rsi_{int(rsi_period)}")
+            if fig: st.plotly_chart(fig, use_container_width=True)
 
-    if use_macd:
-        fig = plot_macd(view)
-        if fig: st.plotly_chart(fig, use_container_width=True)
+        if use_macd:
+            fig = plot_macd(view)
+            if fig: st.plotly_chart(fig, use_container_width=True)
     
 
    
