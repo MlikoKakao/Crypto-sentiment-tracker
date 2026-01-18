@@ -81,19 +81,8 @@ st.set_page_config(page_title="Crypto Sentiment Tracker",layout="wide")
 st.title("Crypto sentiment tracker")
 st.markdown("Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies")
 
-#Config
-st.sidebar.header("Main controls")
-
-if st.sidebar.button("Clear cache"):
-    res = clear_cache_dir()
-    mb = res["bytes_freed"]/1000000 
-    st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
-    st.session_state.pop("merged_path", None)
 
 
-benchtest = st.sidebar.button("Run analyzer benchmark")
-
-st.sidebar.divider()
 
 st.sidebar.header("Settings")
 
@@ -204,22 +193,6 @@ if DEMO_MODE:
             c4.metric("Hit Rate", "—" if (Hit    is None or (isinstance(Hit,    float) and np.isnan(Hit)))    else f"{Hit:.2%}")
         except Exception as e:
             st.warning(f"Backtest unavailable in demo: {e}")
-    if benchtest:
-        try:
-            from src.benchmark.analyzer_eval import run_fixed_benchmark
-            from src.benchmark.benchmark_plot import accuracy_figure, confusion_matrices
-            results, table = run_fixed_benchmark()
-            st.dataframe(
-                table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
-                use_container_width=True
-            )
-            accuracy_figure(table)
-            st.markdown("#### Confusion Matrices")
-            confusion_matrices(results)
-        except FileNotFoundError:
-            st.error("data/benchmark_labeled.csv not found for benchmark.")
-        except Exception as e:
-            st.exception(e)
     #Do not proceed to scraping/caching pipeline
     st.stop()
 
@@ -246,27 +219,59 @@ if posts_choice in ("All", "Reddit"):
         subreddits = default_subreddits
         st.sidebar.warning("No subreddits chosen, defaulted.")
 
-backtest = st.sidebar.checkbox("Run backtest")
-if backtest:
-    cost_bps = st.sidebar.number_input("Cost (bps)", min_value=0.0, max_value=100.0, value=5.0, step=0.5)
-    slip_bps = st.sidebar.number_input("Slippage (bds)", min_value=0.0, max_value=100.0, value=5.0, step=0.5)
+with st.sidebar.expander("Advanced settings"):
+    backtest = st.sidebar.checkbox("Run backtest")
+    if backtest:
+        cost_bps = st.sidebar.number_input("Cost (bps)", min_value=0.0, max_value=100.0, value=5.0, step=0.5)
+        slip_bps = st.sidebar.number_input("Slippage (bds)", min_value=0.0, max_value=100.0, value=5.0, step=0.5)
 
-st.sidebar.header("Lead/Lag settings")
-lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
-lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
-metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
+    st.sidebar.header("Lead/Lag settings")
+    lag_hours = st.sidebar.slider("Lag window (±hours)", 1, 48, 24)
+    lag_step_min = st.sidebar.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
+    metric_choice = st.sidebar.selectbox("Correlation metric", ["pearson"], index=0)
 
-st.sidebar.markdown("### Indicators")
-use_sma = st.sidebar.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
-use_rsi = st.sidebar.checkbox("RSI (14)", value=True, help="Relative Strength Index")
-use_macd = st.sidebar.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
+    st.sidebar.markdown("### Indicators")
+    use_sma = st.sidebar.checkbox("SMA (20/50)", value=True, help="Simple Moving Average")
+    use_rsi = st.sidebar.checkbox("RSI (14)", value=True, help="Relative Strength Index")
+    use_macd = st.sidebar.checkbox("MACD (12,26,9)", value=True, help="Moving Average Convergence Divergence")
 
-sma_fast = st.sidebar.number_input("SMA fast", 5, 200, 20, 1)
-sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
-rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
-
+    sma_fast = st.sidebar.number_input("SMA fast", 5, 200, 20, 1)
+    sma_slow = st.sidebar.number_input("SMA slow", 5, 400, 50, 1)
+    rsi_period = st.sidebar.number_input("RSI period", 5, 50, 14, 1)
 
 run = st.sidebar.button("Run Analysis", type="primary")
+
+st.sidebar.header("Utils")
+
+if st.sidebar.button("Clear cache"):
+    res = clear_cache_dir()
+    mb = res["bytes_freed"]/1000000 
+    st.sidebar.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
+    st.session_state.pop("merged_path", None)
+
+
+benchtest = st.sidebar.button("Run analyzer benchmark")
+
+if DEMO_MODE:
+    if benchtest:
+            try:
+                from src.benchmark.analyzer_eval import run_fixed_benchmark
+                from src.benchmark.benchmark_plot import accuracy_figure, confusion_matrices
+                results, table = run_fixed_benchmark()
+                st.dataframe(
+                    table.style.format({"Accuracy": "{:.3f}", "F1 (macro)": "{:.3f}"}),
+                    use_container_width=True
+                )
+                accuracy_figure(table)
+                st.markdown("#### Confusion Matrices")
+                confusion_matrices(results)
+            except FileNotFoundError:
+                st.error("data/benchmark_labeled.csv not found for benchmark.")
+            except Exception as e:
+                st.exception(e)
+
+
+
 
 
 

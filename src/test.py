@@ -1,7 +1,4 @@
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
 
 #df = pd.read_csv("data/bitcoin_posts.csv")
 
@@ -19,7 +16,7 @@ df["textblob"] = df["text"].apply(textblob_analyze)
 df["roberta"] = df["text"].apply(roberta_analyze)
 
 # Optional: convert model output to class label
-def convert(score):
+def convert(score: float):
     if score > 0.05:
         return "positive"
     elif score < -0.05:
