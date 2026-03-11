@@ -10,6 +10,7 @@ from contextlib import contextmanager
 import pandas as pd
 import streamlit as st
 import logging
+
 logger = logging.getLogger(__name__)
 
 from config.cache_schema import canonicalize_settings as _canonicalize_settings
@@ -22,6 +23,7 @@ CACHE_DIR_PATH.mkdir(parents=True, exist_ok=True)
 MAPPING_FILE_PATH.parent.mkdir(parents=True, exist_ok=True)
 # To avoid multiple writes to json > throws windows error
 LOCK_FILE = MAPPING_FILE_PATH.with_suffix(".lock")
+
 
 @contextmanager
 def _file_lock(lock_path: Path, timeout: float = 5.0, poll: float = 0.05):
@@ -37,7 +39,7 @@ def _file_lock(lock_path: Path, timeout: float = 5.0, poll: float = 0.05):
                 os.write(fd, str(os.getpid()).encode("utf-8"))
             except Exception:
                 pass
-            break # if acquired
+            break  # if acquired
         except FileExistsError:
             if time.time() - start > timeout:
                 raise TimeoutError(f"Could not acquire lock: {lock_path}")
@@ -55,16 +57,18 @@ def _file_lock(lock_path: Path, timeout: float = 5.0, poll: float = 0.05):
         except FileNotFoundError:
             pass
 
-#Makes all formatting centralized instead of always having to convert
+
+# Makes all formatting centralized instead of always having to convert, doesnt really work the way I imagined
 def _normalize(obj: Any) -> Any:
     import datetime as dt
+
     np: Any = None
     try:
         import numpy as np
     except ImportError:
         np = None
-    
-    if isinstance(obj,dict):
+
+    if isinstance(obj, dict):
         return {k: _normalize(obj[k]) for k in sorted(obj)}
     if isinstance(obj, set):
         return [_normalize(x) for x in sorted(obj)]
@@ -78,17 +82,22 @@ def _normalize(obj: Any) -> Any:
         return obj.item()
     return obj
 
-#Returns dictionary as json
+
+# Returns dictionary as json
 def _settings_blob(settings: Dict[str, Any]) -> str:
     norm = _normalize(settings)
-    return json.dumps(norm, separators=(",",":"), ensure_ascii=False)
+    return json.dumps(norm, separators=(",", ":"), ensure_ascii=False)
+
 
 def hash_settings(settings: Dict[str, Any]) -> str:
-    canon = _canonicalize_settings(settings) #1. Checks if settings have all required keys
-    blob = _settings_blob(canon) #2. Changes dict into json 
-    return hashlib.md5(blob.encode("utf-8")).hexdigest() #3. Returns hashed json
+    canon = _canonicalize_settings(
+        settings
+    )  # 1. Checks if settings have all required keys
+    blob = _settings_blob(canon)  # 2. Changes dict into json
+    return hashlib.md5(blob.encode("utf-8")).hexdigest()  # 3. Returns hashed json
 
-#Checks if settings already exist
+
+# Checks if settings already exist
 def load_mapping() -> Dict[str, Any]:
     if not MAPPING_FILE_PATH.exists():
         return {}
@@ -98,9 +107,12 @@ def load_mapping() -> Dict[str, Any]:
     except json.JSONDecodeError:
         return {}
 
-#Takes in dictionary of settings puts it in MAPPING_FILE(cache_index)
+
+# Takes in dictionary of settings puts it in MAPPING_FILE(cache_index)
 def save_mapping(mp: Dict[str, Any]) -> None:
-    tmp = MAPPING_FILE_PATH.with_name(f"{MAPPING_FILE_PATH.stem}.{os.getpid()}.{int(time.time()*1000)}.tmp")
+    tmp = MAPPING_FILE_PATH.with_name(
+        f"{MAPPING_FILE_PATH.stem}.{os.getpid()}.{int(time.time() * 1000)}.tmp"
+    )
     tmp.write_text(json.dumps(mp, indent=2, ensure_ascii=False), encoding="utf-8")
     with _file_lock(LOCK_FILE):
         for _ in range(10):
@@ -110,26 +122,35 @@ def save_mapping(mp: Dict[str, Any]) -> None:
             except PermissionError:
                 time.sleep(0.05)
         else:
-            MAPPING_FILE_PATH.write_text(json.dumps(mp, indent=2, ensure_ascii=False), encoding="utf-8")
+            MAPPING_FILE_PATH.write_text(
+                json.dumps(mp, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
         try:
             if tmp.exists():
                 tmp.unlink()
         except Exception:
             pass
 
-#Checks last modified time of file
+
+# Checks last modified time of file
 def _is_fresh(path: Path, freshness_minutes: Optional[int]) -> bool:
     if freshness_minutes is None:
         return True
     age_min = (time.time() - path.stat().st_mtime) / 60
-    return age_min <= freshness_minutes #returns T/F if correct
+    return age_min <= freshness_minutes  # returns T/F if correct
 
-#Returns Path to sent settings, it builds the filename from settings hash
+
+# Returns Path to sent settings, it builds the filename from settings hash
 def get_cached_path(settings: Dict[str, Any]) -> Path:
     return CACHE_DIR_PATH / f"{hash_settings(settings)}.csv"
 
-#1. Takes in settings
-def load_cached_csv(settings: Dict[str, Any], parse_dates: Optional[Any] = None, freshness_minutes: Optional[int] = None) -> Optional[pd.DataFrame]:
+
+# 1. Takes in settings
+def load_cached_csv(
+    settings: Dict[str, Any],
+    parse_dates: Optional[Any] = None,
+    freshness_minutes: Optional[int] = None,
+) -> Optional[pd.DataFrame]:
     if DEMO_MODE:
         return None
     settings = _canonicalize_settings(settings)
@@ -144,7 +165,8 @@ def load_cached_csv(settings: Dict[str, Any], parse_dates: Optional[Any] = None,
     logger.info("CACHE HIT %s", path.name)
     return pd.read_csv(path, parse_dates=parse_dates)
 
-#Takes in DataFrame and settings, returns filesystem path of CSV it just wrote
+
+# Takes in DataFrame and settings, returns filesystem path of CSV it just wrote
 def cache_csv(df: pd.DataFrame, settings: Dict[str, Any]) -> Optional[Path]:
     if DEMO_MODE:
         return None
@@ -159,10 +181,11 @@ def cache_csv(df: pd.DataFrame, settings: Dict[str, Any]) -> Optional[Path]:
         "path": str(path),
         "rows": int(len(df)),
         "updated": int(time.time()),
-        "settings": _normalize(settings)
+        "settings": _normalize(settings),
     }
     save_mapping(mp)
     return path
+
 
 def _remove_readonly_and_retry(func: Any, path: str, exc_info: Any) -> None:
     try:
@@ -170,6 +193,7 @@ def _remove_readonly_and_retry(func: Any, path: str, exc_info: Any) -> None:
         func(path)
     except Exception:
         pass
+
 
 def clear_cache_dir() -> Dict[str, int]:
     bytes_freed = 0
@@ -196,6 +220,7 @@ def clear_cache_dir() -> Dict[str, int]:
         logger.debug("streamlit cache clear skipped or unavailable")
     return {"files_removed": files_count, "bytes_freed": bytes_freed}
 
+
 def day_str(ts: Any) -> str:
     t = pd.Timestamp(ts)
     # tz_convert only on tz-aware timestamps
@@ -205,3 +230,4 @@ def day_str(ts: Any) -> str:
         except Exception:
             pass
     return t.normalize().strftime("%Y-%m-%d")
+

@@ -306,16 +306,20 @@ with st.sidebar.expander("Advanced settings"):
     metric_choice = st.selectbox("Correlation metric", ["pearson"], index=0)
 
     st.markdown("### Indicators")
+    # default values so variables exist even when checkboxes are unchecked
+    sma_fast = 20
+    sma_slow = 50
+    rsi_period = 14
     use_sma = st.checkbox("SMA (20/50)", value=False, help="Simple Moving Average")
     use_rsi = st.checkbox("RSI (14)", value=False, help="Relative Strength Index")
     use_macd = st.checkbox(
         "MACD (12,26,9)", value=False, help="Moving Average Convergence Divergence"
     )
     if use_sma:
-        sma_fast = st.number_input("SMA fast", 5, 200, 20, 1)
-        sma_slow = st.number_input("SMA slow", 5, 400, 50, 1)
+        sma_fast = st.number_input("SMA fast", 5, 200, sma_fast, 1)
+        sma_slow = st.number_input("SMA slow", 5, 400, sma_slow, 1)
     if use_rsi:
-        rsi_period = st.number_input("RSI period", 5, 50, 14, 1)
+        rsi_period = st.number_input("RSI period", 5, 50, rsi_period, 1)
 
 run = st.sidebar.button("Run Analysis", type="primary")
 
@@ -792,10 +796,10 @@ if (
                 else f"{Hit:.2%}",
             )
 
-        sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]  # type: ignore
         view = filter_date_range(df, selected_range[0], selected_range[1])
 
         if use_sma:
+            sma_cols = [f"sma_{sma_fast}", f"sma_{sma_slow}"]  # type: ignore
             st.plotly_chart(
                 plot_price_with_sma(view, selected_coin, sma_cols),
                 use_container_width=True,

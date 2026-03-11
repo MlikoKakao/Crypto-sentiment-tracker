@@ -8,7 +8,6 @@ Streamlit app that scrapes posts about **Bitcoin / Ethereum**, runs **sentiment 
 Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 <img width="3835" height="1746" alt="image" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
 
-
 ---
 
 ## Features
@@ -30,36 +29,36 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 ```
 .
 ├─ run_app.py
-├─ data/                     # cached CSVs (gitignored)
-├─ docs/                     # images/gifs for README
+├─ data/ # cached CSVs (gitignored)
+├─ docs/ # images/gifs for README
 ├─ src/
-│  ├─ scraping/
-│  │  ├─ reddit_scraper.py
-│  │  ├─ twitter_scraper.py
-│  │  └─ news_scraper.py
-│  │  └─ fetch_helpers.py
-│  │  └─ fetch_price.py
-│  ├─ sentiment/
-│  │  └─ analyzer.py         # add_sentiment_to_file(), analyzer selection
-│  ├─ processing/
-│  │  └─ merge_data.py       # merge_sentiment_and_price()
-│  │  └─ indicators.py       # calculating indicators
-│  │  └─ smoothing.py        # smoothing for graphs
-│  ├─ plotting/
-│  │  └─ charts.py           # all functionality of graphs, charts
-│  ├─ analysis/
-│  │  └─ lead_lag.py         # calculate lead/lag
-│  ├─ backtest/
-│  │  └─ engine.py           # simulate trading strategy based on sentiment and trend on backtest data
-│  ├─ benchmark/
-│  │  └─ analyzer_eval.py    # benchmarking sentiment models
-│  │  └─ benchmark:plot.py   # plotting benchmarking results
-│  └─ utils/
-│     ├─ helpers.py          # load_csv(), save_csv(), filter_date_range(), map_to_cryptopanic_symbol()
-│     ├─ cache.py            # load_cached_csv(), cache_csv(), clear_cache_dir()
+│ ├─ scraping/
+│ │ ├─ reddit_scraper.py
+│ │ ├─ twitter_scraper.py
+│ │ └─ news_scraper.py
+│ │ └─ fetch_helpers.py
+│ │ └─ fetch_price.py
+│ ├─ sentiment/
+│ │ └─ analyzer.py # add_sentiment_to_file(), analyzer selection
+│ ├─ processing/
+│ │ └─ merge_data.py # merge_sentiment_and_price()
+│ │ └─ indicators.py # calculating indicators
+│ │ └─ smoothing.py # smoothing for graphs
+│ ├─ plotting/
+│ │ └─ charts.py # all functionality of graphs, charts
+│ ├─ analysis/
+│ │ └─ lead_lag.py # calculate lead/lag
+│ ├─ backtest/
+│ │ └─ engine.py # simulate trading strategy based on sentiment and trend on backtest data
+│ ├─ benchmark/
+│ │ └─ analyzer_eval.py # benchmarking sentiment models
+│ │ └─ benchmark:plot.py # plotting benchmarking results
+│ └─ utils/
+│ ├─ helpers.py # load_csv(), save_csv(), filter_date_range(), map_to_cryptopanic_symbol()
+│ ├─ cache.py # load_cached_csv(), cache_csv(), clear_cache_dir()
 └─ config/
-   └─ settings.py            # UI labels, defaults, paths
-   └─ cache_schema.py        # Caching and hashing functionality
+└─ settings.py # UI labels, defaults, paths
+└─ cache_schema.py # Caching and hashing functionality
 ```
 
 ---
@@ -103,25 +102,25 @@ streamlit run run_app.py
 - Choose **Coin**, **Sources**, **Analyzer**, and **Date Range**.
 - Click **Analyze**.
 - Plots include:
-  - Price + EMA/RSI/MACD
-  - **Sentiment vs Price** (calls `plot_sentiment_vs_price(df)`)
+- Price + EMA/RSI/MACD
+- **Sentiment vs Price** (calls `plot_sentiment_vs_price(df)`)
 - Use the cache to avoid repeated API calls for the same window.
 
 ### Data Columns (merged)
-| column        | meaning                                            |
+| column | meaning |
 |---------------|-----------------------------------------------------|
-| `timestamp`   | UTC time (post or price bar)                        |
-| `source`      | `reddit` / `twitter` / `news`                       |
-| `text`        | post text (for content sources)                     |
-| `sentiment`   | polarity score (-1..1)                              |
-| `price`       | close price                                         |
-| `ema20`       | 20-period EMA                                       |
-| `rsi`         | 14-period RSI                                       |
-| `macd`        | MACD line                                           |
-| `macd_signal` | signal line                                         |
-| `macd_hist`   | histogram (macd - signal)                           |
-| `sent_smooth` | EWM-smoothed sentiment                               |
-| `sent_med`    | rolling median of smoothed sentiment                 |
+| `timestamp` | UTC time (post or price bar) |
+| `source` | `reddit` / `twitter` / `news` |
+| `text` | post text (for content sources) |
+| `sentiment` | polarity score (-1..1) |
+| `price` | close price |
+| `ema20` | 20-period EMA |
+| `rsi` | 14-period RSI |
+| `macd` | MACD line |
+| `macd_signal` | signal line |
+| `macd_hist` | histogram (macd - signal) |
+| `sent_smooth` | EWM-smoothed sentiment |
+| `sent_med` | rolling median of smoothed sentiment |
 
 _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 
@@ -137,9 +136,9 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 
 ## Contributing
 
-1. Create a feature branch: `git checkout -b feat/<name>`  
-2. Add tests for ETL/metrics when possible  
-3. Run `streamlit run run_app.py` and attach screenshots/GIFs  
+1. Create a feature branch: `git checkout -b feat/<name>` 
+2. Add tests for ETL/metrics when possible 
+3. Run `streamlit run run_app.py` and attach screenshots/GIFs 
 4. Open a PR
 
 ---
@@ -147,3 +146,4 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 ## License
 
 MIT — see `LICENSE`.
+
