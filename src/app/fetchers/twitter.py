@@ -8,12 +8,6 @@ from config.settings import DEMO_MODE, get_demo_data_path
 
 load_dotenv()
 
-_COIN_TERMS = {
-    "btc": ["bitcoin", "btc", "$btc", "#bitcoin", "#btc"],
-    "eth": ["ethereum", "eth", "$eth", "#ethereum", "#eth"],
-    "xmr": ["monero", "xmr", "$xmr", "#monero", "#xmr"],
-}
-
 actor_id = "apidojo/tweet-scraper"
 
 
@@ -111,4 +105,3 @@ def fetch_twitter_posts(
         "id",
     ]
     return df[cols]
-

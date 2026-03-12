@@ -1,17 +1,15 @@
 from pytz import utc
 from praw import Reddit  # type: ignore no stub file
-from praw.models import Submission, Subreddit
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime
 from dotenv import load_dotenv
 from src.app.dto import AnalysisConfig
 from src.utils.helpers import save_csv, clean_text
 import os
 import logging
-from typing import Optional
-from config.settings import get_demo_data_path
-from src.domain.market.coins import COIN_TERMS
-from src.app.defaults import DEMO_CONFIG
+from src.infra.storage.paths import get_demo_data_path
+from src.app.defaults import DEFAULT_CONFIG
+from src.domain.market.filtering import contains_coin
 
 logger = logging.getLogger(__name__)
 
@@ -31,12 +29,11 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info(
         f"Fetching Reddit posts with query='{config.coin}', limit={config.num_posts}, subs={config.subreddits}"
     )
-    posts = list[dict] = []
-    seen = set[str] = set()
+    posts: list[dict[str, object]] = []
+    seen: set[str] = set()
 
     reddit = get_reddit_client()
     subs = sorted(set(config.subreddits))
-    terms = COIN_TERMS[config.coin]
 
     for sub in subs:
         for submission in reddit.subreddit(sub).new(limit=config.num_posts):
@@ -49,9 +46,8 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
 
             # Filter by keywords locally
             text = f"{submission.title or ''} {submission.selftext or ''}"
-            text_lower = text.lower()
 
-            if not any(term in text_lower for term in terms):
+            if not contains_coin(text, config.coin):
                 continue
 
             post_id = submission.id
@@ -96,7 +92,5 @@ def demo_reddit_scrape():
 
 
 if __name__ == "__main__":
-    now = datetime.now(utc)
-    one_week_ago = now - timedelta(days=7)
-    df = fetch_reddit_posts(DEMO_CONFIG)
+    df = fetch_reddit_posts(DEFAULT_CONFIG)
     save_csv(df, "data/bitcoin_posts.csv")
