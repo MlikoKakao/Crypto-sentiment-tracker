@@ -143,6 +143,14 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 
 ---
 
+## Roadmap
+- [ ] Refactor and clean up application structure
+- [ ] Replace current X/Twitter scraping API
+- [ ] Replace CSV storage with a database
+- [ ] Improve dashboard UI/UX
+- [ ] Add anomaly detection and quick insights
+- [ ] Deploy the application online
+
 ## License
 
 MIT — see `LICENSE`.
