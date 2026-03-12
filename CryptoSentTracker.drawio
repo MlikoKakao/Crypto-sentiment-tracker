@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.6.1">
+  <diagram name="Page-1" id="v-ZNtmENZIXy_4Ns-IW2">
+    <mxGraphModel dx="1062" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" value="&lt;div&gt;src/&lt;/div&gt;&lt;div&gt;&amp;nbsp; app/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; use_cases/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; run_analysis.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; run_backtest.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; load_demo_data.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; dto.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; defaults.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; domain/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; sentiment/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; analyzers.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; registry.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; service.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; market/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; indicators.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; merge.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; backtest/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; engine.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; metrics.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; infra/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; fetchers/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; reddit.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; twitter.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; news.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; price.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; cache/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; file_cache.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; keys.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; storage/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; csv_io.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; paths.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; presentation/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; streamlit/&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; sidebar.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; charts.py&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; pages.py&lt;/div&gt;&lt;div&gt;config/&lt;/div&gt;&lt;div&gt;&amp;nbsp; settings.py&lt;/div&gt;&lt;div&gt;tests/&lt;/div&gt;&lt;div&gt;run_app.py&lt;/div&gt;" vertex="1">
+          <mxGeometry height="620" width="140" x="20" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;b&gt;run_app.py&lt;/b&gt;&lt;div&gt;minimal logic&lt;/div&gt;&lt;div&gt;calls highest-level functions&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="690" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="370" width="250" x="190" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Scraping" vertex="1">
+          <mxGeometry height="40" width="147.5" x="232.5" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Social media, news, price&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="232.5" x="197.5" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;" value="src/app/fetchers" vertex="1">
+          <mxGeometry height="30" width="232.5" x="197.5" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;" value="fetch_reddit_posts(config: AnalysisConfig)&lt;div&gt;fetch_twitter_posts(config: AnalysisConfig)&lt;/div&gt;&lt;div&gt;fetch_news_posts(config: AnalysisConfig)&lt;/div&gt;&lt;div&gt;fetch_price(config: AnalysisConfig)&lt;/div&gt;&lt;div&gt;-&amp;gt;pd.DataFrame&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="232.5" x="197.5" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="220" width="250" x="190" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="App defaults" vertex="1">
+          <mxGeometry height="40" width="143.75" x="243.13" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="GVRdwf7rOcwKAsvy4Fqb-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="150" width="232.5" x="197.5" y="450" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
