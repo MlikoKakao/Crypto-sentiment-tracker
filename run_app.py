@@ -72,6 +72,8 @@ from src.utils.helpers import file_sha1
 from src.analysis.lead_lag import load_or_build_lead_lag_features
 from src.backtest.engine import run_backtest
 from src.processing.indicators import add_indicators
+from src.app.dto import AnalysisConfig
+from src.app.defaults import DEMO_CONFIG
 
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
@@ -97,6 +99,10 @@ st.markdown(
 st.sidebar.header("Settings")
 
 # Eventually move this whole thing to separate demo.py
+
+if mode == "demo":
+    result = load_demo_data(DEMO_CONFIG)
+
 if DEMO_MODE:
     st.info(
         "Demo mode is ON — using only files from data/demo (no scraping, no cache)."
