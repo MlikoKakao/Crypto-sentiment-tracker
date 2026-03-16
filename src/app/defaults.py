@@ -1,5 +1,5 @@
-from app.dto import AnalysisConfig
-from datetime import datetime, timedelta
+from src.app.dto import AnalysisConfig
+from datetime import datetime, timedelta, timezone
 
 
 DEFAULT_SUBREDDITS = ("CryptoCurrency", "CryptoCurrencyTrading", "CryptoMarkets")
@@ -17,8 +17,8 @@ DEMO_CONFIG = AnalysisConfig(
 
 DEFAULT_CONFIG = AnalysisConfig(
     coin="BTC",
-    start_date=datetime.now() - timedelta(days=7),
-    end_date=datetime.now(),
+    start_date=datetime.now(timezone.utc) - timedelta(days=7),
+    end_date=datetime.now(timezone.utc),
     analyzer=("vader",),
     sources=("reddit",),
     num_posts=100,

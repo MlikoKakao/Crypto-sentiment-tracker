@@ -10,6 +10,9 @@ load_dotenv()
 
 actor_id = "apidojo/tweet-scraper"
 
+# Honestly fixing this mess just isn't worth it right now, all the Twitter scrapers suck or are paid
+# I'll come back to change the scraper in the future, for now I have bigger fish to fry
+
 
 def _to_date(val: Optional[str]) -> Optional[str]:
     if val is None or val == "":

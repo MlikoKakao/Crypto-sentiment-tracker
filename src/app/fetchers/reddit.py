@@ -93,4 +93,4 @@ def demo_reddit_scrape():
 
 if __name__ == "__main__":
     df = fetch_reddit_posts(DEFAULT_CONFIG)
-    save_csv(df, "data/bitcoin_posts.csv")
+    save_csv(df, "data/tests/bitcoin_posts.csv")
