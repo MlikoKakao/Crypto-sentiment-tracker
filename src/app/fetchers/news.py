@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 from dotenv import load_dotenv
 from src.app.defaults import DEFAULT_CONFIG
+from src.domain.market.coins import COIN_IDS
 from src.utils.helpers import save_csv, clean_text
 import os
 import logging
@@ -17,10 +18,20 @@ CRYPTOPANIC_API_KEY = os.getenv("CRYPTOPANIC_API_KEY")
 
 def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info(f"Attempting to fetch news for {config.coin}..")
-    url = "https://cryptopanic.com/api/v1/posts/"
+    url = "https://crypto-news51.p.rapidapi.com/api/v1/crypto/articles/search"
+    querystring = {
+        "title_keywords": COIN_IDS[config.coin],
+        "page": "1",
+        "limit": config.num_posts,
+        "time_frame": "24h",
+        "format": "csv",
+    }
+    # TODO: change news API to rapidapi cryptonews ()
     params = {
         "auth_token": CRYPTOPANIC_API_KEY,
-        "currencies": config.coin,  # Could be wrong - dk if they want BTC or bitcoin
+        "currencies": COIN_IDS[
+            config.coin
+        ],  # Could be wrong - dk if they want BTC or bitcoin
         "kind": "news",
         "public": "true",
         "filter": "hot",
