@@ -1,4 +1,4 @@
-from src.app.dto import AnalysisConfig
+from src.app.dto import AnalysisConfig, Source
 from datetime import datetime, timedelta, timezone
 
 
@@ -24,3 +24,10 @@ DEFAULT_CONFIG = AnalysisConfig(
     num_posts=100,
     subreddits=DEFAULT_SUBREDDITS,
 )
+
+POSTS_CHOICE_TO_SOURCES: dict[str, tuple[Source, ...]] = {
+    "All": ("reddit", "twitter", "news"),
+    "Reddit": ("reddit",),
+    "Twitter/X": ("twitter",),
+    "News": ("news",),
+}

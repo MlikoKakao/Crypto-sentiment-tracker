@@ -27,21 +27,6 @@ from src.utils.helpers import (
 )
 from src.scraping.fetch_price import get_price_history
 from config.settings import DEMO_MODE
-
-if DEMO_MODE:
-
-    def fetch_reddit_posts(*args, **kwargs):  # type: ignore
-        return pd.DataFrame()
-
-    def fetch_twitter_posts(*args, **kwargs):  # type:ignore
-        return pd.DataFrame()
-
-    def fetch_news_posts(*args, **kwargs):  # type: ignore
-        return pd.DataFrame()
-else:
-    from src.scraping.reddit_scraper import fetch_reddit_posts
-    from src.scraping.twitter_scraper import fetch_twitter_posts
-    from src.scraping.news_scraper import fetch_news_posts
 from src.sentiment.analyzer import add_sentiment_to_file, load_sentiment_df
 from src.processing.merge_data import merge_sentiment_and_price
 from src.utils.cache import load_cached_csv, cache_csv, clear_cache_dir, day_str
@@ -73,22 +58,14 @@ from src.analysis.lead_lag import load_or_build_lead_lag_features
 from src.backtest.engine import run_backtest
 from src.processing.indicators import add_indicators
 from src.app.dto import AnalysisConfig
-from src.app.defaults import DEMO_CONFIG
-
-os.makedirs("logs", exist_ok=True)
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    handlers=[
-        logging.FileHandler("logs/app.log", encoding="utf-8"),
-        logging.StreamHandler(sys.stdout),
-    ],
-)
+from src.infra.storage.logging_config import configure_logging
+from src.app.defaults import DEFAULT_CONFIG, DEMO_CONFIG
+from src.app.defaults import POSTS_CHOICE_TO_SOURCES
 
 
 # Page header
 st.set_page_config(page_title="Crypto Sentiment Tracker", layout="wide")
-
+configure_logging()
 # Page main intro
 st.title("Crypto sentiment tracker")
 st.markdown(
@@ -97,11 +74,6 @@ st.markdown(
 
 
 st.sidebar.header("Settings")
-
-# Eventually move this whole thing to separate demo.py
-
-if mode == "demo":
-    result = load_demo_data(DEMO_CONFIG)
 
 if DEMO_MODE:
     st.info(
@@ -131,9 +103,9 @@ if DEMO_MODE:
         "Choose cryptocurrency", COINS_UI_LABELS
     )
     days = st.sidebar.selectbox("Price history in days", DEFAULT_DAYS, index=1)
-    posts_choice = st.sidebar.selectbox(
-        "Choose which kind of posts you want to analyze:", POSTS_KIND
-    )
+    posts_choice = POSTS_CHOICE_TO_SOURCES[st.sidebar.selectbox(
+    "Choose which kind of posts you want to analyze:", POSTS_KIND, index=1
+)]
     analyzer_choice = st.sidebar.selectbox(
         "Choose sentiment analyzer:",
         ANALYZER_UI_LABELS,
@@ -282,11 +254,13 @@ analyzer_choice = st.sidebar.selectbox(
         "Twitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative"
     ),
 )
-posts_choice = st.sidebar.selectbox(
+sources = POSTS_CHOICE_TO_SOURCES[st.sidebar.selectbox(
     "Choose which kind of posts you want to analyze:", POSTS_KIND, index=1
-)
+)]
 default_subreddits = DEFAULT_SUBS + subs_for_coin(selected_coin)[:1]
-if posts_choice in ("All", "Reddit"):
+
+subreddits = None
+if "reddit" in sources:
     subreddits = st.sidebar.multiselect(
         "Subreddits",
         DEFAULT_SUBS + subs_for_coin(selected_coin),
@@ -380,11 +354,22 @@ if run:
     reddit_path = f"data/{selected_coin}_reddit_posts.csv"
     twitter_path = f"data/{selected_coin}_twitter_posts.csv"
 
+    selected_subreddits = None
+    if "reddit" in sources:
+        selected_subreddits = tuple(subreddits) if subreddits else DEFAULT_CONFIG.subreddits
+
+
     cryptopanic_coin = map_to_cryptopanic_symbol(selected_coin)
+    config = AnalysisConfig(coin=selected_coin,
+                            start_date=start_date,
+                            end_date=end_date,
+                            num_posts=num_posts,
+                            subreddits=selected_subreddits,
+                            analyzer=analyzer_choice,
+                            sources=sources)
 
     # News
-    if posts_choice in ("All", "News"):
-        # Dont use news for now, API almost used up - add "All" in line above to allow again
+    if "news" in config.sources:
 
         news_settings = {
             "dataset": "posts_news",

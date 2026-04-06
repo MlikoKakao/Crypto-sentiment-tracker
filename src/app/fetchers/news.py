@@ -3,9 +3,9 @@ from src.app.defaults import DEFAULT_CONFIG
 import feedparser #type: ignore[import-untyped]
 from src.utils.helpers import save_csv, clean_text
 import logging
-from src.infra.storage.paths import get_demo_data_path
 from src.app.dto import AnalysisConfig
 from src.domain.market.filtering import contains_coin
+
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +67,6 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     return df
 
 
-def demo_news_scrape():
-    return pd.read_csv(get_demo_data_path("news_posts.csv"), parse_dates=["timestamp"])
 
 
 if __name__ == "__main__":

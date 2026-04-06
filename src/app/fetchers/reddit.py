@@ -7,7 +7,6 @@ from src.app.dto import AnalysisConfig
 from src.utils.helpers import save_csv, clean_text
 import os
 import logging
-from src.infra.storage.paths import get_demo_data_path
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.filtering import contains_coin
 
@@ -26,9 +25,14 @@ def get_reddit_client() -> Reddit:
 
 
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
+    if config.subreddits is None:
+        logger.warning("Called Reddit scrape without any subreddits. Defaulting to all subreddits.")
+        logger.debug("This shouldn't ever happen, UI should auto-assign default if reddit is selected and no subreddits.")
+    
     logger.info(
         f"Fetching Reddit posts with query='{config.coin}', limit={config.num_posts}, subs={config.subreddits}"
     )
+
     posts: list[dict[str, object]] = []
     seen: set[str] = set()
 
@@ -83,13 +87,6 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     if not df.empty:
         df["text"] = df["text"].apply(clean_text)
     return df
-
-
-def demo_reddit_scrape():
-    return pd.read_csv(
-        get_demo_data_path("reddit_posts.csv"), parse_dates=["timestamp"]
-    )
-
 
 if __name__ == "__main__":
     df = fetch_reddit_posts(DEFAULT_CONFIG)

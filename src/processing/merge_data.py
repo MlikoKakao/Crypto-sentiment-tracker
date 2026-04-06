@@ -4,11 +4,8 @@ from typing import Optional, Union, Dict, Any
 from src.utils.helpers import load_csv, save_csv
 from src.utils.cache import load_cached_csv, cache_csv
 from src.processing.indicators import add_indicators
-from config.settings import DEMO_MODE, get_demo_data_path
 
 def merge_sentiment_and_price(sentiment_file: Union[str, Path], price_file: Union[str, Path], output_file: Union[str, Path], cache_settings: Dict[str, Any]) -> Optional[pd.DataFrame]:
-    if DEMO_MODE:
-        return pd.read_csv(get_demo_data_path("combined_sentiment.csv"), parse_dates=["timestamp"])
     merged_cached = load_cached_csv(    
         cache_settings, parse_dates=["timestamp"], freshness_minutes=30
     )
@@ -34,8 +31,8 @@ def merge_sentiment_and_price(sentiment_file: Union[str, Path], price_file: Unio
     tol  = pd.Timedelta("30min") if span <= pd.Timedelta("2D") else (pd.Timedelta("12H") if span <= pd.Timedelta("14D") else pd.Timedelta("1D"))
 
     merged = pd.merge_asof(
-        sentiment_df,
         price_df[["timestamp","price"]],
+        sentiment_df,
         on="timestamp",
         direction="backward",
         tolerance=tol,

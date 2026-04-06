@@ -1584,3 +1584,5 @@
 2025-08-24 19:48:32,592 | INFO | src.utils.cache | CACHE HIT f0c5f323ab5bd023a349ce02d3fb4bed.csv
 2025-08-24 19:48:32,608 | INFO | src.utils.helpers | Loaded CSV from: D:\Projects\Crypto-tracker\Crypto-sentiment-tracker\data\bitcoin_merged.csv
 2025-08-24 19:48:32,648 | INFO | src.utils.cache | CACHE HIT 99c5a852bed2fe0c0a4c9079ce5fe029.csv
+2026-04-06 12:24:05,136 | INFO | __main__ | Attempting to fetch news for BTC..
+2026-04-06 12:24:27,902 | INFO | __main__ | Fetched 91 news posts for BTC
