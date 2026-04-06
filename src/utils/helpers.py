@@ -66,7 +66,7 @@ def is_file_fresh(path: Path | str, freshness_minutes: int = 10):
     return age_minutes < freshness_minutes
 
 
-# TEXT CLEANUP
+# Text cleanup for sentiment analysis
 def clean_text(text: str) -> str:
     return str(text).lower().strip()
 

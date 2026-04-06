@@ -1,64 +1,68 @@
-from pytz import utc
-import requests
 import pandas as pd
-from dotenv import load_dotenv
 from src.app.defaults import DEFAULT_CONFIG
-from src.domain.market.coins import COIN_IDS
+import feedparser #type: ignore[import-untyped]
 from src.utils.helpers import save_csv, clean_text
-import os
 import logging
 from src.infra.storage.paths import get_demo_data_path
 from src.app.dto import AnalysisConfig
+from src.domain.market.filtering import contains_coin
 
 logger = logging.getLogger(__name__)
-load_dotenv()
-
-CRYPTOPANIC_API_KEY = os.getenv("CRYPTOPANIC_API_KEY")
-
 
 def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info(f"Attempting to fetch news for {config.coin}..")
-    url = "https://crypto-news51.p.rapidapi.com/api/v1/crypto/articles/search"
-    querystring = {
-        "title_keywords": COIN_IDS[config.coin],
-        "page": "1",
-        "limit": config.num_posts,
-        "time_frame": "24h",
-        "format": "csv",
-    }
-    # TODO: change news API to rapidapi cryptonews ()
-    params = {
-        "auth_token": CRYPTOPANIC_API_KEY,
-        "currencies": COIN_IDS[
-            config.coin
-        ],  # Could be wrong - dk if they want BTC or bitcoin
-        "kind": "news",
-        "public": "true",
-        "filter": "hot",
-    }
+    feed_urls = ['https://www.coindesk.com/arc/outboundfeeds/rss', 'https://cointelegraph.com/rss/tag/altcoin',
+                 'https://cointelegraph.com/rss/tag/bitcoin', 'https://cointelegraph.com/rss/tag/ethereum', 'https://cointelegraph.com/rss/tag/blockchain',
+                 'https://cointelegraph.com/rss/category/top-10-cryptocurrencies', 'https://www.newsbtc.com/feed/',
+                 'https://thedefiant.io/feed/', 'https://cryptopotato.com/feed/', 'https://cryptoslate.com/feed/',
+                 'https://cryptonews.com/news/feed/', 'https://smartliquidity.info/feed/', 'https://finance.yahoo.com/news/rssindex',
+                 'https://www.cnbc.com/id/10000664/device/rss/rss.html', 'https://benjaminion.xyz/newineth2/rss_feed.xml']
+    
 
-    response = requests.get(url, params=params)
-
-    if response.status_code != 200:
-        logger.error(
-            f"Cryptopanic API failed: {response.status_code} - {response.reason}"
-        )
-        raise Exception("Failed to fetch news")
-
-    results = response.json().get("results", [])
     posts = []
+    published = ['published', 'published_parsed', 'updated', 'updated_parsed']
 
-    for item in results[: config.num_posts]:
-        title = item.get("title", "")
-        published_at = item.get("published_at", "")
-        timestamp = pd.to_datetime(published_at, utc=True).tz_convert(utc)
-        url = item.get("url", "")
-        domain = item.get("domain", "")
-        posts.append(
-            {"timestamp": timestamp, "title": title, "source": domain, "url": url}
-        )
+    for feed_url in feed_urls:
+        response = feedparser.parse(feed_url)
+        for entry in response.entries:
+            published_at = None
+            for publish in published:
+                published_at = entry.get(publish, "")
+                if published_at:
+                    break
+            if not published_at:
+                continue
+            try:
+                timestamp = pd.to_datetime(str(published_at), utc=True)
+            except ValueError:
+                continue
+            if timestamp < config.start_date or timestamp > config.end_date:
+                continue
+            title = entry.get("title", "")
+            summary = entry.get("summary", "")
+            if not contains_coin(str(title), config.coin) and not contains_coin(str(summary), config.coin):
+                continue
+            
+            url = entry.get("link", "")
+            domain = feed_url.split("/")[2]
+            posts.append(
+                {"timestamp": timestamp, "title": title, "summary": summary, "source": domain, "url": url}
+            )
+            if len(posts) >= config.num_posts:
+                break
+        if len(posts) >= config.num_posts:
+                break
+        logger.debug(f"Number of entries in {feed_url}: {len(response.entries)}")
+        logger.debug(f"Number of usable entries so far: {len(posts)}")
+    logger.debug(f"Number of posts before dedup: {len(posts)}")
+
     logger.info(f"Fetched {len(posts)} news posts for {config.coin}")
     df = pd.DataFrame(posts)
+    dupes = df.duplicated(subset=["url"])
+    dupes[df["url"].isna()] = False
+    dupes[df["url"] == ""] = False
+    df = df[~dupes]
+    logger.debug(f"Size of final df: {len(df)}")
     df["text"] = df["title"].apply(clean_text)
     return df
 
