@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal
 
 Analyzer = Literal["vader", "textblob", "roberta", "finberta"]
 Source = Literal["reddit", "twitter", "news"]
@@ -14,4 +14,4 @@ class AnalysisConfig:
     analyzer: tuple[Analyzer, ...]
     sources: tuple[Source, ...]
     num_posts: int
-    subreddits: Optional[tuple[str, ...]]
+    subreddits: tuple[str, ...]

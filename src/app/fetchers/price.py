@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 from datetime import datetime
 import logging
+from src.infra.storage.logging_config import configure_logging
 from src.utils.helpers import save_csv
 from src.app.dto import AnalysisConfig
 from src.app.defaults import DEFAULT_CONFIG
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 
-    logger.info(f"Attempting to fetch news for {config.coin}..")
+    logger.info(f"Attempting to fetch price for {config.coin}..")
     if config.coin not in COIN_IDS:
         logger.error(f"Unsupported coin: {config.coin}")
         raise ValueError(f"Unsupported coin: {config.coin}")
@@ -26,7 +27,7 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
         logger.error(
             f"Coingecko API failed: {response.status_code} - {response.reason}"
         )
-        raise Exception("Failed to fetch news")
+        raise Exception("Failed to fetch price")
 
     data = response.json()
 
@@ -44,6 +45,7 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    configure_logging()
     df = get_price_history(DEFAULT_CONFIG)
     save_csv(df, "data/tests/bitcoin_prices.csv")
     logger.info("Saved price history to data/tests/bitcoin_prices.csv")

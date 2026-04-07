@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import datetime
 from dotenv import load_dotenv
 from src.app.dto import AnalysisConfig
+from src.infra.storage.logging_config import configure_logging
 from src.utils.helpers import save_csv, clean_text
 import os
 import logging
@@ -25,9 +26,6 @@ def get_reddit_client() -> Reddit:
 
 
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
-    if config.subreddits is None:
-        logger.warning("Called Reddit scrape without any subreddits. Defaulting to all subreddits.")
-        logger.debug("This shouldn't ever happen, UI should auto-assign default if reddit is selected and no subreddits.")
     
     logger.info(
         f"Fetching Reddit posts with query='{config.coin}', limit={config.num_posts}, subs={config.subreddits}"
@@ -37,15 +35,18 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     seen: set[str] = set()
 
     reddit = get_reddit_client()
-    subs = sorted(set(config.subreddits))
 
-    for sub in subs:
+    if len(config.subreddits) == 0:
+        logger.error("No subreddits specified in config!")
+        raise ValueError("At least one subreddit must be specified in config")
+    
+    for sub in config.subreddits:
         for submission in reddit.subreddit(sub).new(limit=config.num_posts):
             time_posted = datetime.fromtimestamp(submission.created_utc, tz=utc)
 
-            if config.end_date and time_posted > config.end_date:
+            if time_posted > config.end_date:
                 continue
-            if config.start_date and time_posted < config.start_date:
+            if time_posted < config.start_date:
                 break
 
             # Filter by keywords locally
@@ -71,7 +72,6 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
                     "id": post_id,
                     "source": "reddit",
                     "subreddit": submission.subreddit.display_name,
-                    "is_original": submission.is_original_content,
                 }
             )
 
@@ -89,5 +89,8 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     return df
 
 if __name__ == "__main__":
+    configure_logging()
+    print("Testing Reddit fetch")
     df = fetch_reddit_posts(DEFAULT_CONFIG)
-    save_csv(df, "data/tests/bitcoin_posts.csv")
+    logger.debug(f"Fetched Reddit posts:{df.head()}")
+    save_csv(df, "data/tests/bitcoin_reddit_posts.csv")

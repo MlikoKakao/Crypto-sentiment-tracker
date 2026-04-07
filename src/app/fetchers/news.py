@@ -1,6 +1,7 @@
 import pandas as pd
 from src.app.defaults import DEFAULT_CONFIG
 import feedparser #type: ignore[import-untyped]
+from src.infra.storage.logging_config import configure_logging
 from src.utils.helpers import save_csv, clean_text
 import logging
 from src.app.dto import AnalysisConfig
@@ -70,6 +71,7 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    configure_logging()
     df = fetch_news_posts(DEFAULT_CONFIG)
     save_csv(df, "data/tests/news_posts.csv")
     print(df.head())

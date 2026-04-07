@@ -31,3 +31,37 @@
 2026-04-06 12:24:27,902 | DEBUG | __main__ | Number of posts before dedup: 91
 2026-04-06 12:24:27,906 | DEBUG | __main__ | Size of final df: 91
 2026-04-06 12:24:27,913 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/news_posts.csv (91 rows)
+2026-04-06 17:52:31,818 | DEBUG | prawcore | Fetching: GET https://oauth.reddit.com/r/CryptoCurrency/new at 1775469151.8188097
+2026-04-06 17:52:31,818 | DEBUG | prawcore | Data: None
+2026-04-06 17:52:31,819 | DEBUG | prawcore | Params: {'limit': 100, 'raw_json': 1}
+2026-04-06 17:52:31,820 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): www.reddit.com:443
+2026-04-06 17:52:32,791 | DEBUG | urllib3.connectionpool | https://www.reddit.com:443 "POST /api/v1/access_token HTTP/1.1" 200 650
+2026-04-06 17:52:32,794 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): oauth.reddit.com:443
+2026-04-06 17:52:35,040 | DEBUG | urllib3.connectionpool | https://oauth.reddit.com:443 "GET /r/CryptoCurrency/new?limit=100&raw_json=1 HTTP/1.1" 200 94534
+2026-04-06 17:52:35,270 | DEBUG | prawcore | Response: 200 (94534 bytes) (rst-446:rem-994.0:used-6 ratelimit) at 1775469155.270339
+2026-04-06 17:52:35,288 | DEBUG | prawcore | Fetching: GET https://oauth.reddit.com/r/CryptoCurrencyTrading/new at 1775469155.2885666
+2026-04-06 17:52:35,288 | DEBUG | prawcore | Data: None
+2026-04-06 17:52:35,288 | DEBUG | prawcore | Params: {'limit': 100, 'raw_json': 1}
+2026-04-06 17:52:37,018 | DEBUG | urllib3.connectionpool | https://oauth.reddit.com:443 "GET /r/CryptoCurrencyTrading/new?limit=100&raw_json=1 HTTP/1.1" 200 96461
+2026-04-06 17:52:37,207 | DEBUG | prawcore | Response: 200 (96461 bytes) (rst-444:rem-993.0:used-7 ratelimit) at 1775469157.2074258
+2026-04-06 17:52:37,224 | DEBUG | prawcore | Fetching: GET https://oauth.reddit.com/r/CryptoMarkets/new at 1775469157.2248178
+2026-04-06 17:52:37,225 | DEBUG | prawcore | Data: None
+2026-04-06 17:52:37,225 | DEBUG | prawcore | Params: {'limit': 100, 'raw_json': 1}
+2026-04-06 17:52:38,554 | DEBUG | urllib3.connectionpool | https://oauth.reddit.com:443 "GET /r/CryptoMarkets/new?limit=100&raw_json=1 HTTP/1.1" 200 72002
+2026-04-06 17:52:38,722 | DEBUG | prawcore | Response: 200 (72002 bytes) (rst-442:rem-992.0:used-8 ratelimit) at 1775469158.7226095
+2026-04-06 17:52:38,756 | DEBUG | __main__ | Fetched Reddit posts:                  timestamp                                               text  ...       subreddit  is_original
+0 2026-04-06 07:30:49+00:00  why is okx ripping us off? does this make sens...  ...  CryptoCurrency        False
+1 2026-04-06 06:34:21+00:00  how can you invest in bitcoin if there is noth...  ...  CryptoCurrency        False
+2 2026-04-05 19:00:37+00:00  algorand just jumped 50% after a google flags ...  ...  CryptoCurrency        False
+3 2026-04-05 18:52:05+00:00  analyst identifies $63,000 as key support for ...  ...  CryptoCurrency        False
+4 2026-04-05 17:04:44+00:00  vc chamath palihapitiya warns non-state actors...  ...  CryptoCurrency        False
+
+[5 rows x 10 columns]
+2026-04-06 17:52:38,760 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/bitcoin_reddit_posts.csv (56 rows)
+2026-04-07 11:25:46,777 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=100&publishedAfter=2026-03-31T03%3A25%3A46.771569%2B00%3A00Z&publishedBefore=2026-04-07T03%3A25%3A46.771583%2B00%3A00Z&key=AIzaSyCw9QH3nYSbvufYZWmgujjM_YzoIK8xftU&alt=json
+2026-04-07 11:26:07,302 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=100&key=AIzaSyCw9QH3nYSbvufYZWmgujjM_YzoIK8xftU&alt=json
+2026-04-07 11:28:51,378 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=100&key=AIzaSyCw9QH3nYSbvufYZWmgujjM_YzoIK8xftU&alt=json
+2026-04-07 11:30:14,371 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyCw9QH3nYSbvufYZWmgujjM_YzoIK8xftU&alt=json
+2026-04-07 11:32:07,780 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyCw9QH3nYSbvufYZWmgujjM_YzoIK8xftU&alt=json
+2026-04-07 11:32:08,246 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (1 rows)
+2026-04-07 11:32:08,247 | DEBUG | __main__ | Saved 1 YouTube posts for BTC

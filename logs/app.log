@@ -1586,3 +1586,11 @@
 2025-08-24 19:48:32,648 | INFO | src.utils.cache | CACHE HIT 99c5a852bed2fe0c0a4c9079ce5fe029.csv
 2026-04-06 12:24:05,136 | INFO | __main__ | Attempting to fetch news for BTC..
 2026-04-06 12:24:27,902 | INFO | __main__ | Fetched 91 news posts for BTC
+2026-04-06 17:52:31,817 | INFO | __main__ | Fetching Reddit posts with query='BTC', limit=100, subs=('CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets')
+2026-04-06 17:52:38,740 | INFO | __main__ | Fetched 56 posts for query='BTC' from ('CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets')
+2026-04-07 11:25:46,773 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-07 11:26:07,299 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-07 11:28:51,375 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-07 11:30:14,368 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-07 11:32:07,776 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-07 11:32:08,247 | INFO | __main__ | Saved YouTube posts to data/tests/BTC_youtube.csv
