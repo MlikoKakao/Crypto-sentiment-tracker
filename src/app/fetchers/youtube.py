@@ -38,4 +38,3 @@ if __name__ == "__main__":
     df = fetch_youtube_posts(DEFAULT_CONFIG)
     save_csv(df, f"data/tests/{DEFAULT_CONFIG.coin}_youtube.csv")
     logger.info(f"Saved YouTube posts to data/tests/{DEFAULT_CONFIG.coin}_youtube.csv")
-    logger.debug(f"Saved {len(df)} YouTube posts for {DEFAULT_CONFIG.coin}")
