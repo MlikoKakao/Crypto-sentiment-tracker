@@ -1,4 +1,8 @@
-from __future__ import annotations
+# Twitter APIs are not good for this project for now, switching to Youtube instead. Leaving it here since I could find some good API someday.
+
+
+
+""" from __future__ import annotations
 import os
 from typing import List, Optional
 import pandas as pd
@@ -104,3 +108,4 @@ def fetch_twitter_posts(
         "id",
     ]
     return df[cols]
+"""

@@ -20,9 +20,13 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
         raise ValueError(f"Unsupported coin: {config.coin}")
     
     url = f"https://api.coingecko.com/api/v3/coins/{COIN_IDS[config.coin]}/market_chart/range?vs_currency=usd&from={int(config.start_date.timestamp())}&to={int(config.end_date.timestamp())}"
-
-    response = requests.get(url)
-
+    try:
+        response = requests.get(url, timeout=10)
+    except requests.exceptions.Timeout:
+        logger.error("Coingecko API request timed out")
+        raise Exception("Failed to fetch price: request timed out")
+    
+    
     if response.status_code != 200:
         logger.error(
             f"Coingecko API failed: {response.status_code} - {response.reason}"

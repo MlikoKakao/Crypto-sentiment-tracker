@@ -59,6 +59,8 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     logger.info(f"Fetched {len(posts)} news posts for {config.coin}")
     df = pd.DataFrame(posts)
+    if df.empty:
+        return df
     dupes = df.duplicated(subset=["url"])
     dupes[df["url"].isna()] = False
     dupes[df["url"] == ""] = False

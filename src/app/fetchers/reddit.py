@@ -18,11 +18,20 @@ load_dotenv()
 
 
 def get_reddit_client() -> Reddit:
-    return Reddit(
-        client_id=os.getenv("REDDIT_CLIENT_ID"),
-        client_secret=os.getenv("REDDIT_CLIENT_SECRET"),
-        user_agent=os.getenv("REDDIT_USER_AGENT"),
-    )
+    client_id = os.getenv("REDDIT_CLIENT_ID")
+    client_secret = os.getenv("REDDIT_CLIENT_SECRET")
+    user_agent = os.getenv("REDDIT_USER_AGENT")
+
+    if not client_id or client_id == "":
+        raise RuntimeError("Set REDDIT_CLIENT_ID in .env file")
+    if not client_secret or client_secret == "":
+        raise RuntimeError("Set REDDIT_CLIENT_SECRET in .env file")
+    if not user_agent or user_agent == "":
+        raise RuntimeError("Set REDDIT_USER_AGENT in .env file")
+
+    return Reddit(client_id=client_id,
+                  client_secret=client_secret, 
+                  user_agent=user_agent)
 
 
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:

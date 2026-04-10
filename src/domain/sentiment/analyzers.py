@@ -54,27 +54,6 @@ torch_mod: Any = torch  # type: ignore
 F_mod: Any = F  # type: ignore
 
 
-def vader_analyze(text: Optional[str]) -> float:
-    global _vader
-    if _vader is None:
-        if SentimentIntensityAnalyzer_cls is None:
-            raise RuntimeError("nltk SentimentIntensityAnalyzer not available")
-        try:
-            _vader = SentimentIntensityAnalyzer_cls()
-        except LookupError:
-            if nltk is not None:
-                try:
-                    nltk.download("vader_lexicon", quiet=True)
-                except Exception:
-                    pass
-            _vader = SentimentIntensityAnalyzer_cls()
-    s = "" if text is None else str(text)
-    return _vader.polarity_scores(s)["compound"]
-
-def textblob_analyze(text: Optional[str]) -> float:
-    if TextBlob_cls is None:
-        raise RuntimeError("textblob not available")
-    return float(getattr(TextBlob_cls(str(text)).sentiment, "polarity", 0.0))
 
 def roberta_analyze(text: Optional[str]) -> float:
     global _roberta
