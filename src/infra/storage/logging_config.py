@@ -38,3 +38,4 @@ def configure_logging() -> None:
     root_logger.addHandler(app_handler)
     root_logger.addHandler(debug_handler)
     root_logger.addHandler(console_handler)
+    logging.getLogger("googleapiclient.discovery").setLevel(logging.WARNING)
