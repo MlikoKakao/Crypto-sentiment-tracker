@@ -6,6 +6,8 @@ class DebugOnlyFilter(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:
         return record.levelno == logging.DEBUG
 
+# Seems like way more code than needed for just a simple fork of app.log/debug.log,
+# but it's just AI made and not integral to the logic of the app.
 
 
 def configure_logging() -> None:

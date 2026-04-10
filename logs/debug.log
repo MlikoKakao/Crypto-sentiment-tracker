@@ -65,3 +65,25 @@
 2026-04-07 11:32:07,780 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyCw9QH3nYSbvufYZWmgujjM_YzoIK8xftU&alt=json
 2026-04-07 11:32:08,246 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (1 rows)
 2026-04-07 11:32:08,247 | DEBUG | __main__ | Saved 1 YouTube posts for BTC
+2026-04-10 09:41:15,460 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 09:41:17,084 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (1 rows)
+2026-04-10 09:49:46,800 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 09:49:48,105 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (1 rows)
+2026-04-10 09:51:11,127 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 09:51:13,543 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (1 rows)
+2026-04-10 09:52:42,416 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=BTC&maxResults=1&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 09:52:43,131 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/('btc', 'bitcoin', '#btc', '#bitcoin')_youtube.csv (1 rows)
+2026-04-10 10:09:54,510 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=btc&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:09:54,951 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=bitcoin&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:09:55,304 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=%23btc&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:09:55,502 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=%23bitcoin&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:09:55,843 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (18 rows)
+2026-04-10 10:13:51,817 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=btc&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:13:52,813 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=bitcoin&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:13:53,238 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=%23btc&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:13:53,545 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=%23bitcoin&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:15:44,968 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=btc&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:15:47,278 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=bitcoin&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:15:47,624 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=%23btc&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:15:48,198 | DEBUG | googleapiclient.discovery | URL being requested: GET https://youtube.googleapis.com/youtube/v3/search?part=id%2Csnippet&q=%23bitcoin&maxResults=5&key=AIzaSyAcrWOAVsQnkOmXaS3Kd4FuAZhUIDjcqvk&alt=json
+2026-04-10 10:15:48,505 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/BTC_youtube.csv (16 rows)

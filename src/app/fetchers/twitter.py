@@ -4,6 +4,7 @@ from typing import List, Optional
 import pandas as pd
 from apify_client import ApifyClient
 from dotenv import load_dotenv
+from pytz import utc
 
 load_dotenv()
 
@@ -85,7 +86,7 @@ def fetch_twitter_posts(
     # Timestamp hygiene, maybe make into utility function later
     df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
-    df["timestamp"] = df["timestamp"].tz_convert(None)
+    df["timestamp"] = df["timestamp"].tz_convert(utc)
     df = df.sort_values("timestamp").drop_duplicates(subset=["id"])
 
     cols = [

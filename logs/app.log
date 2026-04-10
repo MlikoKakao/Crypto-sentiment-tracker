@@ -1594,3 +1594,16 @@
 2026-04-07 11:30:14,368 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
 2026-04-07 11:32:07,776 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
 2026-04-07 11:32:08,247 | INFO | __main__ | Saved YouTube posts to data/tests/BTC_youtube.csv
+2026-04-10 09:41:15,456 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 09:41:17,084 | INFO | __main__ | Saved YouTube posts to data/tests/COIN_TERMS[BTC]_youtube.csv
+2026-04-10 09:49:46,798 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 09:49:48,105 | INFO | __main__ | Saved YouTube posts to data/tests/COIN_TERMS[BTC]_youtube.csv
+2026-04-10 09:51:11,125 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 09:51:13,543 | INFO | __main__ | Saved YouTube posts to data/tests/('btc', 'bitcoin', '#btc', '#bitcoin')_youtube.csv
+2026-04-10 09:52:42,413 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 09:52:43,131 | INFO | __main__ | Saved YouTube posts to data/tests/('btc', 'bitcoin', '#btc', '#bitcoin')_youtube.csv
+2026-04-10 10:09:54,507 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 10:09:55,843 | INFO | __main__ | Saved YouTube posts to data/tests/BTC_youtube.csv
+2026-04-10 10:13:51,815 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 10:15:44,964 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
+2026-04-10 10:15:48,505 | INFO | __main__ | Saved YouTube posts to data/tests/BTC_youtube.csv
