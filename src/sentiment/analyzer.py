@@ -37,7 +37,11 @@ logger = logging.getLogger(__name__)
 
 _roberta: Any = None
 
+_finbert_model: Any = None
+_finbert_tokenizer: Any = None
+_hf_device: int = int(os.environ.get("HF_DEVICE", "-1"))
 
+_vader: Any = None
 
 # Cast external classes/functions to Any aliases so the static checker
 # doesn't complain about possible None types after guarded imports.
@@ -45,14 +49,82 @@ SentimentIntensityAnalyzer_cls: Any = SentimentIntensityAnalyzer  # type: ignore
 TextBlob_cls: Any = TextBlob  # type: ignore
 pipeline_fn: Any = pipeline  # type: ignore
 AutoTokenizer_cls: Any = AutoTokenizer  # type: ignore
+AutoModelForSequenceClassification_cls: Any = AutoModelForSequenceClassification  # type: ignore
 torch_mod: Any = torch  # type: ignore
 F_mod: Any = F  # type: ignore
 
 
+def vader_analyze(text: Optional[str]) -> float:
+    global _vader
+    if _vader is None:
+        if SentimentIntensityAnalyzer_cls is None:
+            raise RuntimeError("nltk SentimentIntensityAnalyzer not available")
+        try:
+            _vader = SentimentIntensityAnalyzer_cls()
+        except LookupError:
+            if nltk is not None:
+                try:
+                    nltk.download("vader_lexicon", quiet=True)
+                except Exception:
+                    pass
+            _vader = SentimentIntensityAnalyzer_cls()
+    s = "" if text is None else str(text)
+    return _vader.polarity_scores(s)["compound"]
 
+def textblob_analyze(text: Optional[str]) -> float:
+    if TextBlob_cls is None:
+        raise RuntimeError("textblob not available")
+    return float(getattr(TextBlob_cls(str(text)).sentiment, "polarity", 0.0))
 
+def roberta_analyze(text: Optional[str]) -> float:
+    global _roberta
+    if _roberta is None:
+        if pipeline_fn is None:
+            raise RuntimeError("transformers.pipeline not available")
+        _roberta = pipeline_fn(
+            "sentiment-analysis",
+            model="cardiffnlp/twitter-roberta-base-sentiment-latest",
+            tokenizer="cardiffnlp/twitter-roberta-base-sentiment-latest",
+            truncation=True,
+            max_length=512,
+            padding=True,
+        )
+        
+    short_text = str(text)[:1000]
+    result = _roberta(short_text)[0]
+    label = result["label"].lower()
+    score = result["score"]
+    return -score if label == "negative" else (score if label == "positive" else 0.0)
 
+def _get_finbert_raw() -> tuple[Any, Any]:
+    global _finbert_model, _finbert_tokenizer
+    if _finbert_model is None or _finbert_tokenizer is None:
+        if AutoTokenizer_cls is None or AutoModelForSequenceClassification_cls is None:
+            return None, None
+        _finbert_tokenizer = AutoTokenizer_cls.from_pretrained("yiyanghkust/finbert-tone")
+        _finbert_model = AutoModelForSequenceClassification_cls.from_pretrained("yiyanghkust/finbert-tone")
+        if _hf_device >= 0 and torch_mod is not None and getattr(torch_mod, "cuda", None) is not None and torch_mod.cuda.is_available():
+            _finbert_model = _finbert_model.to(f"cuda:{_hf_device}")
+    return _finbert_model, _finbert_tokenizer
 
+def finbert_analyze(text: str) -> float:
+    model, tok = _get_finbert_raw()
+    if model is None or tok is None:
+        raise RuntimeError("FinBERT model/tokenizer not available")
+    short = str(text)[:1000]
+    enc = tok(short, truncation=True, padding=True, max_length=512, return_tensors="pt")
+
+    if _hf_device >= 0 and torch_mod is not None and getattr(torch_mod, "cuda", None) is not None and torch_mod.cuda.is_available():
+        enc = {k: v.to(f"cuda:{_hf_device}") for k, v in enc.items()}
+
+    with torch_mod.no_grad():
+        logits = model(**enc).logits[0]
+
+    probs = F_mod.softmax(logits, dim=-1).detach().cpu().numpy()
+    id2label = model.config.id2label
+    pdict = {id2label[i].lower(): float(probs[i]) for i in range(len(probs))}
+    
+    return pdict.get("positive", 0.0) - pdict.get("negative", 0.0)
 
 ANALYZER_UI_TO_FUNCTION: Dict[str, Any] = {
     "vader": vader_analyze,
