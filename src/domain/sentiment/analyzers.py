@@ -1,67 +1,14 @@
 import pandas as pd
-try:
-    from nltk.sentiment.vader import SentimentIntensityAnalyzer  # type: ignore[import]
-except Exception:  # pragma: no cover - fallback when nltk not installed
-    SentimentIntensityAnalyzer = None  # type: ignore
 
-try:
-    from textblob import TextBlob  # type: ignore[import]
-except Exception:  # pragma: no cover - fallback when textblob not installed
-    TextBlob = None  # type: ignore
-
-try:
-    from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification  # type: ignore[import]
-except Exception:  # pragma: no cover - fallback when transformers not installed
-    pipeline = None  # type: ignore
-    AutoTokenizer = None  # type: ignore
-    AutoModelForSequenceClassification = None  # type: ignore
-
-try:
-    import torch  # type: ignore[import]
-    import torch.nn.functional as F  # type: ignore[import]
-except Exception:  # pragma: no cover - torch may not be installed in dev env
-    torch = None  # type: ignore
-    F = None  # type: ignore
+from src.domain.sentiment.registry import ALL_ANALYZER_NAMES, ANALYZERS
 from src.utils.cache import load_cached_csv, cache_csv
 from src.utils.helpers import load_csv, save_csv
 import logging
-try:
-    import nltk  # type: ignore[import]
-except Exception:
-    nltk = None  # type: ignore
-import os
 from typing import Any, Dict, Optional
 
 logger = logging.getLogger(__name__)
 
 
-_roberta: Any = None
-
-
-
-# Cast external classes/functions to Any aliases so the static checker
-# doesn't complain about possible None types after guarded imports.
-SentimentIntensityAnalyzer_cls: Any = SentimentIntensityAnalyzer  # type: ignore
-TextBlob_cls: Any = TextBlob  # type: ignore
-pipeline_fn: Any = pipeline  # type: ignore
-AutoTokenizer_cls: Any = AutoTokenizer  # type: ignore
-torch_mod: Any = torch  # type: ignore
-F_mod: Any = F  # type: ignore
-
-
-
-
-
-
-
-ANALYZER_UI_TO_FUNCTION: Dict[str, Any] = {
-    "vader": vader_analyze,
-    "textblob": textblob_analyze,
-    "twitter-roberta": roberta_analyze,
-    "finbert": finbert_analyze,
-    "all": [vader_analyze, textblob_analyze, roberta_analyze, finbert_analyze],
-}
-ANALYZER_UI_LABELS = list(ANALYZER_UI_TO_FUNCTION.keys())
 
 def add_sentiment_to_file(
     input_csv: str,
@@ -80,20 +27,25 @@ def add_sentiment_to_file(
 
     df = load_csv(input_csv)
 
-    analyzer_func = ANALYZER_UI_TO_FUNCTION.get(analyzer_name.lower())
-    if analyzer_func is None:
-        logger.error(f"Unknown analyzer: {analyzer_name}")
-        raise ValueError(f"Unknown analyzer: {analyzer_name}")
+    name = analyzer_name.lower()
+    analyzer_func = ANALYZERS.get(name)
 
-    if isinstance(analyzer_func, list):
-        for func in analyzer_func:
-            col_name = f"sentiment_{func.__name__.replace('_analyze', '')}"
+    if name == "all":
+        for analyzer in ALL_ANALYZER_NAMES:
+            func = ANALYZERS[analyzer]
+            col_name = f"sentiment_{analyzer}"
             df[col_name] = df["text"].apply(func)
-        sentiment_cols = [f"sentiment_{func.__name__.replace('_analyze', '')}" for func in analyzer_func]
+
+        sentiment_cols = [f"sentiment_{analyzer}" for analyzer in ALL_ANALYZER_NAMES]
         df["sentiment"] = df[sentiment_cols].mean(axis=1)
 
     else:
+        analyzer_func = ANALYZERS.get(name)
+        if analyzer_func is None:
+            raise ValueError(f"Unknown analyzer: {analyzer_name}")
+        
         df["sentiment"] = df["text"].apply(analyzer_func)
+
     save_csv(df, output_csv)
     if cache_settings:
         cache_csv(df, cache_settings)

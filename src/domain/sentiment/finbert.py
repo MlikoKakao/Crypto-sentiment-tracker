@@ -1,7 +1,7 @@
 from __future__ import annotations
-from typing import Any
+from typing import Any, Optional
 import os
-
+# It's a bit strange to have pipeline in roberta but not in finbert, in future remake roberta to use the same as here.
 
 try:
     import torch.nn.functional as f
@@ -29,7 +29,7 @@ def _load_finbert() -> tuple[Any, Any]:
             _finbert_model = _finbert_model.to(f"cuda:{_hf_device}")
     return _finbert_model, _finbert_tokenizer
 
-def finbert_analyze(text: str) -> float:
+def finbert_analyze(text: Optional[str]) -> float:
     model, tok = _load_finbert()
     if model is None or tok is None or torch is None or f is None:
         raise RuntimeError("FinBERT model/tokenizer/torch/f not available")

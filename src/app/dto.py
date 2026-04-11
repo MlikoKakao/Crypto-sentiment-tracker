@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from datetime import datetime
+import pandas as pd
 from typing import Literal
 
-Analyzer = Literal["vader", "textblob", "roberta", "finberta"]
+Analyzer = Literal["vader", "textblob", "twitter-roberta", "finbert"]
 Source = Literal["reddit", "twitter", "news"]
 
 
@@ -15,3 +16,9 @@ class AnalysisConfig:
     sources: tuple[Source, ...]
     num_posts: int
     subreddits: tuple[str, ...]
+
+@dataclass(frozen=True)
+class AnalysisResult:
+    posts_df: pd.DataFrame
+    price_df: pd.DataFrame
+    merged_df: pd.DataFrame
