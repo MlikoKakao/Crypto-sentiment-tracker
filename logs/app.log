@@ -1607,3 +1607,72 @@
 2026-04-10 10:13:51,815 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
 2026-04-10 10:15:44,964 | INFO | googleapiclient.discovery_cache | file_cache is only supported with oauth2client<4.0.0
 2026-04-10 10:15:48,505 | INFO | __main__ | Saved YouTube posts to data/tests/BTC_youtube.csv
+2026-04-13 13:11:12,520 | INFO | __main__ | Test running analysis with default config...
+2026-04-13 13:11:12,520 | INFO | src.app.fetchers.reddit | Fetching Reddit posts with query='BTC', limit=100, subs=('CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets')
+2026-04-13 13:11:28,937 | INFO | src.app.fetchers.reddit | Fetched 65 posts for query='BTC' from ('CryptoCurrency', 'CryptoCurrencyTrading', 'CryptoMarkets')
+2026-04-13 13:11:28,956 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,965 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,967 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,968 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,969 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,969 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,971 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,973 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,973 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,973 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,974 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,975 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,975 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,975 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,978 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,978 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,979 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,981 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,981 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,981 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,982 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,983 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,984 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,985 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,986 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,986 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,987 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,987 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,988 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,988 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,988 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,990 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,992 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,992 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,995 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,998 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:30,999 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,003 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,004 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,004 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,007 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,011 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,014 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,015 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,016 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,018 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,023 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,023 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,027 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,032 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,034 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,038 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,038 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,040 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,041 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,042 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,044 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,044 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,045 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,045 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,046 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,047 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,048 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,048 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,049 | INFO | root | Analyzing sentiment with VADER
+2026-04-13 13:11:31,053 | INFO | src.app.fetchers.price | Attempting to fetch price for BTC..

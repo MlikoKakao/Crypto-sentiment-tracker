@@ -4,7 +4,7 @@ import pandas as pd
 from typing import Literal
 
 Analyzer = Literal["vader", "textblob", "twitter-roberta", "finbert"]
-Source = Literal["reddit", "twitter", "news"]
+Source = Literal["reddit", "youtube", "news"]
 
 
 @dataclass(frozen=True)
@@ -12,7 +12,7 @@ class AnalysisConfig:
     coin: str
     start_date: datetime
     end_date: datetime
-    analyzer: tuple[Analyzer, ...]
+    analyzer: Analyzer
     sources: tuple[Source, ...]
     num_posts: int
     subreddits: tuple[str, ...]

@@ -55,3 +55,28 @@
 2 2026-04-05 19:00:37+00:00  algorand just jumped 50% after a google flags ...  ...  CryptoCurrency        False
 3 2026-04-05 18:52:05+00:00  analyst identifies $63,000 as key support for ...  ...  CryptoCurrency        False
 4 2026-04-05 17:04:44+00:00  vc chamath palihapitiya warns non-state actors...  ...  CryptoCurrency        False
+2026-04-13 13:11:12,523 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): pypi.org:443
+2026-04-13 13:11:13,692 | DEBUG | urllib3.connectionpool | https://pypi.org:443 "GET /pypi/praw/json HTTP/1.1" 200 36342
+2026-04-13 13:11:14,106 | DEBUG | prawcore | Fetching: GET https://oauth.reddit.com/r/CryptoCurrency/new at 1776057074.10691
+2026-04-13 13:11:14,107 | DEBUG | prawcore | Data: None
+2026-04-13 13:11:14,107 | DEBUG | prawcore | Params: {'limit': 100, 'raw_json': 1}
+2026-04-13 13:11:14,108 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): www.reddit.com:443
+2026-04-13 13:11:15,691 | DEBUG | urllib3.connectionpool | https://www.reddit.com:443 "POST /api/v1/access_token HTTP/1.1" 200 653
+2026-04-13 13:11:15,693 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): oauth.reddit.com:443
+2026-04-13 13:11:18,020 | DEBUG | urllib3.connectionpool | https://oauth.reddit.com:443 "GET /r/CryptoCurrency/new?limit=100&raw_json=1 HTTP/1.1" 200 88137
+2026-04-13 13:11:18,550 | DEBUG | prawcore | Response: 200 (88137 bytes) (rst-523:rem-999.0:used-1 ratelimit) at 1776057078.5508387
+2026-04-13 13:11:18,571 | DEBUG | prawcore | Fetching: GET https://oauth.reddit.com/r/CryptoCurrencyTrading/new at 1776057078.5717144
+2026-04-13 13:11:18,571 | DEBUG | prawcore | Data: None
+2026-04-13 13:11:18,572 | DEBUG | prawcore | Params: {'limit': 100, 'raw_json': 1}
+2026-04-13 13:11:20,636 | DEBUG | urllib3.connectionpool | https://oauth.reddit.com:443 "GET /r/CryptoCurrencyTrading/new?limit=100&raw_json=1 HTTP/1.1" 200 100407
+2026-04-13 13:11:21,861 | DEBUG | prawcore | Response: 200 (100407 bytes) (rst-521:rem-998.0:used-2 ratelimit) at 1776057081.8613768
+2026-04-13 13:11:21,878 | DEBUG | prawcore | Fetching: GET https://oauth.reddit.com/r/CryptoMarkets/new at 1776057081.8783495
+2026-04-13 13:11:21,878 | DEBUG | prawcore | Data: None
+2026-04-13 13:11:21,878 | DEBUG | prawcore | Params: {'limit': 100, 'raw_json': 1}
+2026-04-13 13:11:23,559 | DEBUG | urllib3.connectionpool | https://oauth.reddit.com:443 "GET /r/CryptoMarkets/new?limit=100&raw_json=1 HTTP/1.1" 200 82887
+2026-04-13 13:11:28,915 | DEBUG | prawcore | Response: 200 (82887 bytes) (rst-517:rem-997.0:used-3 ratelimit) at 1776057088.9157712
+2026-04-13 13:11:31,054 | DEBUG | urllib3.connectionpool | Starting new HTTPS connection (1): api.coingecko.com:443
+2026-04-13 13:11:31,442 | DEBUG | urllib3.connectionpool | https://api.coingecko.com:443 "GET /api/v3/coins/bitcoin/market_chart/range?vs_currency=usd&from=1775452263&to=1776057063 HTTP/1.1" 200 None
+2026-04-13 13:11:31,475 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/run_analysis_posts.csv (65 rows)
+2026-04-13 13:11:31,478 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/run_analysis_prices.csv (174 rows)
+2026-04-13 13:11:31,485 | DEBUG | src.utils.helpers | Saved CSV to: data/tests/run_analysis_merged.csv (174 rows)
