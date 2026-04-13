@@ -19,7 +19,7 @@ def merge_sentiment_and_price_df(price_df: pd.DataFrame, sentiment_df: pd.DataFr
 
     # dynamic tolerance
     span = sentiment_df["timestamp"].max() - sentiment_df["timestamp"].min()
-    tol  = pd.Timedelta("30min") if span <= pd.Timedelta("2D") else (pd.Timedelta("12H") if span <= pd.Timedelta("14D") else pd.Timedelta("1D"))
+    tol  = pd.Timedelta("30min") if span <= pd.Timedelta("2D") else (pd.Timedelta("12h") if span <= pd.Timedelta("14D") else pd.Timedelta("1D"))
 
     merged = pd.merge_asof(
         price_df[["timestamp","price"]],

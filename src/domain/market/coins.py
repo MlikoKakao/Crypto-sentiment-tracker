@@ -7,4 +7,5 @@ COIN_TERMS = {
 COIN_IDS = {
     "BTC": "bitcoin",
     "ETH": "ethereum",
+    "XMR": "monero",
 }

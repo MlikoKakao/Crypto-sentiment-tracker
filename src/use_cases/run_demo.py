@@ -1,11 +1,15 @@
 import logging
 import pandas as pd
+from src.app.dto import AnalysisResult
 from src.infra.storage.paths import get_demo_data_path
 
 
-def run_demo() -> pd.DataFrame:
+def run_demo() -> AnalysisResult:
     logger = logging.getLogger(__name__)
     logger.info("Fetching demo csv...")
 
-    # Make running it be able to live just on merged csv.
-    return pd.read_csv(get_demo_data_path("bitcoin_merged.csv"), parse_dates=["timestamp"])
+    posts_df = pd.read_csv(get_demo_data_path("demo_posts.csv"))
+    price_df = pd.read_csv(get_demo_data_path("demo_prices.csv"))
+    merged_df = pd.read_csv(get_demo_data_path("demo_merged.csv"))
+
+    return AnalysisResult(posts_df=posts_df, price_df=price_df, merged_df=merged_df)

@@ -3,7 +3,7 @@ from datetime import datetime
 import pandas as pd
 from typing import Literal
 
-Analyzer = Literal["vader", "textblob", "twitter-roberta", "finbert"]
+Analyzer = Literal["vader", "textblob", "twitter-roberta", "finbert", "all"]
 Source = Literal["reddit", "youtube", "news"]
 
 

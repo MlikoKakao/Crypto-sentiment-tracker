@@ -1,4 +1,29 @@
-COINS_UI_LABELS = ["Bitcoin", "Ethereum", "Monero"]
-COINS_UI_TO_SYMBOL = {label: label.lower() for label in COINS_UI_LABELS}
+from src.app.dto import Analyzer, Source
 
-ANALYZER_UI_LABELS = ["VADER", "TextBlob", "Twitter-RoBERTa", "finBERT", "All"]
+COINS_UI_LABELS = ["Bitcoin", "Ethereum", "Monero"]
+COIN_UI_TO_SYMBOL = {
+    "Bitcoin": "BTC",
+    "Ethereum": "ETH",
+    "Monero": "XMR",
+}
+
+ANALYZER_UI_TO_LITERAL: dict[str, Analyzer] = {
+    "VADER": "vader",
+    "TextBlob": "textblob",
+    "Twitter-RoBERTa": "twitter-roberta",
+    "finBERT": "finbert",
+    "All": "all",
+}
+
+SOURCE_UI_TO_LITERAL: dict[str, tuple[Source, ...]] = {
+    "All": ("reddit", "youtube", "news"),
+    "Reddit": ("reddit",),
+    "Youtube": ("youtube",),
+    "News": ("news",),
+}
+
+COIN_SUBS: dict[str, list[str]] = {
+    "BTC": ["Bitcoin", "btc", "BitcoinMarkets"],
+    "ETH": ["ethereum", "ethtrader", "eth"],
+    "XMR": ["xmrtrader", "monero"],
+}
