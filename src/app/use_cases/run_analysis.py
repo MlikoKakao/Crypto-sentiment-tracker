@@ -1,10 +1,10 @@
 from src.app.defaults import DEFAULT_CONFIG
 from src.app.dto import AnalysisConfig, AnalysisResult
-from src.app.fetchers.price import get_price_history
-from src.app.fetchers.service import fetch_posts
+from src.infra.fetchers.price import get_price_history
+from src.infra.fetchers.service import fetch_posts
 from src.domain.sentiment.service import add_sentiment_to_df
-from src.processing.merge_data import merge_sentiment_and_price_df
-from src.utils.helpers import save_csv
+from src.domain.market.merge import merge_sentiment_and_price_df
+from src.shared.helpers import save_csv
 
 def run_analysis(config: AnalysisConfig) -> AnalysisResult:
     posts_df = fetch_posts(config)

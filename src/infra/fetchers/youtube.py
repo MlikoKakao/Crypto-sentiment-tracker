@@ -7,7 +7,7 @@ from src.domain.market.coins import COIN_TERMS
 from src.infra.storage.logging_config import configure_logging
 import logging
 from src.app.defaults import DEFAULT_CONFIG
-from src.utils.helpers import clean_text, save_csv
+from src.shared.helpers import clean_text, save_csv
 
 logger = logging.getLogger(__name__)
 load_dotenv()

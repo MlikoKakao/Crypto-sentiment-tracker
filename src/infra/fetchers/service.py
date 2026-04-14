@@ -3,9 +3,9 @@
 import pandas as pd
 
 from src.app.dto import AnalysisConfig
-from src.app.fetchers.news import fetch_news_posts
-from src.app.fetchers.reddit import fetch_reddit_posts
-from src.app.fetchers.youtube import fetch_youtube_posts
+from src.infra.fetchers.news import fetch_news_posts
+from src.infra.fetchers.reddit import fetch_reddit_posts
+from src.infra.fetchers.youtube import fetch_youtube_posts
 
 
 FETCHERS = {

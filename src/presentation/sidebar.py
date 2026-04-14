@@ -12,7 +12,7 @@ from src.presentation.ui_constants import (
     COINS_UI_LABELS,
     SOURCE_UI_TO_LITERAL,
 )
-from src.utils.cache import clear_cache_dir
+from src.infra.cache.file_cache import clear_cache_dir
 
 @dataclass(frozen=True)
 class SidebarState:

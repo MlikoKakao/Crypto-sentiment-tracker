@@ -2,7 +2,7 @@ import pandas as pd
 from src.app.defaults import DEFAULT_CONFIG
 import feedparser #type: ignore[import-untyped]
 from src.infra.storage.logging_config import configure_logging
-from src.utils.helpers import save_csv, clean_text
+from src.shared.helpers import save_csv, clean_text
 import logging
 from src.app.dto import AnalysisConfig
 from src.domain.market.filtering import contains_coin

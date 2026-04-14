@@ -5,7 +5,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 from src.app.dto import AnalysisConfig
 from src.infra.storage.logging_config import configure_logging
-from src.utils.helpers import save_csv, clean_text
+from src.shared.helpers import save_csv, clean_text
 import os
 import logging
 from src.app.defaults import DEFAULT_CONFIG

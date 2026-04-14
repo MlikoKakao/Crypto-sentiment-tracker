@@ -1,7 +1,7 @@
 import streamlit as st
 from src.app.dto import AnalysisResult
 from src.presentation.sidebar import SidebarState, render_sidebar, sidebar_state_to_config
-from src.use_cases.run_analysis import run_analysis
+from src.app.use_cases.run_analysis import run_analysis
 
 def render_app(demo_mode: bool = False) -> None:
     if demo_mode:

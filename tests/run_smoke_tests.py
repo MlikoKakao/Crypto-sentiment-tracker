@@ -8,7 +8,7 @@ print('Starting smoke tests')
 # Test cache read/write
 try:
     import pandas as pd
-    from src.utils import cache as cache_mod
+    from src.infra.cache import file_cache as cache_mod
     print('cache module imported')
     # clear cache dir
     info = cache_mod.clear_cache_dir()
@@ -30,14 +30,14 @@ except Exception:
 
 # Test sentiment analyzer import and a light call
 try:
-    import src.sentiment.analyzer as analyzer
-    print('analyzer imported')
+    from src.domain.sentiment import registry as analyzer
+    print('sentiment registry imported')
     try:
         # call a safe analyzer if available
-        if hasattr(analyzer, 'textblob_analyze'):
-            print('textblob_analyze ->', analyzer.textblob_analyze('I love crypto'))
-        if hasattr(analyzer, 'vader_analyze'):
-            print('vader_analyze ->', analyzer.vader_analyze('I love crypto'))
+        if 'textblob' in analyzer.ANALYZERS:
+            print('textblob ->', analyzer.ANALYZERS['textblob']('I love crypto'))
+        if 'vader' in analyzer.ANALYZERS:
+            print('vader ->', analyzer.ANALYZERS['vader']('I love crypto'))
     except Exception as e:
         print('Analyzer function call raised:', repr(e))
 except Exception:

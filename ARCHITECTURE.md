@@ -48,59 +48,96 @@ The project follows a layered structure:
 
 ---
 
-## In progress: Directory structure
+## Current: Directory structure
 
-crypto-sentiment-tracker/
+Crypto-sentiment-tracker/
 ├─ run_app.py
-├─ requirements.txt
 ├─ README.md
 ├─ ARCHITECTURE.md
-├─ AGENTS.md
 ├─ DECISIONS.md
+├─ requirements.txt
+├─ pyrightconfig.json
+├─ mypy.ini
+│
+├─ config/
+│  ├─ settings.py
+│  └─ cache_schema.py
+│
 ├─ data/
-│  ├─ raw/ #TODO: separate raw and processed
+│  ├─ raw/
 │  ├─ processed/
 │  ├─ cache/
-│  └─ demo/
-├─ tests/ #TODO
-├─ src/
-│  ├─ app/
-│  │  ├─ defaults.py
-│  │  ├─ dto.py
-│  │  ├─ use_cases/
-│  │  │  ├─ run_analysis.py
-│  │  │  ├─ run_backtest.py
-│  │  │  └─ load_demo_data.py
-│  │
-│  ├─ domain/
-│  │  ├─ sentiment/
-│  │  │  ├─ analyzers.py
-│  │  │  ├─ registry.py
-│  │  │  └─ service.py
-│  │  ├─ market/
-│  │  │  ├─ indicators.py
-│  │  │  └─ merge.py
-│  │  └─ backtest/
-│  │     ├─ engine.py
-│  │     └─ metrics.py
-│  │
-│  ├─ infra/
-│  │  ├─ fetchers/
-│  │  │  ├─ reddit.py
-│  │  │  ├─ twitter.py
-│  │  │  ├─ news.py
-│  │  │  └─ price.py
-│  │  ├─ cache/
-│  │  │  ├─ file_cache.py
-│  │  │  └─ keys.py
-│  │  ├─ storage/
-│  │  │  ├─ csv_io.py
-│  │  │  └─ paths.py
-│  │  └─ config/
-│  │     └─ settings.py
-│  │
-│  └─ presentation/
-│     └─ streamlit/
-│        ├─ sidebar.py
-│        ├─ charts.py
-│        └─ pages.py
+│  ├─ demo/
+│  └─ tests/
+│
+├─ logs/
+│
+├─ tests/
+│  ├─ smoke/
+│  ├─ unit/
+│  └─ integration/
+│
+├─ stubs/
+│
+└─ src/
+   ├─ app/
+   │  ├─ dto.py
+   │  ├─ defaults.py
+   │  └─ use_cases/
+   │     ├─ run_analysis.py
+   │     ├─ run_demo.py
+   │     └─ run_backtest.py
+   │
+   ├─ domain/
+   │  ├─ sentiment/
+   │  │  ├─ registry.py
+   │  │  ├─ service.py
+   │  │  ├─ vader.py
+   │  │  ├─ textblob.py
+   │  │  ├─ roberta.py
+   │  │  └─ finbert.py
+   │  │
+   │  ├─ market/
+   │  │  ├─ coins.py
+   │  │  ├─ filtering.py
+   │  │  ├─ indicators.py
+   │  │  └─ merge.py
+   │  │
+   │  ├─ backtest/
+   │  │  ├─ engine.py
+   │  │  └─ metrics.py
+   │  │
+   │  └─ analysis/
+   │     └─ lead_lag.py
+   │
+   ├─ infra/
+   │  ├─ fetchers/
+   │  │  ├─ service.py
+   │  │  ├─ reddit.py
+   │  │  ├─ news.py
+   │  │  ├─ youtube.py
+   │  │  ├─ twitter.py
+   │  │  └─ price.py
+   │  │
+   │  ├─ storage/
+   │  │  ├─ paths.py
+   │  │  ├─ sentiment_csv.py
+   │  │  └─ logging_config.py
+   │  │
+   │  └─ cache/
+   │     ├─ file_cache.py
+   │     └─ keys.py
+   │
+   ├─ presentation/
+   │  ├─ pages.py
+   │  ├─ sidebar.py
+   │  ├─ charts.py
+   │  ├─ metrics.py
+   │  ├─ demo_view.py
+   │  ├─ benchmark_view.py
+   │  └─ ui_constants.py
+   │
+   └─ shared/
+      ├─ text.py
+      ├─ csv.py
+      └─ time.py

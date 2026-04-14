@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import os
-from src.utils.cache import load_cached_csv, cache_csv
+from src.infra.cache.file_cache import load_cached_csv, cache_csv
 from scipy.stats import pearsonr
 from typing import Any
 
@@ -83,7 +83,7 @@ def compute_lead_lag(
 
 def load_or_build_lead_lag_features(settings: dict[str, Any], merged_path: str) -> pd.DataFrame:
     if "depends_on" not in settings:
-        from src.utils.helpers import file_sha1
+        from src.shared.helpers import file_sha1
 
         settings = dict(settings)
         settings["depends_on"] = file_sha1(merged_path)

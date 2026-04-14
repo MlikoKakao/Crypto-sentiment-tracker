@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 import logging
 from src.infra.storage.logging_config import configure_logging
-from src.utils.helpers import save_csv
+from src.shared.helpers import save_csv
 from src.app.dto import AnalysisConfig
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.coins import COIN_IDS
