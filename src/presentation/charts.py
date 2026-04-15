@@ -3,11 +3,11 @@ import pandas as pd
 from src.domain.market.smoothing import apply_loess
 import plotly.graph_objects as go
 import streamlit as st
-from typing import Optional, cast, Sequence
+from typing import cast, Sequence
 
-
-def plot_price_time_series(df: Optional[pd.DataFrame], coin: str):
-    if isinstance(df, pd.DataFrame):
+# Not needed right now, but keeping just in case.
+def plot_price_time_series(df: pd.DataFrame, coin: str):
+    if not df.empty:
         df = df.copy()
         df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
         df = df.dropna(subset=["timestamp"])
@@ -24,14 +24,14 @@ def plot_price_time_series(df: Optional[pd.DataFrame], coin: str):
         fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
         return fig
     else:
-        st.warning("No dataframe delivered to plot price/time function.")
+        st.warning("No data available to plot price/time function.")
         return 1
 
 def plot_sentiment_vs_price(df: pd.DataFrame):
     df = df.copy()
     df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
     df = df.dropna(subset=["timestamp"])
-    df.loc[:, "date_str"] = cast(pd.Series, df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")) #type: ignore
+    df.loc[:, "date_str"] = cast(pd.Series, df["timestamp"].dt.strftime("%Y-%m-%d %H:%M"))
     fig = px.scatter(
         df,
         x="sentiment",
@@ -71,8 +71,8 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
         x=df["timestamp"],
         y=df["sentiment_loess"],
         mode="lines",
-        name="Smoothed (LOESS)",
         line=dict(width=3, dash="dot"),
+        showlegend=False,
     )
 
     return fig
@@ -117,7 +117,7 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
     sentiment_range = [-winner_number - padding, winner_number + padding]
 
     fig.update_layout(
-        title=f"{coin.capitalize()} Sentiment vs Price Over Time",
+        title=f"{coin.upper()} Sentiment vs Price Over Time",
         xaxis=dict(title="Date"),
         yaxis=dict(
             title=dict(text="Sentiment Score", font=dict(color="blue")),
@@ -139,14 +139,11 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
 
 
 def plot_lag_correlation(
-    feats: Optional[pd.DataFrame], unit: str = "min", metric_label: str = "r"
-):
-    if feats is None or feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
+    feats: pd.DataFrame, unit: str = "min", metric_label: str = "r"
+) -> go.Figure:
+    if feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
         st.error("Features DF must include lag_second and r")
-        import plotly.graph_objects as go
-
         return go.Figure()
-
     df = feats.copy()
 
     if unit == "min":
