@@ -3,14 +3,15 @@ import pandas as pd
 from src.domain.market.smoothing import apply_loess
 import plotly.graph_objects as go
 import streamlit as st
+from src.shared.helpers import normalize_timestamp_column
+from statistics import median
 from typing import cast, Sequence
 
 # Not needed right now, but keeping just in case.
 def plot_price_time_series(df: pd.DataFrame, coin: str):
     if not df.empty:
         df = df.copy()
-        df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
-        df = df.dropna(subset=["timestamp"])
+        df = normalize_timestamp_column(df, drop_invalid=True)
 
         fig = px.line(
             df,
@@ -29,8 +30,7 @@ def plot_price_time_series(df: pd.DataFrame, coin: str):
 
 def plot_sentiment_vs_price(df: pd.DataFrame):
     df = df.copy()
-    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
-    df = df.dropna(subset=["timestamp"])
+    df = normalize_timestamp_column(df, drop_invalid=True)
     df.loc[:, "date_str"] = cast(pd.Series, df["timestamp"].dt.strftime("%Y-%m-%d %H:%M"))
     fig = px.scatter(
         df,
@@ -52,7 +52,7 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
 
 def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
     df = df.copy()
-    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+    df = normalize_timestamp_column(df)
     df.loc[:, "sentiment"] = pd.to_numeric(df["sentiment"], errors="coerce")
     df = df.dropna(subset=["timestamp", "sentiment"])
     df = apply_loess(df, x_col="timestamp", y_col="sentiment", frac=0.3)
@@ -81,8 +81,7 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
 # Graph showing LOESS/BTC price
 def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
     df = df.copy()
-    df.loc[:, "timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
-    df = df.dropna(subset=["timestamp"])
+    df = normalize_timestamp_column(df, drop_invalid=True)
 
     df = apply_loess(df, x_col="timestamp", y_col="sentiment", frac=0.3)
     fig = go.Figure()
@@ -251,9 +250,15 @@ def plot_rsi(df: pd.DataFrame, rsi_col: str = "rsi_14"):
 def plot_macd(df: pd.DataFrame):
     if not {"macd", "macd_signal", "macd_hist"}.issubset(df.columns):
         return None
-    ts = pd.to_datetime(df["timestamp"])
-    if len(ts) > 1 and ts.diff().median() is not pd.NaT:
-        bar_width = ts.diff().median().total_seconds() * 1000 * 0.8
+    df = normalize_timestamp_column(df.copy(), drop_invalid=True)
+    ts = df["timestamp"]
+    timestamps = sorted(pd.Timestamp(value) for value in ts.dropna())
+    if len(timestamps) > 1:
+        deltas = [
+            (current - previous).total_seconds()
+            for previous, current in zip(timestamps, timestamps[1:])
+        ]
+        bar_width = median(deltas) * 1000 * 0.8
     else:
         bar_width = 24 * 60 * 60 * 1000
 

@@ -3,6 +3,7 @@ from typing import cast
 import numpy as np
 import pandas as pd
 from scipy.stats import pearsonr  # type: ignore
+from src.shared.helpers import normalize_timestamp_column
 
 
 
@@ -10,8 +11,8 @@ LEAD_LAG_COLUMNS = ["lag_seconds", "r", "p_value", "n"]
 
 def compute_lead_lag(
     merged_df: pd.DataFrame,
-    lag_hours: int,
-    lag_step_min: int,
+    lag_hours: int = 24,
+    lag_step_min: int = 30,
     metric: str = "pearson",
     resample: str = "5min",
     min_points: int = 50,
@@ -20,6 +21,10 @@ def compute_lead_lag(
         merged_df[["timestamp", "price", "sentiment"]]
         .dropna()
         .sort_values(by=["timestamp"])
+    )
+    price_sentiment_df = normalize_timestamp_column(
+        price_sentiment_df,
+        drop_invalid=True,
     )
     if price_sentiment_df.empty:
         return pd.DataFrame(columns=LEAD_LAG_COLUMNS)

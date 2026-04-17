@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import datetime
+from src.shared.helpers import normalize_timestamp_column
 
 def compute_indicators(df: pd.DataFrame, ema_window: int = 20, med_window_bars: int = 96) -> pd.DataFrame:
     out = df.copy()
@@ -71,7 +72,7 @@ def run_backtest(df_merged: pd.DataFrame,
                  slippage_bps: float,
                  resample: str = "5min"):
     dm = df_merged[["timestamp", "price", "sentiment"]].copy()
-    dm["timestamp"] = pd.to_datetime(dm["timestamp"], errors="coerce")
+    dm = normalize_timestamp_column(dm)
     dm["price"] = pd.to_numeric(dm["price"], errors="coerce")
     dm["sentiment"] = pd.to_numeric(dm["sentiment"], errors="coerce")
     dm = dm.dropna(subset=["timestamp", "price", "sentiment"]).sort_values("timestamp")

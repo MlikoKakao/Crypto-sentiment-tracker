@@ -1,4 +1,5 @@
 import pandas as pd
+from src.shared.helpers import normalize_timestamp_column
 
 def merge_sentiment_and_price_df(price_df: pd.DataFrame, sentiment_df: pd.DataFrame) -> pd.DataFrame:
 
@@ -9,7 +10,7 @@ def merge_sentiment_and_price_df(price_df: pd.DataFrame, sentiment_df: pd.DataFr
     price_df = price_df.copy()
 
     for df in (sentiment_df, price_df):
-        df["timestamp"] = pd.to_datetime(df["timestamp"], utc = True, errors = "coerce").dt.tz_convert(None)
+        normalize_timestamp_column(df)
 
     sentiment_df = sentiment_df.dropna(subset=["timestamp"]).sort_values("timestamp")
     price_df     = price_df.dropna(subset=["timestamp"]).sort_values("timestamp")

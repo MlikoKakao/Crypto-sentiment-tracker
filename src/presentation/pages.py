@@ -5,6 +5,7 @@ from src.presentation.charts import plot_sentiment_timeline, plot_sentiment_vs_p
 from src.presentation.sidebar import SidebarState, render_sidebar, sidebar_state_to_config
 from src.app.use_cases.run_analysis import run_analysis
 from src.domain.analysis.lead_lag import compute_lead_lag
+from src.presentation.demo_view import render_demo_page
 
 def render_app(demo_mode: bool = False) -> None:
     if demo_mode:
@@ -13,10 +14,6 @@ def render_app(demo_mode: bool = False) -> None:
         state = render_sidebar()
         render_live_page(state)
 
-def render_demo_page() -> None:
-    st.title("Demo Mode")
-    render_sidebar()
-    return
 
 def render_live_page(state: SidebarState) -> None:
     st.title("Crypto sentiment tracker")

@@ -27,6 +27,21 @@ def save_csv(df: pd.DataFrame, filepath: Path | str):
     logger.debug(f"Saved CSV to: {filepath} ({len(df)} rows)")
 
 
+def normalize_timestamp_column(
+    df: pd.DataFrame,
+    column: str = "timestamp",
+    drop_invalid: bool = False,
+) -> pd.DataFrame:
+    df[column] = pd.to_datetime(
+        df[column],
+        utc=True,
+        errors="coerce",
+    ).dt.tz_convert(None)
+    if drop_invalid:
+        df = df.dropna(subset=[column])
+    return df
+
+
 def file_sha1(
     p: str | os.PathLike[Any],
 ) -> str:  # Returns content fingerprint of a file
@@ -85,4 +100,3 @@ def filter_date_range(
 def map_to_cryptopanic_symbol(symbol: str) -> str:
     symbol_map = {"bitcoin": "BTC", "ethereum": "ETH", "monero": "XMR"}
     return symbol_map.get(symbol.lower(), symbol.upper())
-
