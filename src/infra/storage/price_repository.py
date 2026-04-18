@@ -29,8 +29,11 @@ def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
     with get_connection() as conn:
         df = pd.read_sql_query("""
                                SELECT * FROM prices 
-                               WHERE coin = ? AND timestamp >= ? AND timestamp <= ?
-                               """, conn, config.coin.upper(), start_date, end_date
+                               WHERE coin = ? AND timestamp BETWEEN ? AND ?
+                               """,
+                               conn,
+                               params=(config.coin.upper(), start_date, end_date)
         )
     conn.close()
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df

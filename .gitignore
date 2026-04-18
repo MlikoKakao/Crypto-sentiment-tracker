@@ -10,3 +10,8 @@ __pycache__/
 *.csv
 data/
 logs/*.log
+data/app.db
+data/*.db
+data/*.db-journal
+data/*.sqlite
+data/*.sqlite3

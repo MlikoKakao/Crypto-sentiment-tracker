@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 import logging
 from src.infra.storage.logging_config import configure_logging
-from src.shared.helpers import save_csv
+from src.infra.storage.price_repository import save_price_df
 from src.app.dto import AnalysisConfig
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.coins import COIN_IDS
@@ -51,6 +51,6 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 if __name__ == "__main__":
     configure_logging()
     df = get_price_history(DEFAULT_CONFIG)
-    save_csv(df, "data/tests/bitcoin_prices.csv")
-    logger.info("Saved price history to data/tests/bitcoin_prices.csv")
+    save_price_df(df, DEFAULT_CONFIG.coin)
+    logger.info("Saved price history to app.db")
     logger.debug(f"Saved {len(df)} price points for all available days")
