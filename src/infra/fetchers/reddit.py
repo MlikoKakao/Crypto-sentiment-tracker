@@ -10,6 +10,7 @@ import os
 import logging
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.filtering import contains_coin
+from src.infra.storage.db.reddit_repository import load_reddit_df, has_reddit_coverage, save_reddit_df
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +36,10 @@ def get_reddit_client() -> Reddit:
 
 
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
+    logger.info("Attempting to fetch cached data..")
+    df = load_reddit_df(config)
+    if has_reddit_coverage(config, df):
+        return df
     
     logger.info(
         f"Fetching Reddit posts with query='{config.coin}', limit={config.num_posts}, subs={config.subreddits}"
@@ -93,8 +98,10 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
         f"Fetched {len(posts)} posts for query='{config.coin}' from {config.subreddits}"
     )
     df = pd.DataFrame(posts)
-    if not df.empty:
-        df["text"] = df["text"].apply(clean_text)
+    if df.empty:
+        return df
+    df["text"] = df["text"].apply(clean_text)
+    save_reddit_df(df, config.coin)
     return df
 
 if __name__ == "__main__":

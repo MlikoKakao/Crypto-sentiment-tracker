@@ -19,8 +19,21 @@ def init_db():
                 source TEXT,
                 url TEXT NOT NULL,
                 text TEXT,
-                PRIMARY KEY (url)
+                PRIMARY KEY (coin, url)
                 );
+            CREATE TABLE IF NOT EXISTS reddit (
+                coin TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                text TEXT NOT NULL,
+                url TEXT NOT NULL,
+                score INT,
+                num_comments INT,
+                upvote_ratio REAL,
+                id TEXT NOT NULL,
+                source TEXT,
+                subreddit TEXT,
+                PRIMARY KEY (coin, id)
+            )
             """
             )
         conn.commit()
