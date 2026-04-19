@@ -144,8 +144,8 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 ---
 
 ## Roadmap
-- [ ] Refactor and clean up application structure
-- [ ] Replace current X/Twitter scraping API
+- [x] Refactor and clean up application structure
+- [x] Replace current X/Twitter scraping API - replaced with YouTube
 - [ ] Replace CSV storage with a database
 - [ ] Improve dashboard UI/UX
 - [ ] Add anomaly detection and quick insights
