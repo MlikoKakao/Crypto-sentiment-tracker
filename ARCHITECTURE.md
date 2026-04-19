@@ -16,7 +16,7 @@
 
 ## Planned core goals
 
-- Change to DB, for example PostgreSQL, from CSVs
+- Change to DB, first SQLite, then more advanced DBs, from CSVs
 - Compute abnormalities
 - Regular scraping, make the app live
 

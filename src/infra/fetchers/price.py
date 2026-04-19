@@ -4,15 +4,20 @@ import pandas as pd
 from datetime import datetime
 import logging
 from src.infra.storage.logging_config import configure_logging
-from src.infra.storage.price_repository import save_price_df
 from src.app.dto import AnalysisConfig
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.coins import COIN_IDS
+from src.infra.storage.db.price_repository import save_price_df, load_price_df, has_price_coverage
 
 logger = logging.getLogger(__name__)
 
 
 def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
+    logger.info("Checking cache for price points..")
+    df = load_price_df(config)
+    if has_price_coverage(config, df):
+        return df 
+
 
     logger.info(f"Attempting to fetch price for {config.coin}..")
     if config.coin not in COIN_IDS:
@@ -45,6 +50,7 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
         prices.append({"timestamp": dt, "price": price})
 
     df = pd.DataFrame(prices)
+    save_price_df(df, config.coin)
     return df
 
 

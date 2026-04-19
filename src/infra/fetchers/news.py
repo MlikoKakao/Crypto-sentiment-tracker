@@ -1,8 +1,8 @@
 import pandas as pd
 from src.app.defaults import DEFAULT_CONFIG
 import feedparser #type: ignore[import-untyped]
-from src.infra.storage.logging_config import configure_logging
-from src.shared.helpers import save_csv, clean_text
+from src.shared.helpers import save_csv
+from src.infra.storage.db.news_repository import save_news_df, load_news_df, has_news_coverage
 import logging
 from src.app.dto import AnalysisConfig
 from src.domain.market.filtering import contains_coin
@@ -11,6 +11,11 @@ from src.domain.market.filtering import contains_coin
 logger = logging.getLogger(__name__)
 
 def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
+    logger.info("Attempting to fetch cached data..")
+    df = load_news_df(config)
+    if has_news_coverage(config, df):
+        return df
+
     logger.info(f"Attempting to fetch news for {config.coin}..")
     feed_urls = ['https://www.coindesk.com/arc/outboundfeeds/rss', 'https://cointelegraph.com/rss/tag/altcoin',
                  'https://cointelegraph.com/rss/tag/bitcoin', 'https://cointelegraph.com/rss/tag/ethereum', 'https://cointelegraph.com/rss/tag/blockchain',
@@ -66,14 +71,13 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     dupes[df["url"] == ""] = False
     df = df[~dupes]
     logger.debug(f"Size of final df: {len(df)}")
-    df["text"] = df["title"].apply(clean_text)
+    save_news_df(df, config.coin)
     return df
 
 
 
 
 if __name__ == "__main__":
-    configure_logging()
     df = fetch_news_posts(DEFAULT_CONFIG)
     save_csv(df, "data/tests/news_posts.csv")
     print(df.head())

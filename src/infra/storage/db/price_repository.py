@@ -1,7 +1,8 @@
-from src.infra.storage.db import get_connection
+from src.infra.storage.db.connection import get_connection
 import pandas as pd
 from src.shared.helpers import normalize_timestamp_column
 from src.app.dto import AnalysisConfig
+from datetime import timedelta
 
 def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
     df = prices_df.copy()
@@ -37,3 +38,16 @@ def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
+
+def has_price_coverage(config: AnalysisConfig, price_df: pd.DataFrame) -> bool:
+    if price_df.empty:
+        return False
+    
+    tolerance = timedelta(hours=1)
+    min_time = price_df["timestamp"].min()
+    max_time = price_df["timestamp"].max()
+
+    starts_near = min_time <= config.start_date + tolerance
+    ends_near = max_time >= config.end_date - tolerance
+
+    return starts_near and ends_near
