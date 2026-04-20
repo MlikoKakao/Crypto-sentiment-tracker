@@ -43,7 +43,7 @@ def has_youtube_coverage(config: AnalysisConfig, youtube_df: pd.DataFrame) -> bo
         return False
     
     posts_count = len(youtube_df)
-    enough_posts = posts_count >= config.num_posts / 2
+    enough_posts = posts_count >= config.num_posts / 3
 
     tolerance = timedelta(days=1)
     min_time = youtube_df["timestamp"].min()
