@@ -17,7 +17,7 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 - **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
 - **Indicators**: EMA, RSI, MACD
 - **Several graph visualizations comparing sentiment and price**
-- **Caching**: file-based (CSV) + own-made with settings map and hashing to keep API usage low
+- **Caching**: SQlite database
 - **Modular**: re-use ETL in notebooks or other apps
 
 > Goal = quick signal intuition. Swap in heavier models/sources when needed.
