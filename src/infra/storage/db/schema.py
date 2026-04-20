@@ -2,7 +2,7 @@ from src.infra.storage.db.connection import get_connection
 
 def init_db():
     with get_connection() as conn:
-        conn.execute(
+        conn.executescript(
             """
             CREATE TABLE IF NOT EXISTS prices 
                 (coin TEXT NOT NULL, 
@@ -33,7 +33,17 @@ def init_db():
                 source TEXT,
                 subreddit TEXT,
                 PRIMARY KEY (coin, id)
-            )
+            );
+            CREATE TABLE IF NOT EXISTS youtube (
+                coin TEXT NOT NULL,
+                id TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                text TEXT NOT NULL,
+                source TEXT,
+                url TEXT NOT NULL,
+                author TEXT,
+                PRIMARY KEY (coin, id)
+            );
             """
             )
         conn.commit()

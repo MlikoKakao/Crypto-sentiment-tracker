@@ -47,7 +47,11 @@ def has_price_coverage(config: AnalysisConfig, price_df: pd.DataFrame) -> bool:
     min_time = price_df["timestamp"].min()
     max_time = price_df["timestamp"].max()
 
-    starts_near = min_time <= config.start_date + tolerance
-    ends_near = max_time >= config.end_date - tolerance
+    start_date = pd.to_datetime(config.start_date, utc=True).tz_convert(None)
+    end_date = pd.to_datetime(config.end_date, utc=True).tz_convert(None)
 
+
+    starts_near = min_time <= start_date + tolerance
+    ends_near = max_time >= end_date - tolerance
+    
     return starts_near and ends_near

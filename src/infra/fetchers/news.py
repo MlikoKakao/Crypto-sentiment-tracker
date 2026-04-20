@@ -29,7 +29,11 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     published = ['published', 'published_parsed', 'updated', 'updated_parsed']
 
     for feed_url in feed_urls:
-        response = feedparser.parse(feed_url)
+        try:
+            response = feedparser.parse(feed_url)
+        except Exception as e:
+            logger.warning(f"Skipping feed {feed_url}: {e}")
+            continue
         for entry in response.entries:
             published_at = None
             for publish in published:
@@ -52,7 +56,7 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
             url = entry.get("link", "")
             domain = feed_url.split("/")[2]
             posts.append(
-                {"timestamp": timestamp, "title": title, "summary": summary, "source": domain, "url": url}
+                {"timestamp": timestamp, "title": title, "summary": summary, "text": f"{title} {summary}", "source": domain, "url": url}
             )
             if len(posts) >= config.num_posts:
                 break
@@ -72,7 +76,7 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     df = df[~dupes]
     logger.debug(f"Size of final df: {len(df)}")
     save_news_df(df, config.coin)
-    return df
+    return load_news_df(config)
 
 
 

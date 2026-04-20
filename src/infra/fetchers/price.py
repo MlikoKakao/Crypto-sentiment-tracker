@@ -51,7 +51,7 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 
     df = pd.DataFrame(prices)
     save_price_df(df, config.coin)
-    return df
+    return load_price_df(config)
 
 
 if __name__ == "__main__":

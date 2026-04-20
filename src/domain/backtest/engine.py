@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import datetime
 from src.shared.helpers import normalize_timestamp_column
 
 def compute_indicators(df: pd.DataFrame, ema_window: int = 20, med_window_bars: int = 96) -> pd.DataFrame:
@@ -31,10 +30,13 @@ def backtest_long_only(df: pd.DataFrame,
     pos = build_signal(out)
     out["pos"] = pos
 
-    trades = pos.diff().abs().fillna(0)
+    ret = pd.to_numeric(out["ret"], errors="coerce").fillna(0.0)
+    pos = build_signal(out).astype(float)
+    trades = pos.diff().abs().fillna(0.0)
 
-    cost = (cost_bps+slippage_bps) / 10000.0
-    out["ret_net"] = pos * out["ret"] - trades * cost
+    cost = (cost_bps + slippage_bps) / 10000.0
+    out["ret_net"] = pos.mul(ret).sub(trades.mul(cost))
+
 
     out["eq_strategy"] = out["ret_net"].cumsum().pipe(np.exp)
     out["eq_hodl"] = out["ret"].fillna(0).cumsum().pipe(np.exp)
@@ -70,7 +72,7 @@ def summarize(df_bt: pd.DataFrame, bars_per_year: int)-> dict[str, float]:
 def run_backtest(df_merged: pd.DataFrame,
                  cost_bps: float,
                  slippage_bps: float,
-                 resample: str = "5min"):
+                 resample: str = "5min") -> tuple[pd.DataFrame, dict[str, float]]:
     dm = df_merged[["timestamp", "price", "sentiment"]].copy()
     dm = normalize_timestamp_column(dm)
     dm["price"] = pd.to_numeric(dm["price"], errors="coerce")
@@ -88,19 +90,13 @@ def run_backtest(df_merged: pd.DataFrame,
     df_ind = compute_indicators(df5, ema_window=20, med_window_bars=96)
     bt = backtest_long_only(df_ind, cost_bps=cost_bps, slippage_bps=slippage_bps)
 
-    delta = df5["timestamp"].diff().median()
+    timestamp_series = pd.to_datetime(df5["timestamp"], errors="coerce")
+    delta = timestamp_series.diff().median()
+    
     seconds = 0.0
-    if pd.isna(delta):
-        seconds = 0.0
-    elif isinstance(delta, (pd.Timedelta, datetime.timedelta)):
+    if pd.notna(delta):
         seconds = delta.total_seconds()
-    elif isinstance(delta, np.timedelta64):
-        seconds = pd.Timedelta(delta).total_seconds()
-    else:
-        try:
-            seconds = float(delta)
-        except Exception:
-            seconds = 0.0
+
 
     if seconds <= 0:
         bars_per_year = 52560

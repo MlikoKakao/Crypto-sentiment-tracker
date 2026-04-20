@@ -1,7 +1,6 @@
 from __future__ import annotations
 from typing import Optional
 import nltk # type: ignore
-import logging
 
 try:
     from nltk.sentiment.vader import SentimentIntensityAnalyzer  # type: ignore[import]
@@ -11,7 +10,6 @@ except Exception:
 _vader = None
     
 def vader_analyze(text: Optional[str]) -> float:
-    logging.info("Analyzing sentiment with VADER")
     global _vader
     if _vader is None:
         if SentimentIntensityAnalyzer is None:

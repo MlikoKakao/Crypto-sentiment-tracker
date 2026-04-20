@@ -12,7 +12,6 @@ from src.presentation.ui_constants import (
     COINS_UI_LABELS,
     SOURCE_UI_TO_LITERAL,
 )
-from src.infra.cache.file_cache import clear_cache_dir
 
 @dataclass(frozen=True)
 class SidebarState:
@@ -136,13 +135,6 @@ def render_sidebar() -> SidebarState:
         run = st.button("Run Analysis", type="primary")
 
         st.header("Utils")
-
-        if st.button("Clear cache"):
-            res = clear_cache_dir()
-            mb = res["bytes_freed"] / 1000000
-            st.success(f"Removed {res['files_removed']} files ({mb:.2f} MB)")
-            st.session_state.pop("merged_path", None)
-
 
         benchtest = st.button("Run analyzer benchmark")
     

@@ -10,12 +10,12 @@ def save_news_df(news_df: pd.DataFrame, coin: str = "btc") -> None:
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df["coin"] = coin.upper()
 
-    rows = df[["coin", "timestamp", "title", "summary", "source", "url"]].itertuples(index=False, name=None)
+    rows = df[["coin", "timestamp", "title", "summary", "text", "source", "url"]].itertuples(index=False, name=None)
     with get_connection() as conn:
         conn.executemany(
             """
-            INSERT OR REPLACE INTO news (coin, timestamp, title, summary, source, url)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT OR REPLACE INTO news (coin, timestamp, title, summary, text, source, url)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
             rows,
         )
@@ -48,8 +48,12 @@ def has_news_coverage(config: AnalysisConfig, news_df: pd.DataFrame) -> bool:
     tolerance = timedelta(days=1)
     min_time = news_df["timestamp"].min()
     max_time = news_df["timestamp"].max()
+    
+    start_date = pd.to_datetime(config.start_date, utc=True).tz_convert(None)
+    end_date = pd.to_datetime(config.end_date, utc=True).tz_convert(None)
 
-    starts_near = min_time <= config.start_date + tolerance
-    ends_near = max_time >= config.end_date - tolerance
 
+    starts_near = min_time <= start_date + tolerance
+    ends_near = max_time >= end_date - tolerance
+    
     return starts_near and ends_near and enough_posts

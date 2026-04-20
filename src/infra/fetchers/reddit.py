@@ -102,7 +102,7 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
         return df
     df["text"] = df["text"].apply(clean_text)
     save_reddit_df(df, config.coin)
-    return df
+    return load_reddit_df(config)
 
 if __name__ == "__main__":
     configure_logging()

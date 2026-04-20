@@ -8,11 +8,18 @@ from src.infra.storage.logging_config import configure_logging
 import logging
 from src.app.defaults import DEFAULT_CONFIG
 from src.shared.helpers import clean_text, save_csv
+from src.infra.storage.db.youtube_repository import save_youtube_df, load_youtube_df, has_youtube_coverage
+
 
 logger = logging.getLogger(__name__)
 load_dotenv()
 
 def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
+    df = load_youtube_df(config)
+    if has_youtube_coverage(config, df):
+        logger.info(f"Success, fetched {len(df)} youtube posts in DB.")
+        return df
+    
     api_service_name = "youtube"
     api_version = "v3"
     YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
@@ -27,41 +34,50 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     posts = []
     seen: set[str] = set()
+
     for coin in COIN_TERMS[config.coin]:
-        request = youtube.search().list(    
-            part="id,snippet",  
-            q=coin,   
-            maxResults=config.num_posts,
-            type="video",
-            order="date",
-            publishedAfter=config.start_date.isoformat(),
-            publishedBefore=config.end_date.isoformat(),
-        )    
-    
-        response = request.execute()
-        
+        page_token = None
 
-        for item in response["items"]:
-            videoId = item["id"]["videoId"]
+        while len(posts) < config.num_posts:
+            remaining = config.num_posts - len(posts)
+            request = youtube.search().list(    
+                part="id,snippet",  
+                q=coin,   
+                maxResults=min(50, remaining),
+                type="video",
+                order="date",
+                publishedAfter=config.start_date.isoformat(),
+                publishedBefore=config.end_date.isoformat(),
+                pageToken=page_token
+            )    
 
-            if videoId in seen:
-                continue
-            title = item["snippet"]["title"]
-            description = item["snippet"]["description"]
+            response = request.execute()
 
-            posts.append({
-                "id": videoId,
-                "timestamp": item["snippet"]["publishedAt"],
-                "text": title + " " + description,
-                "source": "youtube",
-                "url": f"https://www.youtube.com/watch?v={videoId}",
-                "author": item["snippet"]["channelTitle"],
-                "coin": config.coin.lower(),
-            })
-            posts[-1]["text"] = clean_text(posts[-1]["text"])
-            seen.add(videoId)
+            for item in response.get("items", []):
+                videoId = item["id"]["videoId"]
 
-            if len(posts) >= config.num_posts:
+                if videoId in seen:
+                    continue
+                title = item["snippet"]["title"]
+                description = item["snippet"]["description"]
+
+                posts.append({
+                    "id": videoId,
+                    "timestamp": item["snippet"]["publishedAt"],
+                    "text": title + " " + description,
+                    "source": "youtube",
+                    "url": f"https://www.youtube.com/watch?v={videoId}",
+                    "author": item["snippet"]["channelTitle"],
+                    "coin": config.coin.lower(),
+                })
+                posts[-1]["text"] = clean_text(posts[-1]["text"])
+                seen.add(videoId)
+
+                if len(posts) >= config.num_posts:
+                    break
+
+            page_token = response.get("nextPageToken")
+            if not page_token:
                 break
 
         if len(posts) >= config.num_posts:
@@ -78,7 +94,8 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     logger.info(f"Fetched {len(df)} YouTube posts for query='{config.coin}'")
 
-    return df
+    save_youtube_df(df, config.coin)
+    return load_youtube_df(config)
 
 if __name__ == "__main__":
     configure_logging()
