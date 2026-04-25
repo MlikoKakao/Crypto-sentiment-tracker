@@ -17,7 +17,7 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 - **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
 - **Indicators**: EMA, RSI, MACD
 - **Several graph visualizations comparing sentiment and price**
-- **Caching**: file-based (CSV) + own-made with settings map and hashing to keep API usage low
+- **Caching**: SQlite database
 - **Modular**: re-use ETL in notebooks or other apps
 
 > Goal = quick signal intuition. Swap in heavier models/sources when needed.
@@ -125,7 +125,7 @@ streamlit run run_app.py
 _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 
 ---
-
+## Outdated cache and storage with CSVs
 ## Caching & Storage
 
 - **CSV cache**: under `data/` (gitignored). Big files? use `clear_cache_dir()`.
@@ -146,8 +146,8 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 ## Roadmap
 - [x] Refactor and clean up application structure
 - [x] Replace current X/Twitter scraping API - replaced with YouTube
-- [ ] Replace CSV storage with a database
-- [ ] Improve dashboard UI/UX
+- [x] Replace CSV storage with a database
+- [ ] Improve dashboard UI/UX ??
 - [ ] Add anomaly detection and quick insights
 - [ ] Deploy the application online
 
