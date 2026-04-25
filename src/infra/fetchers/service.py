@@ -1,5 +1,3 @@
-    
-
 import pandas as pd
 
 from src.app.dto import AnalysisConfig

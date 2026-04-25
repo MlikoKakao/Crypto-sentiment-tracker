@@ -70,7 +70,7 @@ def get_coinbase_price_history(config: AnalysisConfig) -> pd.DataFrame:
     df = df.sort_values("timestamp")
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df = df.dropna(subset=["timestamp", "price"])
-    save_price_df(df)
+    save_price_df(df, config.coin)
     return df
 
 if __name__ == "__main__":

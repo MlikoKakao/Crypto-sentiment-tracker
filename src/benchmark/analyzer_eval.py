@@ -9,23 +9,10 @@ from sklearn.metrics import accuracy_score, f1_score, classification_report, con
 from textblob import TextBlob
 from transformers import pipeline
 
+from src.domain.sentiment.service import add_sentiment_to_df
 from .benchmark_plot import to_table
 
 CANONICAL = ("negative", "neutral", "positive")
-
-def get_vader_analyzer():
-    try:
-        from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer # type: ignore #not worth the effort to make stub
-        return SentimentIntensityAnalyzer()
-    except Exception:
-        import nltk # type: ignore #not worth the effort to make stub
-        from nltk.sentiment import SentimentIntensityAnalyzer   # type: ignore #not worth the effort to make stub
-        try:
-            return SentimentIntensityAnalyzer()
-        except LookupError:
-            nltk.download("vader_lexicon", quiet=True)
-            return SentimentIntensityAnalyzer()
-
 
 def _normalize_label(s: str) -> str:
     """Map common label variants into the canonical 3-class set."""
@@ -74,12 +61,12 @@ def pred_finbert(texts: List[str], batch_size: int = 16, device: int = -1) -> Li
     return [str(r["label"]).lower() for r in out] 
 
 
-
-def _metrics(y_true: List[str], y_pred: List[str]) -> Dict[str, Any]:
-    acc = accuracy_score(y_true, y_pred)
-    f1m = f1_score(y_true, y_pred, average="macro")
-    cm  = confusion_matrix(y_true, y_pred, labels=list(CANONICAL))
-    report = classification_report(y_true, y_pred, labels=list(CANONICAL), zero_division=0, digits=3)
+# Keep this here, good code
+def metrics(true_label: List[str], prediction: List[str]) -> Dict[str, Any]:
+    acc = accuracy_score(true_label, prediction)
+    f1m = f1_score(true_label, prediction, average="macro")
+    cm  = confusion_matrix(true_label, prediction, labels=list(CANONICAL))
+    report = classification_report(true_label, prediction, labels=list(CANONICAL), zero_division=0, digits=3)
     return {"accuracy": acc, "f1_macro": f1m, "confusion": cm, "report": report}
 
 def _examples(y_true: Sequence[str], y_pred: Sequence[str], texts: Sequence[str], k: int = 4) -> List[Tuple[str, str, str]]:
@@ -111,7 +98,7 @@ def evaluate(df: pd.DataFrame,
         t0 = time.perf_counter()
         y_hat = fn(texts)
         t1 = time.perf_counter()
-        m = _metrics(y, y_hat)
+        m = metrics(y, y_hat)
         m["examples"] = _examples(y, y_hat, texts)
         m["time_sec"] = t1 - t0
         m["n_texts"] = len(texts)
