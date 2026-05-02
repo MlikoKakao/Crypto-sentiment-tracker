@@ -9,7 +9,6 @@ from sklearn.metrics import accuracy_score, f1_score, classification_report, con
 from textblob import TextBlob
 from transformers import pipeline
 
-from src.domain.sentiment.service import add_sentiment_to_df
 from .benchmark_plot import to_table
 
 CANONICAL = ("negative", "neutral", "positive")
