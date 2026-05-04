@@ -18,9 +18,7 @@ def run_analysis(config: AnalysisConfig) -> AnalysisResult:
 
 if __name__ == "__main__":
     import logging
-    from src.infra.storage.logging_config import configure_logging
     logger = logging.getLogger(__name__)
-    configure_logging()
 
     logger.info("Test running analysis with default config...")
     result = run_analysis(DEFAULT_CONFIG)

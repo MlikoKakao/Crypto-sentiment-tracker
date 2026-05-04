@@ -12,11 +12,9 @@ except Exception:
     )
 from config.settings import DEMO_MODE
 from src.presentation.pages import render_app
-from src.infra.storage.logging_config import configure_logging
 
 # Page header
 st.set_page_config(page_title="Crypto Sentiment Tracker", layout="wide")
-configure_logging()
 
 
 render_app(demo_mode=DEMO_MODE)

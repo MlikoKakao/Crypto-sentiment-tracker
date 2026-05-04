@@ -2,7 +2,6 @@ import streamlit as st
 from src.presentation.charts import plot_sentiment_timeline, plot_sentiment_vs_price, plot_sentiment_with_price, plot_lag_correlation, plot_price_with_sma, plot_rsi, plot_macd 
 from src.domain.analysis.lead_lag import compute_lead_lag
 import pandas as pd
-from src.infra.storage.paths import get_demo_data_path
 from src.presentation.sidebar import render_sidebar
 from src.shared.helpers import normalize_timestamp_column
 
@@ -31,5 +30,5 @@ def render_demo_result_tabs() -> None:
         st.plotly_chart(plot_rsi(demo_merged_df))
 
 def load_demo_merged_df() -> pd.DataFrame:
-    demo_merged_df = pd.read_csv(get_demo_data_path("bitcoin_merged.csv"))
+    demo_merged_df = pd.read_csv("data/demo/bitcoin_merged.csv")
     return normalize_timestamp_column(demo_merged_df, drop_invalid=True)

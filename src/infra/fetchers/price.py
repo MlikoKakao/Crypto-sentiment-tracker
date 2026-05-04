@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 from datetime import datetime
 import logging
-from src.infra.storage.logging_config import configure_logging
 from src.app.dto import AnalysisConfig
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.coins import COIN_IDS
@@ -55,7 +54,6 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    configure_logging()
     df = get_price_history(DEFAULT_CONFIG)
     save_price_df(df, DEFAULT_CONFIG.coin)
     logger.info("Saved price history to app.db")

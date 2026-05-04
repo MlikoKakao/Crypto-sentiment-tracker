@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import googleapiclient.discovery #type: ignore
 import pandas as pd
 from src.app.dto import AnalysisConfig
-from src.infra.storage.logging_config import configure_logging
 import logging
 from src.app.defaults import DEFAULT_CONFIG
 from src.shared.helpers import clean_text, save_csv
@@ -105,7 +104,6 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
     return load_youtube_df(config)
 
 if __name__ == "__main__":
-    configure_logging()
     df = fetch_youtube_posts(DEFAULT_CONFIG)
     save_csv(df, f"data/tests/{DEFAULT_CONFIG.coin}_youtube.csv")
     logger.info(f"Saved YouTube posts to data/tests/{DEFAULT_CONFIG.coin}_youtube.csv")

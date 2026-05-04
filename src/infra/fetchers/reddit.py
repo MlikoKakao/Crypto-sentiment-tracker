@@ -4,7 +4,6 @@ import pandas as pd
 from datetime import datetime
 from dotenv import load_dotenv
 from src.app.dto import AnalysisConfig
-from src.infra.storage.logging_config import configure_logging
 from src.shared.helpers import save_csv, clean_text
 import os
 import logging
@@ -105,7 +104,6 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     return load_reddit_df(config)
 
 if __name__ == "__main__":
-    configure_logging()
     print("Testing Reddit fetch")
     df = fetch_reddit_posts(DEFAULT_CONFIG)
     logger.debug(f"Fetched Reddit posts:{df.head()}")

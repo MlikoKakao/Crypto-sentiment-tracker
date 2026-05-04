@@ -55,7 +55,6 @@ def render_live_page(state: SidebarState) -> None:
 
     with st.spinner("Running analysis..."):
             result = run_analysis(config)
-    st.success("Analysis completed!")
 
     render_result_tabs(result, state, tabs)
 

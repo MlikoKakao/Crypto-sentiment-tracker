@@ -18,7 +18,7 @@ def _to_trinary_from_score(x: float, pos: float = 0.05, neg: float = -0.05) -> s
     if x <= neg: return "negative"
     return "neutral"
 
-# Keep this here, good code
+
 def metrics(true_label: List[str], prediction: List[str]) -> Dict[str, Any]:
     acc = accuracy_score(true_label, prediction)
     f1m = f1_score(true_label, prediction, average="macro")
@@ -26,10 +26,10 @@ def metrics(true_label: List[str], prediction: List[str]) -> Dict[str, Any]:
     report = classification_report(true_label, prediction, labels=list(CANONICAL), zero_division=0, digits=3)
     return {"accuracy": acc, "f1_macro": f1m, "confusion": cm, "report": report}
 
+
 def _examples(y_true: Sequence[str], y_pred: Sequence[str], texts: Sequence[str], k: int = 4) -> List[Tuple[str, str, str]]:
     bad = [(t, yt, yp) for t, yt, yp in zip(texts, y_true, y_pred) if yt != yp]
     return bad[:k]
-
 
 
 def evaluate(df: pd.DataFrame,
@@ -56,7 +56,9 @@ def evaluate(df: pd.DataFrame,
         t0 = time.perf_counter()
 
         scored_df = add_sentiment_to_df(df, analyzer)
-        y_hat = scored_df["sentiment"].map(_to_trinary_from_score).tolist()
+        scored_df_with_tri = scored_df["sentiment"].map(_to_trinary_from_score)
+        scored_df_with_tri.to_csv(f"data/benchmark/{analyzer}.csv")
+        y_hat = scored_df_with_tri.tolist()
         t1 = time.perf_counter()
 
         m = metrics(y, y_hat)
@@ -66,8 +68,8 @@ def evaluate(df: pd.DataFrame,
         m["throughput_txt_per_s"] = (len(texts) / (t1 - t0)) if (t1 - t0) > 0 else float("inf")
         
         results[analyzer] = m
+        
     return results
-
 
 
 @st.cache_data(show_spinner="Running bechmark...", ttl=3600)
