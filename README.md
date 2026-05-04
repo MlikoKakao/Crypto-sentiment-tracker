@@ -4,7 +4,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-app-red.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 
-Streamlit app that scrapes posts about **Bitcoin / Ethereum**, runs **sentiment analysis**, merges with **price data**, and plots **EMA/RSI/MACD**. Built for **fast demos** and exploratory analysis with CSV caching.
+Streamlit app that collects crypto discussion around **Bitcoin / Ethereum / Monero**, runs **sentiment analysis**, merges it with **price data**, and visualizes sentiment, lead/lag correlation, indicators, and simple backtests. Built for **fast demos** and exploratory analysis with SQLite-backed caching.
 Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 <img width="3835" height="1746" alt="image" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
 
@@ -12,13 +12,13 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 
 ## Features
 
-- **One-click pipeline**: fetch → analyze → merge → visualize
-- **Sources**: Reddit, X (Twitter), crypto news (CryptoPanic mapping)
+- **One-click pipeline**: fetch -> analyze -> merge -> visualize
+- **Sources**: Reddit, YouTube, crypto news, and Coinbase price data
 - **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
-- **Indicators**: EMA, RSI, MACD
-- **Several graph visualizations comparing sentiment and price**
-- **Caching**: SQlite database
-- **Modular**: re-use ETL in notebooks or other apps
+- **Indicators**: SMA, RSI, MACD
+- **Analysis views**: sentiment/price charts, lead-lag correlation, model benchmark view, and optional backtest charts
+- **Caching/storage**: SQLite database at `data/app.db`
+- **Modular architecture**: presentation, application, domain, and infrastructure layers
 
 > Goal = quick signal intuition. Swap in heavier models/sources when needed.
 
@@ -29,36 +29,53 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 ```
 .
 ├─ run_app.py
-├─ data/ # cached CSVs (gitignored)
-├─ docs/ # images/gifs for README
+├─ ARCHITECTURE.md
+├─ DECISIONS.md
+├─ requirements.txt
+├─ config/
+│  └─ settings.py
+├─ data/
+│  ├─ benchmark/
+│  ├─ cache/
+│  ├─ demo/
+│  ├─ processed/
+│  ├─ raw/
+│  └─ tests/
+├─ docs/
+├─ tests/
+│  └─ run_smoke_tests.py
+├─ stubs/
+│  ├─ textblob/
+│  └─ vader/
 ├─ src/
-│ ├─ scraping/
-│ │ ├─ reddit_scraper.py
-│ │ ├─ twitter_scraper.py
-│ │ └─ news_scraper.py
-│ │ └─ fetch_helpers.py
-│ │ └─ fetch_price.py
-│ ├─ sentiment/
-│ │ └─ analyzer.py # add_sentiment_to_file(), analyzer selection
-│ ├─ processing/
-│ │ └─ merge_data.py # merge_sentiment_and_price()
-│ │ └─ indicators.py # calculating indicators
-│ │ └─ smoothing.py # smoothing for graphs
-│ ├─ plotting/
-│ │ └─ charts.py # all functionality of graphs, charts
-│ ├─ analysis/
-│ │ └─ lead_lag.py # calculate lead/lag
-│ ├─ backtest/
-│ │ └─ engine.py # simulate trading strategy based on sentiment and trend on backtest data
-│ ├─ benchmark/
-│ │ └─ analyzer_eval.py # benchmarking sentiment models
-│ │ └─ benchmark:plot.py # plotting benchmarking results
-│ └─ utils/
-│ ├─ helpers.py # load_csv(), save_csv(), filter_date_range(), map_to_cryptopanic_symbol()
-│ ├─ cache.py # load_cached_csv(), cache_csv(), clear_cache_dir()
-└─ config/
-└─ settings.py # UI labels, defaults, paths
-└─ cache_schema.py # Caching and hashing functionality
+│  ├─ presentation/
+│  │  ├─ pages.py              # Streamlit page routing and app rendering
+│  │  ├─ sidebar.py            # User controls for coin/source/analyzer/date
+│  │  ├─ charts.py             # Plotly chart builders
+│  │  ├─ demo_view.py
+│  │  ├─ benchmark_view.py
+│  │  └─ ui_constants.py
+│  ├─ app/
+│  │  ├─ dto.py                # AnalysisConfig and AnalysisResult data objects
+│  │  ├─ defaults.py
+│  │  └─ use_cases/
+│  │     ├─ run_analysis.py    # Main fetch -> sentiment -> price -> merge workflow
+│  │     └─ run_demo.py        # Loads demo CSVs from data/demo
+│  ├─ domain/
+│  │  ├─ sentiment/            # VADER, TextBlob, RoBERTa, FinBERT, registry, service
+│  │  ├─ market/               # Coins, filtering, indicators, smoothing, merge logic
+│  │  ├─ analysis/             # Lead/lag calculations
+│  │  └─ backtest/             # Backtest engine
+│  ├─ infra/
+│  │  ├─ fetchers/             # Reddit, news, YouTube, Twitter, price, Coinbase price
+│  │  └─ storage/
+│  │     ├─ sentiment_csv.py   # Legacy/helper CSV storage
+│  │     └─ db/                # SQLite schema, connection, and source repositories
+│  ├─ benchmark/
+│  │  ├─ analyzer_eval.py
+│  │  └─ benchmark_plot.py
+│  └─ shared/
+│     └─ helpers.py            # CSV helpers and shared utility functions
 ```
 
 ---
@@ -67,7 +84,7 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 
 ### 1) Install
 ```bash
-git clone https://github.com/<you>/crypto-sentiment-tracker.git
+git clone https://github.com/MlikoKakao/crypto-sentiment-tracker.git
 cd crypto-sentiment-tracker
 
 python -m venv .venv
@@ -85,52 +102,64 @@ Create `.streamlit/secrets.toml`:
 REDDIT_CLIENT_ID = "xxx"
 REDDIT_CLIENT_SECRET = "xxx"
 REDDIT_USER_AGENT = "yourapp/0.1 by youruser"
-TWITTER_BEARER = "xxx"
-CRYPTOPANIC_KEY = "xxx"
+YOUTUBE_API_KEY = "xxx"
 ```
-> No keys? Use cached CSVs in `data/` and skip live fetches.
+> Reddit and YouTube need API keys. News and Coinbase price fetching do not currently require keys.
 
 ### 3) Run the app
 ```bash
 streamlit run run_app.py
 ```
 
+To run the app against bundled demo CSVs instead of live APIs:
+```bash
+DEMO=1 streamlit run run_app.py
+```
+
 ---
 
 ## Usage
 
-- Choose **Coin**, **Sources**, **Analyzer**, and **Date Range**.
-- Click **Analyze**.
-- Plots include:
-- Price + EMA/RSI/MACD
-- **Sentiment vs Price** (calls `plot_sentiment_vs_price(df)`)
-- Use the cache to avoid repeated API calls for the same window.
+- Choose **Coin**, **Sources**, **Analyzer**, **Number of posts**, and **Price history** in the sidebar.
+- Click **Run Analysis**.
+- Use **Advanced settings** to enable SMA, RSI, MACD, lead/lag settings, or the backtest.
+- Use the **Sentiment**, **Finance**, **Backtest**, and **Benchmark** tabs to inspect the result from different angles.
+- Run the analyzer benchmark from the sidebar when you want to compare sentiment models.
 
 ### Data Columns (merged)
 | column | meaning |
 |---------------|-----------------------------------------------------|
 | `timestamp` | UTC time (post or price bar) |
-| `source` | `reddit` / `twitter` / `news` |
+| `source` | `reddit` / `youtube` / `news` |
 | `text` | post text (for content sources) |
 | `sentiment` | polarity score (-1..1) |
 | `price` | close price |
-| `ema20` | 20-period EMA |
-| `rsi` | 14-period RSI |
+| `sma_20`, `sma_50` | optional simple moving averages |
+| `rsi_14` | optional 14-period RSI |
 | `macd` | MACD line |
 | `macd_signal` | signal line |
 | `macd_hist` | histogram (macd - signal) |
-| `sent_smooth` | EWM-smoothed sentiment |
-| `sent_med` | rolling median of smoothed sentiment |
+| `sentiment_loess` | LOESS-smoothed sentiment used by timeline charts |
 
 _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 
 ---
-## Outdated cache and storage with CSVs
 ## Caching & Storage
 
-- **CSV cache**: under `data/` (gitignored). Big files? use `clear_cache_dir()`.
+- **SQLite cache/storage**: `data/app.db`, initialized by `src/infra/storage/db/schema.py`.
+- **Repository modules**: `src/infra/storage/db/*_repository.py` handle cached rows for prices, Reddit, news, and YouTube.
+- **Demo CSVs**: `data/demo/` powers `DEMO=1` mode.
 - **Streamlit cache**: `st.cache_data.clear()` (wire it to a button if desired).
-- **Windows tip** (file lock): if `PermissionError` on `data/combined_sentiment.csv`, close Excel/AV scans and check write perms.
+
+---
+
+## Architecture Notes
+
+- `run_app.py` loads Streamlit secrets into environment variables, configures the page, and calls `render_app()`.
+- `src/presentation/` owns Streamlit UI, sidebar state, tabs, and Plotly charts.
+- `src/app/use_cases/` coordinates workflows like live analysis and demo loading.
+- `src/domain/` contains the project logic: sentiment analyzers, market transforms, lead/lag analysis, and backtesting.
+- `src/infra/` contains external boundaries: API fetchers and SQLite storage.
 
 ---
 
@@ -147,11 +176,10 @@ _Exact columns depend on enabled modules. Plots are defensive to missing ones._
 - [x] Refactor and clean up application structure
 - [x] Replace current X/Twitter scraping API - replaced with YouTube
 - [x] Replace CSV storage with a database
-- [ ] Improve dashboard UI/UX ??
+- [x] Improve dashboard UI/UX
 - [ ] Add anomaly detection and quick insights
 - [ ] Deploy the application online
 
 ## License
 
 MIT — see `LICENSE`.
-
