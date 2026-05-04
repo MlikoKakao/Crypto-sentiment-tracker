@@ -1,64 +1,22 @@
 from __future__ import annotations
 import time
-from typing import List, Dict, Any, cast, Sequence, Tuple, Callable
+from typing import List, Dict, Any, Sequence, Tuple
 
 import pandas as pd
 import streamlit as st
 from sklearn.metrics import accuracy_score, f1_score, classification_report, confusion_matrix
 
-from textblob import TextBlob
-from transformers import pipeline
 
 from .benchmark_plot import to_table
+from src.domain.sentiment.service import add_sentiment_to_df
+from src.domain.sentiment.registry import ALL_ANALYZER_NAMES
 
 CANONICAL = ("negative", "neutral", "positive")
-
-def _normalize_label(s: str) -> str:
-    """Map common label variants into the canonical 3-class set."""
-    s = (s or "").strip().lower()
-    mapping = {
-        "pos": "positive", "neg": "negative", "neu": "neutral",
-        "bullish": "positive", "bearish": "negative",
-        "positive": "positive", "negative": "negative", "neutral": "neutral",
-    }
-    return mapping.get(s, s)
 
 def _to_trinary_from_score(x: float, pos: float = 0.05, neg: float = -0.05) -> str:
     if x >= pos: return "positive"
     if x <= neg: return "negative"
     return "neutral"
-
-
-
-def pred_vader(texts: List[str]) -> List[str]:
-    sid = get_vader_analyzer()
-    scores = [sid.polarity_scores(str(t))["compound"] for t in texts]
-    return [_to_trinary_from_score(s) for s in scores]
-
-def pred_textblob(texts: List[str]) -> List[str]:
-    scores = [TextBlob(str(t)).sentiment.polarity for t in texts]
-    return [_to_trinary_from_score(s) for s in scores]
-
-def pred_roberta(texts: List[str], batch_size: int = 32, device: int = -1) -> List[str]:
-    clf: Any = pipeline( # type: ignore[call-arg]
-        cast(Any, "sentiment-analysis"),
-        model="cardiffnlp/twitter-roberta-base-sentiment-latest",
-        truncation=True,
-        device=device,
-    )
-    out = clf(texts, batch_size=batch_size)
-    return [str(r["label"]).lower() for r in out]  # negative/neutral/positive
-
-def pred_finbert(texts: List[str], batch_size: int = 16, device: int = -1) -> List[str]:
-    clf: Any = pipeline( # type: ignore[call-arg]
-        cast(Any, "sentiment-analysis"),
-        model="yiyanghkust/finbert-tone",
-        truncation=True,
-        device=device,
-    )
-    out = clf(texts, batch_size=batch_size)
-    return [str(r["label"]).lower() for r in out] 
-
 
 # Keep this here, good code
 def metrics(true_label: List[str], prediction: List[str]) -> Dict[str, Any]:
@@ -77,7 +35,7 @@ def _examples(y_true: Sequence[str], y_pred: Sequence[str], texts: Sequence[str]
 def evaluate(df: pd.DataFrame,
              text_col: str = "text",
              label_col: str = "label",
-             device: int = -1) -> Dict[str, Dict[str, Any]]:
+             ) -> Dict[str, Dict[str, Any]]:
     # schema check (clear error if CSV is wrong)
     missing = {text_col, label_col} - set(df.columns)
     if missing:
@@ -86,35 +44,35 @@ def evaluate(df: pd.DataFrame,
     df = df[[text_col, label_col]].dropna().copy()
     df[text_col] = df[text_col].astype(str)
 
-    labels_norm = df[label_col].map(_normalize_label)
+    labels_norm = df[label_col]
+    # can add custom benchmarking later?
     y_true = labels_norm.where(labels_norm.isin(CANONICAL), other="neutral") 
     texts = df[text_col].tolist()
     y = y_true.tolist()
 
     results: Dict[str, Dict[str, Any]] = {}
 
-    def run(fn: Callable[[List[str]], List[str]]) -> Dict[str, Any]:
+    for analyzer in ALL_ANALYZER_NAMES:
         t0 = time.perf_counter()
-        y_hat = fn(texts)
+
+        scored_df = add_sentiment_to_df(df, analyzer)
+        y_hat = scored_df["sentiment"].map(_to_trinary_from_score).tolist()
         t1 = time.perf_counter()
+
         m = metrics(y, y_hat)
         m["examples"] = _examples(y, y_hat, texts)
         m["time_sec"] = t1 - t0
         m["n_texts"] = len(texts)
         m["throughput_txt_per_s"] = (len(texts) / (t1 - t0)) if (t1 - t0) > 0 else float("inf")
-        return m
-
-    results["VADER"]    = run(pred_vader)
-    results["TextBlob"] = run(pred_textblob)
-    results["RoBERTa"]  = run(lambda t: pred_roberta(t, device=device))
-    results["FinBERT"]  = run(lambda t: pred_finbert(t, device=device))
+        
+        results[analyzer] = m
     return results
 
 
 
 @st.cache_data(show_spinner="Running bechmark...", ttl=3600)
 def run_fixed_benchmark():
-    df_lab = pd.read_csv("data/benchmark_labeled.csv")
-    res = evaluate(df_lab, text_col="text", label_col="label", device=-1)
+    df_lab = pd.read_csv("data/benchmark/benchmark_labeled.csv")
+    res = evaluate(df_lab, text_col="text", label_col="label")
     tbl = to_table(res)
     return res, tbl
