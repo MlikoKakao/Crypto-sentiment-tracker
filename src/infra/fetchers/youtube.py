@@ -1,12 +1,16 @@
 import os
 from dotenv import load_dotenv
-import googleapiclient.discovery #type: ignore
+import googleapiclient.discovery  # type: ignore
 import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
 from src.app.defaults import DEFAULT_CONFIG
 from src.shared.helpers import clean_text, save_csv
-from src.infra.storage.db.youtube_repository import save_youtube_df, load_youtube_df, has_youtube_coverage
+from src.infra.storage.db.content_repository import (
+    save_content_df,
+    load_content_df,
+    has_content_coverage,
+)
 
 
 YOUTUBE_COIN_TERMS = {
@@ -17,24 +21,27 @@ YOUTUBE_COIN_TERMS = {
 logger = logging.getLogger(__name__)
 load_dotenv()
 
+
 def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
-    df = load_youtube_df(config)
-    if has_youtube_coverage(config, df):
+    df = load_content_df(config, "youtube")
+    if has_content_coverage(config, df):
         logger.info(f"Success, fetched {len(df)} youtube posts in DB.")
         return df
-    
+
     api_service_name = "youtube"
     api_version = "v3"
     YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
     if not YOUTUBE_API_KEY or YOUTUBE_API_KEY == "":
         raise RuntimeError("Set YOUTUBE_API_KEY in .env file")
-    
+
     youtube_limit = min(config.num_posts, 400)
     logger.info(
-        f"Fetching YouTube posts with query='{config.coin}', limit={youtube_limit}")
+        f"Fetching YouTube posts with query='{config.coin}', limit={youtube_limit}"
+    )
 
     youtube = googleapiclient.discovery.build(
-    api_service_name, api_version, developerKey = YOUTUBE_API_KEY)
+        api_service_name, api_version, developerKey=YOUTUBE_API_KEY
+    )
 
     posts = []
     seen: set[str] = set()
@@ -44,16 +51,16 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
         while len(posts) < youtube_limit:
             remaining = youtube_limit - len(posts)
-            request = youtube.search().list(    
-                part="id,snippet",  
-                q=coin,   
+            request = youtube.search().list(
+                part="id,snippet",
+                q=coin,
                 maxResults=min(50, remaining),
                 type="video",
                 order="date",
                 publishedAfter=config.start_date.isoformat(),
                 publishedBefore=config.end_date.isoformat(),
-                pageToken=page_token
-            )    
+                pageToken=page_token,
+            )
             try:
                 response = request.execute()
             except Exception:
@@ -67,15 +74,17 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
                 title = item["snippet"]["title"]
                 description = item["snippet"]["description"]
 
-                posts.append({
-                    "id": videoId,
-                    "timestamp": item["snippet"]["publishedAt"],
-                    "text": title + " " + description,
-                    "source": "youtube",
-                    "url": f"https://www.youtube.com/watch?v={videoId}",
-                    "author": item["snippet"]["channelTitle"],
-                    "coin": config.coin.lower(),
-                })
+                posts.append(
+                    {
+                        "id": videoId,
+                        "timestamp": item["snippet"]["publishedAt"],
+                        "text": title + " " + description,
+                        "source": "youtube",
+                        "url": f"https://www.youtube.com/watch?v={videoId}",
+                        "author": item["snippet"]["channelTitle"],
+                        "coin": config.coin.lower(),
+                    }
+                )
                 posts[-1]["text"] = clean_text(posts[-1]["text"])
                 seen.add(videoId)
 
@@ -89,19 +98,23 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
         if len(posts) >= youtube_limit:
             break
 
-    
     df = pd.DataFrame(posts)
     if df.empty:
-        logger.warning(f"No YouTube posts found for coin '{config.coin}' with the given config.")
-        return df 
-    df["timestamp"] =pd.to_datetime(df["timestamp"], errors="coerce", utc=True)
+        logger.warning(
+            f"No YouTube posts found for coin '{config.coin}' with the given config."
+        )
+        return df
+    df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce", utc=True)
     df.dropna(subset=["timestamp"], inplace=True)
     df.sort_values("timestamp", inplace=True)
 
     logger.info(f"Fetched {len(df)} YouTube posts for query='{config.coin}'")
 
-    save_youtube_df(df, config.coin)
-    return load_youtube_df(config)
+    save_content_df(
+        df, df["id"], config.coin
+    )  # CONTINUE HERE, somehow paste id into save_content - for reddit same, for news pass url.
+    return load_content_df(config, "youtube")
+
 
 if __name__ == "__main__":
     df = fetch_youtube_posts(DEFAULT_CONFIG)

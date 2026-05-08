@@ -9,7 +9,11 @@ import os
 import logging
 from src.app.defaults import DEFAULT_CONFIG
 from src.domain.market.filtering import contains_coin
-from src.infra.storage.db.reddit_repository import load_reddit_df, has_reddit_coverage, save_reddit_df
+from src.infra.storage.db.content_repository import (
+    save_content_df,
+    load_content_df,
+    has_content_coverage,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -29,17 +33,17 @@ def get_reddit_client() -> Reddit:
     if not user_agent or user_agent == "":
         raise RuntimeError("Set REDDIT_USER_AGENT in .env file")
 
-    return Reddit(client_id=client_id,
-                  client_secret=client_secret, 
-                  user_agent=user_agent)
+    return Reddit(
+        client_id=client_id, client_secret=client_secret, user_agent=user_agent
+    )
 
 
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info("Attempting to fetch cached data..")
-    df = load_reddit_df(config)
-    if has_reddit_coverage(config, df):
+    df = load_content_df(config, "reddit")
+    if has_content_coverage(config, df):
         return df
-    
+
     logger.info(
         f"Fetching Reddit posts with query='{config.coin}', limit={config.num_posts}, subs={config.subreddits}"
     )
@@ -52,7 +56,7 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     if len(config.subreddits) == 0:
         logger.error("No subreddits specified in config!")
         raise ValueError("At least one subreddit must be specified in config")
-    
+
     for sub in config.subreddits:
         for submission in reddit.subreddit(sub).new(limit=config.num_posts):
             time_posted = datetime.fromtimestamp(submission.created_utc, tz=utc)
@@ -100,8 +104,9 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     if df.empty:
         return df
     df["text"] = df["text"].apply(clean_text)
-    save_reddit_df(df, config.coin)
-    return load_reddit_df(config)
+    save_content_df(df, config.coin)
+    return load_content_df(config, "reddit")
+
 
 if __name__ == "__main__":
     print("Testing Reddit fetch")

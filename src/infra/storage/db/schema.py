@@ -11,42 +11,29 @@ def init_db():
                 price REAL NOT NULL, 
                 PRIMARY KEY (coin, timestamp)
                 );
-
-            CREATE TABLE IF NOT EXISTS news (
+            
+            CREATE TABLE IF NOT EXISTS content_items (
                 coin TEXT NOT NULL,
-                timestamp TEXT NOT NULL,
-                title TEXT NOT NULL,
-                summary TEXT,
-                source TEXT,
-                url TEXT NOT NULL,
-                text TEXT,
-                PRIMARY KEY (coin, url)
-                );
-            CREATE TABLE IF NOT EXISTS reddit (
-                coin TEXT NOT NULL,
+                source TEXT NOT NULL, -- reddit/news/youtube
+                source_id TEXT NOT NULL, -- reddit id, youtube id, or news url
                 timestamp TEXT NOT NULL,
                 text TEXT NOT NULL,
                 url TEXT NOT NULL,
-                score INT,
-                num_comments INT,
-                upvote_ratio REAL,
-                id TEXT NOT NULL,
-                source TEXT,
-                subreddit TEXT,
-                PRIMARY KEY (coin, id)
+                PRIMARY KEY (coin, source, source_id)
             );
-            CREATE TABLE IF NOT EXISTS youtube (
+
+            CREATE TABLE IF NOT EXISTS sentiment (
                 coin TEXT NOT NULL,
-                id TEXT NOT NULL,
-                timestamp TEXT NOT NULL,
-                text TEXT NOT NULL,
-                source TEXT,
-                url TEXT NOT NULL,
-                author TEXT,
-                PRIMARY KEY (coin, id)
+                source TEXT NOT NULL,
+                source_id TEXT NOT NULL,
+                analyzer TEXT NOT NULL,
+                sentiment REAL NOT NULL,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (coin, source, source_id, analyzer),
+                FOREIGN KEY (coin, source, source_id)
+                    REFERENCES content_items(coin, source, source_id)
             );
             """
         )
         conn.commit()
     conn.close()
-

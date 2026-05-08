@@ -5,20 +5,27 @@ from src.app.dto import AnalysisConfig
 from datetime import timedelta
 
 
-def save_news_df(news_df: pd.DataFrame, coin: str = "btc") -> None:
-    df = news_df.copy()
+def save_content_df(content_df: pd.DataFrame, id: str, coin: str = "btc") -> None:
+    df = content_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df["coin"] = coin.upper()
 
     rows = df[
-        ["coin", "timestamp", "title", "summary", "text", "source", "url"]
+        [
+            "coin",
+            "source",
+            id,
+            "timestamp",
+            "text",
+            "url",
+        ]
     ].itertuples(index=False, name=None)
     with get_connection() as conn:
         conn.executemany(
             """
-            INSERT OR REPLACE INTO news (coin, timestamp, title, summary, text, source, url)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT OR REPLACE INTO content_items (coin, source, source_id, timestamp, text, url)
+            VALUES (?, ?, ?, ?, ?, ?)
             """,
             rows,
         )
@@ -26,34 +33,34 @@ def save_news_df(news_df: pd.DataFrame, coin: str = "btc") -> None:
     conn.close()
 
 
-def load_news_df(config: AnalysisConfig) -> pd.DataFrame:
+def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
 
     with get_connection() as conn:
         df = pd.read_sql_query(
             """
-                               SELECT * FROM news 
-                               WHERE coin = ? AND timestamp BETWEEN ? AND ?
+                               SELECT * FROM content_items 
+                               WHERE coin = ? AND source = ? AND timestamp BETWEEN ? AND ?
                                """,
             conn,
-            params=(config.coin.upper(), start_date, end_date),
+            params=(config.coin.upper(), source, start_date, end_date),
         )
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
 
 
-def has_news_coverage(config: AnalysisConfig, news_df: pd.DataFrame) -> bool:
-    if news_df.empty:
+def has_content_coverage(config: AnalysisConfig, content_df: pd.DataFrame) -> bool:
+    if content_df.empty:
         return False
 
-    posts_count = len(news_df)
+    posts_count = len(content_df)
     enough_posts = posts_count >= config.num_posts / 2
 
     tolerance = timedelta(days=1)
-    min_time = news_df["timestamp"].min()
-    max_time = news_df["timestamp"].max()
+    min_time = content_df["timestamp"].min()
+    max_time = content_df["timestamp"].max()
 
     start_date = pd.to_datetime(config.start_date, utc=True).tz_convert(None)
     end_date = pd.to_datetime(config.end_date, utc=True).tz_convert(None)
