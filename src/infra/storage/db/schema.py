@@ -1,5 +1,6 @@
 from src.infra.storage.db.connection import get_connection
 
+
 def init_db():
     with get_connection() as conn:
         conn.executescript(
@@ -45,6 +46,7 @@ def init_db():
                 PRIMARY KEY (coin, id)
             );
             """
-            )
+        )
         conn.commit()
     conn.close()
+
