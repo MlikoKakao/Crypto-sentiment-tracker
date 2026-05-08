@@ -110,9 +110,7 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     logger.info(f"Fetched {len(df)} YouTube posts for query='{config.coin}'")
 
-    save_content_df(
-        df, df["id"], config.coin
-    )  # CONTINUE HERE, somehow paste id into save_content - for reddit same, for news pass url.
+    save_content_df(df, config.coin)
     return load_content_df(config, "youtube")
 
 

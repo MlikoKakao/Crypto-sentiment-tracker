@@ -5,7 +5,7 @@ from src.app.dto import AnalysisConfig
 from datetime import timedelta
 
 
-def save_content_df(content_df: pd.DataFrame, id: str, coin: str = "btc") -> None:
+def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
     df = content_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
@@ -15,7 +15,7 @@ def save_content_df(content_df: pd.DataFrame, id: str, coin: str = "btc") -> Non
         [
             "coin",
             "source",
-            id,
+            "id",
             "timestamp",
             "text",
             "url",

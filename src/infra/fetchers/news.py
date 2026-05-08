@@ -72,15 +72,14 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
                 continue
 
             url = entry.get("link", "")
-            domain = feed_url.split("/")[2]
             posts.append(
                 {
                     "timestamp": timestamp,
                     "title": title,
                     "summary": summary,
                     "text": f"{title} {summary}",
-                    "source": domain,
                     "url": url,
+                    "id": url,
                 }
             )
             if len(posts) >= config.num_posts:

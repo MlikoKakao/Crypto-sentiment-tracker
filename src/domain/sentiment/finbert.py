@@ -17,6 +17,7 @@ _finbert_model: Any = None
 _finbert_tokenizer: Any = None
 _hf_device: int = int(os.environ.get("HF_DEVICE", "-1"))
 
+
 # Load the FinBERT model and tokenizer if not already loaded, and return them.
 def _load_finbert() -> tuple[Any, Any]:
     global _finbert_model, _finbert_tokenizer
@@ -24,10 +25,18 @@ def _load_finbert() -> tuple[Any, Any]:
         if AutoTokenizer is None or AutoModelForSequenceClassification is None:
             raise RuntimeError("transformers not available")
         _finbert_tokenizer = AutoTokenizer.from_pretrained("yiyanghkust/finbert-tone")
-        _finbert_model = AutoModelForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone")
-        if _hf_device >= 0 and torch is not None and getattr(torch, "cuda", None) is not None and torch.cuda.is_available():
+        _finbert_model = AutoModelForSequenceClassification.from_pretrained(
+            "yiyanghkust/finbert-tone"
+        )
+        if (
+            _hf_device >= 0
+            and torch is not None
+            and getattr(torch, "cuda", None) is not None
+            and torch.cuda.is_available()
+        ):
             _finbert_model = _finbert_model.to(f"cuda:{_hf_device}")
     return _finbert_model, _finbert_tokenizer
+
 
 def finbert_analyze(text: Optional[str]) -> float:
     model, tok = _load_finbert()
@@ -37,7 +46,11 @@ def finbert_analyze(text: Optional[str]) -> float:
     enc = tok(short, truncation=True, padding=True, max_length=512, return_tensors="pt")
 
     # CUDA support
-    if _hf_device >= 0 and torch is not None and getattr(torch, "cuda", None) is not None and torch.cuda.is_available():
+    if (
+        _hf_device >= 0
+        and getattr(torch, "cuda", None) is not None
+        and torch.cuda.is_available()
+    ):
         enc = {k: v.to(f"cuda:{_hf_device}") for k, v in enc.items()}
 
     # no_grad - not for training, logits = model output before softmax
@@ -49,5 +62,6 @@ def finbert_analyze(text: Optional[str]) -> float:
     id2label = model.config.id2label
     # Create a dict mapping labels to their probabilities, e.g. {"negative": 0.1, "neutral": 0.2, "positive": 0.7}
     pdict = {id2label[i].lower(): float(probs[i]) for i in range(len(probs))}
-    
+
     return pdict.get("positive", 0.0) - pdict.get("negative", 0.0)
+
