@@ -80,6 +80,7 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
                     "text": f"{title} {summary}",
                     "url": url,
                     "id": url,
+                    "source": "news",
                 }
             )
             if len(posts) >= config.num_posts:

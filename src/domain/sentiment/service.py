@@ -1,9 +1,11 @@
 import pandas as pd
 
 from src.domain.sentiment.registry import ALL_ANALYZER_NAMES, ANALYZERS
-from src.infra.storage.db.sentiment_repository import load_sentiment_df, save_sentiment_df, has_sentiment_coverage
+
 
 def add_sentiment_to_df(df: pd.DataFrame, analyzer_name: str = "vader") -> pd.DataFrame:
+    if df.empty:
+        return df
     df = df.copy()
     name = analyzer_name.lower()
 

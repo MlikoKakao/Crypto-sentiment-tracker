@@ -10,12 +10,13 @@ def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df["coin"] = coin.upper()
+    df = df.rename(columns={"id": "source_id"})
 
     rows = df[
         [
             "coin",
             "source",
-            "id",
+            "source_id",
             "timestamp",
             "text",
             "url",

@@ -12,7 +12,7 @@ def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
         [
             "coin",
             "source",
-            "id",
+            "source_id",
             "analyzer",
             "sentiment",
         ]
@@ -29,19 +29,27 @@ def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
     conn.close()
 
 
-def load_sentiment_df(config: AnalysisConfig, analyzer: str, source: str) -> pd.DataFrame:
+def load_sentiment_df(
+    config: AnalysisConfig, analyzer: str
+) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
-
+    source_placeholders = ",".join("?" for _ in config.sources)
 
     with get_connection() as conn:
         df = pd.read_sql_query(
-            """
-                               SELECT * FROM sentiment 
-                               WHERE coin = ? AND source = ? AND analyzer = ? AND timestamp BETWEEN ? AND ?
+            f"""
+                               SELECT c.coin, c.source, c.source_id, c.timestamp, c.text, c.url, s.analyzer, s.sentiment 
+                               FROM content_items AS c
+                               JOIN sentiment as s
+                               ON s.coin = c.coin
+                               AND s.source = c.source
+                               AND s.source_id = c.source_id
+                               WHERE c.coin = ? AND s.analyzer = ? AND c.timestamp BETWEEN ? AND ? AND c.source IN ({source_placeholders})
+                               ORDER BY c.timestamp
                                """,
             conn,
-            params=(config.coin.upper(), source, analyzer, start_date, end_date),
+            params=(config.coin.upper(), analyzer, start_date, end_date, *config.sources),
         )
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
