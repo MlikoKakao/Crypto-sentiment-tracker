@@ -51,6 +51,8 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
 
 
 def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
+    if df.empty:
+        return go.Figure()
     df = df.copy()
     df = normalize_timestamp_column(df)
     df.loc[:, "sentiment"] = pd.to_numeric(df["sentiment"], errors="coerce")
@@ -80,6 +82,8 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
 
 # Graph showing LOESS/BTC price
 def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
+    if df.empty:
+        return go.Figure()
     df = df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
 

@@ -23,7 +23,7 @@ def fetch_posts(config: AnalysisConfig) -> pd.DataFrame:
                 frames.append(df)
 
     if not frames:
-        return pd.DataFrame(columns=["timestamp", "text", "sentiment", "source"])
+        return pd.DataFrame(columns=["timestamp", "text", "sentiment", "source", "source_id", "url"])
 
     all_cols = sorted(set().union(*(frame.columns for frame in frames)))
     frames = [frame.reindex(columns=all_cols) for frame in frames]

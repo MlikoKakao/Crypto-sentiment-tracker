@@ -68,7 +68,7 @@ def render_result_tabs(result: AnalysisResult, state: SidebarState, tabs: dict[s
         st.plotly_chart(plot_lag_correlation(lead_lag_df))
 
     with tabs["finance"]:
-        if not state.use_sma or not state.use_macd or not state.use_rsi:
+        if not (state.use_sma or state.use_macd or state.use_rsi):
             st.info("Enable any financial indicators in Advanced settings to see results.")
         indicators_df = add_indicators_to_df(
              result.price_df,
