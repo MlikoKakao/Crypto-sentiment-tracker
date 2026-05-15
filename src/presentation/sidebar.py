@@ -13,6 +13,7 @@ from src.presentation.ui_constants import (
     SOURCE_UI_TO_LITERAL,
 )
 
+
 @dataclass(frozen=True)
 class SidebarState:
     selected_coin: str
@@ -33,20 +34,27 @@ class SidebarState:
     lag_hours: int
     lag_step_min: int
     metric_choice: str
-    sma_fast: int
+    sma_fast: (
+        int  # Moving to db - these are not gonna be adjustable, can delete them anytime
+    )
     sma_slow: int
     rsi_period: int
+
 
 def render_sidebar() -> SidebarState:
     with st.sidebar:
         st.header("Settings")
-        
+
         selected_coin_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
         assert selected_coin_label is not None
         selected_coin = COIN_UI_TO_SYMBOL[selected_coin_label]
 
         num_posts = st.slider(
-            "Number of posts to fetch", min_value=100, max_value=1100, step=100, value=300
+            "Number of posts to fetch",
+            min_value=100,
+            max_value=1100,
+            step=100,
+            value=300,
         )
 
         days = st.selectbox(
@@ -72,13 +80,11 @@ def render_sidebar() -> SidebarState:
 
         analyzer: Analyzer = ANALYZER_UI_TO_LITERAL[analyzer_label]
 
-
         source_label = st.selectbox(
             "Choose which sources to include:", list(SOURCE_UI_TO_LITERAL.keys())
         )
         assert source_label is not None
         sources: tuple[Source, ...] = SOURCE_UI_TO_LITERAL[source_label]
-
 
         default_subreddits = tuple(
             dict.fromkeys(DEFAULT_SUBREDDITS + tuple(COIN_SUBS.get(selected_coin, ())))
@@ -98,7 +104,6 @@ def render_sidebar() -> SidebarState:
                 subreddits = default_subreddits
                 st.warning("No subreddits chosen, defaulted.")
 
-
         with st.expander("Advanced settings"):
             backtest = st.checkbox("Run backtest")
             cost_bps = 0.0
@@ -108,7 +113,11 @@ def render_sidebar() -> SidebarState:
                     "Cost (bps)", min_value=0.0, max_value=100.0, value=5.0, step=0.5
                 )
                 slip_bps = st.number_input(
-                    "Slippage (bps)", min_value=0.0, max_value=100.0, value=5.0, step=0.5
+                    "Slippage (bps)",
+                    min_value=0.0,
+                    max_value=100.0,
+                    value=5.0,
+                    step=0.5,
                 )
 
             st.header("Lead/Lag settings")
@@ -121,10 +130,16 @@ def render_sidebar() -> SidebarState:
             sma_fast = 20
             sma_slow = 50
             rsi_period = 14
-            use_sma = st.checkbox("SMA (20/50)", value=False, help="Simple Moving Average")
-            use_rsi = st.checkbox("RSI (14)", value=False, help="Relative Strength Index")
+            use_sma = st.checkbox(
+                "SMA (20/50)", value=False, help="Simple Moving Average"
+            )
+            use_rsi = st.checkbox(
+                "RSI (14)", value=False, help="Relative Strength Index"
+            )
             use_macd = st.checkbox(
-                "MACD (12,26,9)", value=False, help="Moving Average Convergence Divergence"
+                "MACD (12,26,9)",
+                value=False,
+                help="Moving Average Convergence Divergence",
             )
             if use_sma:
                 sma_fast = st.number_input("SMA fast", 5, 200, sma_fast, 1)
@@ -137,7 +152,7 @@ def render_sidebar() -> SidebarState:
         st.header("Utils")
 
         benchtest = st.button("Run analyzer benchmark")
-    
+
     return SidebarState(
         selected_coin=selected_coin,
         start_date=start_date,
@@ -159,9 +174,10 @@ def render_sidebar() -> SidebarState:
         use_macd=use_macd,
         sma_fast=sma_fast,
         sma_slow=sma_slow,
-        rsi_period=rsi_period
+        rsi_period=rsi_period,
     )
-    
+
+
 def sidebar_state_to_config(state: SidebarState) -> AnalysisConfig:
     return AnalysisConfig(
         coin=state.selected_coin,

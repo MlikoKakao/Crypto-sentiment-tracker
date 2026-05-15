@@ -33,6 +33,13 @@ def init_db():
                 FOREIGN KEY (coin, source, source_id)
                     REFERENCES content_items(coin, source, source_id)
             );
+            CREATE TABLE IF NOT EXISTS signals (
+                coin TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                signal_name TEXT NOT NULL,
+                value REAL NOT NULL,
+                PRIMARY KEY(coin, timestamp, signal_name)
+            );
             """
         )
         conn.commit()

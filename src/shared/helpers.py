@@ -3,7 +3,7 @@ import os
 import logging
 from typing import Any
 from pathlib import Path
-from config.settings import DEMO_MODE
+from src.presentation.config.settings import DEMO_MODE
 
 logger = logging.getLogger(__name__)
 

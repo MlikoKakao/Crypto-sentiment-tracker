@@ -10,7 +10,7 @@ except Exception:
     logging.info(
         "No .streamlit/secrets.toml found; continuing with environment variables only."
     )
-from config.settings import DEMO_MODE
+from src.presentation.config.settings import DEMO_MODE
 from src.presentation.pages import render_app
 
 # Page header
