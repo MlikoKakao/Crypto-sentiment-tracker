@@ -19,6 +19,7 @@ from src.presentation.sidebar import (
     SidebarState,
     render_sidebar,
     sidebar_state_to_config,
+    sidebar_to_indicator,
 )
 from src.app.use_cases.run_analysis import run_analysis
 from src.domain.analysis.lead_lag import compute_lead_lag
@@ -94,7 +95,8 @@ def render_result_tabs(
             st.info(
                 "Enable any financial indicators in Advanced settings to see results."
             )
-        indicators_df = add_indicators_to_df(result.price_df, state)
+        indic_state = sidebar_to_indicator(state)
+        indicators_df = add_indicators_to_df(result.price_df, indic_state)
         if state.use_sma:
             st.plotly_chart(
                 plot_price_with_sma(

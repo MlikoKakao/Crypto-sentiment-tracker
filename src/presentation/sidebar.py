@@ -34,12 +34,21 @@ class SidebarState:
     lag_hours: int
     lag_step_min: int
     metric_choice: str
-    sma_fast: (
-        int  # Moving to db - these are not gonna be adjustable, can delete them anytime
-    )
+    sma_fast: int
     sma_slow: int
     rsi_period: int
 
+@dataclass(frozen=True)
+class IndicatorConfig:
+    coin: str
+    use_sma: bool
+    use_rsi: bool
+    use_macd: bool
+    sma_fast: int
+    sma_slow: int
+    rsi_period: int
+    start_date: datetime
+    end_date: datetime
 
 def render_sidebar() -> SidebarState:
     with st.sidebar:
@@ -187,4 +196,17 @@ def sidebar_state_to_config(state: SidebarState) -> AnalysisConfig:
         sources=state.sources,
         num_posts=state.num_posts,
         subreddits=state.subreddits,
+    )
+
+def sidebar_to_indicator(state: SidebarState) -> IndicatorConfig:
+    return IndicatorConfig(
+        coin=state.selected_coin,
+        use_sma=state.use_sma,
+        use_rsi=state.use_rsi,
+        use_macd=state.use_macd,
+        sma_fast=state.sma_fast,
+        sma_slow=state.sma_slow,
+        rsi_period=state.rsi_period,
+        start_date=state.start_date,
+        end_date=state.end_date,
     )

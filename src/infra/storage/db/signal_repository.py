@@ -1,6 +1,6 @@
 from src.infra.storage.db.connection import get_connection
 import pandas as pd
-from src.presentation.sidebar import SidebarState
+from src.presentation.sidebar import IndicatorConfig
 from src.shared.helpers import normalize_timestamp_column
 from datetime import timedelta
 
@@ -28,7 +28,7 @@ def save_signal_df(signal_df: pd.DataFrame, signal: str, coin: str = "btc") -> N
 
 
 # Convert config.dates to format where can compare to SQL results
-def load_signal_df(state: SidebarState, signal: str) -> pd.DataFrame:
+def load_signal_df(state: IndicatorConfig, signal: str) -> pd.DataFrame:
     start_date = state.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = state.end_date.strftime("%Y-%m-%d %H:%M:%S")
 
@@ -39,7 +39,7 @@ def load_signal_df(state: SidebarState, signal: str) -> pd.DataFrame:
                                WHERE coin = ? AND signal_name = ? AND timestamp BETWEEN ? AND ?
                                """,
             conn,
-            params=(state.selected_coin.upper(), signal, start_date, end_date),
+            params=(state.coin.upper(), signal, start_date, end_date),
         )
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
@@ -47,7 +47,7 @@ def load_signal_df(state: SidebarState, signal: str) -> pd.DataFrame:
     return df
 
 
-def has_signal_coverage(state: SidebarState, signal_df: pd.DataFrame) -> bool:
+def has_signal_coverage(state: IndicatorConfig, signal_df: pd.DataFrame) -> bool:
     if signal_df.empty:
         return False
 

@@ -1,7 +1,6 @@
 from __future__ import annotations
 import pandas as pd
-
-from src.presentation.sidebar import SidebarState
+from src.presentation.sidebar import IndicatorConfig
 from src.infra.storage.db.signal_repository import (
     save_signal_df,
     load_signal_df,
@@ -11,7 +10,7 @@ from src.infra.storage.db.signal_repository import (
 
 def add_indicators_to_df(
     df: pd.DataFrame,
-    state: SidebarState,
+    state: IndicatorConfig,
 ) -> pd.DataFrame:
     price_col: str = "price"
     sma_windows = (state.sma_fast, state.sma_slow)
@@ -35,7 +34,7 @@ def add_indicators_to_df(
                 df = df.merge(cached, on="timestamp", how="left")
             else:
                 df[signal_name] = p.rolling(window=w, min_periods=w).mean()
-                save_signal_df(df, signal_name, state.selected_coin)
+                save_signal_df(df, signal_name, state.coin)
 
     if state.use_rsi:
         signal_name = f"rsi_{rsi_period}"
@@ -52,7 +51,7 @@ def add_indicators_to_df(
             rs = avg_gain / avg_loss.replace(0, pd.NA)
 
             df[signal_name] = 100 - (100 / (1 + rs))
-            save_signal_df(df, signal_name, state.selected_coin)
+            save_signal_df(df, signal_name, state.coin)
 
     if state.use_macd:
         macd_signals = ("macd", "macd_signal", "macd_hist")
@@ -75,8 +74,8 @@ def add_indicators_to_df(
             df["macd_signal"] = signal
             df["macd_hist"] = hist
 
-            save_signal_df(df, "macd", state.selected_coin)
-            save_signal_df(df, "macd_signal", state.selected_coin)
-            save_signal_df(df, "macd_hist", state.selected_coin)
+            save_signal_df(df, "macd", state.coin)
+            save_signal_df(df, "macd_signal", state.coin)
+            save_signal_df(df, "macd_hist", state.coin)
 
     return df
