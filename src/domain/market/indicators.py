@@ -1,6 +1,6 @@
 from __future__ import annotations
 import pandas as pd
-from src.presentation.sidebar import IndicatorConfig
+from src.domain.market.dto import IndicatorConfig
 from src.infra.storage.db.signal_repository import (
     save_signal_df,
     load_signal_df,
@@ -60,7 +60,9 @@ def add_indicators_to_df(
             for signal_name in macd_signals
         }
 
-        if all(has_signal_coverage(state, cached) for cached in cached_signals.values()):
+        if all(
+            has_signal_coverage(state, cached) for cached in cached_signals.values()
+        ):
             for cached in cached_signals.values():
                 df = df.merge(cached, on="timestamp", how="left")
         else:

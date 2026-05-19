@@ -5,6 +5,7 @@ import pandas as pd
 from datetime import datetime
 from src.app.defaults import DEFAULT_SUBREDDITS
 from src.app.dto import AnalysisConfig, Analyzer, Source
+from src.domain.market.indicators import IndicatorConfig
 from src.presentation.ui_constants import (
     ANALYZER_UI_TO_LITERAL,
     COIN_SUBS,
@@ -38,17 +39,6 @@ class SidebarState:
     sma_slow: int
     rsi_period: int
 
-@dataclass(frozen=True)
-class IndicatorConfig:
-    coin: str
-    use_sma: bool
-    use_rsi: bool
-    use_macd: bool
-    sma_fast: int
-    sma_slow: int
-    rsi_period: int
-    start_date: datetime
-    end_date: datetime
 
 def render_sidebar() -> SidebarState:
     with st.sidebar:
@@ -197,6 +187,7 @@ def sidebar_state_to_config(state: SidebarState) -> AnalysisConfig:
         num_posts=state.num_posts,
         subreddits=state.subreddits,
     )
+
 
 def sidebar_to_indicator(state: SidebarState) -> IndicatorConfig:
     return IndicatorConfig(

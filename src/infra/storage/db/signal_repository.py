@@ -1,6 +1,6 @@
 from src.infra.storage.db.connection import get_connection
 import pandas as pd
-from src.presentation.sidebar import IndicatorConfig
+from src.domain.market.dto import IndicatorConfig
 from src.shared.helpers import normalize_timestamp_column
 from datetime import timedelta
 
@@ -11,10 +11,12 @@ def save_signal_df(signal_df: pd.DataFrame, signal: str, coin: str = "btc") -> N
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df["coin"] = coin.upper()
     df["signal_name"] = signal
-    df["value"] = df[signal]        
-    df = df.dropna(subset=["value"])        
+    df["value"] = df[signal]
+    df = df.dropna(subset=["value"])
 
-    rows = df[["coin", "timestamp", "signal_name", "value"]].itertuples(index=False, name=None)
+    rows = df[["coin", "timestamp", "signal_name", "value"]].itertuples(
+        index=False, name=None
+    )
     with get_connection() as conn:
         conn.executemany(
             """

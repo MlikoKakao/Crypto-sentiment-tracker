@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import datetime
 import os
 import logging
 from typing import Any
@@ -39,7 +40,13 @@ def normalize_timestamp_column(
     return df
 
 
+def is_date_correct(start_date: datetime, end_date: datetime) -> bool:
+    if end_date <= start_date:
+        return False
+    else:
+        return True
+
+
 # Text cleanup for sentiment analysis
 def clean_text(text: str) -> str:
     return str(text).lower().strip()
-
