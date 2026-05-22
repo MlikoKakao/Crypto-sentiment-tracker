@@ -5,12 +5,14 @@ from src.infra.fetchers.news import fetch_news_posts
 from src.infra.fetchers.reddit import fetch_reddit_posts
 from src.infra.fetchers.youtube import fetch_youtube_posts
 
+ALL_FETCHER_NAMES = ("reddit", "youtube", "news")
 
 FETCHERS = {
     "reddit": fetch_reddit_posts,
     "news": fetch_news_posts,
     "youtube": fetch_youtube_posts,
 }
+
 
 def fetch_posts(config: AnalysisConfig) -> pd.DataFrame:
     frames = []
@@ -23,7 +25,9 @@ def fetch_posts(config: AnalysisConfig) -> pd.DataFrame:
                 frames.append(df)
 
     if not frames:
-        return pd.DataFrame(columns=["timestamp", "text", "sentiment", "source", "source_id", "url"])
+        return pd.DataFrame(
+            columns=["timestamp", "text", "sentiment", "source", "source_id", "url"]
+        )
 
     all_cols = sorted(set().union(*(frame.columns for frame in frames)))
     frames = [frame.reindex(columns=all_cols) for frame in frames]

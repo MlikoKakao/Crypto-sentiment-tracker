@@ -10,9 +10,9 @@ from src.infra.fetchers.service import fetch_posts
 from src.domain.market.indicators import add_indicators_to_df
 from src.domain.market.dto import IndicatorConfig
 from src.shared.helpers import is_date_correct
-from src.infra.storage.db.price_repository import save_price_df
-from src.infra.storage.db.sentiment_repository import save_sentiment_df
-from src.infra.storage.db.content_repository import save_content_df
+from src.infra.storage.db.price_repository import save_price_df, load_price_df
+from src.infra.storage.db.sentiment_repository import save_sentiment_df, load_sentiment_df
+from src.infra.storage.db.content_repository import save_content_df, load_content_df
 from src.infra.storage.db.schema import init_db
 from src.app.dto import Analyzer, Source
 from src.domain.sentiment.registry import ALL_ANALYZER_NAMES
@@ -28,11 +28,6 @@ class IngestRequest(BaseModel):
     end_date: datetime
     analyzer: Analyzer
     sources: tuple[Source, ...]
-
-
-@app.get("/ping")
-def pong():
-    return {"ping": "pong!"}
 
 
 @app.get("/health")
@@ -51,7 +46,26 @@ def get_prices(request: IngestRequest):
         start_date=request.start_date,
         end_date=request.end_date,
     )
-    return get_coinbase_price_history(config).to_dict(orient="records")
+    return load_price_df(config).to_dict(orient="records")
+
+
+@app.get("/posts")
+def get_posts(request: IngestRequest):
+    if not is_date_correct(request.start_date, request.end_date):
+        raise HTTPException(status_code=400, detail="end_date must be after start_date")
+    config = replace(
+        DEFAULT_CONFIG,
+        coin=request.coin.upper(),
+        start_date=request.start_date,
+        end_date=request.end_date,
+        sources=request.sources,
+        num_posts=request.num_posts,
+    )
+    posts_df = pd.DataFrame()
+    for source in request.sources:
+        posts_df = pd.concat([posts_df, load_content_df(config, source)])
+
+    return posts_df.to_dict(orient="records")
 
 
 @app.get("/sentiment")
@@ -67,8 +81,12 @@ def get_sentiment(request: IngestRequest):
         sources=request.sources,
         num_posts=request.num_posts,
     )
-    df = fetch_posts(config)
-    sentiment_df = add_sentiment_to_df(df)
+    sentiment_df = pd.DataFrame()
+    if request.analyzer == "all":
+        for analyzer in ALL_ANALYZER_NAMES:
+            sentiment_df = load_sentiment_df(config, analyzer)
+    else:
+        sentiment_df = load_sentiment_df(config, request.analyzer)
     return sentiment_df.to_dict(orient="records")
 
 
@@ -111,10 +129,10 @@ def ingest(request: IngestRequest):
     len_sent = 0
     sentiment_df = pd.DataFrame()
     if request.analyzer == "all":
-            for analyzer in ALL_ANALYZER_NAMES:
-                sentiment_df = add_sentiment_to_df(posts_df, analyzer)
-                save_sentiment_df(sentiment_df, request.coin)
-                len_sent += len(sentiment_df)
+        for analyzer in ALL_ANALYZER_NAMES:
+            sentiment_df = add_sentiment_to_df(posts_df, analyzer)
+            save_sentiment_df(sentiment_df, request.coin)
+            len_sent += len(sentiment_df)
     else:
         sentiment_df = add_sentiment_to_df(posts_df, request.analyzer)
         save_sentiment_df(sentiment_df, request.coin)

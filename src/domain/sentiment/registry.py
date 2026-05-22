@@ -15,4 +15,3 @@ ANALYZERS: dict[str, AnalyzerFunc] = {
 }
 
 ALL_ANALYZER_NAMES = ("vader", "textblob", "twitter-roberta", "finbert")
-
