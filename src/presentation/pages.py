@@ -13,6 +13,7 @@ from src.presentation.charts import (
     plot_macd,
     plot_drawdown,
     plot_equity,
+    plot_signal
 )
 from src.domain.backtest.engine import run_backtest
 from src.presentation.sidebar import (
@@ -41,12 +42,13 @@ def render_live_page(state: SidebarState) -> None:
         "Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies"
     )
 
-    sentiment_tab, finance_tab, backtest_tab, benchmark_tab = st.tabs(
-        ["Sentiment", "Finance", "Backtest", "Benchmark"]
+    sentiment_tab, engine_tab, finance_tab, backtest_tab, benchmark_tab = st.tabs(
+        ["Sentiment", "Engine", "Finance", "Backtest", "Benchmark"]
     )
 
     tabs = {
         "sentiment": sentiment_tab,
+        "engine": engine_tab,
         "finance": finance_tab,
         "backtest": backtest_tab,
         "benchmark": benchmark_tab,
@@ -89,6 +91,9 @@ def render_result_tabs(
             result.merged_df, state.lag_hours, state.lag_step_min, state.metric_choice
         )
         st.plotly_chart(plot_lag_correlation(lead_lag_df))
+
+    with tabs["engine"]:
+        st.plotly_chart(plot_signal(result.merged_df))
 
     with tabs["finance"]:
         if not (state.use_sma or state.use_macd or state.use_rsi):

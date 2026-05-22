@@ -281,3 +281,18 @@ def plot_macd(df: pd.DataFrame):
         template="plotly_dark",
     )
     return fig
+
+def plot_signal(df :pd.DataFrame) -> go.Figure:
+    df = normalize_timestamp_column(df.copy(), drop_invalid=True)
+    df = df.dropna(subset=["timestamp", "sentiment"])
+
+    fig = px.line(
+        df,
+        x="timestamp",
+        y="sentiment",
+        title="Signal engine",
+        labels={"timestamp": "Date", "sentiment": "Sentiment"},
+        markers=True,
+    )
+    fig.update_traces(line=dict(width=2))
+    return fig
