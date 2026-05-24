@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from typing import Any
+from dataclasses import replace
 from src.app.dto import AnalysisResult
 from src.domain.market.indicators import add_indicators_to_df
 from src.presentation.charts import (
@@ -26,6 +27,7 @@ from src.app.use_cases.run_analysis import run_analysis
 from src.domain.analysis.lead_lag import compute_lead_lag
 from src.presentation.demo_view import render_demo_page
 from src.presentation.benchmark_view import show_benchmark_data
+from src.domain.signals.engine import build_signal_df, SIGNAL_COLUMNS
 
 
 def render_app(demo_mode: bool = False) -> None:
@@ -93,8 +95,15 @@ def render_result_tabs(
         st.plotly_chart(plot_lag_correlation(lead_lag_df))
 
     with tabs["engine"]:
-        st.plotly_chart(plot_signal(result.merged_df))
+        indic_state = replace(sidebar_to_indicator(state), use_sma=True)
+        indicator_df = add_indicators_to_df(result.merged_df, indic_state)
+        signal_df = build_signal_df(indicator_df)       
+        signal_cols = [col for col in SIGNAL_COLUMNS if col in signal_df.columns]
+        
+        event_rows = signal_df[signal_df[signal_cols].any(axis=1)]
 
+        st.dataframe(event_rows[["timestamp", "price", "sentiment", *signal_cols]], hide_index=True)
+        st.plotly_chart(plot_signal(signal_df))
     with tabs["finance"]:
         if not (state.use_sma or state.use_macd or state.use_rsi):
             st.info(

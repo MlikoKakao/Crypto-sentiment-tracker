@@ -4,8 +4,10 @@ from src.domain.market.smoothing import apply_loess
 import plotly.graph_objects as go
 import streamlit as st
 from src.shared.helpers import normalize_timestamp_column
+from src.domain.signals.engine import SIGNAL_COLUMNS
 from statistics import median
 from typing import cast, Sequence
+
 
 # Not needed right now, but keeping just in case.
 def plot_price_time_series(df: pd.DataFrame, coin: str):
@@ -28,10 +30,13 @@ def plot_price_time_series(df: pd.DataFrame, coin: str):
         st.warning("No data available to plot price/time function.")
         return 1
 
+
 def plot_sentiment_vs_price(df: pd.DataFrame):
     df = df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
-    df.loc[:, "date_str"] = cast(pd.Series, df["timestamp"].dt.strftime("%Y-%m-%d %H:%M"))
+    df.loc[:, "date_str"] = cast(
+        pd.Series, df["timestamp"].dt.strftime("%Y-%m-%d %H:%M")
+    )
     fig = px.scatter(
         df,
         x="sentiment",
@@ -158,7 +163,7 @@ def plot_lag_correlation(
     else:
         df["lag_axis"] = df["lag_seconds"].astype(float)
         x_label = "Lag (seconds)"
-    
+
     df = df.sort_values("lag_axis")
 
     fig = px.line(
@@ -282,17 +287,32 @@ def plot_macd(df: pd.DataFrame):
     )
     return fig
 
-def plot_signal(df :pd.DataFrame) -> go.Figure:
+
+def plot_signal(df: pd.DataFrame) -> go.Figure:
     df = normalize_timestamp_column(df.copy(), drop_invalid=True)
     df = df.dropna(subset=["timestamp", "sentiment"])
-
-    fig = px.line(
-        df,
-        x="timestamp",
-        y="sentiment",
-        title="Signal engine",
-        labels={"timestamp": "Date", "sentiment": "Sentiment"},
-        markers=True,
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatter(
+            x=df["timestamp"],
+            y=df["price"],
+            mode="lines",
+            name="Price",
+        )
     )
-    fig.update_traces(line=dict(width=2))
+    signal_cols = [col for col in SIGNAL_COLUMNS if col in df.columns]
+    for signal_col in signal_cols:
+        signal_rows = df[df[signal_col]]
+
+        fig.add_trace(
+            go.Scatter(
+                x=signal_rows["timestamp"],
+                y=signal_rows["price"],
+                mode="markers",
+                name=signal_col,
+            )
+    )
+
+    fig.update_traces(line=dict(width=2), marker=dict(size=15, symbol="arrow"))
     return fig
+
