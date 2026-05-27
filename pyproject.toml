@@ -14,6 +14,7 @@ dependencies = [
     "numpy",
     "requests",
     "python-dotenv",
+    "pytz",
     "streamlit",
     "plotly",
     "pydantic",

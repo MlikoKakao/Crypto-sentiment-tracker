@@ -93,7 +93,7 @@ python -m venv .venv
 # macOS/Linux
 source .venv/bin/activate
 
-pip install -r requirements.txt
+pip install -e ".[dev]"
 ```
 
 ### 2) Configure secrets
