@@ -29,7 +29,6 @@ def save_signal_df(signal_df: pd.DataFrame, signal: str, coin: str = "btc") -> N
     conn.close()
 
 
-# Convert config.dates to format where can compare to SQL results
 def load_signal_df(state: IndicatorConfig, signal: str) -> pd.DataFrame:
     start_date = state.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = state.end_date.strftime("%Y-%m-%d %H:%M:%S")

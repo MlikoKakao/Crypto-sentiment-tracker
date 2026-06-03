@@ -3,7 +3,7 @@ import pandas as pd
 from typing import Any
 from dataclasses import replace
 from src.app.dto import AnalysisResult
-from src.domain.market.indicators import add_indicators_to_df
+from src.app.use_cases.get_indicators import add_indicators_with_cache
 from src.presentation.charts import (
     plot_sentiment_timeline,
     plot_sentiment_vs_price,
@@ -14,7 +14,7 @@ from src.presentation.charts import (
     plot_macd,
     plot_drawdown,
     plot_equity,
-    plot_signal
+    plot_signal,
 )
 from src.domain.backtest.engine import run_backtest
 from src.presentation.sidebar import (
@@ -97,12 +97,15 @@ def render_result_tabs(
     with tabs["engine"]:
         indic_state = replace(sidebar_to_indicator(state), use_sma=True)
         indicator_df = add_indicators_to_df(result.merged_df, indic_state)
-        signal_df = build_signal_df(indicator_df)       
+        signal_df = build_signal_df(indicator_df)
         signal_cols = [col for col in SIGNAL_COLUMNS if col in signal_df.columns]
-        
+
         event_rows = signal_df[signal_df[signal_cols].any(axis=1)]
 
-        st.dataframe(event_rows[["timestamp", "price", "sentiment", *signal_cols]], hide_index=True)
+        st.dataframe(
+            event_rows[["timestamp", "price", "sentiment", *signal_cols]],
+            hide_index=True,
+        )
         st.plotly_chart(plot_signal(signal_df))
     with tabs["finance"]:
         if not (state.use_sma or state.use_macd or state.use_rsi):
@@ -110,7 +113,7 @@ def render_result_tabs(
                 "Enable any financial indicators in Advanced settings to see results."
             )
         indic_state = sidebar_to_indicator(state)
-        indicators_df = add_indicators_to_df(result.price_df, indic_state)
+        indicators_df = add_indicators_with_cache(result.price_df, indic_state)
         if state.use_sma:
             st.plotly_chart(
                 plot_price_with_sma(
@@ -150,4 +153,3 @@ def render_result_tabs(
             st.info("Run model benchmarks from sidebar.")
         else:
             show_benchmark_data()
-
