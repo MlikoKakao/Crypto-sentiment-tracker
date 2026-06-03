@@ -4,7 +4,6 @@ import os
 import logging
 from typing import Any
 from pathlib import Path
-from src.presentation.config.settings import DEMO_MODE
 
 logger = logging.getLogger(__name__)
 
@@ -18,8 +17,8 @@ def load_csv(filepath: Path | str, parse_dates: Any = None):
     return pd.read_csv(filepath, parse_dates=parse_dates)
 
 
-def save_csv(df: pd.DataFrame, filepath: Path | str):
-    if DEMO_MODE:
+def save_csv(df: pd.DataFrame, filepath: Path | str, enabled: bool = True):
+    if not enabled:
         return
     df.to_csv(filepath, index=False)
     logger.debug(f"Saved CSV to: {filepath} ({len(df)} rows)")

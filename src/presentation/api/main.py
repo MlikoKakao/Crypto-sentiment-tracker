@@ -7,11 +7,14 @@ from dataclasses import replace
 from datetime import datetime
 from src.domain.sentiment.service import add_sentiment_to_df
 from src.infra.fetchers.service import fetch_posts
-from src.domain.market.indicators import add_indicators_to_df
+from src.app.use_cases.get_indicators import add_indicators_with_cache
 from src.domain.market.dto import IndicatorConfig
 from src.shared.helpers import is_date_correct
 from src.infra.storage.db.price_repository import save_price_df, load_price_df
-from src.infra.storage.db.sentiment_repository import save_sentiment_df, load_sentiment_df
+from src.infra.storage.db.sentiment_repository import (
+    save_sentiment_df,
+    load_sentiment_df,
+)
 from src.infra.storage.db.content_repository import save_content_df, load_content_df
 from src.infra.storage.db.schema import init_db
 from src.app.dto import Analyzer, Source
@@ -36,15 +39,15 @@ def health_check():
 
 
 @app.get("/prices")
-def get_prices(request: IngestRequest):
-    if not is_date_correct(request.start_date, request.end_date):
+def get_prices(coin: str, start_date: datetime, end_date: datetime):
+    if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
 
     config = replace(
         DEFAULT_CONFIG,
-        coin=request.coin.upper(),
-        start_date=request.start_date,
-        end_date=request.end_date,
+        coin=coin.upper(),
+        start_date=start_date,
+        end_date=end_date,
     )
     return load_price_df(config).to_dict(orient="records")
 
@@ -82,9 +85,11 @@ def get_sentiment(request: IngestRequest):
         num_posts=request.num_posts,
     )
     sentiment_df = pd.DataFrame()
+
     if request.analyzer == "all":
         for analyzer in ALL_ANALYZER_NAMES:
-            sentiment_df = load_sentiment_df(config, analyzer)
+            one_df = load_sentiment_df(config, analyzer)
+            sentiment_df = pd.concat([sentiment_df, one_df], ignore_index=True)
     else:
         sentiment_df = load_sentiment_df(config, request.analyzer)
     return sentiment_df.to_dict(orient="records")
@@ -102,7 +107,7 @@ def get_signals(request: IndicatorConfig):
     )
 
     price_df = get_coinbase_price_history(config)
-    signals_df = add_indicators_to_df(price_df, request)
+    signals_df = add_indicators_with_cache(price_df, request)
 
     return signals_df.to_dict(orient="records")
 
