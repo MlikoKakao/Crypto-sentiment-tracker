@@ -5,11 +5,11 @@ from datetime import datetime
 @dataclass(frozen=True)
 class IndicatorConfig:
     coin: str
-    use_sma: bool
-    use_rsi: bool
-    use_macd: bool
-    sma_fast: int
-    sma_slow: int
-    rsi_period: int
     start_date: datetime
     end_date: datetime
+    use_sma: bool = False
+    use_rsi: bool = False
+    use_macd: bool = False
+    sma_fast: int = 20
+    sma_slow: int = 50
+    rsi_period: int = 14

@@ -53,60 +53,87 @@ def get_prices(coin: str, start_date: datetime, end_date: datetime):
 
 
 @app.get("/posts")
-def get_posts(request: IngestRequest):
-    if not is_date_correct(request.start_date, request.end_date):
+def get_posts(
+    coin: str,
+    start_date: datetime,
+    end_date: datetime,
+    sources: list[Source],
+    num_posts: int,
+):
+    if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
     config = replace(
         DEFAULT_CONFIG,
-        coin=request.coin.upper(),
-        start_date=request.start_date,
-        end_date=request.end_date,
-        sources=request.sources,
-        num_posts=request.num_posts,
+        coin=coin.upper(),
+        start_date=start_date,
+        end_date=end_date,
+        sources=tuple(sources),
+        num_posts=num_posts,
     )
-    posts_df = pd.DataFrame()
-    for source in request.sources:
-        posts_df = pd.concat([posts_df, load_content_df(config, source)])
+    posts = [load_content_df(config, source) for source in sources]
+    posts_df = pd.concat(posts, ignore_index=True) if posts else pd.DataFrame()
 
     return posts_df.to_dict(orient="records")
 
 
 @app.get("/sentiment")
-def get_sentiment(request: IngestRequest):
-    if not is_date_correct(request.start_date, request.end_date):
+def get_sentiment(
+    coin: str,
+    start_date: datetime,
+    end_date: datetime,
+    sources: list[Source],
+    num_posts: int,
+    analyzer: Analyzer,
+):
+    if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
     config = replace(
         DEFAULT_CONFIG,
-        coin=request.coin.upper(),
-        start_date=request.start_date,
-        end_date=request.end_date,
-        analyzer=request.analyzer,
-        sources=request.sources,
-        num_posts=request.num_posts,
+        coin=coin.upper(),
+        start_date=start_date,
+        end_date=end_date,
+        analyzer=analyzer,
+        sources=tuple(sources),
+        num_posts=num_posts,
     )
     sentiment_df = pd.DataFrame()
 
-    if request.analyzer == "all":
-        for analyzer in ALL_ANALYZER_NAMES:
-            one_df = load_sentiment_df(config, analyzer)
+    if analyzer == "all":
+        for analyzer_name in ALL_ANALYZER_NAMES:
+            one_df = load_sentiment_df(config, analyzer_name)
             sentiment_df = pd.concat([sentiment_df, one_df], ignore_index=True)
     else:
-        sentiment_df = load_sentiment_df(config, request.analyzer)
+        sentiment_df = load_sentiment_df(config, analyzer)
     return sentiment_df.to_dict(orient="records")
 
 
 @app.get("/signals")
-def get_signals(request: IndicatorConfig):
-    if not is_date_correct(request.start_date, request.end_date):
+def get_signals(
+    coin: str,
+    start_date: datetime,
+    end_date: datetime,
+    use_sma: bool = False,
+    use_rsi: bool = False,
+    use_macd: bool = False,
+):
+    if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
     config = replace(
         DEFAULT_CONFIG,
-        coin=request.coin.upper(),
-        start_date=request.start_date,
-        end_date=request.end_date,
+        coin=coin.upper(),
+        start_date=start_date,
+        end_date=end_date,
+    )
+    request = IndicatorConfig(
+        coin=coin.upper(),
+        start_date=start_date,
+        end_date=end_date,
+        use_sma=use_sma,
+        use_rsi=use_rsi,
+        use_macd=use_macd,
     )
 
-    price_df = get_coinbase_price_history(config)
+    price_df = load_price_df(config)
     signals_df = add_indicators_with_cache(price_df, request)
 
     return signals_df.to_dict(orient="records")
@@ -133,14 +160,16 @@ def ingest(request: IngestRequest):
     save_content_df(posts_df, request.coin)
     len_sent = 0
     sentiment_df = pd.DataFrame()
-    if request.analyzer == "all":
-        for analyzer in ALL_ANALYZER_NAMES:
-            sentiment_df = add_sentiment_to_df(posts_df, analyzer)
-            save_sentiment_df(sentiment_df, request.coin)
-            len_sent += len(sentiment_df)
+    if config.analyzer == "all":
+        for analyzer_name in ALL_ANALYZER_NAMES:
+            one_df = add_sentiment_to_df(posts_df, analyzer_name)
+            save_sentiment_df(one_df, config.coin)
+            sentiment_df = pd.concat([sentiment_df, one_df], ignore_index=True)
+            len_sent += len(one_df)
     else:
         sentiment_df = add_sentiment_to_df(posts_df, request.analyzer)
-        save_sentiment_df(sentiment_df, request.coin)
+        save_sentiment_df(sentiment_df, config.coin)
+        len_sent = len(sentiment_df)
     return {
         "status": "ok",
         "coin": config.coin,
