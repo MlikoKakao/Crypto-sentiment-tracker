@@ -7,7 +7,7 @@ try:
     import torch.nn.functional as f
     import torch
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
-except Exception:  # fallback when transformers or torch not installed
+except ImportError:  # fallback when transformers or torch not installed
     AutoModelForSequenceClassification = None
     AutoTokenizer = None
     torch = None
@@ -64,4 +64,3 @@ def finbert_analyze(text: Optional[str]) -> float:
     pdict = {id2label[i].lower(): float(probs[i]) for i in range(len(probs))}
 
     return pdict.get("positive", 0.0) - pdict.get("negative", 0.0)
-

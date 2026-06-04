@@ -1,15 +1,16 @@
 import os
 import streamlit as st
 import logging
-
+from streamlit.errors import StreamlitSecretNotFoundError
 
 try:
     for key, value in st.secrets.items():
         os.environ[str(key)] = str(value)
-except Exception:
+except StreamlitSecretNotFoundError:
     logging.info(
         "No .streamlit/secrets.toml found; continuing with environment variables only."
     )
+
 from src.presentation.config.settings import DEMO_MODE
 from src.presentation.pages import render_app
 

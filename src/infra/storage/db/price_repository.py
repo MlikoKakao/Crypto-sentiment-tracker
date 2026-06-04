@@ -1,10 +1,13 @@
 from src.infra.storage.db.connection import get_connection
+from src.shared.dataframe_schema import REQUIRED_PRICE_COLUMNS, require_columns
 import pandas as pd
 from src.shared.helpers import normalize_timestamp_column
 from src.app.dto import AnalysisConfig
 from datetime import timedelta
 
+
 def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
+    require_columns(prices_df, REQUIRED_PRICE_COLUMNS, "prices_df")
     df = prices_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
@@ -22,27 +25,30 @@ def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
         conn.commit()
     conn.close()
 
+
 # Convert config.dates to format where can compare to SQL results
 def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
 
     with get_connection() as conn:
-        df = pd.read_sql_query("""
+        df = pd.read_sql_query(
+            """
                                SELECT * FROM prices 
                                WHERE coin = ? AND timestamp BETWEEN ? AND ?
                                """,
-                               conn,
-                               params=(config.coin.upper(), start_date, end_date)
+            conn,
+            params=(config.coin.upper(), start_date, end_date),
         )
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
 
+
 def has_price_coverage(config: AnalysisConfig, price_df: pd.DataFrame) -> bool:
     if price_df.empty:
         return False
-    
+
     tolerance = timedelta(hours=1)
     min_time = price_df["timestamp"].min()
     max_time = price_df["timestamp"].max()
@@ -50,8 +56,7 @@ def has_price_coverage(config: AnalysisConfig, price_df: pd.DataFrame) -> bool:
     start_date = pd.to_datetime(config.start_date, utc=True).tz_convert(None)
     end_date = pd.to_datetime(config.end_date, utc=True).tz_convert(None)
 
-
     starts_near = min_time <= start_date + tolerance
     ends_near = max_time >= end_date - tolerance
-    
+
     return starts_near and ends_near

@@ -29,13 +29,20 @@ def normalize_timestamp_column(
     column: str = "timestamp",
     drop_invalid: bool = False,
 ) -> pd.DataFrame:
+    df = df.copy()
+
+    if column not in df.columns:
+        raise ValueError(f"Missing timestamp column: {column}")
+
     df[column] = pd.to_datetime(
         df[column],
         utc=True,
         errors="coerce",
     ).dt.tz_convert(None)
+
     if drop_invalid:
         df = df.dropna(subset=[column])
+
     return df
 
 

@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 import googleapiclient.discovery  # type: ignore
+from googleapiclient.errors import HttpError
 import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
@@ -63,8 +64,9 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
             )
             try:
                 response = request.execute()
-            except Exception:
-                return df
+            except HttpError as e:
+                logger.warning("Youtube API request failed: %s", e)
+                break
 
             for item in response.get("items", []):
                 videoId = item["id"]["videoId"]

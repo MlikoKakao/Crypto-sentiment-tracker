@@ -7,6 +7,8 @@ from src.domain.market.indicators import (
     calculate_rsi,
     calculate_macd,
 )
+
+from src.shared.helpers import normalize_timestamp_column
 from src.infra.storage.db.signal_repository import (
     save_signal_df,
     load_signal_df,
@@ -18,6 +20,7 @@ def add_indicators_with_cache(
     df: pd.DataFrame,
     state: IndicatorConfig,
 ) -> pd.DataFrame:
+    df = normalize_timestamp_column(df)
     df = df.sort_values("timestamp").copy()
 
     indicator_jobs = get_enabled_indicator_jobs(state)
@@ -27,6 +30,9 @@ def add_indicators_with_cache(
 
         for signal_name in signal_names:
             cached = load_signal_df(state, signal_name)
+
+            if not cached.empty:
+                cached = normalize_timestamp_column(cached)
 
             if has_signal_coverage(state, cached):
                 cached_parts.append(cached)
@@ -39,6 +45,7 @@ def add_indicators_with_cache(
                 df = df.merge(cached, on="timestamp", how="left")
         else:
             calculated = calculate_func(df, state)
+            calculated = normalize_timestamp_column(calculated)
 
             df = df.merge(calculated, on="timestamp", how="left")
 

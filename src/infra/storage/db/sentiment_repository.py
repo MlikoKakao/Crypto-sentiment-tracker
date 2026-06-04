@@ -1,10 +1,12 @@
 from src.infra.storage.db.connection import get_connection
+from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_columns
 import pandas as pd
 from src.app.dto import AnalysisConfig
 from datetime import timedelta
 
 
 def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
+    require_columns(sentiment_df, REQUIRED_SENTIMENT_COLUMNS, "sentiment_df")
     df = sentiment_df.copy()
     df["coin"] = coin.upper()
 
@@ -29,9 +31,7 @@ def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
     conn.close()
 
 
-def load_sentiment_df(
-    config: AnalysisConfig, analyzer: str
-) -> pd.DataFrame:
+def load_sentiment_df(config: AnalysisConfig, analyzer: str) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
     source_placeholders = ",".join("?" for _ in config.sources)
@@ -49,7 +49,13 @@ def load_sentiment_df(
                                ORDER BY c.timestamp
                                """,
             conn,
-            params=(config.coin.upper(), analyzer, start_date, end_date, *config.sources),
+            params=(
+                config.coin.upper(),
+                analyzer,
+                start_date,
+                end_date,
+                *config.sources,
+            ),
         )
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])

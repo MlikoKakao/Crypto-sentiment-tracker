@@ -1,4 +1,5 @@
 from src.infra.storage.db.connection import get_connection
+from src.shared.dataframe_schema import require_columns, REQUIRED_CONTENT_COLUMNS
 import pandas as pd
 from src.shared.helpers import normalize_timestamp_column
 from src.app.dto import AnalysisConfig
@@ -6,6 +7,7 @@ from datetime import timedelta
 
 
 def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
+    require_columns(content_df, REQUIRED_CONTENT_COLUMNS, "content_df")
     df = content_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")

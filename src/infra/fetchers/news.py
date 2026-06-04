@@ -22,7 +22,7 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     if has_content_coverage(config, df):
         return df
 
-    logger.info(f"Attempting to fetch news for {config.coin}..")
+    logger.info("Attempting to fetch news for %s..", config.coin)
     feed_urls = [
         "https://www.coindesk.com/arc/outboundfeeds/rss",
         "https://cointelegraph.com/rss/tag/altcoin",
@@ -44,25 +44,36 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     posts = []
     published = ["published", "published_parsed", "updated", "updated_parsed"]
 
+    start_date = pd.to_datetime(config.start_date, utc=True)
+    end_date = pd.to_datetime(config.end_date, utc=True)
+
     for feed_url in feed_urls:
-        try:
-            response = feedparser.parse(feed_url)
-        except Exception as e:
-            logger.warning(f"Skipping feed {feed_url}: {e}")
-            continue
+        response = feedparser.parse(feed_url)
+
+        if response.bozo:
+            logger.warning(
+                "Feed parser warning for %s: %s",
+                feed_url,
+                response.bozo_exception,
+            )
+
         for entry in response.entries:
             published_at = None
+
             for publish in published:
                 published_at = entry.get(publish, "")
                 if published_at:
                     break
+
             if not published_at:
                 continue
+
             try:
                 timestamp = pd.to_datetime(str(published_at), utc=True)
-            except ValueError:
+            except (ValueError, TypeError):
                 continue
-            if timestamp < config.start_date or timestamp > config.end_date:
+
+            if timestamp < start_date or timestamp > end_date:
                 continue
             title = entry.get("title", "")
             summary = entry.get("summary", "")
