@@ -78,7 +78,7 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
                 posts.append(
                     {
-                        "id": videoId,
+                        "source_id": videoId,
                         "timestamp": item["snippet"]["publishedAt"],
                         "text": title + " " + description,
                         "source": "youtube",

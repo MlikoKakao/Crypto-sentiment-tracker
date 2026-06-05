@@ -86,7 +86,7 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
                     "score": submission.score,
                     "upvote_ratio": submission.upvote_ratio,
                     "num_comments": submission.num_comments,
-                    "id": post_id,
+                    "source_id": post_id,
                     "source": "reddit",
                     "subreddit": submission.subreddit.display_name,
                 }

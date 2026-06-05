@@ -33,12 +33,25 @@ def init_db():
                 FOREIGN KEY (coin, source, source_id)
                     REFERENCES content_items(coin, source, source_id)
             );
+            
             CREATE TABLE IF NOT EXISTS signals (
                 coin TEXT NOT NULL,
                 timestamp TEXT NOT NULL,
                 signal_name TEXT NOT NULL,
                 value REAL NOT NULL,
                 PRIMARY KEY(coin, timestamp, signal_name)
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_content_coin_source_timestamp
+                ON content_items (coin, source, timestamp
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_sentiment_coin_analyzer_source
+                ON sentiment (coin, analyzer, source, source_id
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_signals_coin_signal_timestamp
+                ON signals (coin, signal_name, timestamp
             );
             """
         )
