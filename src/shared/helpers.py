@@ -56,3 +56,15 @@ def is_date_correct(start_date: datetime, end_date: datetime) -> bool:
 # Text cleanup for sentiment analysis
 def clean_text(text: str) -> str:
     return str(text).lower().strip()
+
+
+SUPPORTED_COINS = {"BTC", "ETH"}
+
+
+def normalize_coin(coin: str) -> str:
+    coin = coin.upper()
+
+    if coin not in SUPPORTED_COINS:
+        raise ValueError(f"Unsupported coin: {coin}")
+
+    return coin

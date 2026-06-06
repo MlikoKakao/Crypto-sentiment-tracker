@@ -10,7 +10,7 @@ from src.app.dto import AnalysisConfig
 
 
 def save_price_df(
-    prices_df: pd.DataFrame, db_path: Path | str | None = None, coin: str = "btc"
+    prices_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
 ) -> None:
     require_columns(prices_df, REQUIRED_PRICE_COLUMNS, "prices_df")
     df = prices_df.copy()

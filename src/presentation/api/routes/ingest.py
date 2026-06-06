@@ -11,7 +11,7 @@ from src.infra.storage.db.sentiment_repository import save_sentiment_df
 from src.infra.storage.db.content_repository import save_content_df
 from src.infra.storage.db.price_repository import save_price_df
 from src.infra.storage.db.schema import init_db
-from src.shared.helpers import is_date_correct
+from src.shared.helpers import is_date_correct, normalize_coin
 
 
 class IngestRequest(BaseModel):
@@ -35,9 +35,14 @@ def ingest(request: IngestRequest) -> dict[str, object]:
     init_db()
     if not is_date_correct(request.start_date, request.end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
+    try:
+        coin = normalize_coin(request.coin)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
     config = replace(
         DEFAULT_CONFIG,
-        coin=request.coin.upper(),
+        coin=coin,
         num_posts=request.num_posts,
         start_date=request.start_date,
         end_date=request.end_date,

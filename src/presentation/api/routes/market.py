@@ -5,7 +5,7 @@ from typing import Any, cast
 
 from src.app.defaults import DEFAULT_CONFIG
 from src.infra.storage.db.price_repository import load_price_df
-from src.shared.helpers import is_date_correct
+from src.shared.helpers import is_date_correct, normalize_coin
 from src.shared.dataframe_utils import format_timestamp_for_api
 from src.domain.market.dto import IndicatorConfig
 
@@ -18,10 +18,11 @@ def get_prices(
 ) -> list[dict[str, Any]]:
     if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
+    coin = normalize_coin(coin)
 
     config = replace(
         DEFAULT_CONFIG,
-        coin=coin.upper(),
+        coin=coin,
         start_date=start_date,
         end_date=end_date,
     )
@@ -45,15 +46,20 @@ def get_signals(
         raise HTTPException(
             status_code=400, detail="At least one signal must be selected"
         )
+    try:
+        coin = normalize_coin(coin)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
     config = replace(
         DEFAULT_CONFIG,
-        coin=coin.upper(),
+        coin=coin,
         start_date=start_date,
         end_date=end_date,
     )
 
     request = IndicatorConfig(
-        coin=coin.upper(),
+        coin=coin,
         start_date=start_date,
         end_date=end_date,
         use_sma=use_sma,

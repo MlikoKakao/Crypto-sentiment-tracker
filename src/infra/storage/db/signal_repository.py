@@ -11,8 +11,8 @@ from datetime import timedelta
 def save_signal_df(
     signal_df: pd.DataFrame,
     signal: str,
-    db_path: Path | str | None = None,
     coin: str = "btc",
+    db_path: Path | str | None = None,
 ) -> None:
     require_columns(signal_df, REQUIRED_SIGNAL_INPUT_COLUMNS, "signal_df")
     df = signal_df.copy()

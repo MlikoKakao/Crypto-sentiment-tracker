@@ -7,7 +7,7 @@ from typing import Any, cast
 
 from src.app.dto import Analyzer, Source
 from src.app.defaults import DEFAULT_CONFIG
-from src.shared.helpers import is_date_correct
+from src.shared.helpers import is_date_correct, normalize_coin
 from src.infra.storage.db.sentiment_repository import load_sentiment_df
 from src.shared.dataframe_utils import format_timestamp_for_api
 
@@ -25,10 +25,14 @@ def get_sentiment(
 ) -> list[dict[str, Any]]:
     if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
+    try:
+        coin = normalize_coin(coin)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
     config = replace(
         DEFAULT_CONFIG,
-        coin=coin.upper(),
+        coin=coin,
         start_date=start_date,
         end_date=end_date,
         analyzer=analyzer,

@@ -9,7 +9,7 @@ from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_colu
 
 
 def save_sentiment_df(
-    sentiment_df: pd.DataFrame, db_path: Path | str | None = None, coin: str = "btc"
+    sentiment_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
 ) -> None:
     require_columns(sentiment_df, REQUIRED_SENTIMENT_COLUMNS, "sentiment_df")
     df = sentiment_df.copy()

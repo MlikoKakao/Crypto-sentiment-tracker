@@ -7,11 +7,6 @@ from datetime import datetime, timedelta
 from src.app.defaults import DEFAULT_CONFIG
 from src.shared.helpers import save_csv
 from src.infra.fetchers.price import get_price_history
-from src.infra.storage.db.price_repository import (
-    load_price_df,
-    has_price_coverage,
-    save_price_df,
-)
 
 COINBASE_PRODUCTS = {
     "BTC": "BTC-USD",
@@ -24,9 +19,6 @@ logger = logging.getLogger(__name__)
 
 def get_coinbase_price_history(config: AnalysisConfig) -> pd.DataFrame:
     logger.info("Checking cache for price points..")
-    df = load_price_df(config)
-    if has_price_coverage(config, df):
-        return df
 
     if config.coin not in COINBASE_PRODUCTS:
         df = get_price_history(config)
@@ -79,7 +71,6 @@ def get_coinbase_price_history(config: AnalysisConfig) -> pd.DataFrame:
     df = df.sort_values("timestamp")
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df = df.dropna(subset=["timestamp", "price"])
-    save_price_df(df, config.coin)
     return df
 
 
