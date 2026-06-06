@@ -33,12 +33,13 @@ def save_sentiment_df(
             rows,
         )
         conn.commit()
-    conn.close()
 
 
 def load_sentiment_df(
     config: AnalysisConfig, analyzer: str, db_path: Path | str | None = None
 ) -> pd.DataFrame:
+    if not config.sources:
+        return pd.DataFrame()
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
     source_placeholders = ",".join("?" for _ in config.sources)
@@ -53,7 +54,8 @@ def load_sentiment_df(
                                AND s.source = c.source
                                AND s.source_id = c.source_id
                                WHERE c.coin = ? AND s.analyzer = ? AND c.timestamp BETWEEN ? AND ? AND c.source IN ({source_placeholders})
-                               ORDER BY c.timestamp
+                               ORDER BY c.timestamp DESC
+                               LIMIT ?
                                """,
             conn,
             params=(
@@ -62,9 +64,9 @@ def load_sentiment_df(
                 start_date,
                 end_date,
                 *config.sources,
+                config.num_posts,
             ),
         )
-    conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
 

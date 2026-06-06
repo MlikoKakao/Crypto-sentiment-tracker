@@ -50,11 +50,18 @@ def load_content_df(
             """
                                SELECT * FROM content_items 
                                WHERE coin = ? AND source = ? AND timestamp BETWEEN ? AND ?
+                               ORDER BY timestamp DESC
+                               LIMIT ?
                                """,
             conn,
-            params=(config.coin.upper(), source, start_date, end_date),
+            params=(
+                config.coin.upper(),
+                source,
+                start_date,
+                end_date,
+                config.num_posts,
+            ),
         )
-    conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
 

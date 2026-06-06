@@ -28,7 +28,6 @@ def save_price_df(
             rows,
         )
         conn.commit()
-    conn.close()
 
 
 # Convert config.dates to format where can compare to SQL results
@@ -47,7 +46,6 @@ def load_price_df(
             conn,
             params=(config.coin.upper(), start_date, end_date),
         )
-    conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
 

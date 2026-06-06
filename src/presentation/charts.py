@@ -311,8 +311,7 @@ def plot_signal(df: pd.DataFrame) -> go.Figure:
                 mode="markers",
                 name=signal_col,
             )
-    )
+        )
 
     fig.update_traces(line=dict(width=2), marker=dict(size=15, symbol="arrow"))
     return fig
-

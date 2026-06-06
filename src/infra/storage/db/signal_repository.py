@@ -35,7 +35,6 @@ def save_signal_df(
             rows,
         )
         conn.commit()
-    conn.close()
 
 
 def load_signal_df(
@@ -53,7 +52,6 @@ def load_signal_df(
             conn,
             params=(state.coin.upper(), signal, start_date, end_date),
         )
-    conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     df = df[["timestamp", "value"]].rename(columns={"value": signal})
     return df
