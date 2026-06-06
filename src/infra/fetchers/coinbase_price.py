@@ -86,4 +86,3 @@ def get_coinbase_price_history(config: AnalysisConfig) -> pd.DataFrame:
 if __name__ == "__main__":
     df = get_coinbase_price_history(DEFAULT_CONFIG)
     save_csv(df, "data/tests/coinbase_price.csv")
-

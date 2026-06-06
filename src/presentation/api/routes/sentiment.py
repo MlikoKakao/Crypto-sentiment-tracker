@@ -6,7 +6,6 @@ from typing import Any, cast
 
 
 from src.app.dto import Analyzer, Source
-from src.domain.sentiment.registry import ALL_ANALYZER_NAMES
 from src.app.defaults import DEFAULT_CONFIG
 from src.shared.helpers import is_date_correct
 from src.infra.storage.db.sentiment_repository import load_sentiment_df
@@ -38,6 +37,8 @@ def get_sentiment(
     )
 
     if analyzer == "all":
+        from src.domain.sentiment.registry import ALL_ANALYZER_NAMES
+
         frames = [
             load_sentiment_df(config, analyzer_name)
             for analyzer_name in ALL_ANALYZER_NAMES

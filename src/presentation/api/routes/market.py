@@ -8,7 +8,6 @@ from src.infra.storage.db.price_repository import load_price_df
 from src.shared.helpers import is_date_correct
 from src.shared.dataframe_utils import format_timestamp_for_api
 from src.domain.market.dto import IndicatorConfig
-from src.app.use_cases.get_indicators import add_indicators_with_cache
 
 router = APIRouter()
 
@@ -63,6 +62,9 @@ def get_signals(
     )
 
     price_df = load_price_df(config)
+
+    from src.app.use_cases.get_indicators import add_indicators_with_cache
+
     signals_df = add_indicators_with_cache(price_df, request)
 
     signals_df = format_timestamp_for_api(signals_df)
