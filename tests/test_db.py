@@ -1,16 +1,17 @@
 from datetime import datetime
 
 import pandas as pd
+from pathlib import Path
 
 from src.app.dto import AnalysisConfig
 from src.infra.storage.db.price_repository import load_price_df, save_price_df
 from src.infra.storage.db.schema import init_db
 
 
-def test_price_repository_saves_and_loads_rows(tmp_path, monkeypatch) -> None:
+def test_price_repository_saves_and_loads_rows(tmp_path: Path) -> None:
     db_path = tmp_path / "test.db"
-    monkeypatch.setattr("src.infra.storage.db.connection.DB_PATH", db_path)
-    init_db()
+
+    init_db(db_path)
 
     prices = pd.DataFrame(
         {

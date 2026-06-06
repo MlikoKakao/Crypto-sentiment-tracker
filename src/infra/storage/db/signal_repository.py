@@ -1,3 +1,5 @@
+from contextlib import closing
+from pathlib import Path
 from src.infra.storage.db.connection import get_connection
 from src.shared.dataframe_schema import REQUIRED_SIGNAL_INPUT_COLUMNS, require_columns
 import pandas as pd
@@ -6,7 +8,12 @@ from src.shared.helpers import normalize_timestamp_column
 from datetime import timedelta
 
 
-def save_signal_df(signal_df: pd.DataFrame, signal: str, coin: str = "btc") -> None:
+def save_signal_df(
+    signal_df: pd.DataFrame,
+    signal: str,
+    db_path: Path | str | None = None,
+    coin: str = "btc",
+) -> None:
     require_columns(signal_df, REQUIRED_SIGNAL_INPUT_COLUMNS, "signal_df")
     df = signal_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
@@ -19,7 +26,7 @@ def save_signal_df(signal_df: pd.DataFrame, signal: str, coin: str = "btc") -> N
     rows = df[["coin", "timestamp", "signal_name", "value"]].itertuples(
         index=False, name=None
     )
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         conn.executemany(
             """
             INSERT OR REPLACE INTO signals (coin, timestamp, signal_name, value)
@@ -31,11 +38,13 @@ def save_signal_df(signal_df: pd.DataFrame, signal: str, coin: str = "btc") -> N
     conn.close()
 
 
-def load_signal_df(state: IndicatorConfig, signal: str) -> pd.DataFrame:
+def load_signal_df(
+    state: IndicatorConfig, signal: str, db_path: Path | str | None = None
+) -> pd.DataFrame:
     start_date = state.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = state.end_date.strftime("%Y-%m-%d %H:%M:%S")
 
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         df = pd.read_sql_query(
             """
                                SELECT * FROM signals

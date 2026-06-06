@@ -1,11 +1,16 @@
-from src.infra.storage.db.connection import get_connection
-from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_columns
+from pathlib import Path
+from contextlib import closing
 import pandas as pd
-from src.app.dto import AnalysisConfig
 from datetime import timedelta
 
+from src.app.dto import AnalysisConfig
+from src.infra.storage.db.connection import get_connection
+from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_columns
 
-def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
+
+def save_sentiment_df(
+    sentiment_df: pd.DataFrame, db_path: Path | str | None = None, coin: str = "btc"
+) -> None:
     require_columns(sentiment_df, REQUIRED_SENTIMENT_COLUMNS, "sentiment_df")
     df = sentiment_df.copy()
     df["coin"] = coin.upper()
@@ -19,7 +24,7 @@ def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
             "sentiment",
         ]
     ].itertuples(index=False, name=None)
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         conn.executemany(
             """
             INSERT OR REPLACE INTO sentiment (coin, source, source_id, analyzer, sentiment)
@@ -31,12 +36,14 @@ def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
     conn.close()
 
 
-def load_sentiment_df(config: AnalysisConfig, analyzer: str) -> pd.DataFrame:
+def load_sentiment_df(
+    config: AnalysisConfig, analyzer: str, db_path: Path | str | None = None
+) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
     source_placeholders = ",".join("?" for _ in config.sources)
 
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         df = pd.read_sql_query(
             f"""
                                SELECT c.coin, c.source, c.source_id, c.timestamp, c.text, c.url, s.analyzer, s.sentiment 

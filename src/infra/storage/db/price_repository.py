@@ -1,12 +1,17 @@
+import pandas as pd
+from datetime import timedelta
+from contextlib import closing
+from pathlib import Path
+
 from src.infra.storage.db.connection import get_connection
 from src.shared.dataframe_schema import REQUIRED_PRICE_COLUMNS, require_columns
-import pandas as pd
 from src.shared.helpers import normalize_timestamp_column
 from src.app.dto import AnalysisConfig
-from datetime import timedelta
 
 
-def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
+def save_price_df(
+    prices_df: pd.DataFrame, db_path: Path | str | None = None, coin: str = "btc"
+) -> None:
     require_columns(prices_df, REQUIRED_PRICE_COLUMNS, "prices_df")
     df = prices_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
@@ -14,7 +19,7 @@ def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
     df["coin"] = coin.upper()
 
     rows = df[["coin", "timestamp", "price"]].itertuples(index=False, name=None)
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         conn.executemany(
             """
             INSERT OR REPLACE INTO prices (coin, timestamp, price)
@@ -27,11 +32,13 @@ def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
 
 
 # Convert config.dates to format where can compare to SQL results
-def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
+def load_price_df(
+    config: AnalysisConfig, db_path: Path | str | None = None
+) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
 
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         df = pd.read_sql_query(
             """
                                SELECT * FROM prices 

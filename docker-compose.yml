@@ -2,7 +2,11 @@ services:
   web:
     build: .
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
+    environment:
+      DATABASE_PATH: /usr/src/app/data/app.db
     volumes:
       - ./src/:/usr/src/app/src/
+      - ./data:/usr/src/app/data
     ports:
       - 8002:8000
+

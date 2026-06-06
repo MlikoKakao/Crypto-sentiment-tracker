@@ -1,12 +1,16 @@
 from src.infra.storage.db.connection import get_connection
 from src.shared.dataframe_schema import require_columns, REQUIRED_CONTENT_COLUMNS
 import pandas as pd
+from pathlib import Path
 from src.shared.helpers import normalize_timestamp_column
 from src.app.dto import AnalysisConfig
 from datetime import timedelta
+from contextlib import closing
 
 
-def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
+def save_content_df(
+    content_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
+) -> None:
     require_columns(content_df, REQUIRED_CONTENT_COLUMNS, "content_df")
     df = content_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
@@ -24,7 +28,7 @@ def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
             "url",
         ]
     ].itertuples(index=False, name=None)
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         conn.executemany(
             """
             INSERT OR REPLACE INTO content_items (coin, source, source_id, timestamp, text, url)
@@ -33,14 +37,15 @@ def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
             rows,
         )
         conn.commit()
-    conn.close()
 
 
-def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
+def load_content_df(
+    config: AnalysisConfig, source: str, db_path: Path | str | None = None
+) -> pd.DataFrame:
     start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
     end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
 
-    with get_connection() as conn:
+    with closing(get_connection(db_path)) as conn:
         df = pd.read_sql_query(
             """
                                SELECT * FROM content_items 

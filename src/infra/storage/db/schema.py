@@ -1,8 +1,10 @@
+from pathlib import Path
+from contextlib import closing
 from src.infra.storage.db.connection import get_connection
 
 
-def init_db():
-    with get_connection() as conn:
+def init_db(db_path: Path | str | None = None):
+    with closing(get_connection(db_path)) as conn:
         conn.executescript(
             """
             CREATE TABLE IF NOT EXISTS prices 
@@ -43,17 +45,13 @@ def init_db():
             );
 
             CREATE INDEX IF NOT EXISTS idx_content_coin_source_timestamp
-                ON content_items (coin, source, timestamp
-            );
+                ON content_items (coin, source, timestamp);
 
             CREATE INDEX IF NOT EXISTS idx_sentiment_coin_analyzer_source
-                ON sentiment (coin, analyzer, source, source_id
-            );
+                ON sentiment (coin, analyzer, source, source_id);
 
             CREATE INDEX IF NOT EXISTS idx_signals_coin_signal_timestamp
-                ON signals (coin, signal_name, timestamp
-            );
+                ON signals (coin, signal_name, timestamp);
             """
         )
         conn.commit()
-    conn.close()
