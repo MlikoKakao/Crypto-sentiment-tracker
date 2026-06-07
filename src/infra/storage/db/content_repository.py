@@ -21,6 +21,7 @@ def save_content_df(
     df["coin"] = coin.upper()
     add_optional_cols_inplace(df)
     df = normalize_timestamp_column(df, drop_invalid=True)
+    df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
 
     require_columns(df, REQUIRED_CONTENT_COLUMNS, "content_df")
 
