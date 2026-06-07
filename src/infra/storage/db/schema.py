@@ -3,17 +3,17 @@ from contextlib import closing
 from src.infra.storage.db.connection import get_connection
 
 
-def init_db(db_path: Path | str | None = None):
+def init_db(db_path: Path | str | None = None) -> None:
     with closing(get_connection(db_path)) as conn:
         conn.executescript(
             """
-            CREATE TABLE IF NOT EXISTS prices 
-                (coin TEXT NOT NULL, 
-                timestamp TEXT NOT NULL, 
-                price REAL NOT NULL, 
+            CREATE TABLE IF NOT EXISTS prices (
+                coin TEXT NOT NULL,
+                timestamp TEXT NOT NULL,
+                price REAL NOT NULL,
                 PRIMARY KEY (coin, timestamp)
-                );
-            
+            );
+
             CREATE TABLE IF NOT EXISTS content_items (
                 coin TEXT NOT NULL,
                 source TEXT NOT NULL,
@@ -40,23 +40,27 @@ def init_db(db_path: Path | str | None = None):
                     REFERENCES content_items (coin, source, content_hash)
                     ON DELETE CASCADE
             );
-            
+
             CREATE TABLE IF NOT EXISTS signals (
                 coin TEXT NOT NULL,
                 timestamp TEXT NOT NULL,
                 signal_name TEXT NOT NULL,
                 value REAL NOT NULL,
-                PRIMARY KEY(coin, timestamp, signal_name)
+                PRIMARY KEY (coin, timestamp, signal_name)
             );
 
             CREATE INDEX IF NOT EXISTS idx_content_coin_source_timestamp
                 ON content_items (coin, source, timestamp);
 
+            CREATE INDEX IF NOT EXISTS idx_content_coin_source_id
+                ON content_items (coin, source, source_id);
+
             CREATE INDEX IF NOT EXISTS idx_sentiment_coin_analyzer_source
-                ON sentiment (coin, analyzer, source, source_id);
+                ON sentiment (coin, analyzer, source, content_hash);
 
             CREATE INDEX IF NOT EXISTS idx_signals_coin_signal_timestamp
                 ON signals (coin, signal_name, timestamp);
             """
         )
+
         conn.commit()
