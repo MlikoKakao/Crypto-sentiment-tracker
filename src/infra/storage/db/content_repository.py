@@ -1,38 +1,48 @@
-from src.infra.storage.db.connection import get_connection
-from src.shared.dataframe_schema import require_columns, REQUIRED_CONTENT_COLUMNS
 import pandas as pd
 from pathlib import Path
-from src.shared.helpers import normalize_timestamp_column
-from src.app.dto import AnalysisConfig
 from datetime import timedelta
 from contextlib import closing
+
+from src.app.dto import AnalysisConfig
+from src.infra.storage.db.connection import get_connection
+from src.shared.dataframe_schema import require_columns, REQUIRED_CONTENT_COLUMNS
+from src.shared.helpers import normalize_timestamp_column
+from src.shared.db_helpers import (
+    add_optional_cols_inplace,
+    build_content_hash,
+)
 
 
 def save_content_df(
     content_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
 ) -> None:
-    require_columns(content_df, REQUIRED_CONTENT_COLUMNS, "content_df")
     df = content_df.copy()
-    df = normalize_timestamp_column(df, drop_invalid=True)
-    df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
-    df["coin"] = coin.upper()
     df = df.rename(columns={"id": "source_id"})
+    df["coin"] = coin.upper()
+    add_optional_cols_inplace(df)
+    df = normalize_timestamp_column(df, drop_invalid=True)
+
+    require_columns(df, REQUIRED_CONTENT_COLUMNS, "content_df")
+
+    df["content_hash"] = df.apply(build_content_hash, axis=1)
 
     rows = df[
-        [
-            "coin",
-            "source",
-            "source_id",
-            "timestamp",
-            "text",
-            "url",
-        ]
+        ["coin", "source", "source_id", "timestamp", "text", "url", "content_hash"]
     ].itertuples(index=False, name=None)
+
     with closing(get_connection(db_path)) as conn:
         conn.executemany(
             """
-            INSERT OR REPLACE INTO content_items (coin, source, source_id, timestamp, text, url)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT OR IGNORE INTO content_items (
+                coin,
+                source,
+                source_id,
+                timestamp,
+                text,
+                url,
+                content_hash
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
             rows,
         )

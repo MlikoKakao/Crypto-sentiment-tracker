@@ -90,7 +90,6 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
                     "summary": summary,
                     "text": f"{title} {summary}",
                     "url": url,
-                    "source_id": url,
                     "source": "news",
                 }
             )

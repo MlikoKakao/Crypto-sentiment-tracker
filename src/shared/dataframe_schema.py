@@ -6,11 +6,9 @@ REQUIRED_CONTENT_COLUMNS = {
     "timestamp",
     "text",
     "source",
-    "source_id",
-    "url",
 }
 
-REQUIRED_SENTIMENT_COLUMNS = {"source", "source_id", "analyzer", "sentiment"}
+REQUIRED_SENTIMENT_COLUMNS = {"source", "content_hash", "analyzer", "sentiment"}
 
 REQUIRED_SIGNAL_INPUT_COLUMNS = {"timestamp"}
 

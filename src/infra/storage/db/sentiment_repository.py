@@ -11,23 +11,25 @@ from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_colu
 def save_sentiment_df(
     sentiment_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
 ) -> None:
-    require_columns(sentiment_df, REQUIRED_SENTIMENT_COLUMNS, "sentiment_df")
     df = sentiment_df.copy()
     df["coin"] = coin.upper()
+
+    require_columns(df, REQUIRED_SENTIMENT_COLUMNS, "sentiment_df")
 
     rows = df[
         [
             "coin",
             "source",
-            "source_id",
+            "content_hash",
             "analyzer",
             "sentiment",
         ]
     ].itertuples(index=False, name=None)
+
     with closing(get_connection(db_path)) as conn:
         conn.executemany(
             """
-            INSERT OR REPLACE INTO sentiment (coin, source, source_id, analyzer, sentiment)
+            INSERT OR IGNORE INTO sentiment (coin, source, content_hash, analyzer, sentiment)
             VALUES (?, ?, ?, ?, ?)
             """,
             rows,
@@ -47,12 +49,12 @@ def load_sentiment_df(
     with closing(get_connection(db_path)) as conn:
         df = pd.read_sql_query(
             f"""
-                               SELECT c.coin, c.source, c.source_id, c.timestamp, c.text, c.url, s.analyzer, s.sentiment 
+                               SELECT c.coin, c.source, c.content_hash, c.timestamp, c.text, c.url, s.analyzer, s.sentiment 
                                FROM content_items AS c
                                JOIN sentiment as s
                                ON s.coin = c.coin
                                AND s.source = c.source
-                               AND s.source_id = c.source_id
+                               AND s.content_hash = c.content_hash
                                WHERE c.coin = ? AND s.analyzer = ? AND c.timestamp BETWEEN ? AND ? AND c.source IN ({source_placeholders})
                                ORDER BY c.timestamp DESC
                                LIMIT ?

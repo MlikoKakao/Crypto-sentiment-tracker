@@ -16,24 +16,29 @@ def init_db(db_path: Path | str | None = None):
             
             CREATE TABLE IF NOT EXISTS content_items (
                 coin TEXT NOT NULL,
-                source TEXT NOT NULL, -- reddit/news/youtube
-                source_id TEXT NOT NULL, -- reddit id, youtube id, or news url
+                source TEXT NOT NULL,
+                source_id TEXT,
                 timestamp TEXT NOT NULL,
                 text TEXT NOT NULL,
-                url TEXT NOT NULL,
-                PRIMARY KEY (coin, source, source_id)
+                url TEXT,
+                content_hash TEXT NOT NULL,
+
+                PRIMARY KEY (coin, source, content_hash)
             );
 
             CREATE TABLE IF NOT EXISTS sentiment (
                 coin TEXT NOT NULL,
                 source TEXT NOT NULL,
-                source_id TEXT NOT NULL,
+                content_hash TEXT NOT NULL,
                 analyzer TEXT NOT NULL,
                 sentiment REAL NOT NULL,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                PRIMARY KEY (coin, source, source_id, analyzer),
-                FOREIGN KEY (coin, source, source_id)
-                    REFERENCES content_items(coin, source, source_id)
+
+                PRIMARY KEY (coin, source, content_hash, analyzer),
+
+                FOREIGN KEY (coin, source, content_hash)
+                    REFERENCES content_items (coin, source, content_hash)
+                    ON DELETE CASCADE
             );
             
             CREATE TABLE IF NOT EXISTS signals (

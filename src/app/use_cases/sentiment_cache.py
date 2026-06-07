@@ -51,7 +51,7 @@ def get_or_create_multiple_sentiment_df(
             loaded_df = add_sentiment_to_df(posts_df, analyzer_name=analyzer)
             save_sentiment_df(loaded_df, coin=config.coin)
 
-        scores = loaded_df[["source", "source_id", "sentiment"]].rename(
+        scores = loaded_df[["source", "content_hash", "sentiment"]].rename(
             columns={"sentiment": f"sentiment_{analyzer}"}
         )
 
@@ -60,11 +60,9 @@ def get_or_create_multiple_sentiment_df(
     result_df = posts_df.copy()
 
     for scores in score_frames:
-        result_df = result_df.merge(scores, on=["source", "source_id"], how="inner")
+        result_df = result_df.merge(scores, on=["source", "content_hash"], how="inner")
 
-    sentiment_cols = [
-        f"sentiment_{analyzer}" for analyzer in ALL_ANALYZER_NAMES
-    ]
+    sentiment_cols = [f"sentiment_{analyzer}" for analyzer in ALL_ANALYZER_NAMES]
 
     result_df["sentiment"] = result_df[sentiment_cols].mean(axis=1)
     result_df["analyzer"] = "all"
