@@ -1,143 +1,376 @@
+# Architecture
+
 ## Overview
 
-`crypto-sentiment-tracker` is a Python project for collecting crypto-related text data, analyzing sentiment, combining it with market data, and presenting results in a dashboard.
+`crypto-sentiment-tracker` is a layered Python application for collecting crypto-related text, scoring sentiment, merging it with market data, and exposing the results through both Streamlit and FastAPI.
+
+The project currently has:
+
+- Streamlit UI entry point: `run_app.py`
+- FastAPI app: `src/presentation/api/main.py`
+- SQLite storage: `src/infra/storage/db/`
+- Docker services for API, UI, and DB schema initialization
+- pytest coverage for domain behavior, storage repositories, API route behavior, fetcher boundaries, and cache behavior
 
 ---
 
-## Implemented core goals
+## Layers
 
-- Fetch posts/articles about selected crypto assets
-- Run sentiment analysis using interchangeable analyzers
-- Fetch price data for the same time range
-- Merge sentiment + market data into one analysis dataset
-- Compute indicators and optional strategy/backtest outputs
-- Display results in a Streamlit app
-- Cache expensive operations so repeated runs are fast
+### Presentation Layer
 
-## Planned core goals
+Location:
 
-- Change to DB, first SQLite, then more advanced DBs, from CSVs
-- Compute abnormalities
-- Regular scraping, make the app live
+```text
+src/presentation/
+```
 
----
+Responsibilities:
 
-## High-level architecture
+- Streamlit page rendering
+- Sidebar state and user input
+- Plotly chart construction
+- FastAPI route definitions
+- API response formatting
 
-The project follows a layered structure:
+Important files:
 
-1. **Presentation layer**  
-   Streamlit UI, input handling, charts, pages
+```text
+src/presentation/pages.py
+src/presentation/sidebar.py
+src/presentation/charts.py
+src/presentation/demo_view.py
+src/presentation/benchmark_view.py
+src/presentation/api/main.py
+src/presentation/api/routes/
+```
 
-2. **Application layer**  
-   Coordinates workflows like “run analysis” or “run backtest”
-
-3. **Domain layer**  
-   Core business logic:
-   - sentiment analysis
-   - market indicators
-   - merge logic
-   - backtesting rules/metrics
-
-4. **Infrastructure layer**  
-   External system access:
-   - Reddit/X/news/price fetchers
-   - CSV/(eventually)database storage
-   - file cache
-   - path/config helpers
+Current note: the Streamlit UI still imports application use cases directly. The API and UI are separate Docker services, but they are not yet a fully separated frontend/backend system.
 
 ---
 
-## Current: Directory structure
+### Application Layer
 
+Location:
+
+```text
+src/app/
+```
+
+Responsibilities:
+
+- Define application DTOs and defaults
+- Coordinate workflows
+- Decide when to use cached sentiment versus recomputing it
+
+Important files:
+
+```text
+src/app/dto.py
+src/app/defaults.py
+src/app/settings.py
+src/app/use_cases/run_analysis.py
+src/app/use_cases/run_demo.py
+src/app/use_cases/get_indicators.py
+src/app/use_cases/sentiment_cache.py
+```
+
+Typical live-analysis flow:
+
+```text
+AnalysisConfig
+  -> fetch_posts(config)
+  -> get_or_create_sentiment_df(config, posts_df)
+  -> get_coinbase_price_history(config)
+  -> merge_sentiment_and_price_df(price_df, sentiment_df)
+  -> AnalysisResult
+```
+
+---
+
+### Domain Layer
+
+Location:
+
+```text
+src/domain/
+```
+
+Responsibilities:
+
+- Sentiment analyzer wrappers and registry
+- Market filtering, indicators, smoothing, and merge logic
+- Signal generation
+- Lead/lag analysis
+- Backtest calculations
+
+Important files:
+
+```text
+src/domain/sentiment/
+src/domain/market/
+src/domain/signals/engine.py
+src/domain/analysis/lead_lag.py
+src/domain/backtest/engine.py
+```
+
+Domain code should stay mostly independent from Docker, Streamlit, FastAPI, and SQLite details.
+
+---
+
+### Infrastructure Layer
+
+Location:
+
+```text
+src/infra/
+```
+
+Responsibilities:
+
+- External API access
+- SQLite schema and repository implementation
+- Legacy CSV helper code
+
+Important files:
+
+```text
+src/infra/fetchers/service.py
+src/infra/fetchers/reddit.py
+src/infra/fetchers/news.py
+src/infra/fetchers/youtube.py
+src/infra/fetchers/coinbase_price.py
+src/infra/fetchers/price.py
+src/infra/storage/db/schema.py
+src/infra/storage/db/connection.py
+src/infra/storage/db/content_repository.py
+src/infra/storage/db/price_repository.py
+src/infra/storage/db/sentiment_repository.py
+src/infra/storage/db/signal_repository.py
+src/infra/storage/sentiment_csv.py
+```
+
+SQLite is the current persistence layer. CSV storage is legacy/transitional and should shrink as demo and runtime data move fully into SQLite.
+
+---
+
+### Shared Utilities
+
+Location:
+
+```text
+src/shared/
+```
+
+Responsibilities:
+
+- Timestamp normalization
+- CSV helper functions
+- Coin validation
+- DataFrame schema checks
+- API/DataFrame formatting helpers
+- DB helper utilities such as content hashing
+
+Important files:
+
+```text
+src/shared/helpers.py
+src/shared/dataframe_schema.py
+src/shared/dataframe_utils.py
+src/shared/db_helpers.py
+```
+
+---
+
+## Current Directory Shape
+
+```text
 Crypto-sentiment-tracker/
+├─ Dockerfile
+├─ docker-compose.yml
+├─ pyproject.toml
 ├─ run_app.py
 ├─ README.md
 ├─ ARCHITECTURE.md
 ├─ DECISIONS.md
-├─ requirements.txt
-├─ pyrightconfig.json
+├─ LICENSE
 ├─ mypy.ini
-│
-├─ config/
-│  ├─ settings.py
-│  └─ cache_schema.py
-│
-├─ data/
-│  ├─ raw/
-│  ├─ processed/
-│  ├─ cache/
-│  ├─ demo/
-│  └─ tests/
-│
-├─ logs/
-│
-├─ tests/
-│  ├─ smoke/
-│  ├─ unit/
-│  └─ integration/
-│
+├─ pyrightconfig.json
 ├─ stubs/
-│
+├─ tests/
+│  ├─ api/
+│  ├─ sentiment/
+│  ├─ conftest.py
+│  ├─ test_db.py
+│  ├─ test_fetchers.py
+│  ├─ test_sentiment_cache.py
+│  └─ test_signals.py
 └─ src/
    ├─ app/
-   │  ├─ dto.py
-   │  ├─ defaults.py
-   │  └─ use_cases/
-   │     ├─ run_analysis.py
-   │     ├─ run_demo.py
-   │     └─ run_backtest.py
-   │
+   ├─ benchmark/
    ├─ domain/
-   │  ├─ sentiment/
-   │  │  ├─ registry.py
-   │  │  ├─ service.py
-   │  │  ├─ vader.py
-   │  │  ├─ textblob.py
-   │  │  ├─ roberta.py
-   │  │  └─ finbert.py
-   │  │
-   │  ├─ market/
-   │  │  ├─ coins.py
-   │  │  ├─ filtering.py
-   │  │  ├─ indicators.py
-   │  │  └─ merge.py
-   │  │
+   │  ├─ analysis/
    │  ├─ backtest/
-   │  │  ├─ engine.py
-   │  │  └─ metrics.py
-   │  │
-   │  └─ analysis/
-   │     └─ lead_lag.py
-   │
+   │  ├─ market/
+   │  ├─ sentiment/
+   │  └─ signals/
    ├─ infra/
    │  ├─ fetchers/
-   │  │  ├─ service.py
-   │  │  ├─ reddit.py
-   │  │  ├─ news.py
-   │  │  ├─ youtube.py
-   │  │  ├─ twitter.py
-   │  │  └─ price.py
-   │  │
-   │  ├─ storage/
-   │  │  ├─ paths.py
-   │  │  ├─ sentiment_csv.py
-   │  │  └─ logging_config.py
-   │  │
-   │  └─ cache/
-   │     ├─ file_cache.py
-   │     └─ keys.py
-   │
+   │  └─ storage/
+   │     └─ db/
    ├─ presentation/
-   │  ├─ pages.py
-   │  ├─ sidebar.py
-   │  ├─ charts.py
-   │  ├─ metrics.py
-   │  ├─ demo_view.py
-   │  ├─ benchmark_view.py
-   │  └─ ui_constants.py
-   │
+   │  ├─ api/
+   │  │  └─ routes/
+   │  └─ config/
    └─ shared/
-      ├─ text.py
-      ├─ csv.py
-      └─ time.py
+```
+
+---
+
+## Storage Model
+
+Current primary storage:
+
+```text
+SQLite database
+```
+
+Default local path:
+
+```text
+data/app.db
+```
+
+Docker path:
+
+```text
+/usr/src/app/data/app.db
+```
+
+Schema creation:
+
+```text
+src/infra/storage/db/schema.py
+```
+
+Tables:
+
+- `prices`
+- `content_items`
+- `sentiment`
+- `signals`
+
+Repositories:
+
+- `price_repository.py`
+- `content_repository.py`
+- `sentiment_repository.py`
+- `signal_repository.py`
+
+The repositories accept an optional `db_path`, which makes them easy to test against temporary SQLite databases.
+
+---
+
+## API
+
+FastAPI app:
+
+```text
+src/presentation/api/main.py
+```
+
+Routes:
+
+```text
+GET  /health
+GET  /market/prices
+GET  /market/signals
+GET  /posts
+GET  /sentiment
+POST /ingest
+```
+
+API route tests currently call route functions directly and monkeypatch repository dependencies where needed. This avoids real external services and real app DB writes.
+
+---
+
+## Docker
+
+`Dockerfile` installs the app from `pyproject.toml`:
+
+```text
+pip install -e .
+```
+
+`docker-compose.yml` defines:
+
+- `api`: FastAPI service on container port `8000`, host port `8002`
+- `ui`: Streamlit service on container/host port `8501`
+- `migrate`: one-off command that calls `init_db()`
+
+Compose uses a named volume:
+
+```text
+app_data
+```
+
+mounted at:
+
+```text
+/usr/src/app/data
+```
+
+This gives persistent SQLite storage for Docker runs.
+
+Current limitation: because `/usr/src/app/data` is a named volume, repo CSV files under `data/demo` are not automatically present inside that path. The intended direction is DB-backed demo data instead of runtime demo CSV reads.
+
+---
+
+## Testing Strategy
+
+Test locations:
+
+```text
+tests/
+tests/api/
+tests/sentiment/
+```
+
+Current coverage:
+
+- domain merge behavior
+- signal generation behavior
+- sentiment service behavior
+- SQLite repository round-trips
+- API route success and validation paths
+- fetcher behavior with mocked external boundaries
+- missing API key behavior
+- unsupported coin behavior
+- sentiment cache hit/miss behavior
+- `analyzer="all"` behavior
+
+Testing rule of thumb:
+
+- Use real temporary SQLite DBs for repository tests.
+- Use monkeypatching for external services, cache path decisions, and API route dependencies.
+- Keep network calls out of unit tests.
+
+---
+
+## Known Transitional Areas
+
+- Demo mode still relies on CSV files.
+- `src/infra/storage/sentiment_csv.py` is legacy CSV helper code.
+- Streamlit UI and FastAPI run as separate Docker services, but the UI still calls application use cases directly rather than calling the API over HTTP.
+- SQLite schema changes are handled by `CREATE TABLE IF NOT EXISTS`; there is no versioned migration tool such as Alembic yet.
+- `requirements.txt` is no longer the primary dependency source; `pyproject.toml` is.
+
+---
+
+## Planned Direction
+
+- Move demo data from CSVs into a curated demo SQLite DB.
+- Remove legacy CSV runtime paths after DB-backed demo mode exists.
+- Make Streamlit call FastAPI endpoints for a cleaner API/UI boundary.
+- Add versioned migrations if the SQLite schema starts changing frequently.
+- Add scheduled/live ingestion.
+- Add anomaly detection and higher-level signal explanations.

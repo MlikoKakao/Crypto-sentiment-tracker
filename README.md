@@ -2,191 +2,292 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)]()
 [![Streamlit](https://img.shields.io/badge/Streamlit-app-red.svg)]()
+[![FastAPI](https://img.shields.io/badge/FastAPI-api-green.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 
-Streamlit app that collects crypto discussion around **Bitcoin / Ethereum / Monero**, runs **sentiment analysis**, merges it with **price data**, and visualizes sentiment, lead/lag correlation, indicators, and simple backtests. Built for **fast demos** and exploratory analysis with SQLite-backed caching.
+Crypto Sentiment Tracker collects crypto-related posts/articles, scores their sentiment, combines that with market data, and shows the result in a Streamlit dashboard and FastAPI API.
+
+The current app supports live analysis, SQLite-backed caching/storage, basic technical indicators, lead/lag analysis, and a small backtest view.
+
 Demo: https://crypto-currency-sentiment-analysis.streamlit.app
-<img width="3835" height="1746" alt="image" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
+
+<img width="3835" height="1746" alt="Crypto Sentiment Tracker screenshot" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
 
 ---
 
 ## Features
 
-- **One-click pipeline**: fetch -> analyze -> merge -> visualize
-- **Sources**: Reddit, YouTube, crypto news, and Coinbase price data
-- **Analyzers**: VADER, TextBlob, RoBERTa, FinBert
-- **Indicators**: SMA, RSI, MACD
-- **Analysis views**: sentiment/price charts, lead-lag correlation, model benchmark view, and optional backtest charts
-- **Caching/storage**: SQLite database at `data/app.db`
-- **Modular architecture**: presentation, application, domain, and infrastructure layers
-
-> Goal = quick signal intuition. Swap in heavier models/sources when needed.
+- Fetches crypto content from Reddit, YouTube, and RSS news feeds
+- Fetches market prices from Coinbase, with CoinGecko fallback infrastructure
+- Scores sentiment with VADER, TextBlob, RoBERTa, or FinBERT
+- Supports `analyzer="all"` aggregation across analyzers
+- Stores prices, content, sentiment, and signals in SQLite
+- Exposes FastAPI endpoints for health, prices, sentiment, posts, signals, and ingest
+- Renders a Streamlit UI with charts, lead/lag analysis, indicators, benchmark views, and backtest output
+- Includes focused pytest coverage for domain logic, repositories, API routes, fetcher boundaries, and cache behavior
 
 ---
 
 ## Project Layout
 
-```
+```text
 .
+├─ Dockerfile
+├─ docker-compose.yml
+├─ pyproject.toml
 ├─ run_app.py
+├─ README.md
 ├─ ARCHITECTURE.md
 ├─ DECISIONS.md
-├─ requirements.txt
-├─ config/
-│  └─ settings.py
-├─ data/
-│  ├─ benchmark/
-│  ├─ cache/
-│  ├─ demo/
-│  ├─ processed/
-│  ├─ raw/
-│  └─ tests/
-├─ docs/
 ├─ tests/
-│  └─ run_smoke_tests.py
+│  ├─ api/
+│  ├─ sentiment/
+│  ├─ conftest.py
+│  ├─ test_db.py
+│  ├─ test_fetchers.py
+│  ├─ test_sentiment_cache.py
+│  └─ test_signals.py
 ├─ stubs/
 │  ├─ textblob/
 │  └─ vader/
-├─ src/
-│  ├─ presentation/
-│  │  ├─ pages.py              # Streamlit page routing and app rendering
-│  │  ├─ sidebar.py            # User controls for coin/source/analyzer/date
-│  │  ├─ charts.py             # Plotly chart builders
-│  │  ├─ demo_view.py
-│  │  ├─ benchmark_view.py
-│  │  └─ ui_constants.py
-│  ├─ app/
-│  │  ├─ dto.py                # AnalysisConfig and AnalysisResult data objects
-│  │  ├─ defaults.py
-│  │  └─ use_cases/
-│  │     ├─ run_analysis.py    # Main fetch -> sentiment -> price -> merge workflow
-│  │     └─ run_demo.py        # Loads demo CSVs from data/demo
-│  ├─ domain/
-│  │  ├─ sentiment/            # VADER, TextBlob, RoBERTa, FinBERT, registry, service
-│  │  ├─ market/               # Coins, filtering, indicators, smoothing, merge logic
-│  │  ├─ analysis/             # Lead/lag calculations
-│  │  └─ backtest/             # Backtest engine
-│  ├─ infra/
-│  │  ├─ fetchers/             # Reddit, news, YouTube, Twitter, price, Coinbase price
-│  │  └─ storage/
-│  │     ├─ sentiment_csv.py   # Legacy/helper CSV storage
-│  │     └─ db/                # SQLite schema, connection, and source repositories
-│  ├─ benchmark/
-│  │  ├─ analyzer_eval.py
-│  │  └─ benchmark_plot.py
-│  └─ shared/
-│     └─ helpers.py            # CSV helpers and shared utility functions
+└─ src/
+   ├─ app/
+   │  ├─ dto.py
+   │  ├─ defaults.py
+   │  └─ use_cases/
+   ├─ benchmark/
+   ├─ domain/
+   │  ├─ analysis/
+   │  ├─ backtest/
+   │  ├─ market/
+   │  ├─ sentiment/
+   │  └─ signals/
+   ├─ infra/
+   │  ├─ fetchers/
+   │  └─ storage/
+   │     ├─ sentiment_csv.py
+   │     └─ db/
+   ├─ presentation/
+   │  ├─ api/
+   │  │  └─ routes/
+   │  ├─ config/
+   │  ├─ pages.py
+   │  ├─ sidebar.py
+   │  └─ charts.py
+   └─ shared/
 ```
+
+`pyproject.toml` is the source of Python dependencies. `requirements.txt` is not used by the Dockerfile or quickstart workflow.
 
 ---
 
-## Quickstart
+## Local Setup
 
-### 1) Install
 ```bash
 git clone https://github.com/MlikoKakao/crypto-sentiment-tracker.git
 cd crypto-sentiment-tracker
 
 python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
 source .venv/bin/activate
 
 pip install -e ".[dev]"
 ```
 
-### 2) Configure secrets
-Create `.streamlit/secrets.toml`:
-```toml
-REDDIT_CLIENT_ID = "xxx"
-REDDIT_CLIENT_SECRET = "xxx"
-REDDIT_USER_AGENT = "yourapp/0.1 by youruser"
-YOUTUBE_API_KEY = "xxx"
+On Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
 ```
-> Reddit and YouTube need API keys. News and Coinbase price fetching do not currently require keys.
+
+---
 
 ## Environment Setup
 
-Copy the example environment file:
+Copy the public template:
 
 ```bash
 cp .env.example .env
+```
 
-### 3) Run the app
+Then edit `.env` and fill in the API keys you need.
+
+Important variables:
+
+```env
+DATABASE_PATH=data/app.db
+DEMO=0
+REDDIT_CLIENT_ID=
+REDDIT_CLIENT_SECRET=
+REDDIT_USER_AGENT=
+YOUTUBE_API_KEY=
+HF_DEVICE=-1
+```
+
+Reddit and YouTube require API keys. News RSS and Coinbase price fetching do not currently require keys.
+
+For Streamlit Cloud, `run_app.py` also supports loading values from `.streamlit/secrets.toml`.
+
+---
+
+## Run Locally
+
+Run the Streamlit UI:
+
 ```bash
 streamlit run run_app.py
 ```
 
-To run the app against bundled demo CSVs instead of live APIs:
+Run the FastAPI API:
+
 ```bash
-DEMO=1 streamlit run run_app.py
+uvicorn src.presentation.api.main:app --reload
+```
+
+API health check:
+
+```bash
+curl http://localhost:8000/health
+```
+
+Run tests:
+
+```bash
+pytest
 ```
 
 ---
 
-## Usage
+## Docker
 
-- Choose **Coin**, **Sources**, **Analyzer**, **Number of posts**, and **Price history** in the sidebar.
-- Click **Run Analysis**.
-- Use **Advanced settings** to enable SMA, RSI, MACD, lead/lag settings, or the backtest.
-- Use the **Sentiment**, **Finance**, **Backtest**, and **Benchmark** tabs to inspect the result from different angles.
-- Run the analyzer benchmark from the sidebar when you want to compare sentiment models.
+The Dockerfile installs the package from `pyproject.toml` and defaults to:
 
-### Data Columns (merged)
-| column | meaning |
-|---------------|-----------------------------------------------------|
-| `timestamp` | UTC time (post or price bar) |
-| `source` | `reddit` / `youtube` / `news` |
-| `text` | post text (for content sources) |
-| `sentiment` | polarity score (-1..1) |
-| `price` | close price |
-| `sma_20`, `sma_50` | optional simple moving averages |
-| `rsi_14` | optional 14-period RSI |
-| `macd` | MACD line |
-| `macd_signal` | signal line |
-| `macd_hist` | histogram (macd - signal) |
-| `sentiment_loess` | LOESS-smoothed sentiment used by timeline charts |
+```dockerfile
+CMD ["python", "run_app.py"]
+```
 
-_Exact columns depend on enabled modules. Plots are defensive to missing ones._
+`docker-compose.yml` defines three services:
+
+- `api`: FastAPI service on host port `8002`
+- `ui`: Streamlit service on host port `8501`
+- `migrate`: one-off SQLite schema initialization command
+
+Prepare the Docker-managed SQLite volume:
+
+```bash
+docker compose run --rm migrate
+```
+
+Start API and UI:
+
+```bash
+docker compose up --build
+```
+
+Start only the UI and its dependency:
+
+```bash
+docker compose up ui
+```
+
+Open:
+
+```text
+http://localhost:8501
+```
+
+API health check from the host:
+
+```bash
+curl http://localhost:8002/health
+```
+
+Stop services:
+
+```bash
+docker compose down
+```
+
+The Compose setup uses a named volume:
+
+```text
+app_data -> /usr/src/app/data
+```
+
+That persists the SQLite database across container restarts. Because it is a named volume, bundled CSV demo files from the repo are not automatically available inside `/usr/src/app/data`; the project is moving toward DB-backed demo data.
 
 ---
-## Caching & Storage
 
-- **SQLite cache/storage**: `data/app.db`, initialized by `src/infra/storage/db/schema.py`.
-- **Repository modules**: `src/infra/storage/db/*_repository.py` handle cached rows for prices, Reddit, news, and YouTube.
-- **Demo CSVs**: `data/demo/` powers `DEMO=1` mode.
-- **Streamlit cache**: `st.cache_data.clear()` (wire it to a button if desired).
+## Storage
+
+Current persistent storage is SQLite:
+
+- schema: `src/infra/storage/db/schema.py`
+- connection: `src/infra/storage/db/connection.py`
+- repositories:
+  - `content_repository.py`
+  - `price_repository.py`
+  - `sentiment_repository.py`
+  - `signal_repository.py`
+
+Default local DB path:
+
+```text
+data/app.db
+```
+
+Docker DB path:
+
+```text
+/usr/src/app/data/app.db
+```
+
+Legacy/demo CSV code still exists in a few places, especially demo and benchmark flows. The intended direction is to move demo/runtime data fully into SQLite.
+
+---
+
+## Tests
+
+Run all tests:
+
+```bash
+pytest
+```
+
+Current test coverage includes:
+
+- domain merge and signal behavior
+- sentiment service behavior
+- SQLite repository round-trips with temporary DBs
+- API route behavior with mocked repository dependencies
+- fetcher boundary behavior without real external API calls
+- sentiment cache hit/miss behavior
 
 ---
 
 ## Architecture Notes
 
-- `run_app.py` loads Streamlit secrets into environment variables, configures the page, and calls `render_app()`.
-- `src/presentation/` owns Streamlit UI, sidebar state, tabs, and Plotly charts.
-- `src/app/use_cases/` coordinates workflows like live analysis and demo loading.
-- `src/domain/` contains the project logic: sentiment analyzers, market transforms, lead/lag analysis, and backtesting.
-- `src/infra/` contains external boundaries: API fetchers and SQLite storage.
+- `presentation/` owns Streamlit and FastAPI interfaces.
+- `app/use_cases/` coordinates workflows.
+- `domain/` owns business logic and calculations.
+- `infra/` owns external boundaries: APIs and storage.
+- `shared/` contains cross-layer helpers and DataFrame utilities.
 
----
-
-## Contributing
-
-1. Create a feature branch: `git checkout -b feat/<name>` 
-2. Add tests for ETL/metrics when possible 
-3. Run `streamlit run run_app.py` and attach screenshots/GIFs 
-4. Open a PR
+See `ARCHITECTURE.md` for the fuller system map.
 
 ---
 
 ## Roadmap
-- [x] Refactor and clean up application structure
-- [x] Replace current X/Twitter scraping API - replaced with YouTube
-- [x] Replace CSV storage with a database
-- [x] Improve dashboard UI/UX
-- [ ] Add anomaly detection and quick insights
-- [ ] Deploy the application online
+
+- [x] Refactor into layered project structure
+- [x] Add FastAPI API layer
+- [x] Add SQLite repositories for core cached data
+- [x] Add Dockerfile and Docker Compose services
+- [x] Add healthcheck and migration service
+- [ ] Replace remaining CSV demo/runtime paths with DB-backed demo data
+- [ ] Add versioned migrations if schema changes become more complex
+- [ ] Improve API/UI separation so Streamlit calls FastAPI instead of importing use cases directly
+- [ ] Add anomaly detection and scheduled/live scraping
 
 ## License
 
-MIT — see `LICENSE`.
+MIT - see `LICENSE`.
