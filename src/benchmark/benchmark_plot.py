@@ -12,6 +12,17 @@ CANONICAL = ("negative", "neutral", "positive")
 def to_table(results: Dict[str, Dict[str, Any]]) -> pd.DataFrame:
     rows = []
     for name, r in results.items():
+        if not r.get("available", True):
+            rows.append(
+                {
+                    "Model": name,
+                    "Status": f"Unavailable: {r['reason']}",
+                    "Accuracy": None,
+                    "F1 (macro)": None,
+                }
+            )
+            continue
+        
         rows.append(
             {
                 "Model": name,

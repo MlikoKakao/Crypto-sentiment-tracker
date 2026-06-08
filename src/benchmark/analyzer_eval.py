@@ -55,7 +55,14 @@ def evaluate(df: pd.DataFrame,
     for analyzer in ALL_ANALYZER_NAMES:
         t0 = time.perf_counter()
 
-        scored_df = add_sentiment_to_df(df, analyzer)
+        try:
+            scored_df = add_sentiment_to_df(df, analyzer)
+        except RuntimeError as e:
+            results[analyzer] = {
+                "available": False,
+                "reason": str(e),
+            }
+            continue
         scored_df_with_tri = scored_df["sentiment"].map(_to_trinary_from_score)
         scored_df_with_tri.to_csv(f"data/benchmark/{analyzer}.csv")
         y_hat = scored_df_with_tri.tolist()

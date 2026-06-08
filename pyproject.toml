@@ -16,26 +16,41 @@ dependencies = [
     "requests",
     "python-dotenv",
     "pytz",
-    "streamlit",
-    "plotly",
     "pydantic",
-    "fastapi",
-    "uvicorn[standard]",
-    "praw",
-    "google-api-python-client",
-    "feedparser",
-    "nltk",
-    "textblob",
-    "vaderSentiment",
-    "statsmodels",
-    "scikit-learn",
 ]
 
 [project.optional-dependencies]
+api = [
+    "fastapi",
+    "uvicorn[standard]",
+]
+
+ui = [
+    "streamlit",
+    "plotly",
+]
+
+fetchers = [
+    "praw",
+    "google-api-python-client",
+    "feedparser",
+]
+
+sentiment = [
+    "nltk",
+    "textblob",
+    "vaderSentiment",
+]
+
+benchmark = [
+    "scikit-learn",
+]
+
 ml = [
     "torch",
     "transformers",
 ]
+
 dev = [
     "pytest",
     "mypy",
