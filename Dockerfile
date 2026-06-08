@@ -7,8 +7,10 @@ ENV PYTHONUNBUFFERED=1
 
 COPY pyproject.toml README.md ./
 COPY src ./src
+COPY run_app.py ./
 
 RUN pip install --upgrade pip \
     && pip install -e .
 
-COPY . .
+CMD ["python", "run_app.py"]
+

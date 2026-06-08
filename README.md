@@ -106,6 +106,13 @@ YOUTUBE_API_KEY = "xxx"
 ```
 > Reddit and YouTube need API keys. News and Coinbase price fetching do not currently require keys.
 
+## Environment Setup
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+
 ### 3) Run the app
 ```bash
 streamlit run run_app.py

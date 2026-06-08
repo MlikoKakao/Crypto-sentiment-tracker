@@ -1,12 +1,53 @@
 services:
-  web:
+  api:
     build: .
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
+    env_file:
+      - .env
     environment:
       DATABASE_PATH: /usr/src/app/data/app.db
     volumes:
       - ./src/:/usr/src/app/src/
-      - ./data:/usr/src/app/data
+      - app_data:/usr/src/app/data
     ports:
       - 8002:8000
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
+  ui:
+    build: .
+    command: streamlit run run_app.py --server.address=0.0.0.0 --server.port=8501
+    env_file:
+      - .env
+    environment:
+      DATABASE_PATH: /usr/src/app/data/app.db
+    volumes:
+      - ./src/:/usr/src/app/src/
+      - app_data:/usr/src/app/data
+      - ./run_app.py:/usr/src/app/run_app.py
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+
+  migrate:
+    build: .
+    command: python -c "from src.infra.storage.db.schema import init_db; init_db()"
+    env_file:
+      - .env
+    environment:
+      DATABASE_PATH: /usr/src/app/data/app.db
+    volumes:
+      - app_data:/usr/src/app/data
+
+
+
+volumes:
+  app_data:
+
+    
