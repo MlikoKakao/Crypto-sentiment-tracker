@@ -60,7 +60,7 @@ def get_or_create_multiple_sentiment_df(
     result_df = posts_df.copy()
 
     for scores in score_frames:
-        result_df = result_df.merge(scores, on=["source", "content_hash"], how="inner")
+        result_df = result_df.merge(scores, on=["source", "content_hash"], how="left")
 
     sentiment_cols = [f"sentiment_{analyzer}" for analyzer in ALL_ANALYZER_NAMES]
 
