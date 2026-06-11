@@ -28,10 +28,12 @@ def plot_price_time_series(df: pd.DataFrame, coin: str):
         return fig
     else:
         st.warning("No data available to plot price/time function.")
-        return 1
+        return go.Figure()
 
 
 def plot_sentiment_vs_price(df: pd.DataFrame):
+    if df.empty:
+        return go.Figure()
     df = df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df.loc[:, "date_str"] = cast(
@@ -150,7 +152,7 @@ def plot_lag_correlation(
     feats: pd.DataFrame, unit: str = "min", metric_label: str = "r"
 ) -> go.Figure:
     if feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
-        st.error("Features DF must include lag_second and r")
+        st.error("Features DF must include lag_seconds and r")
         return go.Figure()
     df = feats.copy()
 

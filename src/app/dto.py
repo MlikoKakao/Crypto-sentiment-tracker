@@ -35,4 +35,3 @@ class AnalysisResult:
 class AnalysisIssue:
     stage: str
     message: str
-

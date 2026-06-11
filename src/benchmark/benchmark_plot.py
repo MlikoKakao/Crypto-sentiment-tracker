@@ -88,7 +88,11 @@ def accuracy_figure(table: pd.DataFrame) -> None:
     )
     fig_acc.update_traces(textposition="outside")
     fig_acc.update_layout(yaxis=dict(range=[0, 1]), margin=dict(l=20, r=20, t=50, b=20))
-    st.plotly_chart(fig_acc, use_container_width=True)
+    st.plotly_chart(
+        fig_acc,
+        use_container_width=True,
+        key="benchmark_accuracy_chart",
+    )
 
 
 def confusion_matrices(results: Dict[str, Dict[str, Any]]) -> None:
@@ -98,7 +102,11 @@ def confusion_matrices(results: Dict[str, Dict[str, Any]]) -> None:
         fig_cm = confusion_figure(
             results[name]["confusion"], title=f"{name} - Confusion"
         )
-        cols[i % 2].plotly_chart(fig_cm, use_container_width=True)
+        cols[i % 2].plotly_chart(
+            fig_cm,
+            use_container_width=True,
+            key=f"benchmark_confusion_chart_{name}",
+        )
 
     st.markdown("#### Misclassified Examples")
     model_for_examples = st.selectbox("Choose model", names, index=0, key="bench_model")
@@ -108,4 +116,3 @@ def confusion_matrices(results: Dict[str, Dict[str, Any]]) -> None:
     else:
         for t, yt, yp in examples:
             st.write(f"- **true:** '{yt}' **predicted:** '{yp}' - {t}")
-

@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 import googleapiclient.discovery  # type: ignore
-from googleapiclient.errors import HttpError
+from googleapiclient.errors import HttpError # type: ignore
 import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
@@ -69,26 +69,26 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
                 break
 
             for item in response.get("items", []):
-                videoId = item["id"]["videoId"]
+                video_id = item["id"]["videoId"]
 
-                if videoId in seen:
+                if video_id in seen:
                     continue
                 title = item["snippet"]["title"]
                 description = item["snippet"]["description"]
 
                 posts.append(
                     {
-                        "source_id": videoId,
+                        "source_id": video_id,
                         "timestamp": item["snippet"]["publishedAt"],
                         "text": title + " " + description,
                         "source": "youtube",
-                        "url": f"https://www.youtube.com/watch?v={videoId}",
+                        "url": f"https://www.youtube.com/watch?v={video_id}",
                         "author": item["snippet"]["channelTitle"],
                         "coin": config.coin.lower(),
                     }
                 )
                 posts[-1]["text"] = clean_text(posts[-1]["text"])
-                seen.add(videoId)
+                seen.add(video_id)
 
                 if len(posts) >= youtube_limit:
                     break

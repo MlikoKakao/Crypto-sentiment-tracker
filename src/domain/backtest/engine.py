@@ -2,17 +2,27 @@ import numpy as np
 import pandas as pd
 from src.shared.helpers import normalize_timestamp_column
 
-def compute_indicators(df: pd.DataFrame, ema_window: int = 20, med_window_bars: int = 96) -> pd.DataFrame:
+
+def compute_indicators(
+    df: pd.DataFrame, ema_window: int = 20, med_window_bars: int = 96
+) -> pd.DataFrame:
     out = df.copy()
     out = out.sort_values("timestamp")
     out["price"] = pd.to_numeric(out["price"], errors="coerce")
     out["sentiment"] = pd.to_numeric(out["sentiment"], errors="coerce")
-    out = out.dropna(subset=["price","sentiment"])
+    out = out.dropna(subset=["price", "sentiment"])
 
     out["ema20"] = out["price"].ewm(span=ema_window, adjust=False).mean()
-    out["sent_smooth"] = out["sentiment"].ewm(span=med_window_bars//2, adjust=False).mean()
-    out["sent_med"] = out["sent_smooth"].rolling(med_window_bars, min_periods=med_window_bars//2).median()
+    out["sent_smooth"] = (
+        out["sentiment"].ewm(span=med_window_bars // 2, adjust=False).mean()
+    )
+    out["sent_med"] = (
+        out["sent_smooth"]
+        .rolling(med_window_bars, min_periods=med_window_bars // 2)
+        .median()
+    )
     return out
+
 
 def build_signal(df: pd.DataFrame) -> pd.Series:
     cond_sent = df["sent_smooth"] > df["sent_med"]
@@ -21,39 +31,53 @@ def build_signal(df: pd.DataFrame) -> pd.Series:
 
     return sig.shift(1).fillna(0).astype(int)
 
-def backtest_long_only(df: pd.DataFrame,
-                       cost_bps: float = 5.0,
-                       slippage_bps: float = 5.0
-                       ) -> pd.DataFrame:
+
+def backtest_long_only(
+    df: pd.DataFrame, cost_bps: float = 5.0, slippage_bps: float = 5.0
+) -> pd.DataFrame:
     out = df.copy()
     out["ret"] = out["price"].apply(np.log).diff()
-    pos = build_signal(out)
+    pos = build_signal(out).astype(float)
     out["pos"] = pos
 
     ret = pd.to_numeric(out["ret"], errors="coerce").fillna(0.0)
-    pos = build_signal(out).astype(float)
     trades = pos.diff().abs().fillna(0.0)
 
     cost = (cost_bps + slippage_bps) / 10000.0
     out["ret_net"] = pos.mul(ret).sub(trades.mul(cost))
 
-
     out["eq_strategy"] = out["ret_net"].cumsum().pipe(np.exp)
     out["eq_hodl"] = out["ret"].fillna(0).cumsum().pipe(np.exp)
     peak = out["eq_strategy"].cummax()
-    out["dd"] = out["eq_strategy"]/peak -1.0
+    out["dd"] = out["eq_strategy"] / peak - 1.0
     return out
 
-def summarize(df_bt: pd.DataFrame, bars_per_year: int)-> dict[str, float]:
+
+def summarize(df_bt: pd.DataFrame, bars_per_year: int) -> dict[str, float | str]:
     ret_series = df_bt["ret_net"].dropna()
     total_years = len(ret_series) / bars_per_year if bars_per_year else np.nan
-    cagr = (df_bt["eq_strategy"].iloc[-1])**(1/max(total_years, 1e-9)) - 1 if len(df_bt) > 0 else np.nan
+    cagr = (
+        (df_bt["eq_strategy"].iloc[-1]) ** (1 / max(total_years, 1e-9)) - 1
+        if len(df_bt) > 0
+        else np.nan
+    )
     vol_ann = ret_series.std() * np.sqrt(bars_per_year) if bars_per_year else np.nan
-    sharpe = (ret_series.mean() * bars_per_year) / vol_ann if vol_ann and vol_ann > 0 else np.nan
+    sharpe = (
+        (ret_series.mean() * bars_per_year) / vol_ann
+        if vol_ann and vol_ann > 0
+        else np.nan
+    )
     max_dd = df_bt["dd"].min() if "dd" in df_bt else np.nan
 
+    if df_bt.empty:
+        return {
+            "CAGR": cagr,
+            "Sharpe": sharpe,
+            "MaxDD": max_dd,
+            "HitRate": "df is empty",
+        }
     pos = df_bt["pos"].fillna(0).astype(int)
-    changes = pos.diff().fillna(pos.iloc[0])          
+    changes = pos.diff().fillna(pos.iloc[0])
     opens = df_bt.index[changes == 1]
     closes = df_bt.index[changes == -1]
 
@@ -62,41 +86,41 @@ def summarize(df_bt: pd.DataFrame, bars_per_year: int)-> dict[str, float]:
 
     wins = []
     for o, c in zip(opens, closes):
-        pnl_log = df_bt.loc[o:c, "ret_net"].sum()      
+        pnl_log = df_bt.loc[o:c, "ret_net"].sum()
         wins.append(pnl_log > 0)
 
     hit = float(np.mean(wins)) if wins else np.nan
 
     return {"CAGR": cagr, "Sharpe": sharpe, "MaxDD": max_dd, "HitRate": hit}
 
-def run_backtest(df_merged: pd.DataFrame,
-                 cost_bps: float,
-                 slippage_bps: float,
-                 resample: str = "5min") -> tuple[pd.DataFrame, dict[str, float]]:
+
+def run_backtest(
+    df_merged: pd.DataFrame,
+    cost_bps: float,
+    slippage_bps: float,
+    resample: str = "5min",
+) -> tuple[pd.DataFrame, dict[str, float]]:
     dm = df_merged[["timestamp", "price", "sentiment"]].copy()
     dm = normalize_timestamp_column(dm)
     dm["price"] = pd.to_numeric(dm["price"], errors="coerce")
     dm["sentiment"] = pd.to_numeric(dm["sentiment"], errors="coerce")
     dm = dm.dropna(subset=["timestamp", "price", "sentiment"]).sort_values("timestamp")
 
-    dm = (dm.groupby("timestamp", as_index=False)
-            .agg({"price": "last", "sentiment": "mean"}))
+    dm = dm.groupby("timestamp", as_index=False).agg(
+        {"price": "last", "sentiment": "mean"}
+    )
 
-    df5 = (dm.set_index("timestamp")
-             .resample(resample)
-             .ffill()
-             .reset_index())
+    df5 = dm.set_index("timestamp").resample(resample).ffill().reset_index()
 
     df_ind = compute_indicators(df5, ema_window=20, med_window_bars=96)
     bt = backtest_long_only(df_ind, cost_bps=cost_bps, slippage_bps=slippage_bps)
 
     timestamp_series = pd.to_datetime(df5["timestamp"], errors="coerce")
     delta = timestamp_series.diff().median()
-    
+
     seconds = 0.0
     if pd.notna(delta):
         seconds = delta.total_seconds()
-
 
     if seconds <= 0:
         bars_per_year = 52560

@@ -66,7 +66,7 @@ def render_live_page(state: SidebarState) -> None:
         with tabs["backtest"]:
             st.info("Run analysis to see backtest results.")
         with tabs["benchmark"]:
-            if state.benchtest:
+            if state.benchmark:
                 show_benchmark_data()
             else:
                 st.info("Run model benchmarks from sidebar.")
@@ -76,6 +76,8 @@ def render_live_page(state: SidebarState) -> None:
 
     with st.spinner("Running analysis..."):
         result = run_analysis(config)
+        if result.issues:
+            st.write(result.issues)
 
     render_result_tabs(result, state, tabs)
 
@@ -85,14 +87,24 @@ def render_result_tabs(
 ) -> None:
     with tabs["sentiment"]:
         st.plotly_chart(
-            plot_sentiment_with_price(result.merged_df, state.selected_coin)
+            plot_sentiment_with_price(result.merged_df, state.selected_coin),
+            key="live_sentiment_price_chart",
         )
-        st.plotly_chart(plot_sentiment_timeline(result.merged_df, state.selected_coin))
-        st.plotly_chart(plot_sentiment_vs_price(result.merged_df))
+        st.plotly_chart(
+            plot_sentiment_timeline(result.merged_df, state.selected_coin),
+            key="live_sentiment_timeline_chart",
+        )
+        st.plotly_chart(
+            plot_sentiment_vs_price(result.merged_df),
+            key="live_sentiment_vs_price_chart",
+        )
         lead_lag_df = compute_lead_lag(
             result.merged_df, state.lag_hours, state.lag_step_min, state.metric_choice
         )
-        st.plotly_chart(plot_lag_correlation(lead_lag_df))
+        st.plotly_chart(
+            plot_lag_correlation(lead_lag_df),
+            key="live_lag_correlation_chart",
+        )
 
     with tabs["engine"]:
         indic_state = replace(sidebar_to_indicator(state), use_sma=True)
@@ -106,7 +118,7 @@ def render_result_tabs(
             event_rows[["timestamp", "price", "sentiment", *signal_cols]],
             hide_index=True,
         )
-        st.plotly_chart(plot_signal(signal_df))
+        st.plotly_chart(plot_signal(signal_df), key="live_signal_chart")
     with tabs["finance"]:
         if not (state.use_sma or state.use_macd or state.use_rsi):
             st.info(
@@ -120,20 +132,21 @@ def render_result_tabs(
                     indicators_df,
                     state.selected_coin,
                     sma_cols=[f"sma_{state.sma_fast}", f"sma_{state.sma_slow}"],
-                )
+                ),
+                key="live_sma_chart",
             )
 
         if state.use_macd:
             fig = plot_macd(indicators_df)
             if fig is not None:
-                st.plotly_chart(fig)
+                st.plotly_chart(fig, key="live_macd_chart")
             else:
                 st.warning("MACD data is not available.")
 
         if state.use_rsi:
             fig = plot_rsi(indicators_df, rsi_col=f"rsi_{state.rsi_period}")
             if fig is not None:
-                st.plotly_chart(fig)
+                st.plotly_chart(fig, key="live_rsi_chart")
             else:
                 st.warning("RSI data is not available.")
 
@@ -144,12 +157,12 @@ def render_result_tabs(
             df_bt, stats = run_backtest(
                 result.merged_df, state.cost_bps, state.slip_bps
             )
-            st.plotly_chart(plot_equity(df_bt))
-            st.plotly_chart(plot_drawdown(df_bt))
+            st.plotly_chart(plot_equity(df_bt), key="live_equity_chart")
+            st.plotly_chart(plot_drawdown(df_bt), key="live_drawdown_chart")
             st.dataframe(pd.DataFrame([stats]), hide_index=True)
 
     with tabs["benchmark"]:
-        if not state.benchtest:
+        if not state.benchmark:
             st.info("Run model benchmarks from sidebar.")
         else:
             show_benchmark_data()

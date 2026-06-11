@@ -5,7 +5,7 @@ import pandas as pd
 from datetime import datetime
 from src.app.defaults import DEFAULT_SUBREDDITS
 from src.app.dto import AnalysisConfig, Analyzer, Source
-from src.domain.market.indicators import IndicatorConfig
+from src.domain.market.dto import IndicatorConfig
 from src.presentation.ui_constants import (
     ANALYZER_UI_TO_LITERAL,
     COIN_SUBS,
@@ -25,7 +25,7 @@ class SidebarState:
     num_posts: int
     subreddits: tuple[str, ...]
     run: bool
-    benchtest: bool
+    benchmark: bool
     backtest: bool
     cost_bps: float
     slip_bps: float
@@ -150,7 +150,7 @@ def render_sidebar() -> SidebarState:
 
         st.header("Utils")
 
-        benchtest = st.button("Run analyzer benchmark")
+        benchmark = st.button("Run analyzer benchmark")
 
     return SidebarState(
         selected_coin=selected_coin,
@@ -161,7 +161,7 @@ def render_sidebar() -> SidebarState:
         num_posts=num_posts,
         subreddits=subreddits,
         run=run,
-        benchtest=benchtest,
+        benchmark=benchmark,
         backtest=backtest,
         cost_bps=cost_bps,
         slip_bps=slip_bps,

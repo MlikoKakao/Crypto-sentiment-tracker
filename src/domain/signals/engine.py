@@ -5,7 +5,10 @@ SIGNAL_COLUMNS = [
     "sma_bullish_cross",
     "bearish_divergence",
     "bullish_divergence",
+    "positive_sentiment",
+    "negative_sentiment",
 ]
+
 
 def build_signal_df(merged_df: pd.DataFrame) -> pd.DataFrame:
     df = merged_df.copy()
@@ -16,7 +19,7 @@ def build_signal_df(merged_df: pd.DataFrame) -> pd.DataFrame:
     rolling_std = df["sentiment"].rolling(20).std()
 
     df["sentiment_spike"] = (df["sentiment"] - rolling_mean).abs() >= 3 * rolling_std
-    if "sma_20" in df and "sma_50" in df:
+    if {"sma_20", "sma_50"}.issubset(df.columns):
         df["sma_bullish_cross"] = (df["sma_20"].shift(1) <= df["sma_50"].shift(1)) & (
             df["sma_20"] > df["sma_50"]
         )
@@ -29,4 +32,3 @@ def build_signal_df(merged_df: pd.DataFrame) -> pd.DataFrame:
     df["bullish_divergence"] = (df["price_change"] < 0) & (df["sentiment_change"] > 0)
 
     return df
-
