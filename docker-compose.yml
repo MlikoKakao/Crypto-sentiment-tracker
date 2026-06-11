@@ -1,6 +1,8 @@
 services:
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.api
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
     env_file:
       - .env
@@ -12,14 +14,22 @@ services:
     ports:
       - 8002:8000
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')",
+        ]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
 
   ui:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
     command: streamlit run run_app.py --server.address=0.0.0.0 --server.port=8501
     env_file:
       - .env
@@ -36,7 +46,9 @@ services:
         condition: service_healthy
 
   migrate:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.api
     command: python -c "from src.infra.storage.db.schema import init_db; init_db()"
     env_file:
       - .env
@@ -45,9 +57,5 @@ services:
     volumes:
       - app_data:/usr/src/app/data
 
-
-
 volumes:
   app_data:
-
-    
