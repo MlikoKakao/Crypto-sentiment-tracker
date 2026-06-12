@@ -6,7 +6,7 @@ from typing import Any, cast
 
 
 from src.app.dto import Analyzer, Source
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.shared.helpers import is_date_correct, normalize_coin
 from src.infra.storage.db.sentiment_repository import load_sentiment_df
 from src.shared.dataframe_utils import format_timestamp_for_api
@@ -31,7 +31,7 @@ def get_sentiment(
         raise HTTPException(status_code=400, detail=str(e))
 
     config = replace(
-        DEFAULT_CONFIG,
+        default_config(),
         coin=coin,
         start_date=start_date,
         end_date=end_date,

@@ -4,7 +4,7 @@ from dataclasses import replace
 from typing import Any, cast
 import pandas as pd
 
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.app.dto import Source
 from src.infra.storage.db.content_repository import load_content_df
 from src.shared.helpers import is_date_correct, normalize_coin
@@ -29,7 +29,7 @@ def get_posts(
         raise HTTPException(status_code=400, detail=str(e))
 
     config = replace(
-        DEFAULT_CONFIG,
+        default_config(),
         coin=coin,
         start_date=start_date,
         end_date=end_date,

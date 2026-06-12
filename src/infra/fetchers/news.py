@@ -1,5 +1,5 @@
 import pandas as pd
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 import feedparser  # type: ignore[import-untyped]
 from src.shared.helpers import save_csv
 
@@ -115,6 +115,6 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    df = fetch_news_posts(DEFAULT_CONFIG)
+    df = fetch_news_posts(default_config())
     save_csv(df, "data/tests/news_posts.csv")
     print(df.head())

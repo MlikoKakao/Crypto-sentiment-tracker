@@ -3,7 +3,10 @@ from datetime import datetime
 from dataclasses import replace
 from typing import Any, cast
 
-from src.app.defaults import DEFAULT_CONFIG
+from pydantic import BaseModel
+
+
+from src.app.defaults import default_config
 from src.infra.storage.db.price_repository import load_price_df
 from src.shared.helpers import is_date_correct, normalize_coin
 from src.shared.dataframe_utils import format_timestamp_for_api
@@ -12,16 +15,25 @@ from src.domain.market.dto import IndicatorConfig
 router = APIRouter()
 
 
-@router.get("/prices")
+class PricePoint(BaseModel):
+    coin: str
+    timestamp: datetime
+    price: float
+
+
+@router.get("/prices", response_model=list[PricePoint])
 def get_prices(
     coin: str, start_date: datetime, end_date: datetime
 ) -> list[dict[str, Any]]:
     if not is_date_correct(start_date, end_date):
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
-    coin = normalize_coin(coin)
+    try:
+        coin = normalize_coin(coin)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
     config = replace(
-        DEFAULT_CONFIG,
+        default_config(),
         coin=coin,
         start_date=start_date,
         end_date=end_date,
@@ -52,7 +64,7 @@ def get_signals(
         raise HTTPException(status_code=400, detail=str(e))
 
     config = replace(
-        DEFAULT_CONFIG,
+        default_config(),
         coin=coin,
         start_date=start_date,
         end_date=end_date,

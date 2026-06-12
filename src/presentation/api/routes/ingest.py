@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from dataclasses import replace
 from datetime import datetime
 
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.app.dto import Analyzer, Source
 
 from src.infra.storage.db.sentiment_repository import save_sentiment_df
@@ -41,7 +41,7 @@ def ingest(request: IngestRequest) -> dict[str, object]:
         raise HTTPException(status_code=400, detail=str(e))
 
     config = replace(
-        DEFAULT_CONFIG,
+        default_config(),
         coin=coin,
         num_posts=request.num_posts,
         start_date=request.start_date,

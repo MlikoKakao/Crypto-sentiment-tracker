@@ -15,12 +15,14 @@ DEMO_CONFIG = AnalysisConfig(
 )
 
 
-DEFAULT_CONFIG = AnalysisConfig(
-    coin="BTC",
-    start_date=datetime.now(timezone.utc) - timedelta(days=7),
-    end_date=datetime.now(timezone.utc),
-    analyzer="vader",
-    sources=("reddit",),
-    num_posts=100,
-    subreddits=DEFAULT_SUBREDDITS,
-)
+def default_config() -> AnalysisConfig:
+    now = datetime.now(timezone.utc)
+    return AnalysisConfig(
+        coin="BTC",
+        start_date=now - timedelta(days=7),
+        end_date=now,
+        analyzer="vader",
+        sources=("reddit",),
+        num_posts=100,
+        subreddits=DEFAULT_SUBREDDITS,
+    )

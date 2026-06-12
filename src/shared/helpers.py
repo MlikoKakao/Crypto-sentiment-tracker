@@ -2,8 +2,10 @@ import pandas as pd
 from datetime import datetime
 import os
 import logging
-from typing import Any
+from typing import Any, cast
 from pathlib import Path
+
+from src.app.dto import Coin
 
 logger = logging.getLogger(__name__)
 
@@ -58,13 +60,13 @@ def clean_text(text: str) -> str:
     return str(text).lower().strip()
 
 
-SUPPORTED_COINS = {"BTC", "ETH"}
+SUPPORTED_COINS = {"BTC", "ETH", "XMR"}
 
 
-def normalize_coin(coin: str) -> str:
-    coin = coin.upper()
+def normalize_coin(coin: str) -> Coin:
+    normalized = coin.upper()
 
-    if coin not in SUPPORTED_COINS:
+    if normalized not in SUPPORTED_COINS:
         raise ValueError(f"Unsupported coin: {coin}")
 
-    return coin
+    return cast(Coin, normalized)

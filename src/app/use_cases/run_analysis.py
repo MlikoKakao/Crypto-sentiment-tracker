@@ -1,25 +1,23 @@
 import logging
 import pandas as pd
 
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.app.dto import AnalysisConfig, AnalysisIssue, AnalysisResult
-from src.infra.fetchers.coinbase_price import get_coinbase_price_history
-from src.infra.fetchers.service import fetch_posts
 from src.domain.market.merge import merge_sentiment_and_price_df
 from src.shared.helpers import save_csv
-from src.infra.storage.db.schema import init_db
 from src.app.use_cases.sentiment_cache import get_or_create_sentiment_df
+from src.infra.storage.db.price_repository import save_price_df
 
 logger = logging.getLogger(__name__)
 
 
 def run_analysis(config: AnalysisConfig) -> AnalysisResult:
-    init_db()
-
     issues: list[AnalysisIssue] = []
 
     logger.info("Fetching posts for %s from %s", config.coin, config.sources)
     try:
+        from src.infra.fetchers.service import fetch_posts
+
         posts_df = fetch_posts(config)
     except Exception as e:
         issues.append(AnalysisIssue(stage="posts", message=str(e)))
@@ -42,11 +40,14 @@ def run_analysis(config: AnalysisConfig) -> AnalysisResult:
     logger.info(
         "Fetching price points for %s from %s to %s",
         config.coin,
-        config.end_date,
         config.start_date,
+        config.end_date,
     )
     try:
+        from src.infra.fetchers.coinbase_price import get_coinbase_price_history
+
         price_df = get_coinbase_price_history(config)
+        save_price_df(price_df, config.coin)
     except Exception as e:
         issues.append(AnalysisIssue(stage="price", message=str(e)))
         price_df = pd.DataFrame()
@@ -82,7 +83,7 @@ if __name__ == "__main__":
     logger = logging.getLogger(__name__)
 
     logger.info("Test running analysis with default config...")
-    result = run_analysis(DEFAULT_CONFIG)
+    result = run_analysis(default_config())
     save_csv(result.posts_df, "data/tests/run_analysis_posts.csv")
     save_csv(result.price_df, "data/tests/run_analysis_prices.csv")
     save_csv(result.merged_df, "data/tests/run_analysis_merged.csv")

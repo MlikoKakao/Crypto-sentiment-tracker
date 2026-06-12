@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from typing import Any
 from dataclasses import replace
+
 from src.app.dto import AnalysisResult
 from src.app.use_cases.get_indicators import add_indicators_with_cache
 from src.presentation.charts import (
@@ -23,10 +24,8 @@ from src.presentation.sidebar import (
     sidebar_state_to_config,
     sidebar_to_indicator,
 )
-from src.app.use_cases.run_analysis import run_analysis
 from src.domain.analysis.lead_lag import compute_lead_lag
 from src.presentation.demo_view import render_demo_page
-from src.presentation.benchmark_view import show_benchmark_data
 from src.domain.signals.engine import build_signal_df, SIGNAL_COLUMNS
 
 
@@ -67,6 +66,8 @@ def render_live_page(state: SidebarState) -> None:
             st.info("Run analysis to see backtest results.")
         with tabs["benchmark"]:
             if state.benchmark:
+                from src.presentation.benchmark_view import show_benchmark_data
+
                 show_benchmark_data()
             else:
                 st.info("Run model benchmarks from sidebar.")
@@ -75,6 +76,8 @@ def render_live_page(state: SidebarState) -> None:
     config = sidebar_state_to_config(state)
 
     with st.spinner("Running analysis..."):
+        from src.app.use_cases.run_analysis import run_analysis
+
         result = run_analysis(config)
         if result.issues:
             st.write(result.issues)
@@ -165,4 +168,6 @@ def render_result_tabs(
         if not state.benchmark:
             st.info("Run model benchmarks from sidebar.")
         else:
+            from src.presentation.benchmark_view import show_benchmark_data
+
             show_benchmark_data()

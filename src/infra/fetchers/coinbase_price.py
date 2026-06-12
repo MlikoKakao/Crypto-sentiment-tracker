@@ -4,14 +4,13 @@ from pytz import utc
 import pandas as pd
 from src.app.dto import AnalysisConfig
 from datetime import datetime, timedelta
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.shared.helpers import save_csv
 from src.infra.fetchers.price import get_price_history
 
 COINBASE_PRODUCTS = {
     "BTC": "BTC-USD",
     "ETH": "ETH-USD",
-    "XMR": "XMR-USD",
 }
 
 logger = logging.getLogger(__name__)
@@ -75,5 +74,5 @@ def get_coinbase_price_history(config: AnalysisConfig) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    df = get_coinbase_price_history(DEFAULT_CONFIG)
+    df = get_coinbase_price_history(default_config())
     save_csv(df, "data/tests/coinbase_price.csv")

@@ -7,7 +7,7 @@ from src.app.dto import AnalysisConfig
 from src.shared.helpers import save_csv, clean_text
 import os
 import logging
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.domain.market.filtering import contains_coin
 from src.infra.storage.db.content_repository import (
     save_content_df,
@@ -110,6 +110,6 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
 
 if __name__ == "__main__":
     print("Testing Reddit fetch")
-    df = fetch_reddit_posts(DEFAULT_CONFIG)
+    df = fetch_reddit_posts(default_config())
     logger.debug(f"Fetched Reddit posts:{df.head()}")
     save_csv(df, "data/tests/bitcoin_reddit_posts.csv")

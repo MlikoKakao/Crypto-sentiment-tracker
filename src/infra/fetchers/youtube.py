@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv
 import googleapiclient.discovery  # type: ignore
-from googleapiclient.errors import HttpError # type: ignore
+from googleapiclient.errors import HttpError  # type: ignore
 import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
-from src.app.defaults import DEFAULT_CONFIG
+from src.app.defaults import default_config
 from src.shared.helpers import clean_text, save_csv
 from src.infra.storage.db.content_repository import (
     save_content_df,
@@ -117,6 +117,8 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    df = fetch_youtube_posts(DEFAULT_CONFIG)
-    save_csv(df, f"data/tests/{DEFAULT_CONFIG.coin}_youtube.csv")
-    logger.info(f"Saved YouTube posts to data/tests/{DEFAULT_CONFIG.coin}_youtube.csv")
+    df = fetch_youtube_posts(default_config())
+    save_csv(df, f"data/tests/{default_config().coin}_youtube.csv")
+    logger.info(
+        f"Saved YouTube posts to data/tests/{default_config().coin}_youtube.csv"
+    )

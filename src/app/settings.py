@@ -4,4 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_PATH = Path(os.getenv("DATABASE_PATH", "data/app.db"))
+
+def get_database_path() -> Path:
+    return Path(os.getenv("DATABASE_PATH", "data/app.db"))
