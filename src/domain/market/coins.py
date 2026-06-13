@@ -1,7 +1,7 @@
 COIN_TERMS = {
-    "BTC": ("btc", "bitcoin", "#btc", "#bitcoin"),
-    "ETH": ("eth", "ethereum", "#eth", "#ethereum"),
-    "XMR": ("xmr", "monero", "#xmr", "#monero"),
+    "BTC": ("btc", "bitcoin", "#bitcoin"),
+    "ETH": ("eth", "ethereum", "#ethereum"),
+    "XMR": ("xmr", "monero", "#monero"),
 }
 
 COIN_IDS = {

@@ -283,10 +283,14 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] Add SQLite repositories for core cached data
 - [x] Add Dockerfile and Docker Compose services
 - [x] Add healthcheck and migration service
-- [ ] Replace remaining CSV demo/runtime paths with DB-backed demo data
-- [ ] Add versioned migrations if schema changes become more complex
-- [ ] Improve API/UI separation so Streamlit calls FastAPI instead of importing use cases directly
-- [ ] Add anomaly detection and scheduled/live scraping
+- [x] Replace remaining CSV demo/runtime paths with DB-backed demo data
+- [ ] Finish code and architecture clean-up
+- [ ] Move from Sqlite to PostgreSQL
+- [ ] Improve API to be production-level
+- [ ] Docker setup
+- [ ] CI/CD implementation
+- [ ] Kubernetes deployment demo 
+- [ ] Cloud deployment
 
 ## License
 
