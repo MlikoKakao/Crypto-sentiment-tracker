@@ -1,10 +1,11 @@
 from pytz import utc
 import streamlit as st
 from dataclasses import dataclass
+from typing import cast
 import pandas as pd
 from datetime import datetime
 from src.app.defaults import DEFAULT_SUBREDDITS
-from src.app.dto import AnalysisConfig, Analyzer, Source
+from src.app.dto import AnalysisConfig, Analyzer, Source, Coin
 from src.domain.market.dto import IndicatorConfig
 from src.presentation.ui_constants import (
     ANALYZER_UI_TO_LITERAL,
@@ -17,7 +18,7 @@ from src.presentation.ui_constants import (
 
 @dataclass(frozen=True)
 class SidebarState:
-    selected_coin: str
+    selected_coin: Coin
     start_date: datetime
     end_date: datetime
     analyzer: Analyzer
@@ -153,7 +154,7 @@ def render_sidebar() -> SidebarState:
         benchmark = st.button("Run analyzer benchmark")
 
     return SidebarState(
-        selected_coin=selected_coin,
+        selected_coin=cast(Coin,selected_coin),
         start_date=start_date,
         end_date=end_date,
         analyzer=analyzer,

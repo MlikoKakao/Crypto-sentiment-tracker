@@ -32,10 +32,9 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     api_service_name = "youtube"
     api_version = "v3"
-    youtube_api_key = os.getenv("youtube_api_key")
+    youtube_api_key = os.getenv("YOUTUBE_API_KEY")
     if not youtube_api_key or youtube_api_key == "":
-        raise RuntimeError("Set youtube_api_key in .env file")
-
+        raise RuntimeError("Set YOUTUBE_API_KEY in .env file")
     youtube_limit = min(config.num_posts, 400)
     logger.info(
         f"Fetching YouTube posts with query='{config.coin}', limit={youtube_limit}"
