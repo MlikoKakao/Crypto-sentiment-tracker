@@ -40,7 +40,7 @@ def test_fetch_posts_returns_empty_schema_when_no_fetchers_match(
     monkeypatch: pytest.MonkeyPatch,
     analysis_config: AnalysisConfig,
 ) -> None:
-    monkeypatch.setattr(service, "get_fetchers", lambda: {})
+    monkeypatch.setattr(service, "get_fetchers", lambda: {}) #type: ignore
     result = service.fetch_posts(analysis_config)
 
     assert result.empty

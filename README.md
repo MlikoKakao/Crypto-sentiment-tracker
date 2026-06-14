@@ -284,7 +284,7 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] Add Dockerfile and Docker Compose services
 - [x] Add healthcheck and migration service
 - [x] Replace remaining CSV demo/runtime paths with DB-backed demo data
-- [ ] Finish code and architecture clean-up
+- [x] Finish code and architecture clean-up
 - [ ] Move from Sqlite to PostgreSQL
 - [ ] Improve API to be production-level
 - [ ] Docker setup
