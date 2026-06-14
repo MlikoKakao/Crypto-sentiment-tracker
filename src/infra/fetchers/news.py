@@ -1,6 +1,5 @@
 import pandas as pd
 from src.app.defaults import default_config
-import feedparser  # type: ignore[import-untyped]
 from src.shared.helpers import save_csv
 
 from src.infra.storage.db.content_repository import (
@@ -17,6 +16,9 @@ logger = logging.getLogger(__name__)
 
 
 def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
+    import feedparser  # type: ignore[import-untyped]
+
+    
     logger.info("Attempting to fetch cached data..")
     df = load_content_df(config, "news")
     if has_content_coverage(config, df):

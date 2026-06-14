@@ -22,8 +22,8 @@ def test_fetch_posts_combines_mocked_fetchers(
 
     monkeypatch.setattr(
         service,
-        "FETCHERS",
-        {
+        "get_fetchers",
+        lambda: {
             "reddit": fake_reddit_fetcher,
             "news": fake_news_fetcher,
         },
@@ -40,8 +40,7 @@ def test_fetch_posts_returns_empty_schema_when_no_fetchers_match(
     monkeypatch: pytest.MonkeyPatch,
     analysis_config: AnalysisConfig,
 ) -> None:
-    monkeypatch.setattr(service, "FETCHERS", {})
-
+    monkeypatch.setattr(service, "get_fetchers", lambda: {})
     result = service.fetch_posts(analysis_config)
 
     assert result.empty

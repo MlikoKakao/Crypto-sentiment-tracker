@@ -1,10 +1,8 @@
 import os
-from dotenv import load_dotenv
-import googleapiclient.discovery  # type: ignore
-from googleapiclient.errors import HttpError  # type: ignore
 import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
+
 from src.app.defaults import default_config
 from src.shared.helpers import clean_text, save_csv
 from src.infra.storage.db.content_repository import (
@@ -20,10 +18,13 @@ YOUTUBE_COIN_TERMS = {
     "XMR": ("XMR", "monero"),
 }
 logger = logging.getLogger(__name__)
-load_dotenv()
 
 
 def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
+    import googleapiclient.discovery  # type: ignore
+    from googleapiclient.errors import HttpError  # type: ignore
+
+
     df = load_content_df(config, "youtube")
     if has_content_coverage(config, df):
         logger.info(f"Success, fetched {len(df)} youtube posts in DB.")
@@ -31,9 +32,9 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     api_service_name = "youtube"
     api_version = "v3"
-    YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
-    if not YOUTUBE_API_KEY or YOUTUBE_API_KEY == "":
-        raise RuntimeError("Set YOUTUBE_API_KEY in .env file")
+    youtube_api_key = os.getenv("youtube_api_key")
+    if not youtube_api_key or youtube_api_key == "":
+        raise RuntimeError("Set youtube_api_key in .env file")
 
     youtube_limit = min(config.num_posts, 400)
     logger.info(
@@ -41,7 +42,7 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
     )
 
     youtube = googleapiclient.discovery.build(
-        api_service_name, api_version, developerKey=YOUTUBE_API_KEY
+        api_service_name, api_version, developerKey=youtube_api_key
     )
 
     posts = []

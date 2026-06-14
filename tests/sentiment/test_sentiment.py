@@ -1,7 +1,9 @@
 import pandas as pd
 import pytest
+from typing import Any
 
 from src.domain.sentiment.service import add_sentiment_to_df
+from src.domain.sentiment import service
 
 
 def test_add_sentiment_to_df_adds_sentiment_and_analyzer() -> None:
@@ -26,3 +28,20 @@ def test_add_sentiment_to_df_rejects_unknown_analyzer() -> None:
 
     with pytest.raises(ValueError):
         add_sentiment_to_df(df, "missing-analyzer")
+
+class FakeBatchAnalyzer:
+    def analyze_many(self, texts: list[str]) -> list[float]:
+        return [0.5] * len(texts)
+
+    def __call__(self, text: str | None) -> float:
+        raise AssertionError("single analyzer path was used")
+
+
+def test_add_sentiment_uses_batch_analyzer(monkeypatch: Any):
+    monkeypatch.setitem(service.ANALYZERS, "fake-batch", FakeBatchAnalyzer())
+
+    df = pd.DataFrame({"text": ["a", "b", "c"]})
+
+    result = service.add_sentiment_to_df(df, "fake-batch")
+
+    assert result["sentiment"].tolist() == [0.5, 0.5, 0.5]

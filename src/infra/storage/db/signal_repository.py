@@ -1,7 +1,7 @@
 from contextlib import closing
 from pathlib import Path
 from src.infra.storage.db.connection import get_connection
-from src.shared.dataframe_schema import REQUIRED_SIGNAL_INPUT_COLUMNS, require_columns
+from src.shared.dataframe_schema import require_columns
 import pandas as pd
 from src.domain.market.dto import IndicatorConfig
 from src.shared.helpers import normalize_timestamp_column
@@ -14,7 +14,7 @@ def save_signal_df(
     coin: str = "btc",
     db_path: Path | str | None = None,
 ) -> None:
-    require_columns(signal_df, REQUIRED_SIGNAL_INPUT_COLUMNS, "signal_df")
+    require_columns(signal_df, {"timestamp", signal}, "signal_df")    
     df = signal_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")

@@ -14,8 +14,8 @@ def show_benchmark_data() -> None:
         if not result.get("available", True)
     }
 
-    for name in unavailable.items():
-        st.info(f"{name} unavailable: install with `pip install -e '.[ml]'`")
+    for name, result in unavailable.items():
+        st.info(f"{name} unavailable: {result['reason']}")
 
     st.dataframe(table, use_container_width=True)
     accuracy_figure(table)

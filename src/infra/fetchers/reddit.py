@@ -2,7 +2,6 @@ from pytz import utc
 from praw import Reddit  # type: ignore no stub file
 import pandas as pd
 from datetime import datetime
-from dotenv import load_dotenv
 from src.app.dto import AnalysisConfig
 from src.shared.helpers import save_csv, clean_text
 import os
@@ -18,7 +17,6 @@ from src.infra.storage.db.content_repository import (
 logger = logging.getLogger(__name__)
 
 
-load_dotenv()
 
 
 def get_reddit_client() -> Reddit:

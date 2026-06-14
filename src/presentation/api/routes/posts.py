@@ -18,7 +18,7 @@ def get_posts(
     coin: str,
     start_date: datetime,
     end_date: datetime,
-    sources: list[Source] = Query(...),
+    sources: list[Source] = Query(10, ge=1, le=1000),
     num_posts: int = 10,
 ) -> list[dict[str, Any]]:
     if not is_date_correct(start_date, end_date):
