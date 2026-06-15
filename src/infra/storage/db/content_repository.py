@@ -2,9 +2,10 @@ import pandas as pd
 from pathlib import Path
 from datetime import timedelta
 from contextlib import closing
+from sqlalchemy import text
 
 from src.app.dto import AnalysisConfig
-from src.infra.storage.db.connection import get_connection
+from src.infra.storage.db.connection import get_engine
 from src.shared.dataframe_schema import require_columns, REQUIRED_CONTENT_COLUMNS
 from src.shared.helpers import normalize_timestamp_column
 from src.shared.db_helpers import (
@@ -31,9 +32,12 @@ def save_content_df(
         ["coin", "source", "source_id", "timestamp", "text", "url", "content_hash"]
     ].itertuples(index=False, name=None)
 
-    with closing(get_connection(db_path)) as conn:
-        conn.executemany(
-            """
+    engine = get_engine()
+
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
             INSERT OR IGNORE INTO content_items (
                 coin,
                 source,
@@ -45,8 +49,10 @@ def save_content_df(
             )
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
-            rows,
+                rows,
+            )
         )
+
         conn.commit()
 
 
