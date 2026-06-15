@@ -1,9 +1,8 @@
-from pathlib import Path
 from sqlalchemy import text
 from src.infra.storage.db.connection import get_engine
 
 
-def init_db(db_path: Path | str | None = None) -> None:
+def init_db() -> None:
     engine = get_engine()
 
     with engine.begin() as conn:
@@ -12,7 +11,7 @@ def init_db(db_path: Path | str | None = None) -> None:
                 """
             CREATE TABLE IF NOT EXISTS prices (
                 coin TEXT NOT NULL,
-                timestamp TEXT NOT NULL,
+                timestamp TIMESTAMP NOT NULL,
                 price DOUBLE PRECISION NOT NULL,
                 PRIMARY KEY (coin, timestamp)
             );
@@ -43,7 +42,7 @@ def init_db(db_path: Path | str | None = None) -> None:
 
             CREATE TABLE IF NOT EXISTS signals (
                 coin TEXT NOT NULL,
-                timestamp TEXT NOT NULL,
+                timestamp TIMESTAMP NOT NULL,
                 signal_name TEXT NOT NULL,
                 value DOUBLE PRECISION NOT NULL,
                 PRIMARY KEY (coin, timestamp, signal_name)
@@ -63,4 +62,3 @@ def init_db(db_path: Path | str | None = None) -> None:
             """
             )
         )
-        conn.commit()

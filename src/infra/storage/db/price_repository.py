@@ -1,52 +1,77 @@
 import pandas as pd
+from typing import Any, cast
 from datetime import timedelta
-from contextlib import closing
-from pathlib import Path
+from sqlalchemy import text
 
-from src.infra.storage.db.connection import get_connection
+from src.infra.storage.db.connection import get_engine
 from src.shared.dataframe_schema import REQUIRED_PRICE_COLUMNS, require_columns
 from src.shared.helpers import normalize_timestamp_column
 from src.app.dto import AnalysisConfig
 
 
-def save_price_df(
-    prices_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
-) -> None:
+def save_price_df(prices_df: pd.DataFrame, coin: str = "btc") -> None:
     require_columns(prices_df, REQUIRED_PRICE_COLUMNS, "prices_df")
     df = prices_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
     df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df["coin"] = coin.upper()
 
-    rows = df[["coin", "timestamp", "price"]].itertuples(index=False, name=None)
-    with closing(get_connection(db_path)) as conn:
-        conn.executemany(
-            """
-            INSERT OR REPLACE INTO prices (coin, timestamp, price)
-            VALUES (?, ?, ?)
-            """,
+    rows = cast(
+        list[dict[str, Any]],
+        df[["coin", "timestamp", "price"]].to_dict(orient="records"),
+    )
+
+    if not rows:
+        return
+
+    engine = get_engine()
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
+                INSERT INTO prices (
+                    coin,
+                    timestamp,
+                    price
+                )
+                VALUES (
+                    :coin,
+                    :timestamp,
+                    :price
+                )
+                ON CONFLICT DO NOTHING
+                    """
+            ),
             rows,
         )
-        conn.commit()
 
 
-# Convert config.dates to format where can compare to SQL results
-def load_price_df(
-    config: AnalysisConfig, db_path: Path | str | None = None
-) -> pd.DataFrame:
-    start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
+def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
+    engine = get_engine()
+    query = text(
+        """
+        SELECT *
+        FROM prices
+        WHERE coin = :coin
+            AND timestamp BETWEEN :start_date AND :end_date
+        ORDER BY timestamp DESC
+        """
+    )
 
-    with closing(get_connection(db_path)) as conn:
+    with engine.begin() as conn:
         df = pd.read_sql_query(
-            """
-                               SELECT * FROM prices 
-                               WHERE coin = ? AND timestamp BETWEEN ? AND ?
-                               """,
+            query,
             conn,
-            params=(config.coin.upper(), start_date, end_date),
+            params={
+                "coin": config.coin.upper(),
+                "start_date": config.start_date,
+                "end_date": config.end_date,
+            },
         )
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
+
+    if not df.empty:
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
+
     return df
 
 

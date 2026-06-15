@@ -1,60 +1,96 @@
-from contextlib import closing
-from pathlib import Path
-from src.infra.storage.db.connection import get_connection
-from src.shared.dataframe_schema import require_columns
-import pandas as pd
-from src.domain.market.dto import IndicatorConfig
-from src.shared.helpers import normalize_timestamp_column
 from datetime import timedelta
+from typing import Any, cast
+
+import pandas as pd
+from sqlalchemy import text
+
+from src.domain.market.dto import IndicatorConfig
+from src.infra.storage.db.connection import get_engine
+from src.shared.dataframe_schema import require_columns
+from src.shared.helpers import normalize_timestamp_column
 
 
 def save_signal_df(
     signal_df: pd.DataFrame,
     signal: str,
     coin: str = "btc",
-    db_path: Path | str | None = None,
 ) -> None:
-    require_columns(signal_df, {"timestamp", signal}, "signal_df")    
+    require_columns(signal_df, {"timestamp", signal}, "signal_df")
+
     df = signal_df.copy()
     df = normalize_timestamp_column(df, drop_invalid=True)
-    df["timestamp"] = df["timestamp"].dt.strftime("%Y-%m-%d %H:%M:%S")
     df["coin"] = coin.upper()
     df["signal_name"] = signal
     df["value"] = df[signal]
     df = df.dropna(subset=["value"])
 
-    rows = df[["coin", "timestamp", "signal_name", "value"]].itertuples(
-        index=False, name=None
+    rows = cast(
+        list[dict[str, Any]],
+        df[["coin", "timestamp", "signal_name", "value"]].to_dict(orient="records"),
     )
-    with closing(get_connection(db_path)) as conn:
-        conn.executemany(
-            """
-            INSERT OR REPLACE INTO signals (coin, timestamp, signal_name, value)
-            VALUES (?, ?, ?, ?)
-            """,
+
+    if not rows:
+        return
+
+    engine = get_engine()
+
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
+                INSERT INTO signals (
+                    coin,
+                    timestamp,
+                    signal_name,
+                    value
+                )
+                VALUES (
+                    :coin,
+                    :timestamp,
+                    :signal_name,
+                    :value
+                )
+                ON CONFLICT (coin, timestamp, signal_name)
+                DO UPDATE SET value = EXCLUDED.value
+                """
+            ),
             rows,
         )
-        conn.commit()
 
 
-def load_signal_df(
-    state: IndicatorConfig, signal: str, db_path: Path | str | None = None
-) -> pd.DataFrame:
-    start_date = state.start_date.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = state.end_date.strftime("%Y-%m-%d %H:%M:%S")
+def load_signal_df(state: IndicatorConfig, signal: str) -> pd.DataFrame:
+    engine = get_engine()
 
-    with closing(get_connection(db_path)) as conn:
+    query = text(
+        """
+        SELECT timestamp, value
+        FROM signals
+        WHERE coin = :coin
+          AND signal_name = :signal_name
+          AND timestamp BETWEEN :start_date AND :end_date
+        ORDER BY timestamp ASC
+        """
+    )
+
+    with engine.begin() as conn:
         df = pd.read_sql_query(
-            """
-                               SELECT * FROM signals
-                               WHERE coin = ? AND signal_name = ? AND timestamp BETWEEN ? AND ?
-                               """,
+            query,
             conn,
-            params=(state.coin.upper(), signal, start_date, end_date),
+            params={
+                "coin": state.coin.upper(),
+                "signal_name": signal,
+                "start_date": state.start_date,
+                "end_date": state.end_date,
+            },
         )
+
+    if df.empty:
+        return pd.DataFrame(columns=["timestamp", signal])
+
     df["timestamp"] = pd.to_datetime(df["timestamp"])
-    df = df[["timestamp", "value"]].rename(columns={"value": signal})
-    return df
+    df = df.rename(columns={"value": signal})
+
+    return df[["timestamp", signal]]
 
 
 def has_signal_coverage(state: IndicatorConfig, signal_df: pd.DataFrame) -> bool:

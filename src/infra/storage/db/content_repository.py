@@ -1,7 +1,6 @@
 import pandas as pd
-from pathlib import Path
+from typing import Any, cast
 from datetime import timedelta
-from contextlib import closing
 from sqlalchemy import text
 
 from src.app.dto import AnalysisConfig
@@ -14,9 +13,7 @@ from src.shared.db_helpers import (
 )
 
 
-def save_content_df(
-    content_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
-) -> None:
+def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
     df = content_df.copy()
     df = df.rename(columns={"id": "source_id"})
     df["coin"] = coin.upper()
@@ -28,9 +25,14 @@ def save_content_df(
 
     df["content_hash"] = df.apply(build_content_hash, axis=1)
 
-    rows = df[
-        ["coin", "source", "source_id", "timestamp", "text", "url", "content_hash"]
-    ].itertuples(index=False, name=None)
+    rows = cast(
+        list[dict[str, Any]],
+        df[
+            ["coin", "source", "source_id", "timestamp", "text", "url", "content_hash"]
+        ].to_dict(orient="records"),
+    )
+    if not rows:
+        return
 
     engine = get_engine()
 
@@ -38,48 +40,61 @@ def save_content_df(
         conn.execute(
             text(
                 """
-            INSERT OR IGNORE INTO content_items (
-                coin,
-                source,
-                source_id,
-                timestamp,
-                text,
-                url,
-                content_hash
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
-                rows,
-            )
-        )
-
-        conn.commit()
-
-
-def load_content_df(
-    config: AnalysisConfig, source: str, db_path: Path | str | None = None
-) -> pd.DataFrame:
-    start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
-
-    with closing(get_connection(db_path)) as conn:
-        df = pd.read_sql_query(
-            """
-                               SELECT * FROM content_items 
-                               WHERE coin = ? AND source = ? AND timestamp BETWEEN ? AND ?
-                               ORDER BY timestamp DESC
-                               LIMIT ?
-                               """,
-            conn,
-            params=(
-                config.coin.upper(),
-                source,
-                start_date,
-                end_date,
-                config.num_posts,
+                INSERT INTO content_items (
+                    coin,
+                    source,
+                    source_id,
+                    timestamp,
+                    text,
+                    url,
+                    content_hash
+                )
+                VALUES (
+                    :coin,
+                    :source,
+                    :source_id,
+                    :timestamp,
+                    :text,
+                    :url,
+                    :content_hash
+                )
+                ON CONFLICT DO NOTHING
+                """
             ),
+            rows,
         )
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
+
+
+def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
+    engine = get_engine()
+
+    query = text(
+        """
+        SELECT *
+        FROM content_items
+        WHERE coin = :coin
+            AND source = :source
+            AND timestamp BETWEEN :start_date AND :end_date
+        ORDER BY timestamp DESC
+        LIMIT :limit
+        """
+    )
+
+    with engine.begin() as conn:
+        df = pd.read_sql_query(
+            query,
+            conn,
+            params={
+                "coin": config.coin.upper(),
+                "source": source,
+                "start_date": config.start_date,
+                "end_date": config.end_date,
+                "limit": config.num_posts,
+            },
+        )
+    if not df.empty:
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
+
     return df
 
 
