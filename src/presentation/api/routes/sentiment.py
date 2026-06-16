@@ -1,44 +1,25 @@
-from fastapi import APIRouter, HTTPException, Query
-from datetime import datetime
-from dataclasses import replace
+from fastapi import APIRouter, Depends, Query
 import pandas as pd
-from typing import Any, cast
 
 
 from src.app.dto import Analyzer, Source
-from src.app.defaults import default_config
-from src.shared.helpers import is_date_correct, normalize_coin
+from src.presentation.api.helpers.format import dataframe_to_response_models
+from src.presentation.api.helpers.prep_config import sentiment_to_config
+from src.presentation.api.helpers.validate import DateRangeParams
+from src.presentation.api.schemas.sentiment import SentimentResponse
 from src.infra.storage.db.sentiment_repository import load_sentiment_df
-from src.shared.dataframe_utils import format_timestamp_for_api
 
 router = APIRouter()
 
 
-@router.get("/sentiment")
+@router.get("/sentiment", response_model=list[SentimentResponse])
 def get_sentiment(
-    coin: str,
-    start_date: datetime,
-    end_date: datetime,
+    params: DateRangeParams = Depends(),
     sources: list[Source] = Query(...),
     num_posts: int = 10,
     analyzer: Analyzer = "vader",
-) -> list[dict[str, Any]]:
-    if not is_date_correct(start_date, end_date):
-        raise HTTPException(status_code=400, detail="end_date must be after start_date")
-    try:
-        coin = normalize_coin(coin)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-    config = replace(
-        default_config(),
-        coin=coin,
-        start_date=start_date,
-        end_date=end_date,
-        analyzer=analyzer,
-        sources=tuple(sources),
-        num_posts=num_posts,
-    )
+) -> list[SentimentResponse]:
+    config = sentiment_to_config(params, analyzer, sources, num_posts, analyzer)
 
     if analyzer == "all":
         from src.domain.sentiment.registry import ALL_ANALYZER_NAMES
@@ -53,6 +34,4 @@ def get_sentiment(
     else:
         sentiment_df = load_sentiment_df(config, analyzer)
 
-    sentiment_df = format_timestamp_for_api(sentiment_df)
-
-    return cast(list[dict[str, Any]], sentiment_df.to_dict(orient="records"))
+    return dataframe_to_response_models(sentiment_df, SentimentResponse)

@@ -23,11 +23,20 @@ class IngestRequest(BaseModel):
     sources: list[Source]
 
 
+class IngestResponse(BaseModel):
+    status: str
+    coin: str
+    sources: list[Source]
+    price_points: int
+    posts_ingested: int
+    sentiment_rows: int
+
+
 router = APIRouter()
 
 
-@router.post("/ingest")
-def ingest(request: IngestRequest) -> dict[str, object]:
+@router.post("/ingest", response_model=IngestResponse)
+def ingest(request: IngestRequest) -> IngestResponse:
     from src.domain.sentiment.service import add_sentiment_to_df
     from src.infra.fetchers.service import fetch_posts
     from src.infra.fetchers.coinbase_price import get_coinbase_price_history
@@ -72,11 +81,13 @@ def ingest(request: IngestRequest) -> dict[str, object]:
         sentiment_df = add_sentiment_to_df(posts_df, request.analyzer)
         save_sentiment_df(sentiment_df, config.coin)
 
-    return {
-        "status": "ok",
-        "coin": config.coin,
-        "sources": config.sources,
-        "price_points": len(price_df),
-        "posts_ingested": len(posts_df),
-        "sentiment_rows": len(sentiment_df),
-    }
+    response = IngestResponse(
+        status="ok",
+        coin=config.coin,
+        sources=list(config.sources),
+        price_points=len(price_df),
+        posts_ingested=len(posts_df),
+        sentiment_rows=len(sentiment_df),
+    )
+
+    return response

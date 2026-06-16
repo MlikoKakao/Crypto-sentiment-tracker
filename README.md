@@ -285,7 +285,7 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] Add healthcheck and migration service
 - [x] Replace remaining CSV demo/runtime paths with DB-backed demo data
 - [x] Finish code and architecture clean-up
-- [ ] Move from Sqlite to PostgreSQL
+- [x] Move from Sqlite to PostgreSQL
 - [ ] Improve API to be production-level
 - [ ] Docker setup
 - [ ] CI/CD implementation

@@ -1,83 +1,35 @@
-from fastapi import APIRouter, HTTPException
-from datetime import datetime
-from dataclasses import replace
-from typing import Any, cast
+from fastapi import APIRouter, Depends
 
-from pydantic import BaseModel
-
-
-from src.app.defaults import default_config
 from src.infra.storage.db.price_repository import load_price_df
-from src.shared.helpers import is_date_correct, normalize_coin
-from src.shared.dataframe_utils import format_timestamp_for_api
-from src.domain.market.dto import IndicatorConfig
+from src.presentation.api.helpers.format import dataframe_to_response_models
+from src.presentation.api.helpers.prep_config import (
+    build_indicator_config,
+    date_range_to_config,
+)
+from src.presentation.api.helpers.validate import DateRangeParams
+from src.presentation.api.schemas.prices import PricePoint
+from src.presentation.api.schemas.signals import SignalResponse
 
 router = APIRouter()
 
 
-class PricePoint(BaseModel):
-    coin: str
-    timestamp: datetime
-    price: float
-
-
 @router.get("/prices", response_model=list[PricePoint])
-def get_prices(
-    coin: str, start_date: datetime, end_date: datetime
-) -> list[dict[str, Any]]:
-    if not is_date_correct(start_date, end_date):
-        raise HTTPException(status_code=400, detail="end_date must be after start_date")
-    try:
-        coin = normalize_coin(coin)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-    config = replace(
-        default_config(),
-        coin=coin,
-        start_date=start_date,
-        end_date=end_date,
-    )
+def get_prices(params: DateRangeParams = Depends()) -> list[PricePoint]:
+    config = date_range_to_config(params)
     df = load_price_df(config)
-    df = format_timestamp_for_api(df)
-    return cast(list[dict[str, Any]], df.to_dict(orient="records"))
+
+    return dataframe_to_response_models(df, PricePoint)
 
 
-@router.get("/signals")
+@router.get("/signals", response_model=list[SignalResponse])
 def get_signals(
-    coin: str,
-    start_date: datetime,
-    end_date: datetime,
+    params: DateRangeParams = Depends(),
     use_sma: bool = False,
     use_rsi: bool = False,
     use_macd: bool = False,
-) -> list[dict[str, Any]]:
-    if not is_date_correct(start_date, end_date):
-        raise HTTPException(status_code=400, detail="end_date must be after start_date")
-    if not any([use_sma, use_rsi, use_macd]):
-        raise HTTPException(
-            status_code=400, detail="At least one signal must be selected"
-        )
-    try:
-        coin = normalize_coin(coin)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
-
-    config = replace(
-        default_config(),
-        coin=coin,
-        start_date=start_date,
-        end_date=end_date,
-    )
-
-    request = IndicatorConfig(
-        coin=coin,
-        start_date=start_date,
-        end_date=end_date,
-        use_sma=use_sma,
-        use_rsi=use_rsi,
-        use_macd=use_macd,
-    )
+) -> list[SignalResponse]:
+    config = date_range_to_config(params)
+    request = build_indicator_config(params, use_sma, use_rsi, use_macd)
 
     price_df = load_price_df(config)
 
@@ -85,5 +37,4 @@ def get_signals(
 
     signals_df = add_indicators_with_cache(price_df, request)
 
-    signals_df = format_timestamp_for_api(signals_df)
-    return cast(list[dict[str, Any]], signals_df.to_dict(orient="records"))
+    return dataframe_to_response_models(signals_df, SignalResponse)

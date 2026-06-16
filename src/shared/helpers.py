@@ -49,10 +49,7 @@ def normalize_timestamp_column(
 
 
 def is_date_correct(start_date: datetime, end_date: datetime) -> bool:
-    if end_date <= start_date:
-        return False
-    else:
-        return True
+    return end_date > start_date
 
 
 # Text cleanup for sentiment analysis
