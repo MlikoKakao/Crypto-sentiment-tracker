@@ -1,4 +1,33 @@
 services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crypto
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d crypto"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: python -c "from src.infra.storage.db.schema import init_db; init_db()"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
+    depends_on:
+      db:
+        condition: service_healthy
+
   api:
     build:
       context: .
@@ -7,12 +36,14 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_PATH: /usr/src/app/data/app.db
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
     volumes:
       - ./src/:/usr/src/app/src/
-      - app_data:/usr/src/app/data
     ports:
-      - 8002:8000
+      - "8002:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
     healthcheck:
       test:
         [
@@ -34,10 +65,9 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_PATH: /usr/src/app/data/app.db
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
     volumes:
       - ./src/:/usr/src/app/src/
-      - app_data:/usr/src/app/data
       - ./run_app.py:/usr/src/app/run_app.py
     ports:
       - "8501:8501"
@@ -45,17 +75,5 @@ services:
       api:
         condition: service_healthy
 
-  migrate:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
-    command: python -c "from src.infra.storage.db.schema import init_db; init_db()"
-    env_file:
-      - .env
-    environment:
-      DATABASE_PATH: /usr/src/app/data/app.db
-    volumes:
-      - app_data:/usr/src/app/data
-
 volumes:
-  app_data:
+  postgres_data:
