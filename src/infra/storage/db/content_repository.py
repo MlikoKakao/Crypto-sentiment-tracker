@@ -80,7 +80,7 @@ def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
         """
     )
 
-    with engine.begin() as conn:
+    with engine.connect() as conn:
         df = pd.read_sql_query(
             query,
             conn,

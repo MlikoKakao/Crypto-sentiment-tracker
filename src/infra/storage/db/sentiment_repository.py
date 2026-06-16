@@ -84,7 +84,7 @@ def load_sentiment_df(config: AnalysisConfig, analyzer: str) -> pd.DataFrame:
                 """
     ).bindparams(bindparam("sources", expanding=True))
 
-    with engine.begin() as conn:
+    with engine.connect() as conn:
         df = pd.read_sql_query(
             query,
             conn,

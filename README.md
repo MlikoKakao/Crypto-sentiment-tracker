@@ -114,12 +114,22 @@ Then edit `.env` and fill in the API keys you need.
 Important variables:
 
 ```env
-DATABASE_PATH=data/app.db
-DEMO=0
 REDDIT_CLIENT_ID=
 REDDIT_CLIENT_SECRET=
 REDDIT_USER_AGENT=
 YOUTUBE_API_KEY=
+
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=crypto
+
+# Local host run:
+DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/crypto
+
+# Docker Compose run:
+# DATABASE_URL=postgresql+psycopg://postgres:postgres@db:5432/crypto
+
+DEMO=0
 HF_DEVICE=-1
 ```
 

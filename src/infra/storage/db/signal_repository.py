@@ -72,7 +72,7 @@ def load_signal_df(state: IndicatorConfig, signal: str) -> pd.DataFrame:
         """
     )
 
-    with engine.begin() as conn:
+    with engine.connect() as conn:
         df = pd.read_sql_query(
             query,
             conn,

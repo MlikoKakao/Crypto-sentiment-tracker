@@ -58,7 +58,7 @@ def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
         """
     )
 
-    with engine.begin() as conn:
+    with engine.connect() as conn:
         df = pd.read_sql_query(
             query,
             conn,

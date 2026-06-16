@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "crypto-sentiment-tracker"
 version = "0.1.0"
-description = "Crypto sentiment analysis app with Streamlit, FastAPI, and SQLite caching."
+description = "Crypto sentiment analysis app with Streamlit, FastAPI and PostgreSQL storage."
 readme = "README.md"
 requires-python = ">=3.10"
 
@@ -18,6 +18,8 @@ dependencies = [
     "pytz",
     "pydantic",
     "statsmodels",
+    "sqlalchemy",
+    "psycopg[binary]",
 ]
 
 [project.optional-dependencies]
