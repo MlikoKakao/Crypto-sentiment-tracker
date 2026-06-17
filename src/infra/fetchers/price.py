@@ -28,12 +28,12 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 
     url = f"https://api.coingecko.com/api/v3/coins/{COIN_IDS[config.coin]}/market_chart/range"
     params = {
-            "id": COIN_IDS[config.coin],
-            "vs_currency": "usd",
-            "from": int(config.start_date.timestamp()),
-            "to": int(config.end_date.timestamp())
+        "id": COIN_IDS[config.coin],
+        "vs_currency": "usd",
+        "from": int(config.start_date.timestamp()),
+        "to": int(config.end_date.timestamp()),
     }
-    
+
     try:
         response = requests.get(url, params=params, timeout=10)
     except requests.exceptions.Timeout:
@@ -65,5 +65,5 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
 if __name__ == "__main__":
     df = get_price_history(default_config())
     save_price_df(df, default_config().coin)
-    logger.info("Saved price history to app.db")
+    logger.info("Saved price history to postgre db")
     logger.debug(f"Saved {len(df)} price points for all available days")
