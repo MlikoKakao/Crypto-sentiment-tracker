@@ -93,5 +93,16 @@ services:
       timeout: 5s
       retries: 5
 
+  ingest-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: python -m src.app.jobs.scheduled_ingest
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
+    depends_on:
+      api:
+        condition: service_healthy
+
 volumes:
   postgres_data:

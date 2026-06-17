@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from src.app.use_cases import run_ingest
+from src.app.use_cases.run_ingest import run_ingest
 from src.presentation.api.helpers.prep_config import sentiment_to_config
 from src.presentation.api.schemas.ingest import IngestRequest, IngestResponse
 
