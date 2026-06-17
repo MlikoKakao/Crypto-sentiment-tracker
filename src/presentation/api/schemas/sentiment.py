@@ -1,12 +1,13 @@
 from datetime import datetime
 from pydantic import BaseModel
 
-from src.app.dto import Source
+from src.app.dto import Analyzer, Source
 
 
 class SentimentResponse(BaseModel):
     coin: str
     source: Source
+    analyzer: Analyzer
     source_id: str | None = None
     timestamp: datetime
     text: str

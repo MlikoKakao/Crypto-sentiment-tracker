@@ -19,7 +19,7 @@ dependencies = [
     "pydantic",
     "statsmodels",
     "sqlalchemy",
-    "psycopg[binary]",
+    "psycopg2-binary",
 ]
 
 [project.optional-dependencies]

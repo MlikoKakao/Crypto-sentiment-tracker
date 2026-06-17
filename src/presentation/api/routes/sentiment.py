@@ -19,7 +19,7 @@ def get_sentiment(
     num_posts: int = 10,
     analyzer: Analyzer = "vader",
 ) -> list[SentimentResponse]:
-    config = sentiment_to_config(params, analyzer, sources, num_posts, analyzer)
+    config = sentiment_to_config(params, sources, num_posts, analyzer)
 
     if analyzer == "all":
         from src.domain.sentiment.registry import ALL_ANALYZER_NAMES
