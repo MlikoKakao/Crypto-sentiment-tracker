@@ -15,6 +15,7 @@ def test_prices_endpoint_success_returns_rows(monkeypatch: pytest.MonkeyPatch) -
         assert config.coin == "BTC"
         return pd.DataFrame(
             {
+                "coin": ["BTC"],
                 "timestamp": [pd.Timestamp("2026-01-01 00:00:00")],
                 "price": [100.0],
             }
@@ -31,7 +32,7 @@ def test_prices_endpoint_success_returns_rows(monkeypatch: pytest.MonkeyPatch) -
     )
 
     assert jsonable_encoder(result) == [
-        {"timestamp": "2026-01-01T00:00:00", "price": 100.0}
+        {"coin": "BTC", "timestamp": "2026-01-01T00:00:00", "price": 100.0}
     ]
 
 

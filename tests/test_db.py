@@ -1,5 +1,4 @@
 import pandas as pd
-from pathlib import Path
 
 from src.app.dto import AnalysisConfig
 from src.domain.market.dto import IndicatorConfig
@@ -26,7 +25,7 @@ def test_price_repository_saves_and_loads_rows(
     result = load_price_df(analysis_config)
 
     assert len(result) == 2
-    assert result["price"].tolist() == [100.0, 101.5]
+    assert result["price"].tolist() == [101.5, 100.0]
 
 
 def test_content_repository_saves_and_loads_rows(

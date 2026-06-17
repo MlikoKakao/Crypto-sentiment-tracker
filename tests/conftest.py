@@ -7,11 +7,11 @@ from src.domain.market.dto import IndicatorConfig
 from src.infra.storage.db.schema import init_db
 from src.infra.storage.db.connection import get_engine
 
-TEST_DATABASE_URL = "postgresql+postgres:postgres@localhost:5433/crypto_test"
+TEST_DATABASE_URL = "postgresql://postgres:postgres@localhost:5433/crypto_test"
 
 
 @pytest.fixture(autouse=True)
-def test_db(monkeypatch: pytest.MonkeyPatch):
+def postgres_test_db(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("DATABASE_URL", TEST_DATABASE_URL)
 
     init_db()

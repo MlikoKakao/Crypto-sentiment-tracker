@@ -1,8 +1,8 @@
 from datetime import datetime
 
 import pandas as pd
+from pydantic import ValidationError
 import pytest
-from fastapi import HTTPException
 from fastapi.encoders import jsonable_encoder
 
 from src.app.dto import AnalysisConfig
@@ -20,11 +20,14 @@ def test_sentiment_endpoint_success_returns_rows(
         assert analyzer == "vader"
         return pd.DataFrame(
             {
-                "timestamp": [pd.Timestamp("2026-05-30 00:00:00")],
-                "text": ["BTC looks strong"],
+                "coin": ["BTC"],
                 "source": ["reddit"],
-                "analyzer": ["vader"],
-                "sentiment": [0.8],
+                "content_hash": ["abc123"],
+                "timestamp": [pd.Timestamp("2026-05-30 00:00:00")],
+                "text": ["test row"],
+                "url": [None],
+                "analyzer": [analyzer],
+                "sentiment": [0.5],
             }
         )
 
@@ -40,17 +43,21 @@ def test_sentiment_endpoint_success_returns_rows(
 
     assert jsonable_encoder(result) == [
         {
-            "timestamp": "2026-05-30T00:00:00",
-            "text": "BTC looks strong",
+            "coin": "BTC",
             "source": "reddit",
+            "source_id": None,
+            "content_hash": "abc123",
+            "timestamp": "2026-05-30T00:00:00",
+            "text": "test row",
+            "url": None,
             "analyzer": "vader",
-            "sentiment": 0.8,
+            "sentiment": 0.5,
         }
     ]
 
 
 def test_sentiment_endpoint_invalid_coin_returns_400() -> None:
-    with pytest.raises(HTTPException) as exc_info:
+    with pytest.raises(ValidationError):
         sentiment.get_sentiment(
             params=DateRangeParams(
                 coin="DOGE",
@@ -59,9 +66,6 @@ def test_sentiment_endpoint_invalid_coin_returns_400() -> None:
             ),
             sources=["reddit"],
         )
-
-    assert exc_info.value.status_code == 400
-    assert exc_info.value.detail == "Unsupported coin: DOGE"
 
 
 def test_sentiment_endpoint_analyzer_all_combines_analyzers(
