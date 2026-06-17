@@ -110,7 +110,7 @@ def render_result_tabs(
         )
 
     with tabs["engine"]:
-        indic_state = replace(sidebar_to_indicator(state), use_sma=True)
+        indic_state = replace(sidebar_to_indicator(state))
         indicator_df = add_indicators_with_cache(result.merged_df, indic_state)
         signal_df = build_signal_df(indicator_df)
         signal_cols = [col for col in SIGNAL_COLUMNS if col in signal_df.columns]

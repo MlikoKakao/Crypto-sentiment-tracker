@@ -1,18 +1,31 @@
 from datetime import datetime
-from pathlib import Path
+import os
 
 import pytest
 
 from src.app.dto import AnalysisConfig
 from src.domain.market.dto import IndicatorConfig
 from src.infra.storage.db.schema import init_db
+from src.infra.storage.db.connection import get_engine
+
+TEST_DATABASE_URL = "postgresql+postgres:postgres@localhost:5433/crypto_test"
 
 
-@pytest.fixture
-def db_path(tmp_path: Path) -> Path:
-    path = tmp_path / "test.db"
-    init_db(path)
-    return path
+@pytest.fixture(autouse=True)
+def test_db(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("DATABASE_URL", TEST_DATABASE_URL)
+
+    init_db()
+
+    engine = get_engine()
+
+    yield
+
+    with engine.begin() as conn:
+        conn.exec_driver_sql("TRUNCATE TABLE sentiment CASCADE")
+        conn.exec_driver_sql("TRUNCATE TABLE content_items CASCADE")
+        conn.exec_driver_sql("TRUNCATE TABLE prices CASCADE")
+        conn.exec_driver_sql("TRUNCATE TABLE signals CASCADE")
 
 
 @pytest.fixture

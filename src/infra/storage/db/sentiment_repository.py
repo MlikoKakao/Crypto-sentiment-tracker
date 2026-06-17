@@ -1,75 +1,108 @@
-from pathlib import Path
-from contextlib import closing
+from sqlalchemy import bindparam, text
+from typing import Any, cast
 import pandas as pd
 from datetime import timedelta
 
 from src.app.dto import AnalysisConfig
-from src.infra.storage.db.connection import get_connection
+from src.infra.storage.db.connection import get_engine
 from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_columns
 
 
-def save_sentiment_df(
-    sentiment_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
-) -> None:
+def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
     df = sentiment_df.copy()
     df["coin"] = coin.upper()
 
     require_columns(df, REQUIRED_SENTIMENT_COLUMNS, "sentiment_df")
 
-    rows = df[
-        [
-            "coin",
-            "source",
-            "content_hash",
-            "analyzer",
-            "sentiment",
-        ]
-    ].itertuples(index=False, name=None)
+    rows = cast(
+        list[dict[str, Any]],
+        df[
+            [
+                "coin",
+                "source",
+                "content_hash",
+                "analyzer",
+                "sentiment",
+            ]
+        ].to_dict(orient="records"),
+    )
+    engine = get_engine()
 
-    with closing(get_connection(db_path)) as conn:
-        conn.executemany(
-            """
-            INSERT OR IGNORE INTO sentiment (coin, source, content_hash, analyzer, sentiment)
-            VALUES (?, ?, ?, ?, ?)
-            """,
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
+                INSERT INTO sentiment (
+                    coin,
+                    source,
+                    content_hash,
+                    analyzer,
+                    sentiment
+                )
+                VALUES (
+                    :coin, 
+                    :source, 
+                    :content_hash, 
+                    :analyzer, 
+                    :sentiment
+                )
+                ON CONFLICT DO NOTHING
+                """
+            ),
             rows,
         )
-        conn.commit()
 
 
-def load_sentiment_df(
-    config: AnalysisConfig, analyzer: str, db_path: Path | str | None = None
-) -> pd.DataFrame:
+def load_sentiment_df(config: AnalysisConfig, analyzer: str) -> pd.DataFrame:
+    engine = get_engine()
+
     if not config.sources:
         return pd.DataFrame()
-    start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
-    source_placeholders = ",".join("?" for _ in config.sources)
 
-    with closing(get_connection(db_path)) as conn:
+    query = text(
+        """
+                SELECT
+                    c.coin,
+                    c.source,
+                    c.content_hash,
+                    c.timestamp,
+                    c.text,
+                    c.url,
+                    s.analyzer,
+                    s.sentiment
+                FROM content_items AS c
+                JOIN sentiment AS s
+                  ON s.coin = c.coin
+                 AND s.source = c.source
+                 AND s.content_hash = c.content_hash
+                WHERE c.coin = :coin
+                  AND s.analyzer = :analyzer
+                  AND c.timestamp BETWEEN :start_date AND :end_date
+                  AND c.source IN :sources
+                ORDER BY c.timestamp DESC
+                LIMIT :limit
+                """
+    ).bindparams(bindparam("sources", expanding=True))
+
+    with engine.connect() as conn:
         df = pd.read_sql_query(
-            f"""
-                               SELECT c.coin, c.source, c.content_hash, c.timestamp, c.text, c.url, s.analyzer, s.sentiment 
-                               FROM content_items AS c
-                               JOIN sentiment as s
-                               ON s.coin = c.coin
-                               AND s.source = c.source
-                               AND s.content_hash = c.content_hash
-                               WHERE c.coin = ? AND s.analyzer = ? AND c.timestamp BETWEEN ? AND ? AND c.source IN ({source_placeholders})
-                               ORDER BY c.timestamp DESC
-                               LIMIT ?
-                               """,
+            query,
             conn,
-            params=(
-                config.coin.upper(),
-                analyzer,
-                start_date,
-                end_date,
-                *config.sources,
-                config.num_posts,
+            params=cast(
+                dict[str, Any],
+                {
+                    "coin": config.coin.upper(),
+                    "analyzer": analyzer,
+                    "start_date": config.start_date,
+                    "end_date": config.end_date,
+                    "sources": list(config.sources),
+                    "limit": config.num_posts,
+                },
             ),
         )
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
+
+    if not df.empty:
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
 
 

@@ -1,10 +1,10 @@
 import pandas as pd
-from pathlib import Path
+from typing import Any, cast
 from datetime import timedelta
-from contextlib import closing
+from sqlalchemy import text
 
 from src.app.dto import AnalysisConfig
-from src.infra.storage.db.connection import get_connection
+from src.infra.storage.db.connection import get_engine
 from src.shared.dataframe_schema import require_columns, REQUIRED_CONTENT_COLUMNS
 from src.shared.helpers import normalize_timestamp_column
 from src.shared.db_helpers import (
@@ -13,9 +13,7 @@ from src.shared.db_helpers import (
 )
 
 
-def save_content_df(
-    content_df: pd.DataFrame, coin: str = "btc", db_path: Path | str | None = None
-) -> None:
+def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
     df = content_df.copy()
     df = df.rename(columns={"id": "source_id"})
     df["coin"] = coin.upper()
@@ -27,53 +25,76 @@ def save_content_df(
 
     df["content_hash"] = df.apply(build_content_hash, axis=1)
 
-    rows = df[
-        ["coin", "source", "source_id", "timestamp", "text", "url", "content_hash"]
-    ].itertuples(index=False, name=None)
+    rows = cast(
+        list[dict[str, Any]],
+        df[
+            ["coin", "source", "source_id", "timestamp", "text", "url", "content_hash"]
+        ].to_dict(orient="records"),
+    )
+    if not rows:
+        return
 
-    with closing(get_connection(db_path)) as conn:
-        conn.executemany(
-            """
-            INSERT OR IGNORE INTO content_items (
-                coin,
-                source,
-                source_id,
-                timestamp,
-                text,
-                url,
-                content_hash
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """,
+    engine = get_engine()
+
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
+                INSERT INTO content_items (
+                    coin,
+                    source,
+                    source_id,
+                    timestamp,
+                    text,
+                    url,
+                    content_hash
+                )
+                VALUES (
+                    :coin,
+                    :source,
+                    :source_id,
+                    :timestamp,
+                    :text,
+                    :url,
+                    :content_hash
+                )
+                ON CONFLICT DO NOTHING
+                """
+            ),
             rows,
         )
-        conn.commit()
 
 
-def load_content_df(
-    config: AnalysisConfig, source: str, db_path: Path | str | None = None
-) -> pd.DataFrame:
-    start_date = config.start_date.strftime("%Y-%m-%d %H:%M:%S")
-    end_date = config.end_date.strftime("%Y-%m-%d %H:%M:%S")
+def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
+    engine = get_engine()
 
-    with closing(get_connection(db_path)) as conn:
+    query = text(
+        """
+        SELECT *
+        FROM content_items
+        WHERE coin = :coin
+            AND source = :source
+            AND timestamp BETWEEN :start_date AND :end_date
+        ORDER BY timestamp DESC
+        LIMIT :limit
+        """
+    )
+
+    with engine.connect() as conn:
         df = pd.read_sql_query(
-            """
-                               SELECT * FROM content_items 
-                               WHERE coin = ? AND source = ? AND timestamp BETWEEN ? AND ?
-                               ORDER BY timestamp DESC
-                               LIMIT ?
-                               """,
+            query,
             conn,
-            params=(
-                config.coin.upper(),
-                source,
-                start_date,
-                end_date,
-                config.num_posts,
-            ),
+            params={
+                "coin": config.coin.upper(),
+                "source": source,
+                "start_date": config.start_date,
+                "end_date": config.end_date,
+                "limit": config.num_posts,
+            },
         )
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    if not df.empty:
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
+
     return df
 
 

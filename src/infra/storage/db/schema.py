@@ -1,16 +1,18 @@
-from pathlib import Path
-from contextlib import closing
-from src.infra.storage.db.connection import get_connection
+from sqlalchemy import text
+from src.infra.storage.db.connection import get_engine
 
 
-def init_db(db_path: Path | str | None = None) -> None:
-    with closing(get_connection(db_path)) as conn:
-        conn.executescript(
-            """
+def init_db() -> None:
+    engine = get_engine()
+
+    with engine.begin() as conn:
+        conn.execute(
+            text(
+                """
             CREATE TABLE IF NOT EXISTS prices (
                 coin TEXT NOT NULL,
-                timestamp TEXT NOT NULL,
-                price REAL NOT NULL,
+                timestamp TIMESTAMP NOT NULL,
+                price DOUBLE PRECISION NOT NULL,
                 PRIMARY KEY (coin, timestamp)
             );
 
@@ -18,11 +20,10 @@ def init_db(db_path: Path | str | None = None) -> None:
                 coin TEXT NOT NULL,
                 source TEXT NOT NULL,
                 source_id TEXT,
-                timestamp TEXT NOT NULL,
+                timestamp TIMESTAMP NOT NULL,
                 text TEXT NOT NULL,
                 url TEXT,
                 content_hash TEXT NOT NULL,
-
                 PRIMARY KEY (coin, source, content_hash)
             );
 
@@ -31,11 +32,9 @@ def init_db(db_path: Path | str | None = None) -> None:
                 source TEXT NOT NULL,
                 content_hash TEXT NOT NULL,
                 analyzer TEXT NOT NULL,
-                sentiment REAL NOT NULL,
-                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-
+                sentiment DOUBLE PRECISION NOT NULL,
+                created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (coin, source, content_hash, analyzer),
-
                 FOREIGN KEY (coin, source, content_hash)
                     REFERENCES content_items (coin, source, content_hash)
                     ON DELETE CASCADE
@@ -43,9 +42,9 @@ def init_db(db_path: Path | str | None = None) -> None:
 
             CREATE TABLE IF NOT EXISTS signals (
                 coin TEXT NOT NULL,
-                timestamp TEXT NOT NULL,
+                timestamp TIMESTAMP NOT NULL,
                 signal_name TEXT NOT NULL,
-                value REAL NOT NULL,
+                value DOUBLE PRECISION NOT NULL,
                 PRIMARY KEY (coin, timestamp, signal_name)
             );
 
@@ -61,6 +60,5 @@ def init_db(db_path: Path | str | None = None) -> None:
             CREATE INDEX IF NOT EXISTS idx_signals_coin_signal_timestamp
                 ON signals (coin, signal_name, timestamp);
             """
+            )
         )
-
-        conn.commit()

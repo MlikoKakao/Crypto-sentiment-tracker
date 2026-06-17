@@ -1,14 +1,14 @@
-import sqlite3
-from pathlib import Path
-from src.app.settings import get_database_path
+from functools import lru_cache
+
+from sqlalchemy import create_engine
+from sqlalchemy.engine import Engine
+
+from src.app.settings import get_database_url
 
 
-def get_connection(db_path: Path | str | None = None) -> sqlite3.Connection:
-    db_path = Path(db_path or get_database_path())
-    db_path.parent.mkdir(parents=True, exist_ok=True)
-
-    conn = sqlite3.connect(db_path)
-    conn.execute("PRAGMA foreign_keys = ON;")
-    conn.execute("PRAGMA busy_timeout = 5000;")
-    conn.execute("PRAGMA journal_mode = WAL;")
-    return conn
+@lru_cache
+def get_engine() -> Engine:
+    return create_engine(
+        get_database_url(),
+        pool_pre_ping=True,
+    )
