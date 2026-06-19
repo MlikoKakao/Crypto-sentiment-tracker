@@ -288,7 +288,7 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] Move from Sqlite to PostgreSQL
 - [x] Improve API to be production(ish)-level
 - [x] Docker setup
-- [ ] Scheduled ingestion through Raspberry Pi
+- [x] Scheduled ingestion through Raspberry Pi
 - [x] CI implementation
 - [ ] CD implementation
 - [ ] Kubernetes deployment demo 
