@@ -10,9 +10,9 @@ class IngestResult:
     status: str
     coin: str
     sources: list[Source]
-    price_points: int
-    posts_ingested: int
-    sentiment_rows: int
+    price_df: pd.DataFrame
+    posts_df: pd.DataFrame
+    sentiment_df: pd.DataFrame
 
 
 def run_ingest(config: AnalysisConfig) -> IngestResult:
@@ -23,9 +23,9 @@ def run_ingest(config: AnalysisConfig) -> IngestResult:
         status="ok",
         coin=config.coin,
         sources=list(config.sources),
-        price_points=len(price_df),
-        posts_ingested=len(posts_df),
-        sentiment_rows=len(sentiment_df),
+        price_df=price_df,
+        posts_df=posts_df,
+        sentiment_df=sentiment_df,
     )
     return response
 

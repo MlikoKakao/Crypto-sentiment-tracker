@@ -98,6 +98,8 @@ services:
       context: .
       dockerfile: Dockerfile.api
     command: python -m src.app.jobs.scheduled_ingest
+    env_file:
+      - .env
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
     depends_on:

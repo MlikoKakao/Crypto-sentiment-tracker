@@ -17,4 +17,12 @@ def ingest(request: IngestRequest) -> IngestResponse:
         analyzer=request.analyzer,
     )
 
-    return IngestResponse.model_validate(run_ingest(config))
+    result = run_ingest(config)
+    return IngestResponse(
+        status=result.status,
+        coin=result.coin,
+        sources=result.sources,
+        price_points=len(result.price_df),
+        posts_ingested=len(result.posts_df),
+        sentiment_rows=len(result.sentiment_df),
+    )

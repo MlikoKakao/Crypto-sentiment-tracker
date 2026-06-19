@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 from datetime import datetime
 
+from src.app.dto import Coin
+
 
 @dataclass(frozen=True)
 class IndicatorConfig:
-    coin: str
+    coin: Coin
     start_date: datetime
     end_date: datetime
     use_sma: bool = False
