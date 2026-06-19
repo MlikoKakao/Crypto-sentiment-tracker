@@ -26,7 +26,7 @@ def run_scheduled_ingest() -> None:
 
         print(
             f"Ingested {len(result.posts_df)} posts, for coin {coin}, "
-            f"{len(result.sentiment_df)} sentiment rows"
+            f"{len(result.sentiment_df)} sentiment rows. "
             f"Signal length: {len(indicators)} posts, for coin {coin}, "
         )
 
