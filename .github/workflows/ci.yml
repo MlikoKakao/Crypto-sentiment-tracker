@@ -41,8 +41,10 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Build Docker
-        run: docker compose build
+      - name: Build Docker images
+        run: |
+          docker build -f Dockerfile.api -t crypto-sentiment-api:latest .
+          docker build -f Dockerfile.ui -t crypto-sentiment-ui:latest .
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -68,7 +70,9 @@ jobs:
           ssh -o StrictHostKeyChecking=accept-new -i ~/.ssh/pi_key \
             ${{ secrets.PI_USER }}@${{ secrets.PI_TAILSCALE_HOST }} \
             "cd /home/raspberrypi/apps/Crypto-sentiment-tracker && \
-             git pull --ff-only && \
-             docker compose build && \
-             docker compose up -d db api ui && \
-             docker compose run --rm migrate"
+            git pull --ff-only && \
+            docker build -f Dockerfile.api -t crypto-sentiment-api:latest . && \
+            docker build -f Dockerfile.ui -t crypto-sentiment-ui:latest . && \
+            docker compose up -d db && \
+            docker compose run --rm migrate && \
+            docker compose up -d api ui ingest-worker"

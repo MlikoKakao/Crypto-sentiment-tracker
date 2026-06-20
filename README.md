@@ -290,8 +290,8 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] Docker setup
 - [x] Scheduled ingestion through Raspberry Pi
 - [x] CI implementation
-- [ ] CD implementation
-- [ ] Kubernetes deployment demo 
+- [x] CD implementation
+- [ ] Kubernetes deployment demo - delayed, other priorities more important
 - [ ] Cloud deployment
 
 ## License

@@ -1,0 +1,53 @@
+services:
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./src/:/usr/src/app/src/
+
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
+    volumes:
+      - ./src/:/usr/src/app/src/
+      - ./run_app.py:/usr/src/app/run_app.py
+
+  ingest-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+
+  db:
+    ports:
+      - "5432:5432"
+
+  test_db:
+    profiles:
+      - test
+    image: postgres:16
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: crypto_test
+    ports:
+      - "5433:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d crypto_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
