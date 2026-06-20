@@ -49,6 +49,9 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: true
 
     steps:
       - name: Connect to Tailscale
@@ -59,20 +62,15 @@ jobs:
           tags: tag:ci
           ping: ${{ secrets.PI_TAILSCALE_HOST }}
 
-      - name: Add SSH key
+      - name: Add SSH key and known host
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.PI_SSH_KEY }}" > ~/.ssh/pi_key
           chmod 600 ~/.ssh/pi_key
+          echo "${{ secrets.PI_SSH_HOST_KEY }}" >> ~/.ssh/known_hosts
 
       - name: Deploy on Raspberry Pi
         run: |
-          ssh -o StrictHostKeyChecking=accept-new -i ~/.ssh/pi_key \
+          ssh -o StrictHostKeyChecking=yes -i ~/.ssh/pi_key \
             ${{ secrets.PI_USER }}@${{ secrets.PI_TAILSCALE_HOST }} \
-            "cd /home/raspberrypi/apps/Crypto-sentiment-tracker && \
-            git pull --ff-only && \
-            docker build -f Dockerfile.api -t crypto-sentiment-api:latest . && \
-            docker build -f Dockerfile.ui -t crypto-sentiment-ui:latest . && \
-            docker compose up -d db && \
-            docker compose run --rm migrate && \
-            docker compose up -d api ui ingest-worker"
+            "/home/raspberrypi/apps/Crypto-sentiment-tracker/deploy.sh"
