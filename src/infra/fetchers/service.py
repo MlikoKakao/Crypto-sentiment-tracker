@@ -9,13 +9,16 @@ def fetch_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     frames = []
     for source in config.sources:
-        fetcher = fetchers.get(source)
-        if fetcher:
-            df = fetcher(config)
+        try:
+            fetcher = fetchers.get(source)
+            if fetcher:
+                df = fetcher(config)
 
-            if not df.empty:
-                frames.append(df)
-
+                if not df.empty:
+                    frames.append(df)
+        except Exception as e:
+            print(f"Source {source} failed: {e}")
+            continue
     if not frames:
         return pd.DataFrame(
             columns=["timestamp", "text", "sentiment", "source", "source_id", "url"]

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from src.app.dto import AnalysisConfig, Analyzer, Source, Coin
 from src.app.use_cases.get_indicators import add_indicators_with_cache
@@ -7,28 +7,41 @@ from src.domain.market.dto import IndicatorConfig
 
 
 def run_scheduled_ingest() -> None:
+    failed_coins = []
     coins: tuple[Coin, ...] = ("BTC", "ETH", "XMR")
-    start_date = datetime.now() - timedelta(days=1)
-    end_date = datetime.now()
+    now = datetime.now(timezone.utc)
+    start_date = now - timedelta(days=1)
+    end_date = now
 
     analyzer: Analyzer = "vader"
     sources: tuple[Source, ...] = ("reddit", "news", "youtube")
     num_posts = 1000
-    subreddits: tuple[str, ...] = ("CryptoCurrency", "CryptocurrencyTrading", "CryptoMarkets")
+    subreddits: tuple[str, ...] = (
+        "CryptoCurrency",
+        "CryptocurrencyTrading",
+        "CryptoMarkets",
+    )
 
     for coin in coins:
-        config, signals_config = build_configs(
-            coin, start_date, end_date, analyzer, sources, num_posts, subreddits
-        )
+        try:
+            config, signals_config = build_configs(
+                coin, start_date, end_date, analyzer, sources, num_posts, subreddits
+            )
 
-        result = run_ingest(config)
-        indicators = add_indicators_with_cache(result.price_df, signals_config)
+            result = run_ingest(config)
+            indicators = add_indicators_with_cache(result.price_df, signals_config)
 
-        print(
-            f"Ingested {len(result.posts_df)} posts, for coin {coin}, "
-            f"{len(result.sentiment_df)} sentiment rows. "
-            f"Signal length: {len(indicators)} posts, for coin {coin}, "
-        )
+            print(
+                f"{datetime.now(timezone.utc)}"
+                f"Ingested {len(result.posts_df)} posts, for coin {coin}, "
+                f"{len(result.sentiment_df)} sentiment rows. "
+                f"Signal length: {len(indicators)} posts, for coin {coin}, "
+            )
+        except Exception as e:
+            print(f"Failed for {coin}: {e}")
+            failed_coins.append(coin)
+            continue
+    print(f"Scheduled ingest finished. Failed coins: {failed_coins}")
 
 
 def build_configs(
