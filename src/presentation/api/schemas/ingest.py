@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from src.app.dto import Source, Analyzer
 from src.presentation.api.helpers.validate import DateRangeParams
@@ -6,7 +6,7 @@ from src.presentation.api.helpers.validate import DateRangeParams
 
 class IngestRequest(BaseModel):
     params: DateRangeParams
-    num_posts: int
+    num_posts: int = Field(ge=1, le=1000)  
     analyzer: Analyzer
     sources: list[Source]
 

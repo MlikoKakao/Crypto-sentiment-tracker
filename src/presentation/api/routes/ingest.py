@@ -1,14 +1,18 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from src.app.use_cases.run_ingest import run_ingest
 from src.presentation.api.helpers.prep_config import sentiment_to_config
 from src.presentation.api.schemas.ingest import IngestRequest, IngestResponse
+from src.presentation.api.helpers.auth import require_admin_api_key
 
 
 router = APIRouter()
 
 
-@router.post("/ingest", response_model=IngestResponse)
+@router.post("/ingest",
+             response_model=IngestResponse,
+             dependencies=[Depends(require_admin_api_key)]
+             )
 def ingest(request: IngestRequest) -> IngestResponse:
     config = sentiment_to_config(
         params=request.params,
