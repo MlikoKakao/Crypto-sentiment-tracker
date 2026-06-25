@@ -8,7 +8,6 @@ The project currently has:
 
 - Streamlit UI entry point: `run_app.py`
 - FastAPI app: `src/presentation/api/main.py`
-- SQLite storage: `src/infra/storage/db/`
 - Docker services for API, UI, and DB schema initialization
 - pytest coverage for domain behavior, storage repositories, API route behavior, fetcher boundaries, and cache behavior
 
@@ -113,7 +112,7 @@ src/domain/analysis/lead_lag.py
 src/domain/backtest/engine.py
 ```
 
-Domain code should stay mostly independent from Docker, Streamlit, FastAPI, and SQLite details.
+Domain code should stay mostly independent from Docker, Streamlit, FastAPI, and PostgreSQL details.
 
 ---
 
@@ -128,7 +127,7 @@ src/infra/
 Responsibilities:
 
 - External API access
-- SQLite schema and repository implementation
+- PostgreSQL schema and repository implementation
 - Legacy CSV helper code
 
 Important files:
@@ -149,7 +148,7 @@ src/infra/storage/db/signal_repository.py
 src/infra/storage/sentiment_csv.py
 ```
 
-SQLite is the current persistence layer. CSV storage is legacy/transitional and should shrink as demo and runtime data move fully into SQLite.
+PostgreSQL is the current persistence layer. CSV storage is legacy/transitional and should shrink as demo and runtime data move fully into PostgreSQL.
 
 ---
 
@@ -231,7 +230,7 @@ Crypto-sentiment-tracker/
 Current primary storage:
 
 ```text
-SQLite database
+PostgreSQL database
 ```
 
 Default local path:
@@ -266,7 +265,7 @@ Repositories:
 - `sentiment_repository.py`
 - `signal_repository.py`
 
-The repositories accept an optional `db_path`, which makes them easy to test against temporary SQLite databases.
+The repositories accept an optional `db_path`, which makes them easy to test against temporary PostgreSQL databases.
 
 ---
 
@@ -319,7 +318,7 @@ mounted at:
 /usr/src/app/data
 ```
 
-This gives persistent SQLite storage for Docker runs.
+This gives persistent PostgreSQL storage for Docker runs.
 
 Current limitation: because `/usr/src/app/data` is a named volume, repo CSV files under `data/demo` are not automatically present inside that path. The intended direction is DB-backed demo data instead of runtime demo CSV reads.
 
@@ -340,7 +339,7 @@ Current coverage:
 - domain merge behavior
 - signal generation behavior
 - sentiment service behavior
-- SQLite repository round-trips
+- PostgreSQL repository round-trips
 - API route success and validation paths
 - fetcher behavior with mocked external boundaries
 - missing API key behavior
@@ -350,27 +349,8 @@ Current coverage:
 
 Testing rule of thumb:
 
-- Use real temporary SQLite DBs for repository tests.
+- Use real temporary PostgreSQL DBs for repository tests.
 - Use monkeypatching for external services, cache path decisions, and API route dependencies.
 - Keep network calls out of unit tests.
 
 ---
-
-## Known Transitional Areas
-
-- Demo mode still relies on CSV files.
-- `src/infra/storage/sentiment_csv.py` is legacy CSV helper code.
-- Streamlit UI and FastAPI run as separate Docker services, but the UI still calls application use cases directly rather than calling the API over HTTP.
-- SQLite schema changes are handled by `CREATE TABLE IF NOT EXISTS`; there is no versioned migration tool such as Alembic yet.
-- `requirements.txt` is no longer the primary dependency source; `pyproject.toml` is.
-
----
-
-## Planned Direction
-
-- Move demo data from CSVs into a curated demo SQLite DB.
-- Remove legacy CSV runtime paths after DB-backed demo mode exists.
-- Make Streamlit call FastAPI endpoints for a cleaner API/UI boundary.
-- Add versioned migrations if the SQLite schema starts changing frequently.
-- Add scheduled/live ingestion.
-- Add anomaly detection and higher-level signal explanations.

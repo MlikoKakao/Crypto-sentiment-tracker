@@ -18,7 +18,6 @@ logger = logging.getLogger(__name__)
 def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     import feedparser  # type: ignore[import-untyped]
 
-    
     logger.info("Attempting to fetch cached data..")
     df = load_content_df(config, "news")
     if has_content_coverage(config, df):
@@ -112,7 +111,6 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     dupes[df["url"] == ""] = False
     df = df[~dupes]
     logger.debug(f"Size of final df: {len(df)}")
-    save_content_df(df, config.coin)
     return load_content_df(config, "news")
 
 

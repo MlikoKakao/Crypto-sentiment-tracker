@@ -8,6 +8,9 @@ from src.domain.market.dto import IndicatorConfig
 
 def run_scheduled_ingest() -> None:
     failed_coins = []
+    summary_posts = 0
+    summary_sentiment = 0
+    summary_signals = 0
     coins: tuple[Coin, ...] = ("BTC", "ETH", "XMR")
     now = datetime.now(timezone.utc)
     start_date = now - timedelta(days=1)
@@ -37,11 +40,17 @@ def run_scheduled_ingest() -> None:
                 f"{len(result.sentiment_df)} sentiment rows. "
                 f"Signal length: {len(indicators)} posts, for coin {coin}, "
             )
+            summary_posts += len(result.posts_df)
+            summary_sentiment += len(result.sentiment_df)
+            summary_signals += len(indicators)
         except Exception as e:
             print(f"Failed for {coin}: {e}")
             failed_coins.append(coin)
             continue
     print(f"Scheduled ingest finished. Failed coins: {failed_coins}")
+    print(f"{summary_posts} posts ingested.")
+    print(f"{summary_sentiment} sentimnet scored.")
+    print(f"{summary_signals} signals added.")
 
 
 def build_configs(

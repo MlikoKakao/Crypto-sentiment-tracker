@@ -58,7 +58,6 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
         prices.append({"timestamp": dt, "price": price})
 
     df = pd.DataFrame(prices)
-    save_price_df(df, config.coin)
     return load_price_df(config)
 
 

@@ -17,8 +17,6 @@ from src.infra.storage.db.content_repository import (
 logger = logging.getLogger(__name__)
 
 
-
-
 def get_reddit_client() -> Reddit:
     client_id = os.getenv("REDDIT_CLIENT_ID")
     client_secret = os.getenv("REDDIT_CLIENT_SECRET")
@@ -102,7 +100,6 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     if df.empty:
         return df
     df["text"] = df["text"].apply(clean_text)
-    save_content_df(df, config.coin)
     return load_content_df(config, "reddit")
 
 

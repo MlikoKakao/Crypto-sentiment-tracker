@@ -7,7 +7,7 @@
 
 Crypto Sentiment Tracker collects crypto-related posts/articles, scores their sentiment, combines that with market data, and shows the result in a Streamlit dashboard and FastAPI API.
 
-The current app supports live analysis, SQLite-backed caching/storage, basic technical indicators, lead/lag analysis, and a small backtest view.
+The current app supports live analysis, PostgreSQL-backed caching/storage, basic technical indicators, lead/lag analysis, and a small backtest view.
 
 Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 
@@ -21,7 +21,7 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 - Fetches market prices from Coinbase, with CoinGecko fallback infrastructure
 - Scores sentiment with VADER, TextBlob, RoBERTa, or FinBERT
 - Supports `analyzer="all"` aggregation across analyzers
-- Stores prices, content, sentiment, and signals in SQLite
+- Stores prices, content, sentiment, and signals in PostgreSQL
 - Exposes FastAPI endpoints for health, prices, sentiment, posts, signals, and ingest
 - Renders a Streamlit UI with charts, lead/lag analysis, indicators, benchmark views, and backtest output
 - Includes focused pytest coverage for domain logic, repositories, API routes, fetcher boundaries, and cache behavior
@@ -169,9 +169,9 @@ CMD ["python", "run_app.py"]
 
 - `api`: FastAPI service on host port `8002`
 - `ui`: Streamlit service on host port `8501`
-- `migrate`: one-off SQLite schema initialization command
+- `migrate`: one-off PostgreSQL schema initialization command
 
-Prepare the Docker-managed SQLite volume:
+Prepare the Docker-managed PostgreSQL volume:
 
 ```bash
 docker compose run --rm migrate
@@ -213,13 +213,13 @@ The Compose setup uses a named volume:
 app_data -> /usr/src/app/data
 ```
 
-That persists the SQLite database across container restarts. Because it is a named volume, bundled CSV demo files from the repo are not automatically available inside `/usr/src/app/data`; the project is moving toward DB-backed demo data.
+That persists the PostgreSQL database across container restarts. Because it is a named volume, bundled CSV demo files from the repo are not automatically available inside `/usr/src/app/data`; the project is moving toward DB-backed demo data.
 
 ---
 
 ## Storage
 
-Current persistent storage is SQLite:
+Current persistent storage is PostgreSQL:
 
 - schema: `src/infra/storage/db/schema.py`
 - connection: `src/infra/storage/db/connection.py`
@@ -241,7 +241,7 @@ Docker DB path:
 /usr/src/app/data/app.db
 ```
 
-Legacy/demo CSV code still exists in a few places, especially demo and benchmark flows. The intended direction is to move demo/runtime data fully into SQLite.
+Legacy/demo CSV code still exists in a few places, especially demo and benchmark flows. The intended direction is to move demo/runtime data fully into PostgreSQL.
 
 ---
 
@@ -257,7 +257,7 @@ Current test coverage includes:
 
 - domain merge and signal behavior
 - sentiment service behavior
-- SQLite repository round-trips with temporary DBs
+- PostgreSQL repository round-trips with temporary DBs
 - API route behavior with mocked repository dependencies
 - fetcher boundary behavior without real external API calls
 - sentiment cache hit/miss behavior
@@ -280,7 +280,7 @@ See `ARCHITECTURE.md` for the fuller system map.
 
 - [x] Refactor into layered project structure
 - [x] Add FastAPI API layer
-- [x] Add SQLite repositories for core cached data
+- [x] Add Sqlite repositories for core cached data
 - [x] Add Dockerfile and Docker Compose services
 - [x] Add healthcheck and migration service
 - [x] Replace remaining CSV demo/runtime paths with DB-backed demo data

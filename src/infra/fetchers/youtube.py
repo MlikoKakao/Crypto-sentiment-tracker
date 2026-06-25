@@ -24,7 +24,6 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
     import googleapiclient.discovery  # type: ignore
     from googleapiclient.errors import HttpError  # type: ignore
 
-
     df = load_content_df(config, "youtube")
     if has_content_coverage(config, df):
         logger.info(f"Success, fetched {len(df)} youtube posts in DB.")
@@ -112,7 +111,6 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     logger.info(f"Fetched {len(df)} YouTube posts for query='{config.coin}'")
 
-    save_content_df(df, config.coin)
     return load_content_df(config, "youtube")
 
 
