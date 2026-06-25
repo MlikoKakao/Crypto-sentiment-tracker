@@ -20,6 +20,14 @@ data/*.db-journal
 data/*.sqlite
 data/*.sqlite3
 *.egg-info/
+alembic/**/__pycache__/
+alembic/**/*.pyc
+.coverage
+htmlcov/
+dist/
+build/
+.vscode/
+.idea/
 
 !data/demo/
 !data/demo/*.csv

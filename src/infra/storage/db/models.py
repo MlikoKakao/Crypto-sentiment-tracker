@@ -2,15 +2,13 @@ from datetime import datetime
 
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import (
-    ForeignKey,
     ForeignKeyConstraint,
     PrimaryKeyConstraint,
     String,
-    Integer,
     DateTime,
     Float,
     Text,
-    null,
+    Index,
 )
 
 
@@ -64,3 +62,36 @@ class Sentiment(Base):
             ondelete="CASCADE",
         ),
     )
+
+
+class Signals(Base):
+    __tablename__ = "signals"
+
+    coin: Mapped[str] = mapped_column(String)
+    timestamp: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    signal_name: Mapped[str] = mapped_column(String)
+    value: Mapped[float] = mapped_column(Float)
+
+    __table_args__ = PrimaryKeyConstraint("coin", "timestamp", "signal_name")
+
+
+Index(
+    "idx_content_coin_source_timestamp", Content.coin, Content.source, Content.timestamp
+)
+
+Index("idx_content_coin_source_id", Content.coin, Content.source, Content.source_id)
+
+Index(
+    "idx_sentiment_coin_analyzer_source",
+    Sentiment.coin,
+    Sentiment.analyzer,
+    Sentiment.source,
+    Sentiment.content_hash,
+)
+
+Index(
+    "idx_signals_coin_signal_timestamp",
+    Signals.coin,
+    Signals.signal_name,
+    Signals.timestamp,
+)
