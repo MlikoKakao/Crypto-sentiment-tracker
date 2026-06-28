@@ -49,7 +49,7 @@ def run_scheduled_ingest() -> None:
             continue
     print(f"Scheduled ingest finished. Failed coins: {failed_coins}")
     print(f"{summary_posts} posts ingested.")
-    print(f"{summary_sentiment} sentimnet scored.")
+    print(f"{summary_sentiment} sentiment scored.")
     print(f"{summary_signals} signals added.")
 
 

@@ -24,7 +24,7 @@ services:
   migrate:
     image: crypto-sentiment-api:latest
     logging: *default-logging
-    command: python -c "from src.infra.storage.db.schema import init_db; init_db()"
+    command: alembic upgrade head
     env_file:
       - .env
     environment:

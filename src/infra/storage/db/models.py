@@ -9,6 +9,7 @@ from sqlalchemy import (
     Float,
     Text,
     Index,
+    text,
 )
 
 
@@ -48,7 +49,10 @@ class Sentiment(Base):
     content_hash: Mapped[str] = mapped_column(String)
     analyzer: Mapped[str] = mapped_column(String)
     sentiment: Mapped[float] = mapped_column(Float)
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=text("CURRENT_TIMESTAMP"),
+    )
 
     __table_args__ = (
         PrimaryKeyConstraint("coin", "source", "content_hash", "analyzer"),
@@ -72,7 +76,7 @@ class Signals(Base):
     signal_name: Mapped[str] = mapped_column(String)
     value: Mapped[float] = mapped_column(Float)
 
-    __table_args__ = PrimaryKeyConstraint("coin", "timestamp", "signal_name")
+    __table_args__ = (PrimaryKeyConstraint("coin", "timestamp", "signal_name"),)
 
 
 Index(

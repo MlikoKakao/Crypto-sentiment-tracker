@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from src.infra.storage.db.schema import init_db
 from src.app.secrets import load_app_secrets
 
 from src.presentation.api.routes.health import router as health_router
@@ -13,7 +12,6 @@ from src.presentation.api.routes.ingest import router as ingest_router
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     load_app_secrets()
-    init_db()
     yield
 
 

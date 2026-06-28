@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 
 dependencies = [
+    "alembic",
     "pandas",
     "numpy",
     "scipy",
@@ -19,6 +20,7 @@ dependencies = [
     "pydantic",
     "statsmodels",
     "sqlalchemy",
+    "psycopg[binary]",
     "psycopg2-binary",
 ]
 

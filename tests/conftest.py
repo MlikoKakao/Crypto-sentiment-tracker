@@ -1,10 +1,11 @@
 from datetime import datetime
 
 import pytest
+from alembic import command
+from alembic.config import Config
 
 from src.app.dto import AnalysisConfig
 from src.domain.market.dto import IndicatorConfig
-from src.infra.storage.db.schema import init_db
 from src.infra.storage.db.connection import get_engine
 
 TEST_DATABASE_URL = "postgresql://postgres:postgres@localhost:5433/crypto_test"
@@ -14,7 +15,8 @@ TEST_DATABASE_URL = "postgresql://postgres:postgres@localhost:5433/crypto_test"
 def postgres_test_db(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("DATABASE_URL", TEST_DATABASE_URL)
 
-    init_db()
+    get_engine.cache_clear()
+    command.upgrade(Config("alembic.ini"), "head")
 
     engine = get_engine()
 

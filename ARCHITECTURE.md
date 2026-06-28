@@ -304,7 +304,7 @@ pip install -e .
 
 - `api`: FastAPI service on container port `8000`, host port `8002`
 - `ui`: Streamlit service on container/host port `8501`
-- `migrate`: one-off command that calls `init_db()`
+- `migrate`: one-off command that runs `alembic upgrade head`
 
 Compose uses a named volume:
 
