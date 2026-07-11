@@ -34,3 +34,31 @@ build/
 !data/benchmark/
 !data/benchmark/benchmark_labeled.csv
 !.env.example
+
+# ==========================
+# .NET / C#
+# ==========================
+
+bin/
+obj/
+
+.vs/
+
+TestResults/
+
+*.user
+*.rsuser
+*.suo
+
+# Rider
+.idea/
+
+# Visual Studio Code C# extension
+.vscode/*.code-workspace
+
+# NuGet
+*.nupkg
+*.snupkg
+
+# Local settings
+appsettings.Development.json
