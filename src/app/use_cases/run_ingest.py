@@ -44,8 +44,7 @@ def fetch_and_save_posts(config: AnalysisConfig) -> pd.DataFrame:
     from src.infra.storage.db.content_repository import save_content_df
 
     posts_df = fetch_posts(config)
-    save_content_df(posts_df, config.coin)
-    return posts_df
+    return save_content_df(posts_df, config.coin)
 
 
 def analyze_and_save_sentiment(
@@ -53,6 +52,9 @@ def analyze_and_save_sentiment(
 ) -> pd.DataFrame:
     from src.domain.sentiment.service import add_sentiment_to_df
     from src.infra.storage.db.sentiment_repository import save_sentiment_df
+
+    if posts_df.empty:
+        return pd.DataFrame()
 
     if config.analyzer == "all":
         from src.domain.sentiment.registry import ALL_ANALYZER_NAMES

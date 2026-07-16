@@ -13,7 +13,7 @@ from src.shared.db_helpers import (
 )
 
 
-def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
+def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> pd.DataFrame:
     df = content_df.copy()
     df = df.rename(columns={"id": "source_id"})
     df["coin"] = coin.upper()
@@ -32,7 +32,7 @@ def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
         ].to_dict(orient="records"),
     )
     if not rows:
-        return
+        return df
 
     engine = get_engine()
 
@@ -63,6 +63,8 @@ def save_content_df(content_df: pd.DataFrame, coin: str = "btc") -> None:
             ),
             rows,
         )
+
+    return df
 
 
 def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
