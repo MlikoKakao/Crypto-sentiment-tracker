@@ -3,7 +3,6 @@ from src.app.defaults import default_config
 from src.shared.helpers import save_csv
 
 from src.infra.storage.db.content_repository import (
-    save_content_df,
     load_content_df,
     has_content_coverage,
 )
@@ -111,7 +110,7 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     dupes[df["url"] == ""] = False
     df = df[~dupes]
     logger.debug(f"Size of final df: {len(df)}")
-    return load_content_df(config, "news")
+    return df
 
 
 if __name__ == "__main__":

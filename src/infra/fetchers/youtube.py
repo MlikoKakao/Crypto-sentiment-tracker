@@ -6,7 +6,6 @@ import logging
 from src.app.defaults import default_config
 from src.shared.helpers import clean_text, save_csv
 from src.infra.storage.db.content_repository import (
-    save_content_df,
     load_content_df,
     has_content_coverage,
 )
@@ -111,7 +110,7 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     logger.info(f"Fetched {len(df)} YouTube posts for query='{config.coin}'")
 
-    return load_content_df(config, "youtube")
+    return df
 
 
 if __name__ == "__main__":

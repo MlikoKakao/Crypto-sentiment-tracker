@@ -1,4 +1,6 @@
 from dataclasses import replace
+from datetime import datetime, timezone
+from types import SimpleNamespace
 
 import pandas as pd
 import pytest
@@ -63,6 +65,37 @@ def test_reddit_client_without_api_key_raises_runtime_error(
 
     with pytest.raises(RuntimeError, match="REDDIT_CLIENT_ID"):
         reddit.get_reddit_client()
+
+
+def test_reddit_fetch_returns_newly_fetched_posts_on_cache_miss(
+    monkeypatch: pytest.MonkeyPatch,
+    analysis_config: AnalysisConfig,
+) -> None:
+    submission = SimpleNamespace(
+        created_utc=datetime(2024, 1, 1, 0, 30, tzinfo=timezone.utc).timestamp(),
+        title="Bitcoin update",
+        selftext="BTC adoption is growing",
+        id="post-1",
+        stickied=False,
+        url="https://example.com/post-1",
+        permalink="/r/bitcoin/post-1",
+        score=10,
+        upvote_ratio=0.9,
+        num_comments=3,
+        subreddit=SimpleNamespace(display_name="bitcoin"),
+    )
+    reddit_client = SimpleNamespace(
+        subreddit=lambda name: SimpleNamespace(new=lambda limit: [submission])
+    )
+
+    monkeypatch.setattr(reddit, "load_content_df", lambda config, source: pd.DataFrame())
+    monkeypatch.setattr(reddit, "has_content_coverage", lambda config, df: False)
+    monkeypatch.setattr(reddit, "get_reddit_client", lambda: reddit_client)
+
+    result = reddit.fetch_reddit_posts(analysis_config)
+
+    assert result["source_id"].tolist() == ["post-1"]
+    assert result["source"].tolist() == ["reddit"]
 
 
 def test_youtube_fetch_without_api_key_raises_runtime_error(

@@ -9,7 +9,6 @@ import logging
 from src.app.defaults import default_config
 from src.domain.market.filtering import contains_coin
 from src.infra.storage.db.content_repository import (
-    save_content_df,
     load_content_df,
     has_content_coverage,
 )
@@ -100,7 +99,7 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     if df.empty:
         return df
     df["text"] = df["text"].apply(clean_text)
-    return load_content_df(config, "reddit")
+    return df
 
 
 if __name__ == "__main__":
