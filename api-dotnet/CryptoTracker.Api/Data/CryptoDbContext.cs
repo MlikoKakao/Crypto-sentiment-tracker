@@ -29,5 +29,21 @@ public class CryptoDbContext : DbContext
 
                     entity.Property(price => price.PriceValue).HasColumnName("price");
                 });
+
+        modelBuilder.Entity<Post>(entity =>
+                {
+                    entity.ToTable("posts");
+
+                    entity.HasKey(price => new
+                    {
+                        price.Coin,
+                        price.Timestamp
+                    });
+                    entity.Property(price => price.Coin).HasColumnName("coin");
+
+                    entity.Property(price => price.Timestamp).HasColumnName("timestamp");
+
+                    entity.Property(price => price.PriceValue).HasColumnName("price");
+                });
     }
 }
