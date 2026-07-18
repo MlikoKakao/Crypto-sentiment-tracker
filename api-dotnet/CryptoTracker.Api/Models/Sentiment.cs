@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CryptoTracker.Api.Models;
 
-public class Post
+public class Sentiment
 {
 
     [Column("coin")]
@@ -19,7 +19,7 @@ public class Post
     public string Analyzer { get; set; } = "";
 
     [Column("sentiment")]
-    public decimal Sentiment { get; set; }
+    public double SentimentValue { get; set; }
 
     [Column("created_at")]
     public DateTimeOffset CreatedAt { get; set; }

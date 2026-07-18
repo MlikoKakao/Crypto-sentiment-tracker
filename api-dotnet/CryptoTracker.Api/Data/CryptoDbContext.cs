@@ -11,9 +11,10 @@ public class CryptoDbContext : DbContext
     }
 
     public DbSet<Price> Prices => Set<Price>();
+    public DbSet<Sentiment> Sentiments => Set<Sentiment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    {   
         modelBuilder.Entity<Price>(entity =>
                 {
                     entity.ToTable("prices");
@@ -30,28 +31,28 @@ public class CryptoDbContext : DbContext
                     entity.Property(price => price.PriceValue).HasColumnName("price");
                 });
 
-        modelBuilder.Entity<Post>(entity =>
+        modelBuilder.Entity<Sentiment>(entity =>
                 {
-                    entity.ToTable("posts");
+                    entity.ToTable("sentiment");
 
-                    entity.HasKey(post => new
+                    entity.HasKey(Sentiment => new
                     {
-                        post.Coin,
-                        post.Source,
-                        post.ContentHash,
-                        post.Analyzer,
+                        Sentiment.Coin,
+                        Sentiment.Source,
+                        Sentiment.ContentHash,
+                        Sentiment.Analyzer,
                     });
-                    entity.Property(post => post.Coin).HasColumnName("coin");
+                    entity.Property(Sentiment => Sentiment.Coin).HasColumnName("coin");
 
-                    entity.Property(post => post.Source).HasColumnName("source");
+                    entity.Property(Sentiment => Sentiment.Source).HasColumnName("source");
 
-                    entity.Property(post => post.ContentHash).HasColumnName("content_hash");
+                    entity.Property(Sentiment => Sentiment.ContentHash).HasColumnName("content_hash");
 
-                    entity.Property(post => post.Analyzer).HasColumnName("analyzer");
+                    entity.Property(Sentiment => Sentiment.Analyzer).HasColumnName("analyzer");
 
-                    entity.Property(post => post.Sentiment).HasColumnName("sentiment");
+                    entity.Property(Sentiment => Sentiment.SentimentValue).HasColumnName("sentiment");
 
-                    entity.Property(post => post.CreatedAt).HasColumnName("created_at");
+                    entity.Property(Sentiment => Sentiment.CreatedAt).HasColumnName("created_at");
                 });
     }
 }
