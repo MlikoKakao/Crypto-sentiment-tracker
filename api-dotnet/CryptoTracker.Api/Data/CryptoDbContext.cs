@@ -34,16 +34,24 @@ public class CryptoDbContext : DbContext
                 {
                     entity.ToTable("posts");
 
-                    entity.HasKey(price => new
+                    entity.HasKey(post => new
                     {
-                        price.Coin,
-                        price.Timestamp
+                        post.Coin,
+                        post.Source,
+                        post.ContentHash,
+                        post.Analyzer,
                     });
-                    entity.Property(price => price.Coin).HasColumnName("coin");
+                    entity.Property(post => post.Coin).HasColumnName("coin");
 
-                    entity.Property(price => price.Timestamp).HasColumnName("timestamp");
+                    entity.Property(post => post.Source).HasColumnName("source");
 
-                    entity.Property(price => price.PriceValue).HasColumnName("price");
+                    entity.Property(post => post.ContentHash).HasColumnName("content_hash");
+
+                    entity.Property(post => post.Analyzer).HasColumnName("analyzer");
+
+                    entity.Property(post => post.Sentiment).HasColumnName("sentiment");
+
+                    entity.Property(post => post.CreatedAt).HasColumnName("created_at");
                 });
     }
 }

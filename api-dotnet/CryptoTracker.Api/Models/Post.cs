@@ -20,4 +20,7 @@ public class Post
 
     [Column("sentiment")]
     public decimal Sentiment { get; set; }
+
+    [Column("created_at")]
+    public DateTimeOffset CreatedAt { get; set; }
 }
