@@ -13,12 +13,14 @@ def fetch_posts(config: AnalysisConfig) -> pd.DataFrame:
             fetcher = fetchers.get(source)
             if fetcher:
                 df = fetcher(config)
-
+                print(f"{config.coin} {source}: fetched {len(df)} rows")
                 if not df.empty:
                     frames.append(df)
+                
         except Exception as e:
             print(f"Source {source} failed: {e}")
             continue
+        
     if not frames:
         return pd.DataFrame(
             columns=["timestamp", "text", "sentiment", "source", "source_id", "url"]
@@ -27,6 +29,7 @@ def fetch_posts(config: AnalysisConfig) -> pd.DataFrame:
     all_cols = sorted(set().union(*(frame.columns for frame in frames)))
     frames = [frame.reindex(columns=all_cols) for frame in frames]
 
+    
     return pd.concat(frames, ignore_index=True)
 
 def get_fetchers():
