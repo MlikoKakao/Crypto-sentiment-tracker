@@ -14,7 +14,7 @@ public class CryptoDbContext : DbContext
     public DbSet<Sentiment> Sentiments => Set<Sentiment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {   
+    {
         modelBuilder.Entity<Price>(entity =>
                 {
                     entity.ToTable("prices");
@@ -53,6 +53,30 @@ public class CryptoDbContext : DbContext
                     entity.Property(Sentiment => Sentiment.SentimentValue).HasColumnName("sentiment");
 
                     entity.Property(Sentiment => Sentiment.CreatedAt).HasColumnName("created_at");
+                });
+
+        modelBuilder.Entity<Post>(entity =>
+                {
+                    entity.ToTable("content_items");
+
+                    entity.HasKey(Post => new
+                    {
+                        Post.Coin,
+                        Post.Source,
+                        Post.ContentHash
+                    });
+                    entity.Property(Post => Post.Coin).HasColumnName("coin");
+
+                    entity.Property(Post => Post.Source).HasColumnName("source");
+
+                    entity.Property(Post => Post.SourceId).HasColumnName("source_id");
+
+                    entity.Property(Post => Post.Timestamp).HasColumnName("timestamp");
+
+                    entity.Property(Post => Post.Text).HasColumnName("text");
+
+                    entity.Property()
+			    //TODO: Finish Post
                 });
     }
 }
