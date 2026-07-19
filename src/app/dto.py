@@ -21,6 +21,7 @@ class AnalysisConfig:
     sources: tuple[Source, ...]
     num_posts: int
     subreddits: tuple[str, ...]
+    force_refresh: bool = False
 
     def _to_utc(self, dt: datetime) -> datetime:
         if dt.tzinfo is None:

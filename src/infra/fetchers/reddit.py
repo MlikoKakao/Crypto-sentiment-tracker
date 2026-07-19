@@ -36,7 +36,8 @@ def get_reddit_client() -> Reddit:
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info("Attempting to fetch cached data..")
     df = load_content_df(config, "reddit")
-    if has_content_coverage(config, df):
+
+    if not config.force_refresh and has_content_coverage(config, df):
         return df
 
     logger.info(
