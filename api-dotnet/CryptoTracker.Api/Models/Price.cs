@@ -5,10 +5,10 @@ namespace CryptoTracker.Api.Models;
 public class Price
 {
     [Column("coin")]
-    public string Coin { get; set; } = string.Empty;
+    public string Coin { get; set; } = "";
 
     [Column("timestamp")]
-    public DateTime Timestamp { get; set; }
+    public DateTimeOffset Timestamp { get; set; }
 
     [Column("price")]
     public decimal PriceValue { get; set; }

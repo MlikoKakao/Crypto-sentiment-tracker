@@ -90,7 +90,7 @@ services:
 
   ingest-worker:
     image: crypto-sentiment-api:latest
-    restart: unless-stopped
+    restart: "no"
     logging: *default-logging
     command: python -m src.app.jobs.scheduled_ingest
     env_file:

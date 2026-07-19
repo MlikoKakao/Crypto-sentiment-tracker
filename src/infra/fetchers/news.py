@@ -19,7 +19,8 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     logger.info("Attempting to fetch cached data..")
     df = load_content_df(config, "news")
-    if has_content_coverage(config, df):
+
+    if not config.force_refresh and has_content_coverage(config, df):
         return df
 
     logger.info("Attempting to fetch news for %s..", config.coin)

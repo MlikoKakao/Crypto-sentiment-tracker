@@ -36,7 +36,8 @@ def get_reddit_client() -> Reddit:
 def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info("Attempting to fetch cached data..")
     df = load_content_df(config, "reddit")
-    if has_content_coverage(config, df):
+
+    if not config.force_refresh and has_content_coverage(config, df):
         return df
 
     logger.info(
@@ -45,7 +46,8 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
 
     posts: list[dict[str, object]] = []
     seen: set[str] = set()
-
+    scanned = 0
+    
     reddit = get_reddit_client()
 
     if len(config.subreddits) == 0:
@@ -55,6 +57,7 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
     for sub in config.subreddits:
         for submission in reddit.subreddit(sub).new(limit=config.num_posts):
             time_posted = datetime.fromtimestamp(submission.created_utc, tz=utc)
+            scanned += 1
 
             if time_posted > config.end_date:
                 continue
@@ -89,6 +92,11 @@ def fetch_reddit_posts(config: AnalysisConfig) -> pd.DataFrame:
 
             if len(posts) >= config.num_posts:
                 break
+            
+        print(
+        f"{config.coin} r/{sub}: scanned={scanned}, matched={len(posts)}",
+        flush=True,
+        )
         if len(posts) >= config.num_posts:
             break
 

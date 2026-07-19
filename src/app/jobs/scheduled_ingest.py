@@ -13,22 +13,22 @@ def run_scheduled_ingest() -> None:
     summary_signals = 0
     coins: tuple[Coin, ...] = ("BTC", "ETH", "XMR")
     now = datetime.now(timezone.utc)
-    start_date = now - timedelta(days=1)
+    start_date = now - timedelta(hours=3)
     end_date = now
 
     analyzer: Analyzer = "vader"
     sources: tuple[Source, ...] = ("reddit", "news", "youtube")
     num_posts = 1000
-    subreddits: tuple[str, ...] = (
-        "CryptoCurrency",
-        "CryptocurrencyTrading",
-        "CryptoMarkets",
-    )
+    subreddits_by_coin = {
+    "BTC": ("CryptoCurrency", "CryptoMarkets", "Bitcoin", "btc", "BitcoinMarkets"),
+    "ETH": ("CryptoCurrency", "CryptoMarkets", "ethereum", "ethtrader", "eth"),
+    "XMR": ("CryptoCurrency", "CryptoMarkets", "monero", "xmrtrader"),
+}
 
     for coin in coins:
         try:
             config, signals_config = build_configs(
-                coin, start_date, end_date, analyzer, sources, num_posts, subreddits
+                coin, start_date, end_date, analyzer, sources, num_posts, subreddits_by_coin[coin], True
             )
 
             result = run_ingest(config)
@@ -64,11 +64,12 @@ def build_configs(
     use_sma: bool = True,
     use_rsi: bool = True,
     use_macd: bool = True,
+    force_refresh: bool = False
 ) -> tuple[AnalysisConfig, IndicatorConfig]:
     configs = (
         (
             build_ingest_config(
-                coin, start_date, end_date, analyzer, sources, num_posts, subreddits
+                coin, start_date, end_date, analyzer, sources, num_posts, subreddits, force_refresh
             )
         ),
         (build_signal_config(coin, start_date, end_date, use_sma, use_rsi, use_macd)),
@@ -85,6 +86,7 @@ def build_ingest_config(
     sources: tuple[Source, ...],
     num_posts: int,
     subreddits: tuple[str, ...],
+    force_refresh: bool = False,
 ) -> AnalysisConfig:
     return AnalysisConfig(
         coin=coin,
@@ -94,6 +96,7 @@ def build_ingest_config(
         sources=sources,
         num_posts=num_posts,
         subreddits=subreddits,
+        force_refresh=force_refresh,
     )
 
 

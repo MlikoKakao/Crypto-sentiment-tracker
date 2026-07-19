@@ -24,8 +24,8 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
     from googleapiclient.errors import HttpError  # type: ignore
 
     df = load_content_df(config, "youtube")
-    if has_content_coverage(config, df):
-        logger.info(f"Success, fetched {len(df)} youtube posts in DB.")
+    
+    if not config.force_refresh and has_content_coverage(config, df):
         return df
 
     api_service_name = "youtube"

@@ -293,6 +293,7 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] CD implementation
 - [ ] Kubernetes deployment demo - delayed, other priorities more important
 - [ ] Cloud deployment
+- [ ] Move API into .NET
 
 ## License
 

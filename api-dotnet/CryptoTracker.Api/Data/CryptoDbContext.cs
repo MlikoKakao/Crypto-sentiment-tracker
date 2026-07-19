@@ -11,9 +11,10 @@ public class CryptoDbContext : DbContext
     }
 
     public DbSet<Price> Prices => Set<Price>();
+    public DbSet<Sentiment> Sentiments => Set<Sentiment>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
+    {   
         modelBuilder.Entity<Price>(entity =>
                 {
                     entity.ToTable("prices");
@@ -28,6 +29,30 @@ public class CryptoDbContext : DbContext
                     entity.Property(price => price.Timestamp).HasColumnName("timestamp");
 
                     entity.Property(price => price.PriceValue).HasColumnName("price");
+                });
+
+        modelBuilder.Entity<Sentiment>(entity =>
+                {
+                    entity.ToTable("sentiment");
+
+                    entity.HasKey(Sentiment => new
+                    {
+                        Sentiment.Coin,
+                        Sentiment.Source,
+                        Sentiment.ContentHash,
+                        Sentiment.Analyzer,
+                    });
+                    entity.Property(Sentiment => Sentiment.Coin).HasColumnName("coin");
+
+                    entity.Property(Sentiment => Sentiment.Source).HasColumnName("source");
+
+                    entity.Property(Sentiment => Sentiment.ContentHash).HasColumnName("content_hash");
+
+                    entity.Property(Sentiment => Sentiment.Analyzer).HasColumnName("analyzer");
+
+                    entity.Property(Sentiment => Sentiment.SentimentValue).HasColumnName("sentiment");
+
+                    entity.Property(Sentiment => Sentiment.CreatedAt).HasColumnName("created_at");
                 });
     }
 }
