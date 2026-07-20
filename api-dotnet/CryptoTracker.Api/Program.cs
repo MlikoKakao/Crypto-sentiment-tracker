@@ -17,6 +17,9 @@ builder.Services.AddDbContext<CryptoDbContext>(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<PriceService>();
+builder.Services.AddScoped<PostService>();
+builder.Services.AddScoped<SentimentService>();
+builder.Services.AddScoped<SignalService>();
 
 var app = builder.Build();
 

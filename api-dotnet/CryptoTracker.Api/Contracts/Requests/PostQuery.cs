@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CryptoTracker.Api.Contracts.Requests;
 
-public class SentimentQuery
+public class PostQuery
 {
     [FromQuery(Name = "coin")]
     public string? Coin { get; init; }
@@ -16,9 +16,6 @@ public class SentimentQuery
     [FromQuery(Name = "source")]
     public List<string>? Source { get; init; }
 
-    [FromQuery(Name = "analyzer")]
-    public string? Analyzer { get; init; }
-
-    [FromQuery(Name = "numSentiment")]
-    public int? NumSentiment { get; init; }
+    [FromQuery(Name = "numPosts")]
+    public int? NumPosts { get; init; }
 }

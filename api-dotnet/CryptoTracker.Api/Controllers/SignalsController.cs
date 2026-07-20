@@ -1,8 +1,7 @@
-using CryptoTracker.Api.Data;
-using CryptoTracker.Api.Validation;
-using CryptoTracker.Api.Models;
+using CryptoTracker.Api.Contracts.Requests;
+using CryptoTracker.Api.Contracts.Responses;
+using CryptoTracker.Api.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CryptoTracker.Api.Controllers;
 
@@ -10,51 +9,26 @@ namespace CryptoTracker.Api.Controllers;
 [Route("signals")]
 public class SignalsController : ControllerBase
 {
-    private readonly CryptoDbContext _database;
+    private readonly SignalService _signalService;
 
-    public SignalsController(CryptoDbContext database)
+    public SignalsController(SignalService signalService)
     {
-        _database = database;
+        _signalService = signalService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Signal>>> GetSignals(
-        [FromQuery] string? coin,
-        [FromQuery(Name = "start_date")] DateTimeOffset? startDate,
-        [FromQuery(Name = "end_date")] DateTimeOffset? endDate,
-        [FromQuery] List<string>? signalName,
-        [FromQuery] int? numSignals)
+    public async Task<ActionResult<List<SignalResponse>>> GetSignals(
+        [FromQuery] SignalQuery request)
     {
-        string resolvedCoin = string.IsNullOrWhiteSpace(coin)
-            ? "BTC"
-            : coin.ToUpperInvariant();
-        List<string> resolvedSignalNames = signalName is { Count: > 0 }
-            ? signalName
-            : ["sma_20", "sma_50"];
-        DateTimeOffset resolvedEndDate = endDate ?? DateTimeOffset.UtcNow;
-        DateTimeOffset resolvedStartDate =
-            startDate ?? resolvedEndDate.AddDays(-7);
-
-        if (!DateRangeValidator.IsValid(resolvedStartDate, resolvedEndDate))
+        try
         {
-            return BadRequest("end_date must be on or after start_date");
+            List<SignalResponse> signals =
+                await _signalService.GetSignalsAsync(request);
+            return Ok(signals);
         }
-
-        IQueryable<Signal> query = _database.Signals;
-
-        query = query.Where(signal => signal.Coin == resolvedCoin);
-        query = query.Where(signal => signal.Timestamp >= resolvedStartDate);
-        query = query.Where(signal => signal.Timestamp <= resolvedEndDate);
-        query = query.Where(
-            signal => resolvedSignalNames.Contains(signal.SignalName));
-
-        int limit = Math.Clamp(numSignals ?? 100, 1, 1000);
-
-        List<Signal> signals = await query
-            .OrderByDescending(signal => signal.Timestamp)
-            .Take(limit)
-            .ToListAsync();
-
-        return Ok(signals);
+        catch (ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
     }
 }
