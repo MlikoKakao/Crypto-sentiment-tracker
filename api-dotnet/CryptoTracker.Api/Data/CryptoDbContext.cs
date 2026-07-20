@@ -12,6 +12,8 @@ public class CryptoDbContext : DbContext
 
     public DbSet<Price> Prices => Set<Price>();
     public DbSet<Sentiment> Sentiments => Set<Sentiment>();
+    public DbSet<Post> Posts => Set<Post>();
+    public DbSet<Signal> Signals => Set<Signal>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -75,8 +77,29 @@ public class CryptoDbContext : DbContext
 
                     entity.Property(Post => Post.Text).HasColumnName("text");
 
-                    entity.Property()
-			    //TODO: Finish Post
+                    entity.Property(Post => Post.Url).HasColumnName("url");
+
+                    entity.Property(Post => Post.ContentHash).HasColumnName("content_hash");
+                });
+
+        modelBuilder.Entity<Signal>(entity =>
+                {
+                    entity.ToTable("signals");
+
+                    entity.HasKey(signal => new
+                    {
+                        signal.Coin,
+                        signal.Timestamp,
+                        signal.SignalName
+                    });
+
+                    entity.Property(signal => signal.Coin).HasColumnName("coin");
+
+                    entity.Property(signal => signal.Timestamp).HasColumnName("timestamp");
+
+                    entity.Property(signal => signal.SignalName).HasColumnName("signal_name");
+
+                    entity.Property(signal => signal.Value).HasColumnName("value");
                 });
     }
 }
