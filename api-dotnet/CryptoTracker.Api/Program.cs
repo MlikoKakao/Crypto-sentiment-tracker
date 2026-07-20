@@ -1,4 +1,5 @@
 using CryptoTracker.Api.Data;
+using CryptoTracker.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddDbContext<CryptoDbContext>(options =>
 });
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<PriceService>();
 
 var app = builder.Build();
 

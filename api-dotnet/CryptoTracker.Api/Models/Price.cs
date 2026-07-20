@@ -11,5 +11,5 @@ public class Price
     public DateTimeOffset Timestamp { get; set; }
 
     [Column("price")]
-    public decimal PriceValue { get; set; }
+    public double PriceValue { get; set; }
 }

@@ -1,5 +1,6 @@
 using CryptoTracker.Api.Data;
 using CryptoTracker.Api.Models;
+using CryptoTracker.Api.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,27 +20,28 @@ public class PostsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Post>>> GetPosts(
         [FromQuery] string? coin,
-        DateTimeOffset? startDate,
-        DateTimeOffset? endDate,
-        List<string>? source,
-        int? numPosts)
+        [FromQuery(Name = "start_date")] DateTimeOffset? startDate,
+        [FromQuery(Name = "end_date")] DateTimeOffset? endDate,
+        [FromQuery] List<string>? source,
+        [FromQuery] int? numPosts)
     {
+        string resolvedCoin = string.IsNullOrWhiteSpace(coin)
+            ? "BTC"
+            : coin.ToUpperInvariant();
+        DateTimeOffset resolvedEndDate = endDate ?? DateTimeOffset.UtcNow;
+        DateTimeOffset resolvedStartDate =
+            startDate ?? resolvedEndDate.AddDays(-7);
+
+        if (!DateRangeValidator.IsValid(resolvedStartDate, resolvedEndDate))
+        {
+            return BadRequest("end_date must be on or after start_date");
+        }
+
         IQueryable<Post> query = _database.Posts;
 
-        if (!string.IsNullOrWhiteSpace(coin))
-        {
-            query = query.Where(post => post.Coin == coin);
-        }
-
-        if (startDate.HasValue)
-        {
-            query = query.Where(post => post.Timestamp >= startDate.Value);
-        }
-
-        if (endDate.HasValue)
-        {
-            query = query.Where(post => post.Timestamp <= endDate.Value);
-        }
+        query = query.Where(post => post.Coin == resolvedCoin);
+        query = query.Where(post => post.Timestamp >= resolvedStartDate);
+        query = query.Where(post => post.Timestamp <= resolvedEndDate);
 
         if (source is { Count: > 0 })
         {

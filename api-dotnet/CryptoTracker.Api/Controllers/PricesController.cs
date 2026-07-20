@@ -1,5 +1,7 @@
 using CryptoTracker.Api.Data;
-using CryptoTracker.Api.Models;
+using CryptoTracker.Api.Services;
+using CryptoTracker.Api.Contracts.Requests;
+using CryptoTracker.Api.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,30 +11,27 @@ namespace CryptoTracker.Api.Controllers;
 [Route("prices")]
 public class PricesController : ControllerBase
 {
-    private readonly CryptoDbContext _database;
+    private readonly PriceService _priceService;
 
-    public PricesController(CryptoDbContext database)
+    public PricesController(PriceService priceService)
     {
-        _database = database;
+        _priceService = priceService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Price>>> GetPrices(
-    [FromQuery] string? coin
-)
+    public async Task<ActionResult<List<PriceResponse>>> GetPrices(
+        [FromQuery] PriceQuery request)
     {
-        IQueryable<Price> query = _database.Prices;
-
-        if (!string.IsNullOrWhiteSpace(coin))
+        try
         {
-            query = query.Where(price => price.Coin == coin);
+            List<PriceResponse> prices = 
+                await _priceService.GetPricesAsync(request);
+
+            return Ok(prices);
         }
-
-        List<Price> prices = await query
-            .OrderByDescending(price => price.Timestamp)
-            .Take(100)
-            .ToListAsync();
-
-        return Ok(prices);
+        catch(ArgumentException exception)
+        {
+            return BadRequest(exception.Message);
+        }
     }
 }
