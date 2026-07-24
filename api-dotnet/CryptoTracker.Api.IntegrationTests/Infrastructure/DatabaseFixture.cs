@@ -1,4 +1,3 @@
-using System;
 using CryptoTracker.Api.Data;
 using Microsoft.EntityFrameworkCore;
 
