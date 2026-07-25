@@ -1,4 +1,5 @@
 using CryptoTracker.Api.Data;
+using CryptoTracker.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class DatabaseFixture : IDisposable
@@ -11,7 +12,7 @@ public class DatabaseFixture : IDisposable
 
         TemplateDatabaseName = $"crypto_db_test_{id}";
 
-        Connection = $"Host=localhost;Database={TemplateDatabaseName};Username=postgre_test;Password=postgre_test";
+        Connection = $"Host=localhost;Database={TemplateDatabaseName};Username=postgres;Password=postgres";
 
         var optionsBuilder = new DbContextOptionsBuilder<CryptoDbContext>();
         optionsBuilder.UseNpgsql(Connection);
@@ -20,9 +21,55 @@ public class DatabaseFixture : IDisposable
     
         _context.Database.EnsureCreated();
 
+        var firstTimestamp =
+            new DateTimeOffset(2026, 7, 20, 0, 0, 0, TimeSpan.Zero);
+        var secondTimestamp = firstTimestamp.AddHours(1);
 
+        _context.Prices.AddRange(
+            new Price
+            {
+                Coin = "BTC",
+                Timestamp = firstTimestamp,
+                PriceValue = 118_000
+            },
+            new Price
+            {
+                Coin = "ETH",
+                Timestamp = secondTimestamp,
+                PriceValue = 3_600
+            }
+        );
 
+        _context.Posts.Add(new Post
+        {
+            Coin = "BTC",
+            Source = "reddit",
+            SourceId = "test-post-1",
+            Timestamp = firstTimestamp,
+            Text = "Bitcoin sentiment is positive today.",
+            Url = "https://example.com/test-post-1",
+            ContentHash = "test-content-hash-1"
+        });
 
+        _context.Sentiments.Add(new Sentiment
+        {
+            Coin = "BTC",
+            Source = "reddit",
+            ContentHash = "test-content-hash-1",
+            Analyzer = "test-analyzer",
+            SentimentValue = 0.75,
+            CreatedAt = secondTimestamp
+        });
+
+        _context.Signals.Add(new Signal
+        {
+            Coin = "BTC",
+            Timestamp = secondTimestamp,
+            SignalName = "combined-sentiment",
+            Value = 0.75
+        });
+
+        _context.SaveChanges();
 
         _context.Database.CloseConnection();
     }

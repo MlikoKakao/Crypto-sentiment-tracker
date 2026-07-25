@@ -20,7 +20,7 @@ public abstract class DatabaseTestCase : IDisposable
             }
         }
 
-        var connection = $"Host=localhost;Database={databaseName};Username=postgre_test;Password=postgre_test";
+        var connection = $"Host=localhost;Database={databaseName};Username=postgres;Password=postgres";
 
         var optionsBuilder = new DbContextOptionsBuilder<CryptoDbContext>();
         optionsBuilder.UseNpgsql(connection);

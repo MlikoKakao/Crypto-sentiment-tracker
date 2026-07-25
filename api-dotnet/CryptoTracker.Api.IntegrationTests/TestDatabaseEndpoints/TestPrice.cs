@@ -1,18 +1,18 @@
-using Microsoft.AspNetCore.Mvc.Testing;
-using System.Net;
+using Microsoft.EntityFrameworkCore;
 
-public class PriceEndpointTest
+[Collection("Database")]
+public class PriceEndpointTest : DatabaseTestCase
 {
-    [Fact]
-    public async Task GetHealth_ReturnHealthyStatus()
+    public PriceEndpointTest(DatabaseFixture fixture)
+        : base(fixture)
     {
-        await using var application = new WebApplicationFactory<Program>();
-        HttpClient client = application.CreateClient();
-
-        HttpResponseMessage response = await client.GetAsync("/health");
-        string body = await response.Content.ReadAsStringAsync();
-
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Contains("healthy", body);
     }
+        [Fact]
+        public async Task PriceTable_ContainsBitcoin()
+        {
+            var prices = await DbContext.Prices.ToListAsync();
+
+            Assert.NotEmpty(prices);
+            Assert.Contains(prices, price => price.Coin == "BTC");
+        }
 }
