@@ -20,17 +20,18 @@ public abstract class DatabaseTestCase : IDisposable
             }
         }
 
-        var connection = $"Host=localhost;Database={databaseName};Username=postgres;Password=postgres";
+        Connection = $"Host=localhost;Database={databaseName};Username=postgres;Password=postgres";
 
         var optionsBuilder = new DbContextOptionsBuilder<CryptoDbContext>();
-        optionsBuilder.UseNpgsql(connection);
+        optionsBuilder.UseNpgsql(Connection);
 
         DbContext = new CryptoDbContext(optionsBuilder.Options);
     }
 
     public CryptoDbContext DbContext { get; }
+    protected string Connection { get; }
 
-    public void Dispose()
+    public virtual void Dispose()
     {
         DbContext.Database.EnsureDeleted();
     }
