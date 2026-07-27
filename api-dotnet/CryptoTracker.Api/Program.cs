@@ -34,13 +34,18 @@ app.MapGet("/", () =>
     });
 });
 
-app.MapGet("/health", () =>
+app.MapGet("/health", async (
+    CryptoDbContext database,
+    CancellationToken cancellationToken) =>
         {
-            return Results.Ok(new
+            bool canConnect = 
+                await database.Database.CanConnectAsync(cancellationToken);
+            return canConnect ? Results.Ok(new
             {
                 status = "healthy",
                 timestamp = DateTime.UtcNow
-            });
+            })
+            : Results.StatusCode(StatusCodes.Status503ServiceUnavailable);
         });
 
 app.Run();
