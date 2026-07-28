@@ -51,15 +51,26 @@ public class DatabaseFixture : IDisposable
             ContentHash = "test-content-hash-1"
         });
 
-        _context.Sentiments.Add(new Sentiment
-        {
-            Coin = "BTC",
-            Source = "reddit",
-            ContentHash = "test-content-hash-1",
-            Analyzer = "test-analyzer",
-            SentimentValue = 0.75,
-            CreatedAt = secondTimestamp
-        });
+        _context.Sentiments.AddRange(
+            new Sentiment
+            {
+                Coin = "BTC",
+                Source = "reddit",
+                ContentHash = "test-content-hash-1",
+                Analyzer = "vader",
+                SentimentValue = 0.75,
+                CreatedAt = secondTimestamp
+            },
+            new Sentiment
+            {
+                Coin = "BTC",
+                Source = "reddit",
+                ContentHash = "test-content-hash-1",
+                Analyzer = "textblob",
+                SentimentValue = 0.50,
+                CreatedAt = secondTimestamp
+            }
+        );
 
         _context.Signals.Add(new Signal
         {

@@ -1,18 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using System.Net;
+﻿using System.Net;
+using System.Net.Http.Json;
 
-public class HealthEndpointTests
+[Collection("Database")]
+public class HealthEndpointTests : ApiDatabaseTestCase
 {
-    [Fact]
-    public async Task GetHealth_ReturnHealthyStatus()
+    public HealthEndpointTests(DatabaseFixture fixture) : base(fixture)
     {
-        await using var application = new WebApplicationFactory<Program>();
-        HttpClient client = application.CreateClient();
+    }
 
-        HttpResponseMessage response = await client.GetAsync("/health");
-        string body = await response.Content.ReadAsStringAsync();
+    [Fact]
+    public async Task GetHealth_ReturnsHealthyStatus()
+    {
+        HttpResponseMessage response = await Client.GetAsync("/health");
+        Dictionary<string, object>? body =
+            await response.Content.ReadFromJsonAsync<Dictionary<string, object>>();
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Contains("healthy", body);
+        Assert.NotNull(body);
+        Assert.Equal("healthy", body["status"].ToString());
     }
 }

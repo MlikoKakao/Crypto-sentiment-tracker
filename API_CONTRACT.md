@@ -3,6 +3,11 @@
 This document defines the HTTP behavior that API clients can rely on. Dates use
 ISO-8601 timestamps and date-range boundaries are inclusive.
 
+The .NET API owns all GET data endpoints.
+FastAPI owns POST /ingest.
+Alembic owns schema migrations.
+Both .NET and FastAPI use the same PostgreSQL database.
+
 ## Prices
 
 ### `GET /prices`
@@ -13,7 +18,7 @@ limit; clients control the result size by choosing the date range.
 #### Query parameters
 
 | Parameter | Type | Required? | Default | Meaning |
-|---|---|---:|---:|---|
+| --- | --- | ---: | ---: | --- |  
 | `coin` | string | Yes | — | `BTC`, `ETH`, or `XMR` |
 | `start_date` | ISO-8601 timestamp | Yes | — | Earliest price timestamp to include |
 | `end_date` | ISO-8601 timestamp | Yes | — | Latest price timestamp to include |
@@ -54,7 +59,7 @@ Returns content together with its calculated sentiment.
 #### Query parameters
 
 | Parameter | Type | Required? | Default | Meaning |
-|---|---|---:|---:|---|
+| --- | --- | ---: | ---: | --- |
 | `coin` | string | Yes | — | `BTC`, `ETH`, or `XMR` |
 | `start_date` | ISO-8601 timestamp | Yes | — | Earliest content timestamp to include |
 | `end_date` | ISO-8601 timestamp | Yes | — | Latest content timestamp to include |

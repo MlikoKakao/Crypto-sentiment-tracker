@@ -21,7 +21,7 @@ services:
       timeout: 5s
       retries: 5
 
-  api-dotnet:
+  query-api:
     build:
       context: ./api-dotnet/CryptoTracker.Api
       dockerfile: Dockerfile
@@ -60,7 +60,7 @@ services:
       db:
         condition: service_healthy
 
-  api:
+  ingest-api:
     image: crypto-sentiment-api:latest
     restart: unless-stopped
     logging: *default-logging
@@ -101,7 +101,7 @@ services:
     ports:
       - "8501:8501"
     depends_on:
-      api:
+      query-api:
         condition: service_healthy
 
   ingest-worker:
@@ -115,7 +115,7 @@ services:
       DATABASE_URL: >-
         postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     depends_on:
-      api:
+      ingest-api:
         condition: service_healthy
 
 volumes:
