@@ -14,6 +14,16 @@ public abstract class ApiDatabaseTestCase : DatabaseTestCase
         _application = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
         {
+            builder.ConfigureAppConfiguration((_, configuration) =>
+            {
+                configuration.AddInMemoryCollection(
+                    new Dictionary<string, string?>
+                    {
+                        ["ConnectionStrings:Postgres"] = Connection
+                    }
+                );
+            });
+
             builder.ConfigureServices(services =>
             {
                 ServiceDescriptor? existingOptions =
