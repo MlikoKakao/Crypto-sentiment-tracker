@@ -40,4 +40,12 @@ public class SignalEndpointTests : ApiDatabaseTestCase
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
+
+    [Fact]
+    public async Task GetSignals_WithoutParameters_UsesDefaults()
+    {
+        HttpResponseMessage response = await Client.GetAsync("/signals");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 }

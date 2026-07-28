@@ -28,6 +28,19 @@ public class SentimentService
         DateTimeOffset resolvedStartDate =
             request.StartDate ?? resolvedEndDate.AddDays(-7);
 
+        if (!SupportedValueValidator.IsSupportedCoin(resolvedCoin))
+        {
+            throw new ArgumentException($"Unsupported coin: {resolvedCoin}");
+        }
+
+        if (resolvedAnalyzer != "all"
+            && !SupportedValueValidator.IsSupportedAnalyzer(resolvedAnalyzer))
+        {
+            throw new ArgumentException(
+                $"Unsupported analyzer: {resolvedAnalyzer}"
+            );
+        }
+
         if (!DateRangeValidator.IsValid(resolvedStartDate, resolvedEndDate))
         {
             throw new ArgumentException(
@@ -35,31 +48,75 @@ public class SentimentService
             );
         }
 
-        var query = _database.Sentiments
-            .Where(sentiment => sentiment.Coin == resolvedCoin)
-            .Where(sentiment => sentiment.Analyzer == resolvedAnalyzer)
-            .Where(sentiment => sentiment.CreatedAt >= resolvedStartDate)
-            .Where(sentiment => sentiment.CreatedAt <= resolvedEndDate);
+        List<string>? resolvedSources = request.Source?
+            .Select(source => source.ToLowerInvariant())
+            .ToList();
 
-        if (request.Source is { Count: > 0 })
+        if (resolvedSources is not null
+            && resolvedSources.Any(source =>
+                !SupportedValueValidator.IsSupportedSource(source)))
         {
-            query = query.Where(
-                sentiment => request.Source.Contains(sentiment.Source));
+            throw new ArgumentException("Unsupported source");
         }
 
-        int limit = Math.Clamp(request.NumSentiment ?? 100, 1, 1000);
+        int limit = request.Limit ?? 10;
+        if (limit is < 1 or > 1000)
+        {
+            throw new ArgumentException(
+                "limit must be between 1 and 1000"
+            );
+        }
+
+        IReadOnlyCollection<string> resolvedAnalyzers =
+            resolvedAnalyzer == "all"
+                ? SupportedValueValidator.GetSupportedAnalyzers()
+                : [resolvedAnalyzer];
+
+        var query =
+            from sentiment in _database.Sentiments
+            join post in _database.Posts
+                on new
+                {
+                    sentiment.Coin,
+                    sentiment.Source,
+                    sentiment.ContentHash
+                }
+                equals new
+                {
+                    post.Coin,
+                    post.Source,
+                    post.ContentHash
+                }
+            where sentiment.Coin == resolvedCoin
+            where resolvedAnalyzers.Contains(sentiment.Analyzer)
+            where post.Timestamp >= resolvedStartDate
+            where post.Timestamp <= resolvedEndDate
+            select new
+            {
+                Sentiment = sentiment,
+                Post = post
+            };
+
+        if (resolvedSources is { Count: > 0 })
+        {
+            query = query.Where(
+                row => resolvedSources.Contains(row.Sentiment.Source));
+        }
 
         return await query
-            .OrderByDescending(sentiment => sentiment.CreatedAt)
+            .OrderByDescending(row => row.Post.Timestamp)
             .Take(limit)
-            .Select(sentiment => new SentimentResponse
+            .Select(row => new SentimentResponse
             {
-                Coin = sentiment.Coin,
-                Source = sentiment.Source,
-                ContentHash = sentiment.ContentHash,
-                Analyzer = sentiment.Analyzer,
-                Sentiment = sentiment.SentimentValue,
-                CreatedAt = sentiment.CreatedAt
+                Coin = row.Sentiment.Coin,
+                Source = row.Sentiment.Source,
+                SourceId = row.Post.SourceId,
+                Timestamp = row.Post.Timestamp,
+                Text = row.Post.Text,
+                Url = row.Post.Url,
+                ContentHash = row.Sentiment.ContentHash,
+                Analyzer = row.Sentiment.Analyzer,
+                Sentiment = row.Sentiment.SentimentValue
             })
             .ToListAsync();
     }

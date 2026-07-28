@@ -59,7 +59,7 @@ public class DatabaseFixture : IDisposable
                 ContentHash = "test-content-hash-1",
                 Analyzer = "vader",
                 SentimentValue = 0.75,
-                CreatedAt = secondTimestamp
+                CreatedAt = secondTimestamp.AddDays(10)
             },
             new Sentiment
             {
@@ -68,7 +68,7 @@ public class DatabaseFixture : IDisposable
                 ContentHash = "test-content-hash-1",
                 Analyzer = "textblob",
                 SentimentValue = 0.50,
-                CreatedAt = secondTimestamp
+                CreatedAt = secondTimestamp.AddDays(10)
             }
         );
 

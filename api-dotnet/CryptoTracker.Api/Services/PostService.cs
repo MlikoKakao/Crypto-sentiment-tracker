@@ -24,6 +24,11 @@ public class PostService
         DateTimeOffset resolvedStartDate =
             request.StartDate ?? resolvedEndDate.AddDays(-7);
 
+        if (!SupportedValueValidator.IsSupportedCoin(resolvedCoin))
+        {
+            throw new ArgumentException($"Unsupported coin: {resolvedCoin}");
+        }
+
         if (!DateRangeValidator.IsValid(resolvedStartDate, resolvedEndDate))
         {
             throw new ArgumentException(
@@ -31,14 +36,25 @@ public class PostService
             );
         }
 
+        List<string>? resolvedSources = request.Source?
+            .Select(source => source.ToLowerInvariant())
+            .ToList();
+
+        if (resolvedSources is not null
+            && resolvedSources.Any(source =>
+                !SupportedValueValidator.IsSupportedSource(source)))
+        {
+            throw new ArgumentException("Unsupported source");
+        }
+
         var query = _database.Posts
             .Where(post => post.Coin == resolvedCoin)
             .Where(post => post.Timestamp >= resolvedStartDate)
             .Where(post => post.Timestamp <= resolvedEndDate);
 
-        if (request.Source is { Count: > 0 })
+        if (resolvedSources is { Count: > 0 })
         {
-            query = query.Where(post => request.Source.Contains(post.Source));
+            query = query.Where(post => resolvedSources.Contains(post.Source));
         }
 
         int limit = Math.Clamp(request.NumPosts ?? 100, 1, 1000);

@@ -27,6 +27,11 @@ public class SignalService
         DateTimeOffset resolvedStartDate =
             request.StartDate ?? resolvedEndDate.AddDays(-7);
 
+        if (!SupportedValueValidator.IsSupportedCoin(resolvedCoin))
+        {
+            throw new ArgumentException($"Unsupported coin: {resolvedCoin}");
+        }
+
         if (!DateRangeValidator.IsValid(resolvedStartDate, resolvedEndDate))
         {
             throw new ArgumentException(

@@ -40,4 +40,25 @@ public class PostEndpointTests : ApiDatabaseTestCase
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
+
+    [Fact]
+    public async Task GetPosts_WithInvalidSource_ReturnsBadRequest()
+    {
+        HttpResponseMessage response = await Client.GetAsync(
+            "/posts?coin=BTC"
+            + "&start_date=2026-07-20T00:00:00Z"
+            + "&end_date=2026-07-21T00:00:00Z"
+            + "&source=unsupported"
+        );
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetPosts_WithoutParameters_UsesDefaults()
+    {
+        HttpResponseMessage response = await Client.GetAsync("/posts");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 }

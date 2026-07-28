@@ -19,6 +19,6 @@ public class SentimentQuery
     [FromQuery(Name = "analyzer")]
     public string? Analyzer { get; init; }
 
-    [FromQuery(Name = "numSentiment")]
-    public int? NumSentiment { get; init; }
+    [FromQuery(Name = "limit")]
+    public int? Limit { get; init; }
 }

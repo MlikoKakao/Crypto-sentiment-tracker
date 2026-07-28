@@ -53,4 +53,12 @@ public class PriceEndpointTests : ApiDatabaseTestCase
         Assert.NotNull(prices);
         Assert.Empty(prices);
     }
+
+    [Fact]
+    public async Task GetPrices_WithoutParameters_UsesDefaults()
+    {
+        HttpResponseMessage response = await Client.GetAsync("/prices");
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
 }
