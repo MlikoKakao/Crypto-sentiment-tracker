@@ -29,6 +29,11 @@ services:
     ports:
       - "5432:5432"
 
+  query-api:
+    build:
+      context: ./api-dotnet/CryptoTracker.Api
+      dockerfile: Dockerfile
+
   test_db:
     profiles:
       - test
