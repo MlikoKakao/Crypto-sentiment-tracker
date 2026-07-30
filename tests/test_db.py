@@ -2,7 +2,11 @@ import pandas as pd
 
 from src.app.dto import AnalysisConfig
 from src.domain.market.dto import IndicatorConfig
-from src.infra.storage.db.content_repository import load_content_df, save_content_df
+from src.infra.storage.db.content_repository import (
+    has_content_coverage,
+    load_content_df,
+    save_content_df,
+)
 from src.infra.storage.db.price_repository import load_price_df, save_price_df
 from src.infra.storage.db.sentiment_repository import (
     load_sentiment_df,
@@ -48,6 +52,8 @@ def test_content_repository_saves_and_loads_rows(
     assert len(result) == 2
     assert set(result["source_id"]) == {"post-1", "post-2"}
     assert "content_hash" in result.columns
+    assert result["timestamp"].dt.tz is None
+    assert has_content_coverage(analysis_config, result) is False
 
 
 def test_sentiment_repository_saves_and_loads_rows(

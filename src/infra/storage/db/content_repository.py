@@ -95,7 +95,7 @@ def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
             },
         )
     if not df.empty:
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
+        df = normalize_timestamp_column(df)
 
     return df
 
