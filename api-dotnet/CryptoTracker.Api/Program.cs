@@ -1,4 +1,5 @@
 using CryptoTracker.Api.Data;
+using CryptoTracker.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,11 @@ builder.Services.AddDbContext<CryptoDbContext>(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddScoped<PriceService>();
+builder.Services.AddScoped<PostService>();
+builder.Services.AddScoped<SentimentService>();
+builder.Services.AddScoped<SignalService>();
+
 var app = builder.Build();
 
 app.MapControllers();
@@ -28,13 +34,18 @@ app.MapGet("/", () =>
     });
 });
 
-app.MapGet("/health", () =>
+app.MapGet("/health", async (
+    CryptoDbContext database,
+    CancellationToken cancellationToken) =>
         {
-            return Results.Ok(new
+            bool canConnect = 
+                await database.Database.CanConnectAsync(cancellationToken);
+            return canConnect ? Results.Ok(new
             {
                 status = "healthy",
                 timestamp = DateTime.UtcNow
-            });
+            })
+            : Results.StatusCode(StatusCodes.Status503ServiceUnavailable);
         });
 
 app.Run();

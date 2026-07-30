@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile.api
 
-  api:
+  ingest-api:
     build:
       context: .
       dockerfile: Dockerfile.api
@@ -28,6 +28,11 @@ services:
   db:
     ports:
       - "5432:5432"
+
+  query-api:
+    build:
+      context: ./api-dotnet/CryptoTracker.Api
+      dockerfile: Dockerfile
 
   test_db:
     profiles:

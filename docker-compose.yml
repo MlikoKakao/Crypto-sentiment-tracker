@@ -10,9 +10,9 @@ services:
     restart: unless-stopped
     logging: *default-logging
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: crypto
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -21,40 +21,56 @@ services:
       timeout: 5s
       retries: 5
 
-  api-dotnet:
+  query-api:
+    image: ${QUERY_API_IMAGE:-crypto-query-api:dev}
     build:
       context: ./api-dotnet/CryptoTracker.Api
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      ConnectionStrings__Postgres: "Host=db;Port=5432;Database=crypto;Username=postgres;password=postgres"
+      ConnectionStrings__Postgres: >-
+        Host=db;
+        Port=5432;
+        Database=${POSTGRES_DB};
+        Username=${POSTGRES_USER};
+        Password=${POSTGRES_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     ports:
       - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   migrate:
-    image: crypto-sentiment-api:latest
+    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
     logging: *default-logging
     command: alembic upgrade head
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
+      DATABASE_URL: >-
+        postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     depends_on:
       db:
         condition: service_healthy
 
-  api:
-    image: crypto-sentiment-api:latest
+  ingest-api:
+    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
     restart: unless-stopped
     logging: *default-logging
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
+      DATABASE_URL: >-
+        postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     ports:
       - "8002:8000"
     depends_on:
@@ -74,31 +90,33 @@ services:
       start_period: 10s
 
   ui:
-    image: crypto-sentiment-ui:latest
+    image: ${UI_IMAGE:-crypto-sentiment-ui:dev}
     restart: unless-stopped
     logging: *default-logging
     command: streamlit run run_app.py --server.address=0.0.0.0 --server.port=8501
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
+      DATABASE_URL: >-
+        postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     ports:
       - "8501:8501"
     depends_on:
-      api:
+      query-api:
         condition: service_healthy
 
   ingest-worker:
-    image: crypto-sentiment-api:latest
+    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}    
     restart: "no"
     logging: *default-logging
     command: python -m src.app.jobs.scheduled_ingest
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/crypto
+      DATABASE_URL: >-
+        postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     depends_on:
-      api:
+      ingest-api:
         condition: service_healthy
 
 volumes:

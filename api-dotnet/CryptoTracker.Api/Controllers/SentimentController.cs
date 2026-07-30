@@ -1,58 +1,34 @@
-using CryptoTracker.Api.Data;
-using CryptoTracker.Api.Models;
+using CryptoTracker.Api.Contracts.Requests;
+using CryptoTracker.Api.Contracts.Responses;
+using CryptoTracker.Api.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CryptoTracker.Api.Controllers;
 
 [ApiController]
-[Route("Sentiment")]
+[Route("sentiment")]
 public class SentimentController : ControllerBase
 {
-    private readonly CryptoDbContext _database;
+    private readonly SentimentService _sentimentService;
 
-    public SentimentController(CryptoDbContext database)
+    public SentimentController(SentimentService sentimentService)
     {
-        _database = database;
+        _sentimentService = sentimentService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Sentiment>>> GetSentiment(
-            [FromQuery]
-            string? coin,
-            DateTimeOffset? startDate,
-            DateTimeOffset? endDate,
-            List<string>? source,
-            int? numSentiment
-            )
+    public async Task<ActionResult<List<SentimentResponse>>> GetSentiment(
+        [FromQuery] SentimentQuery request)
     {
-        IQueryable<Sentiment> query = _database.Sentiments;
-
-        if (!string.IsNullOrWhiteSpace(coin))
+        try
         {
-            query = query.Where(Sentiment => Sentiment.Coin == coin);
+            List<SentimentResponse> sentiments =
+                await _sentimentService.GetSentimentAsync(request);
+            return Ok(sentiments);
         }
-
-        if (startDate.HasValue)
+        catch (ArgumentException exception)
         {
-            query = query.Where(Sentiment => Sentiment.CreatedAt >= startDate.Value);
+            return BadRequest(exception.Message);
         }
-        if (endDate.HasValue)
-        {
-            query = query.Where(Sentiment => Sentiment.CreatedAt <= endDate.Value);
-        }
-        if (source is { Count: > 0})
-        {
-            query = query.Where(Sentiment => source.Contains(Sentiment.Source));
-        }
-        
-        int limit = Math.Clamp(numSentiment ?? 100, 1, 1000);
-
-        List<Sentiment> Sentiment = await query
-            .OrderByDescending(Sentiment => Sentiment.CreatedAt)
-            .Take(100)
-            .ToListAsync();
-
-        return Ok(Sentiment);
     }
 }

@@ -17,8 +17,10 @@ def run_analysis(config: AnalysisConfig) -> AnalysisResult:
     logger.info("Fetching posts for %s from %s", config.coin, config.sources)
     try:
         from src.infra.fetchers.service import fetch_posts
+        from src.infra.storage.db.content_repository import save_content_df
 
         posts_df = fetch_posts(config)
+        posts_df = save_content_df(posts_df, config.coin)
     except Exception as e:
         issues.append(AnalysisIssue(stage="posts", message=str(e)))
         posts_df = pd.DataFrame()

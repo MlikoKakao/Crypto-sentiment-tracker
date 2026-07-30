@@ -12,9 +12,11 @@ public class CryptoDbContext : DbContext
 
     public DbSet<Price> Prices => Set<Price>();
     public DbSet<Sentiment> Sentiments => Set<Sentiment>();
+    public DbSet<Post> Posts => Set<Post>();
+    public DbSet<Signal> Signals => Set<Signal>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {   
+    {
         modelBuilder.Entity<Price>(entity =>
                 {
                     entity.ToTable("prices");
@@ -53,6 +55,51 @@ public class CryptoDbContext : DbContext
                     entity.Property(Sentiment => Sentiment.SentimentValue).HasColumnName("sentiment");
 
                     entity.Property(Sentiment => Sentiment.CreatedAt).HasColumnName("created_at");
+                });
+
+        modelBuilder.Entity<Post>(entity =>
+                {
+                    entity.ToTable("content_items");
+
+                    entity.HasKey(Post => new
+                    {
+                        Post.Coin,
+                        Post.Source,
+                        Post.ContentHash
+                    });
+                    entity.Property(Post => Post.Coin).HasColumnName("coin");
+
+                    entity.Property(Post => Post.Source).HasColumnName("source");
+
+                    entity.Property(Post => Post.SourceId).HasColumnName("source_id");
+
+                    entity.Property(Post => Post.Timestamp).HasColumnName("timestamp");
+
+                    entity.Property(Post => Post.Text).HasColumnName("text");
+
+                    entity.Property(Post => Post.Url).HasColumnName("url");
+
+                    entity.Property(Post => Post.ContentHash).HasColumnName("content_hash");
+                });
+
+        modelBuilder.Entity<Signal>(entity =>
+                {
+                    entity.ToTable("signals");
+
+                    entity.HasKey(signal => new
+                    {
+                        signal.Coin,
+                        signal.Timestamp,
+                        signal.SignalName
+                    });
+
+                    entity.Property(signal => signal.Coin).HasColumnName("coin");
+
+                    entity.Property(signal => signal.Timestamp).HasColumnName("timestamp");
+
+                    entity.Property(signal => signal.SignalName).HasColumnName("signal_name");
+
+                    entity.Property(signal => signal.Value).HasColumnName("value");
                 });
     }
 }

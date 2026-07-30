@@ -2,9 +2,44 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
+  dotnet-test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore .NET dependencies
+        run: >
+          dotnet restore
+          api-dotnet/CryptoTracker.Api.IntegrationTests/CryptoTracker.Api.IntegrationTests.csproj
+          --locked-mode
+      - name: Run .NET integration tests
+        run: dotnet test api-dotnet/CryptoTracker.Api.IntegrationTests/CryptoTracker.Api.IntegrationTests.csproj --no-restore
   test:
     runs-on: ubuntu-latest
 
@@ -41,12 +76,46 @@ jobs:
       - name: Run tests
         run: pytest
 
-      - name: Build Docker images
+  image-build:
+    needs: [test, dotnet-test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build versioned images
         run: |
-          docker build -f Dockerfile.api -t crypto-sentiment-api:latest .
-          docker build -f Dockerfile.ui -t crypto-sentiment-ui:latest .
+          docker build \
+            -f Dockerfile.api \
+            -t crypto-sentiment-api:${GITHUB_SHA} \
+            .
+
+          docker build \
+            -f Dockerfile.ui \
+            -t crypto-sentiment-ui:${GITHUB_SHA} \
+            .
+
+          docker build \
+            -f api-dotnet/CryptoTracker.Api/Dockerfile \
+            -t crypto-query-api:${GITHUB_SHA} \
+            api-dotnet/CryptoTracker.Api
+
+      - name: Record image identifiers
+        run: |
+          docker image inspect \
+            --format='ingest-api {{.Id}}' \
+            crypto-sentiment-api:${GITHUB_SHA}
+
+          docker image inspect \
+            --format='ui {{.Id}}' \
+            crypto-sentiment-ui:${GITHUB_SHA}
+
+          docker image inspect \
+            --format='query-api {{.Id}}' \
+            crypto-query-api:${GITHUB_SHA}
+
   deploy:
-    needs: test
+    needs: [test, dotnet-test]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     concurrency:
