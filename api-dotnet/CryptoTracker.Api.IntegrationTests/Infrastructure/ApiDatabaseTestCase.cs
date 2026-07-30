@@ -1,8 +1,8 @@
 using CryptoTracker.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.Configuration;
 
 public abstract class ApiDatabaseTestCase : DatabaseTestCase
 {
@@ -14,15 +14,7 @@ public abstract class ApiDatabaseTestCase : DatabaseTestCase
         _application = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
         {
-            builder.ConfigureAppConfiguration((_, configuration) =>
-            {
-                configuration.AddInMemoryCollection(
-                    new Dictionary<string, string?>
-                    {
-                        ["ConnectionStrings:Postgres"] = Connection
-                    }
-                );
-            });
+            builder.UseSetting("ConnectionStrings:Postgres", Connection);
 
             builder.ConfigureServices(services =>
             {
