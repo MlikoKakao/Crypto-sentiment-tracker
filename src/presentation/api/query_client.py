@@ -36,6 +36,7 @@ def _get_table(path: str, params: QueryParams) -> pd.DataFrame:
     return df
 
 
+
 def get_prices(query: PriceQuery) -> pd.DataFrame:
     return _get_table("prices", query.to_params())
 
