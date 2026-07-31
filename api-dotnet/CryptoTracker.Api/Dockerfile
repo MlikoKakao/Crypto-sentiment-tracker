@@ -18,6 +18,6 @@ RUN apt-get update \
 
 COPY --from=build /app/publish .
 
-EXPOSE 8080
+EXPOSE 8081
 
 ENTRYPOINT ["dotnet", "CryptoTracker.Api.dll"]

@@ -68,7 +68,7 @@ def run_analysis_with_api(config: AnalysisConfig) -> AnalysisResult:
         )
 
 def _get_table(path: str, params: QueryParams) -> pd.DataFrame:
-    base_url = os.getenv("QUERY_API_URL", "http://localhost:8080").rstrip("/")
+    base_url = os.getenv("QUERY_API_URL", "http://localhost:8081").rstrip("/")
     response = requests.get(
         f"{base_url}/{path}",
         params=params,
@@ -79,6 +79,7 @@ def _get_table(path: str, params: QueryParams) -> pd.DataFrame:
     df = pd.DataFrame(response.json())
     df.rename(
         columns={
+            "Timestamp": "timestamp",
             "sourceId": "source_id",
             "contentHash": "content_hash",
             "signalName": "signal_name",
