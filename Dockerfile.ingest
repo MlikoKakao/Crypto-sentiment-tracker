@@ -1,0 +1,17 @@
+FROM python:3.12-slim@sha256:090ba77e2958f6af52a5341f788b50b032dd4ca28377d2893dcf1ecbdfdfe203
+
+WORKDIR /usr/src/app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements-ingest-arm64.lock ./
+
+RUN python -m pip install \
+    --no-cache-dir \
+    --require-hashes \
+    -r requirements-ingest-arm64.lock
+
+COPY src ./src
+
+CMD ["python", "-m", "src.app.jobs.scheduled_ingest"]

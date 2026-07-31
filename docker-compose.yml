@@ -50,7 +50,7 @@ services:
       start_period: 10s
 
   migrate:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
+    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
     logging: *default-logging
     command: alembic upgrade head
     env_file:
