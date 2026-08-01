@@ -76,9 +76,9 @@ def render_live_page(state: SidebarState) -> None:
     config = sidebar_state_to_config(state)
 
     with st.spinner("Running analysis..."):
-        from src.app.use_cases.run_analysis import run_analysis
+        from src.presentation.api.query_client import run_analysis_with_api
 
-        result = run_analysis(config)
+        result = run_analysis_with_api(config)
         if result.issues:
             st.write(result.issues)
 

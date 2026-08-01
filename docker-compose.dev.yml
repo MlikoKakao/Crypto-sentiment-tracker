@@ -23,7 +23,7 @@ services:
   ingest-worker:
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: Dockerfile.ingest
 
   db:
     ports:

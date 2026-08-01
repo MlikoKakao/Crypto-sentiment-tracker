@@ -100,6 +100,73 @@ def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
     return df
 
 
+def count_content_missing_sentiment(coin: str, analyzer: str) -> int:
+    engine = get_engine()
+    query = text(
+        """
+        SELECT COUNT(*)
+        FROM content_items AS c
+        LEFT JOIN sentiment AS s
+          ON s.coin = c.coin
+         AND s.source = c.source
+         AND s.content_hash = c.content_hash
+         AND s.analyzer = :analyzer
+        WHERE c.coin = :coin
+          AND s.content_hash IS NULL
+        """
+    )
+
+    with engine.connect() as conn:
+        result = conn.execute(
+            query,
+            {"coin": coin.upper(), "analyzer": analyzer},
+        ).scalar_one()
+
+    return int(result)
+
+
+def load_content_missing_sentiment(
+    coin: str,
+    analyzer: str,
+    limit: int,
+) -> pd.DataFrame:
+    if limit < 1:
+        raise ValueError("limit must be at least 1")
+
+    engine = get_engine()
+    query = text(
+        """
+        SELECT c.*
+        FROM content_items AS c
+        LEFT JOIN sentiment AS s
+          ON s.coin = c.coin
+         AND s.source = c.source
+         AND s.content_hash = c.content_hash
+         AND s.analyzer = :analyzer
+        WHERE c.coin = :coin
+          AND s.content_hash IS NULL
+        ORDER BY c.timestamp, c.source, c.content_hash
+        LIMIT :limit
+        """
+    )
+
+    with engine.connect() as conn:
+        df = pd.read_sql_query(
+            query,
+            conn,
+            params={
+                "coin": coin.upper(),
+                "analyzer": analyzer,
+                "limit": limit,
+            },
+        )
+
+    if not df.empty:
+        df = normalize_timestamp_column(df)
+
+    return df
+
+
 def has_content_coverage(config: AnalysisConfig, content_df: pd.DataFrame) -> bool:
     if content_df.empty:
         return False

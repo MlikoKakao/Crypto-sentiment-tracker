@@ -16,7 +16,7 @@ def run_scheduled_ingest() -> None:
     start_date = now - timedelta(hours=3)
     end_date = now
 
-    analyzer: Analyzer = "vader"
+    analyzer: Analyzer = "all"
     sources: tuple[Source, ...] = ("reddit", "news", "youtube")
     num_posts = 1000
     subreddits_by_coin = {

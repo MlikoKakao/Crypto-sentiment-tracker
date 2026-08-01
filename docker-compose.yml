@@ -28,6 +28,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
+      ASPNETCORE_HTTP_PORTS: 8081
       ConnectionStrings__Postgres: >-
         Host=db;
         Port=5432;
@@ -42,14 +43,14 @@ services:
     ports:
       - "8081:8080"
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      test: ["CMD", "curl", "--fail", "http://localhost:8081/health"]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
 
   migrate:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
+    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
     logging: *default-logging
     command: alembic upgrade head
     env_file:
@@ -62,7 +63,7 @@ services:
         condition: service_healthy
 
   ingest-api:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
+    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
     restart: unless-stopped
     logging: *default-logging
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
@@ -99,7 +100,7 @@ services:
     environment:
       DATABASE_URL: >-
         postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      QUERY_API_URL: http://query-api:8080
+      QUERY_API_URL: http://query-api:8081
     ports:
       - "8501:8501"
     depends_on:
@@ -107,7 +108,7 @@ services:
         condition: service_healthy
 
   ingest-worker:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}    
+    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
     restart: "no"
     logging: *default-logging
     command: python -m src.app.jobs.scheduled_ingest
@@ -116,9 +117,14 @@ services:
     environment:
       DATABASE_URL: >-
         postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      HF_HOME: /models
+    volumes:
+      - huggingface_cache:/models
     depends_on:
       ingest-api:
         condition: service_healthy
 
 volumes:
   postgres_data:
+  huggingface_cache:
+    name: crypto-hf-cache
