@@ -63,7 +63,7 @@ services:
         condition: service_healthy
 
   ingest-api:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
+    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
     restart: unless-stopped
     logging: *default-logging
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
@@ -108,7 +108,7 @@ services:
         condition: service_healthy
 
   ingest-worker:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}    
+    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
     restart: "no"
     logging: *default-logging
     command: python -m src.app.jobs.scheduled_ingest
@@ -117,9 +117,14 @@ services:
     environment:
       DATABASE_URL: >-
         postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      HF_HOME: /models
+    volumes:
+      - huggingface_cache:/models
     depends_on:
       ingest-api:
         condition: service_healthy
 
 volumes:
   postgres_data:
+  huggingface_cache:
+    name: crypto-hf-cache
