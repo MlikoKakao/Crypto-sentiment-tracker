@@ -9,6 +9,7 @@ from src.infra.storage.db.content_repository import (
 )
 from src.infra.storage.db.price_repository import load_price_df, save_price_df
 from src.infra.storage.db.sentiment_repository import (
+    has_sentiment_coverage,
     load_sentiment_df,
     save_sentiment_df,
 )
@@ -81,6 +82,8 @@ def test_sentiment_repository_saves_and_loads_rows(
     assert len(result) == 1
     assert result.loc[0, "text"] == "BTC is strong"
     assert result.loc[0, "sentiment"] == 0.7
+    assert result["timestamp"].dt.tz is None
+    assert has_sentiment_coverage(analysis_config, result) is False
 
 
 def test_signal_repository_saves_and_loads_rows(

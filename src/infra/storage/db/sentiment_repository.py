@@ -6,6 +6,7 @@ from datetime import timedelta
 from src.app.dto import AnalysisConfig
 from src.infra.storage.db.connection import get_engine
 from src.shared.dataframe_schema import REQUIRED_SENTIMENT_COLUMNS, require_columns
+from src.shared.helpers import normalize_timestamp_column
 
 
 def save_sentiment_df(sentiment_df: pd.DataFrame, coin: str = "btc") -> None:
@@ -102,7 +103,7 @@ def load_sentiment_df(config: AnalysisConfig, analyzer: str) -> pd.DataFrame:
         )
 
     if not df.empty:
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
+        df = normalize_timestamp_column(df)
     return df
 
 
