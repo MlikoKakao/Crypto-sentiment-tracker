@@ -50,7 +50,7 @@ services:
       start_period: 10s
 
   migrate:
-    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
+    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
     logging: *default-logging
     command: alembic upgrade head
     env_file:
@@ -63,7 +63,7 @@ services:
         condition: service_healthy
 
   ingest-api:
-    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
+    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
     restart: unless-stopped
     logging: *default-logging
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
