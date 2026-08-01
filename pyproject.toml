@@ -53,7 +53,7 @@ benchmark = [
 
 ml = [
     "torch",
-    "transformers",
+    "transformers<5",
 ]
 
 dev = [
