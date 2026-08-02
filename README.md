@@ -291,9 +291,8 @@ See `ARCHITECTURE.md` for the fuller system map.
 - [x] Scheduled ingestion through Raspberry Pi
 - [x] CI implementation
 - [x] CD implementation
-- [ ] Kubernetes deployment demo - delayed, other priorities more important
-- [ ] Cloud deployment
-- [ ] Move API into .NET
+- [x] Move API into .NET
+- [ ] AWS Cloud deployment
 
 ## License
 
