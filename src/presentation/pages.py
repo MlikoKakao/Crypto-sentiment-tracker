@@ -94,13 +94,7 @@ def render_result_tabs(
             key="live_sentiment_price_chart",
         )
         
-        lead_lag_df = compute_lead_lag(
-            result.merged_df, state.lag_hours, state.lag_step_min, state.metric_choice
-        )
-        st.plotly_chart(
-            plot_lag_correlation(lead_lag_df),
-            key="live_lag_correlation_chart",
-        )
+       
         
         st.plotly_chart(
             plot_sentiment_timeline(result.merged_df, state.selected_coin),
@@ -111,6 +105,14 @@ def render_result_tabs(
             key="live_sentiment_vs_price_chart",
         )
         
+        lead_lag_df = compute_lead_lag(
+            result.merged_df, state.lag_hours, state.lag_step_min, state.metric_choice
+        )
+        st.plotly_chart(
+            plot_lag_correlation(lead_lag_df),
+            key="live_lag_correlation_chart",
+        )
+
 
     with tabs["engine"]:
         indic_state = replace(sidebar_to_indicator(state))
