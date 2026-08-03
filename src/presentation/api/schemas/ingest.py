@@ -6,7 +6,7 @@ from src.presentation.api.helpers.validate import DateRangeParams
 
 class IngestRequest(BaseModel):
     params: DateRangeParams
-    num_posts: int = Field(ge=1, le=1000)  
+    num_posts: int = Field(ge=1)
     analyzer: Analyzer
     sources: list[Source]
 

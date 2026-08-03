@@ -89,7 +89,7 @@ public class SentimentEndpointTests : ApiDatabaseTestCase
 
     [Theory]
     [InlineData(0)]
-    [InlineData(1001)]
+    [InlineData(-1)]
     public async Task GetSentiment_WithInvalidLimit_ReturnsBadRequest(int limit)
     {
         HttpResponseMessage response = await Client.GetAsync(
@@ -100,6 +100,16 @@ public class SentimentEndpointTests : ApiDatabaseTestCase
         );
 
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetSentiment_WithLimitAbovePreviousMaximum_ReturnsOk()
+    {
+        HttpResponseMessage response = await Client.GetAsync(
+            "/sentiment?limit=5000"
+        );
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     [Fact]
@@ -156,6 +166,57 @@ public class SentimentEndpointTests : ApiDatabaseTestCase
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.NotNull(sentiments);
         Assert.Equal(10, sentiments.Count);
+    }
+
+    [Fact]
+    public async Task GetSentiment_WithLimit_DistributesRowsAcrossDateRange()
+    {
+        DateTimeOffset start =
+            new(2026, 7, 22, 0, 0, 0, TimeSpan.Zero);
+
+        for (int index = 0; index < 9; index++)
+        {
+            string contentHash = $"coverage-test-{index}";
+            DateTimeOffset timestamp = start.AddHours(index);
+
+            DbContext.Posts.Add(new Post
+            {
+                Coin = "BTC",
+                Source = "news",
+                Timestamp = timestamp,
+                Text = $"Coverage test post {index}",
+                ContentHash = contentHash
+            });
+            DbContext.Sentiments.Add(new Sentiment
+            {
+                Coin = "BTC",
+                Source = "news",
+                ContentHash = contentHash,
+                Analyzer = "vader",
+                SentimentValue = 0.1,
+                CreatedAt = timestamp
+            });
+        }
+
+        await DbContext.SaveChangesAsync();
+
+        HttpResponseMessage response = await Client.GetAsync(
+            "/sentiment?coin=BTC"
+            + "&start_date=2026-07-22T00:00:00Z"
+            + "&end_date=2026-07-22T08:00:00Z"
+            + "&source=news"
+            + "&analyzer=vader"
+            + "&limit=3"
+        );
+        List<SentimentResponse>? sentiments =
+            await response.Content.ReadFromJsonAsync<List<SentimentResponse>>();
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(sentiments);
+        Assert.Equal(
+            [start, start.AddHours(4), start.AddHours(8)],
+            sentiments.Select(row => row.Timestamp).ToList()
+        );
     }
 
     [Fact]

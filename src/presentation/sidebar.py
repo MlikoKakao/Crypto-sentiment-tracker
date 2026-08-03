@@ -52,7 +52,7 @@ def render_sidebar() -> SidebarState:
         num_posts = st.slider(
             "Number of posts to fetch",
             min_value=100,
-            max_value=1100,
+            max_value=5000,
             step=100,
             value=300,
         )

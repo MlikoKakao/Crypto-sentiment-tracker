@@ -60,11 +60,9 @@ public class SentimentService
         }
 
         int limit = request.Limit ?? 10;
-        if (limit is < 1 or > 1000)
+        if (limit < 1)
         {
-            throw new ArgumentException(
-                "limit must be between 1 and 1000"
-            );
+            throw new ArgumentException("limit must be at least 1");
         }
 
         IReadOnlyCollection<string> resolvedAnalyzers =
@@ -103,9 +101,8 @@ public class SentimentService
                 row => resolvedSources.Contains(row.Sentiment.Source));
         }
 
-        return await query
-            .OrderByDescending(row => row.Post.Timestamp)
-            .Take(limit)
+        List<SentimentResponse> matchingRows = await query
+            .OrderBy(row => row.Post.Timestamp)
             .Select(row => new SentimentResponse
             {
                 Coin = row.Sentiment.Coin,
@@ -119,5 +116,32 @@ public class SentimentService
                 Sentiment = row.Sentiment.SentimentValue
             })
             .ToListAsync();
+
+        return EvenlySample(matchingRows, limit);
+    }
+
+    private static List<SentimentResponse> EvenlySample(
+        List<SentimentResponse> rows,
+        int limit)
+    {
+        if (rows.Count <= limit)
+        {
+            return rows;
+        }
+
+        if (limit == 1)
+        {
+            return [rows[^1]];
+        }
+
+        return Enumerable.Range(0, limit)
+            .Select(index =>
+            {
+                int rowIndex = (int)(
+                    (long)index * (rows.Count - 1) / (limit - 1)
+                );
+                return rows[rowIndex];
+            })
+            .ToList();
     }
 }

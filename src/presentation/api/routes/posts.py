@@ -15,7 +15,7 @@ router = APIRouter()
 def get_posts(
     params: DateRangeParams = Depends(),
     sources: list[Source] = Query(...),
-    num_posts: int = Query(10, ge=1, le=1000),
+    num_posts: int = Query(10, ge=1),
 ) -> list[PostResponse]:
     config = posts_to_config(params, sources, num_posts)
 

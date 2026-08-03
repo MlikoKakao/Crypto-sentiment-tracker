@@ -55,6 +55,26 @@ public class PostEndpointTests : ApiDatabaseTestCase
     }
 
     [Fact]
+    public async Task GetPosts_WithInvalidLimit_ReturnsBadRequest()
+    {
+        HttpResponseMessage response = await Client.GetAsync(
+            "/posts?numPosts=0"
+        );
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task GetPosts_WithLimitAbovePreviousMaximum_ReturnsOk()
+    {
+        HttpResponseMessage response = await Client.GetAsync(
+            "/posts?numPosts=5000"
+        );
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
     public async Task GetPosts_WithoutParameters_UsesDefaults()
     {
         HttpResponseMessage response = await Client.GetAsync("/posts");

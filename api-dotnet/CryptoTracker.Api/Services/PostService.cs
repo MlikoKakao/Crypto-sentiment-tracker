@@ -57,7 +57,11 @@ public class PostService
             query = query.Where(post => resolvedSources.Contains(post.Source));
         }
 
-        int limit = Math.Clamp(request.NumPosts ?? 100, 1, 1000);
+        int limit = request.NumPosts ?? 100;
+        if (limit < 1)
+        {
+            throw new ArgumentException("numPosts must be at least 1");
+        }
 
         return await query
             .OrderByDescending(post => post.Timestamp)
