@@ -1,13 +1,22 @@
 # Crypto Sentiment Tracker
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)]()
+[![.NET](https://img.shields.io/badge/.NET-10-purple.svg)]()
 [![Streamlit](https://img.shields.io/badge/Streamlit-app-red.svg)]()
-[![FastAPI](https://img.shields.io/badge/FastAPI-api-green.svg)]()
+[![FastAPI](https://img.shields.io/badge/FastAPI-ingest_API-green.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 
-Crypto Sentiment Tracker collects crypto-related posts/articles, scores their sentiment, combines that with market data, and shows the result in a Streamlit dashboard and FastAPI API.
+Crypto Sentiment Tracker collects crypto-related posts and articles, scores their
+sentiment, combines the results with market data, and presents the data in a
+Streamlit dashboard.
 
-The current app supports live analysis, PostgreSQL-backed caching/storage, basic technical indicators, lead/lag analysis, and a small backtest view.
+The current infrastructure separates data ingestion from data querying:
+
+- Python fetchers and sentiment analyzers write to PostgreSQL.
+- A Python FastAPI service exposes the authenticated ingestion endpoint.
+- A .NET API provides read-only query endpoints for the dashboard.
+- Streamlit queries the .NET API and performs visualization and interactive analysis.
+- A scheduled Python worker can ingest BTC, ETH, and XMR data in batches.
 
 Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 
@@ -18,13 +27,49 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 ## Features
 
 - Fetches crypto content from Reddit, YouTube, and RSS news feeds
-- Fetches market prices from Coinbase, with CoinGecko fallback infrastructure
+- Fetches market prices from Coinbase
 - Scores sentiment with VADER, TextBlob, RoBERTa, or FinBERT
-- Supports `analyzer="all"` aggregation across analyzers
+- Supports `analyzer="all"` to run every registered analyzer
 - Stores prices, content, sentiment, and signals in PostgreSQL
-- Exposes FastAPI endpoints for health, prices, sentiment, posts, signals, and ingest
-- Renders a Streamlit UI with charts, lead/lag analysis, indicators, benchmark views, and backtest output
-- Includes focused pytest coverage for domain logic, repositories, API routes, fetcher boundaries, and cache behavior
+- Uses Alembic for database schema migrations
+- Exposes an authenticated Python ingestion API
+- Exposes a .NET query API for prices, posts, sentiment, and signals
+- Renders Streamlit charts, lead/lag analysis, technical indicators, benchmarks,
+  signals, and backtests
+- Includes unit, repository, Python API, and .NET integration tests
+
+---
+
+## Current Infrastructure
+
+```text
+Reddit / YouTube / RSS News       Coinbase
+              \                    /
+               \                  /
+                Python ingestion
+                 /             \
+        FastAPI POST /ingest    scheduled worker
+                 \             /
+                  PostgreSQL 16
+                       |
+                  .NET query API
+                       |
+                Streamlit dashboard
+```
+
+The main Docker Compose services are:
+
+| Service | Responsibility | Host port |
+|---|---|---:|
+| `db` | PostgreSQL 16 persistent storage | not exposed by default |
+| `migrate` | Runs `alembic upgrade head` and exits | none |
+| `ingest-api` | Python FastAPI write/ingestion API | `8002` |
+| `query-api` | .NET read/query API | `8081` |
+| `ui` | Streamlit dashboard | `8501` |
+| `ingest-worker` | One-shot scheduled ingestion job | none |
+
+`docker-compose.dev.yml` adds source mounts, reload behavior, PostgreSQL host
+port `5432`, and a temporary test database on host port `5433`.
 
 ---
 
@@ -32,72 +77,32 @@ Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 
 ```text
 .
-├─ Dockerfile
+├─ api-dotnet/
+│  ├─ CryptoTracker.Api/                   # .NET query API
+│  └─ CryptoTracker.Api.IntegrationTests/
+├─ alembic/                                # PostgreSQL migrations
+├─ data/
+│  ├─ benchmark/
+│  └─ demo/
+├─ src/
+│  ├─ app/                                 # use cases, configuration, jobs
+│  ├─ benchmark/
+│  ├─ domain/                              # analysis and calculation rules
+│  ├─ infra/                               # fetchers and DB repositories
+│  ├─ presentation/                        # Streamlit and FastAPI
+│  └─ shared/
+├─ tests/                                  # Python tests
+├─ Dockerfile.api
+├─ Dockerfile.ingest
+├─ Dockerfile.ui
 ├─ docker-compose.yml
+├─ docker-compose.dev.yml
 ├─ pyproject.toml
-├─ run_app.py
-├─ README.md
-├─ ARCHITECTURE.md
-├─ DECISIONS.md
-├─ tests/
-│  ├─ api/
-│  ├─ sentiment/
-│  ├─ conftest.py
-│  ├─ test_db.py
-│  ├─ test_fetchers.py
-│  ├─ test_sentiment_cache.py
-│  └─ test_signals.py
-├─ stubs/
-│  ├─ textblob/
-│  └─ vader/
-└─ src/
-   ├─ app/
-   │  ├─ dto.py
-   │  ├─ defaults.py
-   │  └─ use_cases/
-   ├─ benchmark/
-   ├─ domain/
-   │  ├─ analysis/
-   │  ├─ backtest/
-   │  ├─ market/
-   │  ├─ sentiment/
-   │  └─ signals/
-   ├─ infra/
-   │  ├─ fetchers/
-   │  └─ storage/
-   │     ├─ sentiment_csv.py
-   │     └─ db/
-   ├─ presentation/
-   │  ├─ api/
-   │  │  └─ routes/
-   │  ├─ config/
-   │  ├─ pages.py
-   │  ├─ sidebar.py
-   │  └─ charts.py
-   └─ shared/
+└─ run_app.py
 ```
 
-`pyproject.toml` is the source of Python dependencies. `requirements.txt` is not used by the Dockerfile or quickstart workflow.
-
----
-
-## Local Setup
-
-```bash
-git clone https://github.com/MlikoKakao/crypto-sentiment-tracker.git
-cd crypto-sentiment-tracker
-
-python -m venv .venv
-source .venv/bin/activate
-
-pip install -e ".[dev]"
-```
-
-On Windows PowerShell:
-
-```powershell
-.venv\Scripts\Activate.ps1
-```
+`pyproject.toml` defines Python dependency groups. The lock files are split by
+container role: API, UI, ingestion, and tests.
 
 ---
 
@@ -109,191 +114,186 @@ Copy the public template:
 cp .env.example .env
 ```
 
-Then edit `.env` and fill in the API keys you need.
-
-Important variables:
+The Compose stack requires:
 
 ```env
-DATABASE_PATH=data/app.db
-DEMO=0
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=crypto
+DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/crypto
+ADMIN_API_KEY=
+```
+
+Optional integration settings include:
+
+```env
 REDDIT_CLIENT_ID=
 REDDIT_CLIENT_SECRET=
 REDDIT_USER_AGENT=
 YOUTUBE_API_KEY=
+DEMO=0
 HF_DEVICE=-1
 ```
 
-Reddit and YouTube require API keys. News RSS and Coinbase price fetching do not currently require keys.
+Reddit and YouTube require API credentials. RSS news and Coinbase price
+fetching do not currently require credentials.
 
-For Streamlit Cloud, `run_app.py` also supports loading values from `.streamlit/secrets.toml`.
+Inside Compose, `DATABASE_URL` is overridden to use the `db` service hostname.
+The UI also receives:
+
+```env
+QUERY_API_URL=http://query-api:8081
+```
+
+For Streamlit Cloud, `run_app.py` can load values from
+`.streamlit/secrets.toml`.
 
 ---
 
-## Run Locally
+## Run with Docker Compose
 
-Run the Streamlit UI:
+Build and start the long-running services:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+```
+
+Compose waits for PostgreSQL, runs the migration service, then starts the APIs
+and UI according to their health checks.
+
+Open:
+
+- Streamlit UI: http://localhost:8501
+- .NET query API health: http://localhost:8081/health
+- Python ingest API health: http://localhost:8002/health
+
+Trigger an ingestion request through the Python API using the admin API key and
+the request contract defined in `src/presentation/api/schemas/ingest.py`.
+
+Run the one-shot ingestion worker:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml run --rm ingest-worker
+```
+
+Stop the stack:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml down
+```
+
+PostgreSQL data persists in the `postgres_data` named volume. Downloaded
+Hugging Face models persist in the `crypto-hf-cache` volume.
+
+---
+
+## Run Components Locally
+
+Create a Python environment and install the dependency groups needed for local
+development:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -e ".[api,ui,fetchers,sentiment,benchmark,dev]"
+```
+
+Start PostgreSQL first, set `DATABASE_URL`, and apply migrations:
+
+```bash
+alembic upgrade head
+```
+
+Run the Python ingestion API:
+
+```bash
+uvicorn src.presentation.api.main:app --reload --port 8000
+```
+
+Run the .NET query API from its project directory with a valid
+`ConnectionStrings__Postgres` setting:
+
+```bash
+dotnet run --project api-dotnet/CryptoTracker.Api
+```
+
+Set `QUERY_API_URL` to the URL printed by .NET, then run Streamlit:
 
 ```bash
 streamlit run run_app.py
 ```
 
-Run the FastAPI API:
-
-```bash
-uvicorn src.presentation.api.main:app --reload
-```
-
-API health check:
-
-```bash
-curl http://localhost:8000/health
-```
-
-Run tests:
-
-```bash
-pytest
-```
-
----
-
-## Docker
-
-The Dockerfile installs the package from `pyproject.toml` and defaults to:
-
-```dockerfile
-CMD ["python", "run_app.py"]
-```
-
-`docker-compose.yml` defines three services:
-
-- `api`: FastAPI service on host port `8002`
-- `ui`: Streamlit service on host port `8501`
-- `migrate`: one-off PostgreSQL schema initialization command
-
-Prepare the Docker-managed PostgreSQL volume:
-
-```bash
-docker compose run --rm migrate
-```
-
-Start API and UI:
-
-```bash
-docker compose up --build
-```
-
-Start only the UI and its dependency:
-
-```bash
-docker compose up ui
-```
-
-Open:
-
-```text
-http://localhost:8501
-```
-
-API health check from the host:
-
-```bash
-curl http://localhost:8002/health
-```
-
-Stop services:
-
-```bash
-docker compose down
-```
-
-The Compose setup uses a named volume:
-
-```text
-app_data -> /usr/src/app/data
-```
-
-That persists the PostgreSQL database across container restarts. Because it is a named volume, bundled CSV demo files from the repo are not automatically available inside `/usr/src/app/data`; the project is moving toward DB-backed demo data.
-
 ---
 
 ## Storage
 
-Current persistent storage is PostgreSQL:
+PostgreSQL is the runtime database. SQLAlchemy models live in
+`src/infra/storage/db/models.py`, while Alembic migrations in
+`alembic/versions/` create and evolve the schema.
 
-- schema: `src/infra/storage/db/schema.py`
-- connection: `src/infra/storage/db/connection.py`
-- repositories:
-  - `content_repository.py`
-  - `price_repository.py`
-  - `sentiment_repository.py`
-  - `signal_repository.py`
+The main tables are:
 
-Default local DB path:
+- `prices`
+- `content_items`
+- `sentiment`
+- `signals`
 
-```text
-data/app.db
-```
+Python repositories write ingestion results and support Python-side use cases.
+The .NET API reads the same tables through Entity Framework Core.
 
-Docker DB path:
-
-```text
-/usr/src/app/data/app.db
-```
-
-Legacy/demo CSV code still exists in a few places, especially demo and benchmark flows. The intended direction is to move demo/runtime data fully into PostgreSQL.
+CSV files under `data/demo/` and `data/benchmark/` are bundled datasets for
+demo and benchmark flows; they are not the production persistence layer.
 
 ---
 
 ## Tests
 
-Run all tests:
+Run Python tests:
 
 ```bash
 pytest
 ```
 
-Current test coverage includes:
+The development Compose file provides a temporary PostgreSQL test service:
 
-- domain merge and signal behavior
-- sentiment service behavior
-- PostgreSQL repository round-trips with temporary DBs
-- API route behavior with mocked repository dependencies
-- fetcher boundary behavior without real external API calls
-- sentiment cache hit/miss behavior
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml --profile test up test_db
+```
+
+Run the .NET integration tests with:
+
+```bash
+dotnet test api-dotnet/CryptoTracker.Api.IntegrationTests
+```
+
+Tests cover domain behavior, fetcher boundaries, sentiment caching, database
+repositories, Python API routes, and .NET query endpoints.
 
 ---
 
-## Architecture Notes
+## Architecture
 
-- `presentation/` owns Streamlit and FastAPI interfaces.
-- `app/use_cases/` coordinates workflows.
-- `domain/` owns business logic and calculations.
-- `infra/` owns external boundaries: APIs and storage.
-- `shared/` contains cross-layer helpers and DataFrame utilities.
+- `presentation/` owns Streamlit and Python FastAPI interfaces.
+- `app/` coordinates ingestion, analysis, caching, and scheduled jobs.
+- `domain/` owns sentiment, market, signal, lead/lag, and backtest logic.
+- `infra/` owns external fetchers and PostgreSQL repositories.
+- `api-dotnet/` owns the read/query API used by Streamlit.
 
-See `ARCHITECTURE.md` for the fuller system map.
+See `ARCHITECTURE.md` for the complete system and request-flow map.
 
 ---
 
 ## Roadmap
 
-- [x] Refactor into layered project structure
-- [x] Add FastAPI API layer
-- [x] Add Sqlite repositories for core cached data
-- [x] Add Dockerfile and Docker Compose services
-- [x] Add healthcheck and migration service
-- [x] Replace remaining CSV demo/runtime paths with DB-backed demo data
-- [x] Finish code and architecture clean-up
-- [x] Move from Sqlite to PostgreSQL
-- [x] Improve API to be production(ish)-level
-- [x] Docker setup
-- [x] Scheduled ingestion through Raspberry Pi
-- [x] CI implementation
-- [x] CD implementation
-- [x] Move API into .NET
-- [ ] AWS Cloud deployment
+- [x] Refactor into a layered Python structure
+- [x] Move runtime storage to PostgreSQL
+- [x] Add Alembic migrations
+- [x] Separate ingestion and query responsibilities
+- [x] Add the .NET query API
+- [x] Add scheduled ingestion
+- [x] Add CI/CD
+- [ ] Deploy the stack to AWS
 
 ## License
 
-MIT - see `LICENSE`.
+MIT — see `LICENSE`.
