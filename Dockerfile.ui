@@ -19,4 +19,3 @@ COPY data/benchmark ./data/benchmark
 EXPOSE 8501
 
 CMD ["streamlit", "run", "run_app.py", "--server.address=0.0.0.0", "--server.port=8501"]
-
