@@ -89,6 +89,9 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    build:
+      context: .
+      dockerfile: Dockerfile.api
 
   ui:
     image: ${UI_IMAGE:-crypto-sentiment-ui:dev}
@@ -106,6 +109,9 @@ services:
     depends_on:
       query-api:
         condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile.ui
 
   ingest-worker:
     image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
@@ -123,6 +129,9 @@ services:
     depends_on:
       ingest-api:
         condition: service_healthy
+    build:
+      context: .
+      dockerfile: Dockerfile.ingest
 
 volumes:
   postgres_data:
