@@ -8,6 +8,7 @@ __pycache__/
 *.sqlite3
 .env
 .env.*
+.env.aws
 .streamlit/secrets.toml
 .DS_Store
 *.csv
