@@ -87,12 +87,12 @@ jobs:
         run: |
           docker build \
             -f Dockerfile.api \
-            -t crypto-sentiment-api:${GITHUB_SHA} \
+            -t coin-sentiment-api:${GITHUB_SHA} \
             .
 
           docker build \
             -f Dockerfile.ui \
-            -t crypto-sentiment-ui:${GITHUB_SHA} \
+            -t coin-sentiment-ui:${GITHUB_SHA} \
             .
 
           docker build \
@@ -104,22 +104,22 @@ jobs:
         run: |
           docker image inspect \
             --format='ingest-api {{.Id}}' \
-            crypto-sentiment-api:${GITHUB_SHA}
+            coin-sentiment-api:${GITHUB_SHA}
 
           docker image inspect \
             --format='ui {{.Id}}' \
-            crypto-sentiment-ui:${GITHUB_SHA}
+            coin-sentiment-ui:${GITHUB_SHA}
 
           docker image inspect \
             --format='query-api {{.Id}}' \
             crypto-query-api:${GITHUB_SHA}
 
-  deploy:
+  deploy-pi:
     needs: [test, dotnet-test]
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     concurrency:
-      group: deploy-production
+      group: deploy-pi
       cancel-in-progress: true
 
     steps:
@@ -143,3 +143,33 @@ jobs:
           ssh -o StrictHostKeyChecking=yes -i ~/.ssh/pi_key \
             ${{ secrets.PI_USER }}@${{ secrets.PI_TAILSCALE_HOST }} \
             "/home/raspberrypi/apps/Crypto-sentiment-tracker/deploy.sh"
+
+  deploy-ec2:
+    needs: [test, dotnet-test]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    concurrency:
+      group: deploy-ec2
+      cancel-in-progress: true
+
+    steps:
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+          ping: ${{ secrets.EC2_TAILSCALE_HOST }}
+
+      - name: Add SSH key and known host
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/ec2_key
+          chmod 600 ~/.ssh/ec2_key
+          echo "${{ secrets.EC2_SSH_HOST_KEY }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy on EC2
+        run: |
+          ssh -o StrictHostKeyChecking=yes -i ~/.ssh/ec2_key \
+            ${{ secrets.EC2_USER }}@${{ secrets.EC2_TAILSCALE_HOST }} \
+            "/home/ubuntu/Crypto/deploy.sh"

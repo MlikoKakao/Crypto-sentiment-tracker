@@ -50,7 +50,7 @@ services:
       start_period: 10s
 
   migrate:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
+    image: ${INGEST_API_IMAGE:-coin-sentiment-api:dev}
     logging: *default-logging
     command: alembic upgrade head
     env_file:
@@ -63,7 +63,7 @@ services:
         condition: service_healthy
 
   ingest-api:
-    image: ${INGEST_API_IMAGE:-crypto-sentiment-api:dev}
+    image: ${INGEST_API_IMAGE:-coin-sentiment-api:dev}
     restart: unless-stopped
     logging: *default-logging
     command: uvicorn src.presentation.api.main:app --host 0.0.0.0 --port 8000
@@ -94,7 +94,7 @@ services:
       dockerfile: Dockerfile.api
 
   ui:
-    image: ${UI_IMAGE:-crypto-sentiment-ui:dev}
+    image: ${UI_IMAGE:-coin-sentiment-ui:dev}
     restart: unless-stopped
     logging: *default-logging
     command: streamlit run run_app.py --server.address=0.0.0.0 --server.port=8501
@@ -114,7 +114,7 @@ services:
       dockerfile: Dockerfile.ui
 
   ingest-worker:
-    image: ${INGEST_WORKER_IMAGE:-crypto-sentiment-worker:dev}
+    image: ${INGEST_WORKER_IMAGE:-coin-sentiment-worker:dev}
     restart: "no"
     logging: *default-logging
     command: python -m src.app.jobs.scheduled_ingest

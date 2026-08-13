@@ -15,7 +15,7 @@ from src.shared.helpers import normalize_timestamp_column
 
 
 def render_demo_page() -> None:
-    st.title("Crypto Sentiment  demo view")
+    st.title("Coin Sentiment demo view")
     st.markdown(
         "Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies"
     )

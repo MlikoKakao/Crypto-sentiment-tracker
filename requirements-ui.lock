@@ -7,7 +7,7 @@
 alembic==1.18.5 \
     --hash=sha256:06d8ba9d04558022f5395e9317de03d270f3dced49cee01f89fe7a13c26f14bc \
     --hash=sha256:1554982221dd17e9a749b53902407578eb305e453f71999e8c7f0a48389fff8e
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 altair==6.2.2 \
     --hash=sha256:94014f8ad8617c3cb163d1137359cd6db5ba134b9b46d93cfd8b609fd245a583 \
     --hash=sha256:a1ff9d9cfe81c75414641826312b9471780e19d39293ba0b012933f6b6cba0fe
@@ -297,7 +297,7 @@ defusedxml==0.7.1 \
 feedparser==6.0.13 \
     --hash=sha256:ceba9cd98a0a4bfc17e24e8ea47e649f194fbf881d417fd5bd0af2927a03c5c9 \
     --hash=sha256:ff00fcd62a1bba943ad6dadb7e3139bc3e2d9e027859343283112d605e794e52
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 feedparser-sgmllib==1.0.0 \
     --hash=sha256:d0d5daf29b3f315396d4d5a65b5fe28862d1bc4ea37dec826ccbf1021034a959 \
     --hash=sha256:f73861ca2f6bb2798b2499fbab62d34bd27fd13379704a38ed616c67eb0a76a6
@@ -317,7 +317,7 @@ google-api-core==2.33.0 \
 google-api-python-client==2.198.0 \
     --hash=sha256:dfe3e16fb241af6e9c460a33f65085b3450e05cea09364f6b5d8997fb7e43e2a \
     --hash=sha256:fabac935474e817da5e662ff61bf7139439d6f92b32d332a7318a2d45931e03e
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 google-auth==2.56.2 \
     --hash=sha256:c8270ea95b2697b74e3d8438ae9c5b898e38b623b915c7b5c5635921e7de68a6 \
     --hash=sha256:e28f103ca8091fb7012b99c44243d7366c29863713b8e34a220c3322b7a07051
@@ -614,7 +614,7 @@ nltk==3.10.0 \
     --hash=sha256:4fbac1d98203cbcd1b5d94a2877fb822300072d80604a5e7fae49d2c5f84e8c1 \
     --hash=sha256:54ff84d4916d3ef127e8953bee0023f6a6b320b75d634a19e06ef056d3d244bf
     # via
-    #   crypto-sentiment-tracker (pyproject.toml)
+    #   coin-sentiment (pyproject.toml)
     #   textblob
 numpy==2.5.1 \
     --hash=sha256:08d60c810432eb83360958dea0999ac4cfb94531ea8efcbf0b7f277c2068aeb2 \
@@ -662,7 +662,7 @@ numpy==2.5.1 \
     --hash=sha256:f7d60026c0bdb1380e83bfa7a0419c4577ee4b9a08880afcb6dadeb74c649fa2 \
     --hash=sha256:f7feb014281029e628ba2d5a007407443b06e418b6fe451d1e2adcbc8eba0107
     # via
-    #   crypto-sentiment-tracker (pyproject.toml)
+    #   coin-sentiment (pyproject.toml)
     #   pandas
     #   patsy
     #   pydeck
@@ -722,7 +722,7 @@ pandas==3.0.5 \
     --hash=sha256:ef01af4d8dc6cd2c8d6c7736f149574ef93fe043811eeb5e445f2647154b5040 \
     --hash=sha256:fa290c16964d4963fbfbc358928239cf3bd755b20e988ce944877def2f44471d
     # via
-    #   crypto-sentiment-tracker (pyproject.toml)
+    #   coin-sentiment (pyproject.toml)
     #   statsmodels
     #   streamlit
 patsy==1.0.2 \
@@ -821,11 +821,11 @@ pillow==12.3.0 \
 plotly==6.9.0 \
     --hash=sha256:36bebe2f1bb13884774fe61689c329071446f6ce4a8927fb1f0d6fb24f581236 \
     --hash=sha256:967ad33e8c704fed051800d11d985eb206a9c795c14206b30a6f463ed9c67d0d
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 praw==8.0.2 \
     --hash=sha256:22a988bef07e2d840ab062ae25f760c5bfc6367b9ecaab69f71e7ff511d75564 \
     --hash=sha256:29bfe995f7f24017dd8eee36153085ad27de1740f13c7dcdb08df42a24a0dae2
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 prawcore==4.0.0 \
     --hash=sha256:53f91bcd4cb25a26ca58f3ba7c5bf83d9d93a74025aae2c926bc6b0d5fd11df7 \
     --hash=sha256:c7e4d6e1b71e2b9c88680aee467e3e07d22df4c91bb01488ce2a3ab43d76b076
@@ -851,7 +851,7 @@ protobuf==7.35.1 \
 psycopg[binary]==3.3.4 \
     --hash=sha256:b6bbc25ccf05c8fad3b061d9db2ef0909a555171b84b07f29458a447253d679a \
     --hash=sha256:e21207764952cff81b6b8bdacad9a3939f2793367fdac2987b3aac36a651b5bc
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 psycopg-binary==3.3.4 \
     --hash=sha256:018fbed325936da502feb546642c982dcc4b9ffdea32dfef78dbf3b7f7ad4070 \
     --hash=sha256:0579252a1202cd73e4da137a1426e2dae993ae44e757605344282af3a082848c \
@@ -977,7 +977,7 @@ psycopg2-binary==2.9.12 \
     --hash=sha256:f921f3cd87035ef7df233383011d7a53ea1d346224752c1385f1edfd790ceb6a \
     --hash=sha256:fb1828cf3da68f99e45ebce1355d65d2d12b6a78fb5dfb16247aad6bdef5f5d2 \
     --hash=sha256:ffdd7dc5463ccd61845ac37b7012d0f35a1548df9febe14f8dd549be4a0bc81e
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 pyarrow==24.0.0 \
     --hash=sha256:02b001b3ed4723caa44f6cd1af2d5c86aa2cf9971dacc2ffa55b21237713dfba \
     --hash=sha256:04920d6a71aabd08a0417709efce97d45ea8e6fb733d9ca9ecffb13c67839f68 \
@@ -1045,7 +1045,7 @@ pycparser==3.0 \
 pydantic==2.13.4 \
     --hash=sha256:45a282cde31d808236fd7ea9d919b128653c8b38b393d1c4ab335c62924d9aba \
     --hash=sha256:c40756b57adaa8b1efeeced5c196f3f3b7c435f90e84ea7f443901bec8099ef6
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 pydantic-core==2.46.4 \
     --hash=sha256:00c603d540afdd6b80eb39f078f33ebd46211f02f33e34a32d9f053bba711de0 \
     --hash=sha256:0186750b482eefa11d7f435892b09c5c606193ef3375bcf94aa00ae6bfb66262 \
@@ -1183,7 +1183,7 @@ python-dateutil==2.9.0.post0 \
 python-dotenv==1.2.2 \
     --hash=sha256:1d8214789a24de455a8b8bd8ae6fe3c6b69a5e3d64aa8a8e5d68e694bbcb285a \
     --hash=sha256:2c371a91fbd7ba082c2c1dc1f8bf89ca22564a087c2c287cd9b662adde799cf3
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 python-multipart==0.0.32 \
     --hash=sha256:be54b7f3fa167bb83e4fcd936b887b708f4e57fe75911c02aebf53efaf8d938e \
     --hash=sha256:ff6d3f776f16878c894e52e107296ffc890e913c611b1a4ec6c44e2821fe2e23
@@ -1191,7 +1191,7 @@ python-multipart==0.0.32 \
 pytz==2026.3.post1 \
     --hash=sha256:2211d3fcf9a797d3405cac96ac7f61d80e6a644f72a3309607282fe8a2010c5d \
     --hash=sha256:dd95840dd199baea12d9cc096a1d452caa6596a1c1e4b5f3dbd1541855d5e815
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 referencing==0.37.0 \
     --hash=sha256:381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231 \
     --hash=sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8
@@ -1318,7 +1318,7 @@ requests==2.34.2 \
     --hash=sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0 \
     --hash=sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed
     # via
-    #   crypto-sentiment-tracker (pyproject.toml)
+    #   coin-sentiment (pyproject.toml)
     #   google-api-core
     #   prawcore
     #   streamlit
@@ -1475,7 +1475,7 @@ scikit-learn==1.9.0 \
     --hash=sha256:f401448645a3e7bc115aa3c094097865155b34bff1cba8101857d9104e99074c \
     --hash=sha256:f7e254636164090da847715a27f8e5478feb98c40a9e0ee90cbd277de9e5ceb8 \
     --hash=sha256:fd3a8ef0c758555a3b23c03adaa858af32f7736785ded50ad5991f59c4ed03fa
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 scipy==1.18.0 \
     --hash=sha256:09143f676d157d9f546d663504ef9c1becb819824f1afc018814176411942446 \
     --hash=sha256:0d13bca67c096d89fb95ced0d8921807300fce0275643aef9533cc63a0773468 \
@@ -1519,7 +1519,7 @@ scipy==1.18.0 \
     --hash=sha256:f2a6af57bd9e4a75d70e4117e78a1bbee84f79ae3fbb6d0111005d6ebcc4cb8d \
     --hash=sha256:f351e0dd702687d12a402b867a1b4146a256923e1c38317cbc472f6372b94707
     # via
-    #   crypto-sentiment-tracker (pyproject.toml)
+    #   coin-sentiment (pyproject.toml)
     #   scikit-learn
     #   statsmodels
 six==1.17.0 \
@@ -1591,7 +1591,7 @@ sqlalchemy==2.0.51 \
     --hash=sha256:fa268106c8987639a17a18514cfe0cd9bf17420ab887e1e1bf486da8836135b1
     # via
     #   alembic
-    #   crypto-sentiment-tracker (pyproject.toml)
+    #   coin-sentiment (pyproject.toml)
 starlette==1.3.1 \
     --hash=sha256:05d0213193f2fbaae60e2ecb593b4add4262ad4e46536b54abe36f11a71724e0 \
     --hash=sha256:c7372aae11c3c3f26a42df7bd626cec2f47d03483d261d369516a615a53714c6
@@ -1633,11 +1633,11 @@ statsmodels==0.14.6 \
     --hash=sha256:f1c08befa85e93acc992b72a390ddb7bd876190f1360e61d10cf43833463bc9c \
     --hash=sha256:f4ff0649a2df674c7ffb6fa1a06bffdb82a6adf09a48e90e000a15a6aaa734b0 \
     --hash=sha256:fe76140ae7adc5ff0e60a3f0d56f4fffef484efa803c3efebf2fcd734d72ecb5
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 streamlit==1.60.0 \
     --hash=sha256:09f2fdd2aabbd3b3560953795681dd675d5479ac82c21fc2dceadaf9bd484ea3 \
     --hash=sha256:d167d67cf94537600a6e378d8aa0c31eabab26beb243e2a51de9842e2872e393
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 tenacity==9.1.4 \
     --hash=sha256:6095a360c919085f28c6527de529e76a06ad89b23659fa881ae0649b867a9d55 \
     --hash=sha256:adb31d4c263f2bd041081ab33b498309a57c77f9acf2db65aadf0898179cf93a
@@ -1645,7 +1645,7 @@ tenacity==9.1.4 \
 textblob==0.20.1 \
     --hash=sha256:f957699169a3e7b9a03a504883111b7b6973679496b9af959db2f74ee2449977 \
     --hash=sha256:fbd1a3307532e9dddb8f50284874559e01020e79b5fe5ae4c1da709a9e2087ea
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 threadpoolctl==3.6.0 \
     --hash=sha256:43a0b8fd5a2928500110039e43a5eed8480b918967083ea48dc3ab9f13c4a7fb \
     --hash=sha256:8ab8b4aa3491d812b623328249fab5302a68d2d71745c8a4c719a2fcaba9f44e
@@ -1696,7 +1696,7 @@ uvicorn==0.52.0 \
 vadersentiment==3.3.2 \
     --hash=sha256:3bf1d243b98b1afad575b9f22bc2cb1e212b94ff89ca74f8a23a588d024ea311 \
     --hash=sha256:5d7c06e027fc8b99238edb0d53d970cf97066ef97654009890b83703849632f9
-    # via crypto-sentiment-tracker (pyproject.toml)
+    # via coin-sentiment (pyproject.toml)
 watchdog==6.0.0 \
     --hash=sha256:07df1fdd701c5d4c8e55ef6cf55b8f0120fe1aef7ef39a1c6fc6bc2e606d517a \
     --hash=sha256:20ffe5b202af80ab4266dcd3e91aae72bf2da48c0d33bdb15c66658e685e94e2 \
