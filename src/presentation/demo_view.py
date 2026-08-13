@@ -12,46 +12,47 @@ from src.domain.analysis.lead_lag import compute_lead_lag
 import pandas as pd
 from src.presentation.sidebar import render_sidebar
 from src.shared.helpers import normalize_timestamp_column
+from src.presentation.translations import TEXT
 
 
 def render_demo_page() -> None:
-    st.title("Coin Sentiment demo view")
-    st.markdown(
-        "Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies"
-    )
-    render_sidebar()
-    render_demo_result_tabs()
+    state = render_sidebar()
+    text = TEXT[state.language]
+    st.title(text["demo_title"])
+    st.markdown(text["description"])
+    render_demo_result_tabs(state.language)
 
 
-def render_demo_result_tabs() -> None:
-    sentiment_tab, finance_tab = st.tabs(["Sentiment", "Finance"])
+def render_demo_result_tabs(language: str) -> None:
+    text = TEXT[language]
+    sentiment_tab, finance_tab = st.tabs([text["tab_sentiment"], text["tab_finance"]])
     demo_merged_df = load_demo_merged_df()
     with sentiment_tab:
         st.plotly_chart(
-            plot_sentiment_with_price(demo_merged_df, "BTC"),
+            plot_sentiment_with_price(demo_merged_df, "BTC", language),
             key="demo_sentiment_price_chart",
         )
         st.plotly_chart(
-            plot_sentiment_timeline(demo_merged_df, "BTC"),
+            plot_sentiment_timeline(demo_merged_df, "BTC", language),
             key="demo_sentiment_timeline_chart",
         )
         st.plotly_chart(
-            plot_sentiment_vs_price(demo_merged_df),
+            plot_sentiment_vs_price(demo_merged_df, language),
             key="demo_sentiment_vs_price_chart",
         )
         lead_lag_df = compute_lead_lag(demo_merged_df)
         st.plotly_chart(
-            plot_lag_correlation(lead_lag_df),
+            plot_lag_correlation(lead_lag_df, language=language),
             key="demo_lag_correlation_chart",
         )
 
     with finance_tab:
         st.plotly_chart(
-            plot_price_with_sma(demo_merged_df, "BTC", sma_cols=[f"sma_20", f"sma_50"]),
+            plot_price_with_sma(demo_merged_df, "BTC", sma_cols=[f"sma_20", f"sma_50"], language=language),
             key="demo_sma_chart",
         )
-        st.plotly_chart(plot_macd(demo_merged_df), key="demo_macd_chart")
-        st.plotly_chart(plot_rsi(demo_merged_df), key="demo_rsi_chart")
+        st.plotly_chart(plot_macd(demo_merged_df, language), key="demo_macd_chart")
+        st.plotly_chart(plot_rsi(demo_merged_df, language=language), key="demo_rsi_chart")
 
 
 def load_demo_merged_df() -> pd.DataFrame:

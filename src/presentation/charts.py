@@ -7,10 +7,12 @@ from src.shared.helpers import normalize_timestamp_column
 from src.domain.signals.engine import SIGNAL_COLUMNS
 from statistics import median
 from typing import cast, Sequence
+from src.presentation.translations import TEXT
 
 
 # Not needed right now, but keeping just in case.
-def plot_price_time_series(df: pd.DataFrame, coin: str):
+def plot_price_time_series(df: pd.DataFrame, coin: str, language: str = "en"):
+    text = TEXT[language]
     if not df.empty:
         df = df.copy()
         df = normalize_timestamp_column(df, drop_invalid=True)
@@ -19,19 +21,20 @@ def plot_price_time_series(df: pd.DataFrame, coin: str):
             df,
             x="timestamp",
             y="price",
-            title=f"{coin.capitalize()} Price Over Time",
-            labels={"timestamp": "Date", "price": "Price (USD)"},
+            title=text["price_over_time"].format(coin=coin.capitalize()),
+            labels={"timestamp": text["date"], "price": text["price_usd"]},
         )
 
         fig.update_traces(line=dict(width=2))
         fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
         return fig
     else:
-        st.warning("No data available to plot price/time function.")
+        st.warning(text["no_price_data"])
         return go.Figure()
 
 
-def plot_sentiment_vs_price(df: pd.DataFrame):
+def plot_sentiment_vs_price(df: pd.DataFrame, language: str = "en"):
+    text = TEXT[language]
     if df.empty:
         return go.Figure()
     df = df.copy()
@@ -45,19 +48,20 @@ def plot_sentiment_vs_price(df: pd.DataFrame):
         y="price",
         color="source",
         hover_data=["date_str", "source"],
-        title="Sentiment vs Price",
+        title=text["sentiment_vs_price"],
         labels={
-            "sentiment": "Sentiment Score",
-            "price": "Price (USD)",
-            "date_str": "Date",
-            "source": "Source of post",
+            "sentiment": text["sentiment_score"],
+            "price": text["price_usd"],
+            "date_str": text["date"],
+            "source": text["post_source"],
         },
     )
     fig.update_layout(margin=dict(l=20, r=20, t=50, b=20))
     return fig
 
 
-def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
+def plot_sentiment_timeline(df: pd.DataFrame, coin: str, language: str = "en"):
+    text = TEXT[language]
     if df.empty:
         return go.Figure()
     df = df.copy()
@@ -69,8 +73,8 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
         df,
         x="timestamp",
         y="sentiment",
-        title=f"{coin.capitalize()} Sentiment Over Time",
-        labels={"timestamp": "Date", "sentiment": "Sentiment Score"},
+        title=text["sentiment_over_time"].format(coin=coin.capitalize()),
+        labels={"timestamp": text["date"], "sentiment": text["sentiment_score"]},
         markers=True,
     )
     fig.update_traces(line=dict(width=2))
@@ -88,7 +92,8 @@ def plot_sentiment_timeline(df: pd.DataFrame, coin: str):
 
 
 # Graph showing LOESS/BTC price
-def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
+def plot_sentiment_with_price(df: pd.DataFrame, coin: str, language: str = "en"):
+    text = TEXT[language]
     if df.empty:
         return go.Figure()
     df = df.copy()
@@ -102,7 +107,7 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
         go.Scatter(
             x=df["timestamp"],
             y=df["price"],
-            name=f"{coin.capitalize()} Price",
+            name=f"{coin.capitalize()} {text['price']}",
             yaxis="y2",
             line=dict(color="gray", width=2),
             hoverinfo="x+y",
@@ -114,7 +119,7 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
         go.Scatter(
             x=df["timestamp"],
             y=df["sentiment_loess"],
-            name="Smoothed Sentiment",
+            name=text["smoothed_sentiment"],
             yaxis="y1",
             line=dict(color="blue", width=3, dash="dot"),
             hoverinfo="x+y",
@@ -127,15 +132,15 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
     sentiment_range = [-winner_number - padding, winner_number + padding]
 
     fig.update_layout(
-        title=f"{coin.upper()} Sentiment vs Price Over Time",
-        xaxis=dict(title="Date"),
+        title=text["sentiment_vs_price_over_time"].format(coin=coin.upper()),
+        xaxis=dict(title=text["date"]),
         yaxis=dict(
-            title=dict(text="Sentiment Score", font=dict(color="blue")),
+            title=dict(text=text["sentiment_score"], font=dict(color="blue")),
             range=sentiment_range,
             tickfont=dict(color="blue"),
         ),
         yaxis2=dict(
-            title=dict(text="Price (USD)", font=dict(color="gray")),
+            title=dict(text=text["price_usd"], font=dict(color="gray")),
             overlaying="y",
             side="right",
             tickfont=dict(color="gray"),
@@ -149,8 +154,9 @@ def plot_sentiment_with_price(df: pd.DataFrame, coin: str):
 
 
 def plot_lag_correlation(
-    feats: pd.DataFrame, unit: str = "min", metric_label: str = "r"
+    feats: pd.DataFrame, unit: str = "min", metric_label: str = "r", language: str = "en"
 ) -> go.Figure:
+    text = TEXT[language]
     if feats.empty or not {"lag_seconds", "r"}.issubset(feats.columns):
         st.error("Features DF must include lag_seconds and r")
         return go.Figure()
@@ -158,13 +164,13 @@ def plot_lag_correlation(
 
     if unit == "min":
         df["lag_axis"] = (df["lag_seconds"] / 60).astype(float)
-        x_label = "Lag (minutes)"
+        x_label = text["lag_minutes"]
     elif unit == "hours":
         df["lag_axis"] = (df["lag_seconds"] / 3600).astype(float)
-        x_label = "Lag (hours)"
+        x_label = text["lag_hours"]
     else:
         df["lag_axis"] = df["lag_seconds"].astype(float)
-        x_label = "Lag (seconds)"
+        x_label = text["lag_seconds"]
 
     df = df.sort_values("lag_axis")
 
@@ -172,7 +178,7 @@ def plot_lag_correlation(
         df,
         x="lag_axis",
         y="r",
-        title="Correlation vs Lag (positive = sentiment leads)",
+        title=text["correlation_vs_lag"],
         labels={"lag_axis": x_label, "r": metric_label},
     )
     fig.update_traces(line=dict(width=2))
@@ -193,40 +199,42 @@ def plot_lag_correlation(
             x=[best_x],
             y=[best_r],
             mode="markers",
-            name=f"Best lag: {best_x:g} {unit}",
+            name=text["best_lag"].format(value=best_x, unit=unit),
             marker=dict(size=9),
         )
     return fig
 
 
-def plot_equity(df_bt: pd.DataFrame):
+def plot_equity(df_bt: pd.DataFrame, language: str = "en"):
+    text = TEXT[language]
     fig = go.Figure()
     fig.add_trace(
         go.Scatter(
-            x=df_bt["timestamp"], y=df_bt["eq_strategy"], name="Strategy", mode="lines"
+            x=df_bt["timestamp"], y=df_bt["eq_strategy"], name=text["strategy"], mode="lines"
         )
     )
     fig.add_trace(
         go.Scatter(x=df_bt["timestamp"], y=df_bt["eq_hodl"], name="HODL", mode="lines")
     )
     fig.update_layout(
-        title="Equity Curve (Strategy vs HODL)",
-        yaxis_title="Growth (x)",
-        xaxis_title="Time",
+        title=text["equity_curve"], yaxis_title=text["growth"], xaxis_title=text["time"],
     )
     return fig
 
 
-def plot_drawdown(df_bt: pd.DataFrame):
-    fig = px.area(df_bt, x="timestamp", y="dd", title="Drawdown (Strategy)")
+def plot_drawdown(df_bt: pd.DataFrame, language: str = "en"):
+    fig = px.area(df_bt, x="timestamp", y="dd", title=TEXT[language]["drawdown"])
     fig.update_yaxes(ticksuffix="", tickformat=".0%")
     return fig
 
 
-def plot_price_with_sma(df: pd.DataFrame, coin: str, sma_cols: Sequence[str]):
+def plot_price_with_sma(
+    df: pd.DataFrame, coin: str, sma_cols: Sequence[str], language: str = "en"
+):
+    text = TEXT[language]
     fig = go.Figure()
     fig.add_trace(
-        go.Scatter(x=df["timestamp"], y=df["price"], name="Price", mode="lines")
+        go.Scatter(x=df["timestamp"], y=df["price"], name=text["price"], mode="lines")
     )
     for col in sma_cols:
         if col in df.columns:
@@ -234,16 +242,15 @@ def plot_price_with_sma(df: pd.DataFrame, coin: str, sma_cols: Sequence[str]):
                 go.Scatter(x=df["timestamp"], y=df[col], name=col, mode="lines")
             )
     fig.update_layout(
-        title=f"{coin.upper()} Price + SMA",
-        xaxis_title="Date",
-        yaxis_title="Price",
+        title=text["price_sma"].format(coin=coin.upper()),
+        xaxis_title=text["date"], yaxis_title=text["price"],
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
         template="plotly_dark",
     )
     return fig
 
 
-def plot_rsi(df: pd.DataFrame, rsi_col: str = "rsi_14"):
+def plot_rsi(df: pd.DataFrame, rsi_col: str = "rsi_14", language: str = "en"):
     if rsi_col not in df.columns:
         return None
     fig = go.Figure()
@@ -253,12 +260,12 @@ def plot_rsi(df: pd.DataFrame, rsi_col: str = "rsi_14"):
     fig.add_hrect(y0=30, y1=70, fillcolor="gray", opacity=0.1, line_width=0)
     fig.update_yaxes(range=[0, 100])
     fig.update_layout(
-        title="RSI", xaxis_title="Date", yaxis_title="Value", template="plotly_dark"
+        title="RSI", xaxis_title=TEXT[language]["date"], yaxis_title=TEXT[language]["value"], template="plotly_dark"
     )
     return fig
 
 
-def plot_macd(df: pd.DataFrame):
+def plot_macd(df: pd.DataFrame, language: str = "en"):
     if not {"macd", "macd_signal", "macd_hist"}.issubset(df.columns):
         return None
     df = normalize_timestamp_column(df.copy(), drop_invalid=True)
@@ -282,15 +289,15 @@ def plot_macd(df: pd.DataFrame):
     fig.add_hline(y=0, line_dash="dot", opacity=0.6)
     fig.update_layout(
         title="MACD",
-        xaxis_title="Date",
-        yaxis_title="Value",
+        xaxis_title=TEXT[language]["date"],
+        yaxis_title=TEXT[language]["value"],
         barmode="overlay",
         template="plotly_dark",
     )
     return fig
 
 
-def plot_signal(df: pd.DataFrame) -> go.Figure:
+def plot_signal(df: pd.DataFrame, language: str = "en") -> go.Figure:
     df = normalize_timestamp_column(df.copy(), drop_invalid=True)
     df = df.dropna(subset=["timestamp", "sentiment"])
     fig = go.Figure()
@@ -299,7 +306,7 @@ def plot_signal(df: pd.DataFrame) -> go.Figure:
             x=df["timestamp"],
             y=df["price"],
             mode="lines",
-            name="Price",
+            name=TEXT[language]["price"],
         )
     )
     signal_cols = [col for col in SIGNAL_COLUMNS if col in df.columns]

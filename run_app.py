@@ -9,7 +9,7 @@ from src.presentation.pages import render_app
 
 
 # Page header
-st.set_page_config(page_title="Coin Sentiment", layout="wide")
+st.set_page_config(page_title="Coin Sentiment / 加密貨幣情緒", layout="wide")
 
 demo_mode = os.getenv("DEMO", "0") == "1"
 

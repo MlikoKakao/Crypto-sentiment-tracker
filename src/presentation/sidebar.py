@@ -13,10 +13,12 @@ from src.presentation.ui_constants import (
     COINS_UI_LABELS,
     SOURCE_UI_TO_LITERAL,
 )
+from src.presentation.translations import TEXT, language_from_browser_locale
 
 
 @dataclass(frozen=True)
 class SidebarState:
+    language: str
     selected_coin: Coin
     start_date: datetime
     end_date: datetime
@@ -41,14 +43,23 @@ class SidebarState:
 
 def render_sidebar() -> SidebarState:
     with st.sidebar:
-        st.header("Settings")
+        if "language" not in st.session_state:
+            st.session_state.language = language_from_browser_locale(st.context.locale)
 
-        selected_coin_label = st.selectbox("Choose cryptocurrency", COINS_UI_LABELS)
+        language = st.selectbox(
+            label=TEXT["en"]["language"],
+            options=["en", "zh-TW"],
+            format_func=lambda code: {"en": "English", "zh-TW": "繁體中文"}[code],
+            key="language",
+        )
+        st.header(TEXT[language]["settings"])
+
+        selected_coin_label = st.selectbox(TEXT[language]["choose_coin"], COINS_UI_LABELS)
         assert selected_coin_label is not None
         selected_coin = COIN_UI_TO_SYMBOL[selected_coin_label]
 
         num_posts = st.slider(
-            "Number of posts to fetch",
+            TEXT[language]["num_posts"],
             min_value=100,
             max_value=5000,
             step=100,
@@ -56,9 +67,9 @@ def render_sidebar() -> SidebarState:
         )
 
         days = st.selectbox(
-            "Price history in days",
+            TEXT[language]["price_history"],
             ("1", "7", "10", "30", "90", "180", "365"),
-            help="Choosing day range longer than 90 days causes to only show price point once per day.",
+            help=TEXT[language]["price_history_help"],
         )
         assert days is not None
 
@@ -68,73 +79,72 @@ def render_sidebar() -> SidebarState:
         ).to_pydatetime()
 
         analyzer_label = st.selectbox(
-            "Choose sentiment analyzer:",
+            TEXT[language]["choose_analyzer"],
             list(ANALYZER_UI_TO_LITERAL.keys()),
-            help=(
-                "VADER - all-rounder, decent speed and analysis.\nText-Blob - fastest, but least accurate.\nTwitter-RoBERTa - slowest(can take up to a minute depending on size), but most accurate, conservative.\nfinBERT - finance-specific, good accuracy, medium speed"
-            ),
+            help=TEXT[language]["analyzer_help"],
         )
         assert analyzer_label is not None
 
         analyzer: Analyzer = ANALYZER_UI_TO_LITERAL[analyzer_label]
 
         source_label = st.selectbox(
-            "Choose which sources to include:", list(SOURCE_UI_TO_LITERAL.keys())
+            TEXT[language]["choose_sources"], list(SOURCE_UI_TO_LITERAL.keys())
         )
         assert source_label is not None
         sources: tuple[Source, ...] = SOURCE_UI_TO_LITERAL[source_label]
 
-        with st.expander("Advanced settings"):
-            backtest = st.checkbox("Run backtest")
+        with st.expander(TEXT[language]["advanced_settings"]):
+            backtest = st.checkbox(TEXT[language]["run_backtest"])
             cost_bps = 0.0
             slip_bps = 0.0
             if backtest:
                 cost_bps = st.number_input(
-                    "Cost (bps)", min_value=0.0, max_value=100.0, value=5.0, step=0.5
+                    TEXT[language]["cost"], min_value=0.0, max_value=100.0, value=5.0, step=0.5
                 )
                 slip_bps = st.number_input(
-                    "Slippage (bps)",
+                    TEXT[language]["slippage"],
                     min_value=0.0,
                     max_value=100.0,
                     value=5.0,
                     step=0.5,
                 )
 
-            st.header("Lead/Lag settings")
-            lag_hours = st.slider("Lag window (±hours)", 1, 48, 24)
-            lag_step_min = st.selectbox("Lag step(minutes)", [5, 15, 30, 60], index=1)
-            metric_choice = st.selectbox("Correlation metric", ["pearson"], index=0)
+            st.header(TEXT[language]["lead_lag_settings"])
+            lag_hours = st.slider(TEXT[language]["lag_window"], 1, 48, 24)
+            lag_step_min = st.selectbox(TEXT[language]["lag_step"], [5, 15, 30, 60], index=1)
+            metric_choice = st.selectbox(TEXT[language]["correlation_metric"], ["pearson"], index=0)
 
-            st.markdown("### Indicators")
+            st.markdown(f"### {TEXT[language]['indicators']}")
             # default values so variables exist even when checkboxes are unchecked
             sma_fast = 20
             sma_slow = 50
             rsi_period = 14
             use_sma = st.checkbox(
-                "SMA (20/50)", value=False, help="Simple Moving Average"
+                "SMA (20/50)", value=False, help=TEXT[language]["sma_help"]
             )
             use_rsi = st.checkbox(
-                "RSI (14)", value=False, help="Relative Strength Index"
+                "RSI (14)", value=False, help=TEXT[language]["rsi_help"]
             )
             use_macd = st.checkbox(
                 "MACD (12,26,9)",
                 value=False,
-                help="Moving Average Convergence Divergence",
+                help=TEXT[language]["macd_help"],
             )
             if use_sma:
-                sma_fast = st.number_input("SMA fast", 5, 200, sma_fast, 1)
-                sma_slow = st.number_input("SMA slow", 5, 400, sma_slow, 1)
+                sma_fast = st.number_input(TEXT[language]["sma_fast"], 5, 200, sma_fast, 1)
+                sma_slow = st.number_input(TEXT[language]["sma_slow"], 5, 400, sma_slow, 1)
             if use_rsi:
-                rsi_period = st.number_input("RSI period", 5, 50, rsi_period, 1)
+                rsi_period = st.number_input(TEXT[language]["rsi_period"], 5, 50, rsi_period, 1)
 
-        run = st.button("Run Analysis", type="primary")
+        run = st.button(TEXT[language]["run_analysis"], type="primary")
 
-        st.header("Utils")
+        st.header(TEXT[language]["utilities"])
 
-        benchmark = st.button("Run analyzer benchmark")
+        benchmark = st.button(TEXT[language]["run_benchmark"])
 
     return SidebarState(
-        selected_coin=cast(Coin,selected_coin),
+        language=language,
+        selected_coin=cast(Coin, selected_coin),
         start_date=start_date,
         end_date=end_date,
         analyzer=analyzer,
