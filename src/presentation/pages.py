@@ -38,7 +38,7 @@ def render_app(demo_mode: bool = False) -> None:
 
 
 def render_live_page(state: SidebarState) -> None:
-    st.title("Crypto Sentiment Tracker")
+    st.title("Coin Sentiment")
     st.markdown(
         "Visualization of public sentiment based on keywords and further comparison to actual price of cryptocurrencies"
     )
@@ -93,9 +93,7 @@ def render_result_tabs(
             plot_sentiment_with_price(result.merged_df, state.selected_coin),
             key="live_sentiment_price_chart",
         )
-        
-       
-        
+
         st.plotly_chart(
             plot_sentiment_timeline(result.merged_df, state.selected_coin),
             key="live_sentiment_timeline_chart",
@@ -104,7 +102,7 @@ def render_result_tabs(
             plot_sentiment_vs_price(result.merged_df),
             key="live_sentiment_vs_price_chart",
         )
-        
+
         lead_lag_df = compute_lead_lag(
             result.merged_df, state.lag_hours, state.lag_step_min, state.metric_choice
         )
@@ -112,7 +110,6 @@ def render_result_tabs(
             plot_lag_correlation(lead_lag_df),
             key="live_lag_correlation_chart",
         )
-
 
     with tabs["engine"]:
         indic_state = replace(sidebar_to_indicator(state))

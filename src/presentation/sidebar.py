@@ -9,7 +9,6 @@ from src.app.dto import AnalysisConfig, Analyzer, Source, Coin
 from src.domain.market.dto import IndicatorConfig
 from src.presentation.ui_constants import (
     ANALYZER_UI_TO_LITERAL,
-    COIN_SUBS,
     COIN_UI_TO_SYMBOL,
     COINS_UI_LABELS,
     SOURCE_UI_TO_LITERAL,
@@ -24,7 +23,6 @@ class SidebarState:
     analyzer: Analyzer
     sources: tuple[Source, ...]
     num_posts: int
-    subreddits: tuple[str, ...]
     run: bool
     benchmark: bool
     backtest: bool
@@ -86,24 +84,6 @@ def render_sidebar() -> SidebarState:
         assert source_label is not None
         sources: tuple[Source, ...] = SOURCE_UI_TO_LITERAL[source_label]
 
-        default_subreddits = tuple(
-            dict.fromkeys(DEFAULT_SUBREDDITS + tuple(COIN_SUBS.get(selected_coin, ())))
-        )
-        subreddits: tuple[str, ...] = DEFAULT_SUBREDDITS
-
-        if "reddit" in sources:
-            selected_subreddits = st.multiselect(
-                "Subreddits",
-                options=default_subreddits,
-                default=default_subreddits,
-            )
-
-            if selected_subreddits:
-                subreddits = tuple(selected_subreddits)
-            else:
-                subreddits = default_subreddits
-                st.warning("No subreddits chosen, defaulted.")
-
         with st.expander("Advanced settings"):
             backtest = st.checkbox("Run backtest")
             cost_bps = 0.0
@@ -160,7 +140,6 @@ def render_sidebar() -> SidebarState:
         analyzer=analyzer,
         sources=sources,
         num_posts=num_posts,
-        subreddits=subreddits,
         run=run,
         benchmark=benchmark,
         backtest=backtest,
@@ -186,7 +165,7 @@ def sidebar_state_to_config(state: SidebarState) -> AnalysisConfig:
         analyzer=state.analyzer,
         sources=state.sources,
         num_posts=state.num_posts,
-        subreddits=state.subreddits,
+        subreddits=DEFAULT_SUBREDDITS,
     )
 
 
