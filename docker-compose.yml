@@ -51,6 +51,9 @@ services:
 
   migrate:
     image: ${INGEST_API_IMAGE:-coin-sentiment-api:dev}
+    build:
+      context: .
+      dockerfile: Dockerfile.api
     logging: *default-logging
     command: alembic upgrade head
     env_file:
