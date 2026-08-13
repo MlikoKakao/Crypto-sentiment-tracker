@@ -2,7 +2,7 @@
 
 ## Overview
 
-Crypto Sentiment Tracker is a layered Python application with a .NET query
+Crypto Sentiment is a layered Python application with a .NET query
 service. It collects crypto-related content and prices, calculates sentiment
 and market signals, stores the results in PostgreSQL, and presents them through
 a Streamlit dashboard.

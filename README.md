@@ -1,4 +1,4 @@
-# Crypto Sentiment Tracker
+# Crypto Sentiment 
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)]()
 [![.NET](https://img.shields.io/badge/.NET-10-purple.svg)]()
@@ -6,7 +6,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-ingest_API-green.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)]()
 
-Crypto Sentiment Tracker collects crypto-related posts and articles, scores their
+Crypto Sentiment collects crypto-related posts and articles, scores their
 sentiment, combines the results with market data, and presents the data in a
 Streamlit dashboard.
 
@@ -20,7 +20,7 @@ The current infrastructure separates data ingestion from data querying:
 
 Demo: https://crypto-currency-sentiment-analysis.streamlit.app
 
-<img width="3835" height="1746" alt="Crypto Sentiment Tracker screenshot" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
+<img width="3835" height="1746" alt="Crypto Sentiment screenshot" src="https://github.com/user-attachments/assets/0f1cbe11-9945-487c-aa86-05de0c561725" />
 
 ---
 
