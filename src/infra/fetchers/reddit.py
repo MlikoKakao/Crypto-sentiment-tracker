@@ -1,5 +1,5 @@
 from pytz import utc
-from praw import Reddit  # type: ignore no stub file
+from praw import Reddit  # type: ignore[import-untyped]
 import pandas as pd
 from datetime import datetime
 from src.app.dto import AnalysisConfig

@@ -1,4 +1,5 @@
 import os
+from typing import Any
 import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
@@ -41,7 +42,7 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
         api_service_name, api_version, developerKey=youtube_api_key
     )
 
-    posts = []
+    posts: list[dict[str, Any]] = []
     seen: set[str] = set()
 
     for coin in YOUTUBE_COIN_TERMS[config.coin]:

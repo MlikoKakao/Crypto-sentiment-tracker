@@ -73,15 +73,16 @@ def load_signal_df(state: IndicatorConfig, signal: str) -> pd.DataFrame:
     )
 
     with engine.connect() as conn:
+        params: dict[str, Any] = {
+            "coin": state.coin.upper(),
+            "signal_name": signal,
+            "start_date": state.start_date,
+            "end_date": state.end_date,
+        }
         df = pd.read_sql_query(
             query,
             conn,
-            params={
-                "coin": state.coin.upper(),
-                "signal_name": signal,
-                "start_date": state.start_date,
-                "end_date": state.end_date,
-            },
+            params=params,
         )
 
     if df.empty:

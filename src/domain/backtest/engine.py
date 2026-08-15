@@ -99,7 +99,7 @@ def run_backtest(
     cost_bps: float,
     slippage_bps: float,
     resample: str = "5min",
-) -> tuple[pd.DataFrame, dict[str, float]]:
+) -> tuple[pd.DataFrame, dict[str, float | str]]:
     dm = df_merged[["timestamp", "price", "sentiment"]].copy()
     dm = normalize_timestamp_column(dm)
     dm["price"] = pd.to_numeric(dm["price"], errors="coerce")

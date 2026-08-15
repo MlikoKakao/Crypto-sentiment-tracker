@@ -83,16 +83,17 @@ def load_content_df(config: AnalysisConfig, source: str) -> pd.DataFrame:
     )
 
     with engine.connect() as conn:
+        params: dict[str, Any] = {
+            "coin": config.coin.upper(),
+            "source": source,
+            "start_date": config.start_date,
+            "end_date": config.end_date,
+            "limit": config.num_posts,
+        }
         df = pd.read_sql_query(
             query,
             conn,
-            params={
-                "coin": config.coin.upper(),
-                "source": source,
-                "start_date": config.start_date,
-                "end_date": config.end_date,
-                "limit": config.num_posts,
-            },
+            params=params,
         )
     if not df.empty:
         df = normalize_timestamp_column(df)
@@ -151,14 +152,15 @@ def load_content_missing_sentiment(
     )
 
     with engine.connect() as conn:
+        params: dict[str, Any] = {
+            "coin": coin.upper(),
+            "analyzer": analyzer,
+            "limit": limit,
+        }
         df = pd.read_sql_query(
             query,
             conn,
-            params={
-                "coin": coin.upper(),
-                "analyzer": analyzer,
-                "limit": limit,
-            },
+            params=params,
         )
 
     if not df.empty:

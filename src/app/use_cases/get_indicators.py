@@ -62,7 +62,7 @@ def add_indicators_with_cache(
 def get_enabled_indicator_jobs(
     state: IndicatorConfig,
 ) -> list[tuple[list[str], Callable[[pd.DataFrame, IndicatorConfig], pd.DataFrame]]]:
-    jobs = []
+    jobs: list[tuple[list[str], Callable[[pd.DataFrame, IndicatorConfig], pd.DataFrame]]] = []
 
     if state.use_sma:
         jobs.append(

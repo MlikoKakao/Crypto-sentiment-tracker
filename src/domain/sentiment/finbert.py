@@ -1,17 +1,24 @@
 from __future__ import annotations
 from typing import Any, Optional
 import os
-# It's a bit strange to have pipeline in roberta but not in finbert, in future remake roberta to use the same as here.
+
+AutoModelForSequenceClassification: Any = None
+AutoTokenizer: Any = None
+torch: Any = None
+f: Any = None
 
 try:
-    import torch.nn.functional as f
-    import torch
-    from transformers import AutoModelForSequenceClassification, AutoTokenizer
-except ImportError:  # fallback when transformers or torch not installed
-    AutoModelForSequenceClassification = None
-    AutoTokenizer = None
-    torch = None
-    f = None
+    import torch.nn.functional as torch_functional
+    import torch as torch_module
+    from transformers import AutoModelForSequenceClassification as model_class
+    from transformers import AutoTokenizer as tokenizer_class
+except ImportError:
+    pass
+else:
+    AutoModelForSequenceClassification = model_class
+    AutoTokenizer = tokenizer_class
+    torch = torch_module
+    f = torch_functional
 
 _finbert_model: Any = None
 _finbert_tokenizer: Any = None

@@ -4,12 +4,13 @@ from src.app.defaults import default_config
 from src.app.dto import AnalysisConfig, Analyzer, Source
 from src.domain.market.dto import IndicatorConfig
 from src.presentation.api.helpers.validate import DateRangeParams
+from src.shared.helpers import normalize_coin
 
 
 def date_range_to_config(params: DateRangeParams) -> AnalysisConfig:
     return replace(
         default_config(),
-        coin=params.coin,
+        coin=normalize_coin(params.coin),
         start_date=params.start_date,
         end_date=params.end_date,
     )
@@ -22,7 +23,7 @@ def build_indicator_config(
     use_macd: bool,
 ) -> IndicatorConfig:
     return IndicatorConfig(
-        coin=params.coin,
+        coin=normalize_coin(params.coin),
         start_date=params.start_date,
         end_date=params.end_date,
         use_sma=use_sma,

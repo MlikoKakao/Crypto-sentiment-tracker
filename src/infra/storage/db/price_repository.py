@@ -59,14 +59,15 @@ def load_price_df(config: AnalysisConfig) -> pd.DataFrame:
     )
 
     with engine.connect() as conn:
+        params: dict[str, Any] = {
+            "coin": config.coin.upper(),
+            "start_date": config.start_date,
+            "end_date": config.end_date,
+        }
         df = pd.read_sql_query(
             query,
             conn,
-            params={
-                "coin": config.coin.upper(),
-                "start_date": config.start_date,
-                "end_date": config.end_date,
-            },
+            params=params,
         )
 
     if not df.empty:

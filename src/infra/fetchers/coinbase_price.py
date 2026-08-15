@@ -43,7 +43,7 @@ def get_coinbase_price_history(config: AnalysisConfig) -> pd.DataFrame:
             current_start + timedelta(seconds=chunk_seconds), config.end_date
         )
         url = f"https://api.exchange.coinbase.com/products/{COINBASE_PRODUCTS[config.coin]}/candles"
-        params = {
+        params: dict[str, str | int] = {
             "granularity": granularity,
             "start": current_start.isoformat(),
             "end": current_end.isoformat(),

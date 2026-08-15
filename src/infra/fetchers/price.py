@@ -25,7 +25,7 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
         raise ValueError(f"Unsupported coin: {config.coin}")
 
     url = f"https://api.coingecko.com/api/v3/coins/{COIN_IDS[config.coin]}/market_chart/range"
-    params = {
+    params: dict[str, str | int] = {
         "id": COIN_IDS[config.coin],
         "vs_currency": "usd",
         "from": int(config.start_date.timestamp()),
