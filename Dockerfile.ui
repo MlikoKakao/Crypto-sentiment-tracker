@@ -14,7 +14,6 @@ RUN python -m pip install \
 
 COPY src ./src
 COPY run_app.py ./run_app.py
-COPY data/benchmark ./data/benchmark
 
 EXPOSE 8501
 

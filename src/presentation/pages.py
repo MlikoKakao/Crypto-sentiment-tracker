@@ -43,8 +43,8 @@ def render_live_page(state: SidebarState) -> None:
     st.title(text["title"])
     st.markdown(text["description"])
 
-    sentiment_tab, engine_tab, finance_tab, backtest_tab, benchmark_tab = st.tabs(
-        [text["tab_sentiment"], text["tab_engine"], text["tab_finance"], text["tab_backtest"], text["tab_benchmark"]]
+    sentiment_tab, engine_tab, finance_tab, backtest_tab = st.tabs(
+        [text["tab_sentiment"], text["tab_engine"], text["tab_finance"], text["tab_backtest"]]
     )
 
     tabs = {
@@ -52,7 +52,6 @@ def render_live_page(state: SidebarState) -> None:
         "engine": engine_tab,
         "finance": finance_tab,
         "backtest": backtest_tab,
-        "benchmark": benchmark_tab,
     }
 
     if not state.run:
@@ -64,13 +63,6 @@ def render_live_page(state: SidebarState) -> None:
             st.info(text["finance_prompt"])
         with tabs["backtest"]:
             st.info(text["backtest_prompt"])
-        with tabs["benchmark"]:
-            if state.benchmark:
-                from src.presentation.benchmark_view import show_benchmark_data
-
-                show_benchmark_data(state.language)
-            else:
-                st.info(text["benchmark_prompt"])
         return
 
     config = sidebar_state_to_config(state)
@@ -166,11 +158,3 @@ def render_result_tabs(
             st.plotly_chart(plot_equity(df_bt, state.language), key="live_equity_chart")
             st.plotly_chart(plot_drawdown(df_bt, state.language), key="live_drawdown_chart")
             st.dataframe(pd.DataFrame([stats]), hide_index=True)
-
-    with tabs["benchmark"]:
-        if not state.benchmark:
-            st.info("Run model benchmarks from sidebar.")
-        else:
-            from src.presentation.benchmark_view import show_benchmark_data
-
-            show_benchmark_data(state.language)

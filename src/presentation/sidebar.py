@@ -26,7 +26,6 @@ class SidebarState:
     sources: tuple[Source, ...]
     num_posts: int
     run: bool
-    benchmark: bool
     backtest: bool
     cost_bps: float
     slip_bps: float
@@ -138,10 +137,6 @@ def render_sidebar() -> SidebarState:
 
         run = st.button(TEXT[language]["run_analysis"], type="primary")
 
-        st.header(TEXT[language]["utilities"])
-
-        benchmark = st.button(TEXT[language]["run_benchmark"])
-
     return SidebarState(
         language=language,
         selected_coin=cast(Coin, selected_coin),
@@ -151,7 +146,6 @@ def render_sidebar() -> SidebarState:
         sources=sources,
         num_posts=num_posts,
         run=run,
-        benchmark=benchmark,
         backtest=backtest,
         cost_bps=cost_bps,
         slip_bps=slip_bps,
