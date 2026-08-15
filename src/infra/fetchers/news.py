@@ -1,6 +1,4 @@
 import pandas as pd
-from src.app.defaults import default_config
-from src.shared.helpers import save_csv
 
 from src.infra.storage.db.content_repository import (
     load_content_df,
@@ -112,9 +110,3 @@ def fetch_news_posts(config: AnalysisConfig) -> pd.DataFrame:
     df = df[~dupes]
     logger.debug(f"Size of final df: {len(df)}")
     return df
-
-
-if __name__ == "__main__":
-    df = fetch_news_posts(default_config())
-    save_csv(df, "data/tests/news_posts.csv")
-    print(df.head())

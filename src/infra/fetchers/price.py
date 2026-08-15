@@ -4,10 +4,8 @@ import pandas as pd
 from datetime import datetime
 import logging
 from src.app.dto import AnalysisConfig
-from src.app.defaults import default_config
 from src.domain.market.coins import COIN_IDS
 from src.infra.storage.db.price_repository import (
-    save_price_df,
     load_price_df,
     has_price_coverage,
 )
@@ -58,11 +56,4 @@ def get_price_history(config: AnalysisConfig) -> pd.DataFrame:
         prices.append({"timestamp": dt, "price": price})
 
     df = pd.DataFrame(prices)
-    return load_price_df(config)
-
-
-if __name__ == "__main__":
-    df = get_price_history(default_config())
-    save_price_df(df, default_config().coin)
-    logger.info("Saved price history to postgre db")
-    logger.debug(f"Saved {len(df)} price points for all available days")
+    return df

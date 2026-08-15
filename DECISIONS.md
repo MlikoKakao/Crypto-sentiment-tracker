@@ -35,15 +35,19 @@ Move toward PostgreSQL when the project needs:
 
 ---
 
-## 2. Use Streamlit + FastAPI
+## 2. Use Streamlit with Separate Ingestion and Query APIs
 
 ### Decision
 
-Use Streamlit for the UI and FastAPI for API endpoints.
+Use Streamlit for the UI, FastAPI for authenticated ingestion, and ASP.NET Core
+for read-only data queries.
 
 ### Reasoning
 
-Both tools are fast to set up and match the current workflow. Streamlit is good for quickly building dashboards and interactive analysis views. FastAPI is good for exposing structured endpoints such as health checks, prices, sentiment, posts, signals, and ingest.
+Streamlit is suitable for an interactive dashboard. FastAPI keeps ingestion
+validation and writes in Python beside the fetchers and analyzers. ASP.NET Core
+provides a stable, read-only query boundary for prices, posts, sentiment, and
+signals.
 
 The current workflow does not demand a heavier frontend framework or a more complex service architecture.
 
@@ -51,12 +55,13 @@ The current workflow does not demand a heavier frontend framework or a more comp
 
 - The project can move quickly.
 - The UI remains easy to change.
-- The API gives a clean path toward separating backend behavior.
-- There is some duplication/overlap because the Streamlit UI still imports application use cases directly instead of calling the FastAPI service over HTTP.
+- The UI is independent of ingestion implementation details and reads through
+  the query API contract.
+- The system has two APIs to maintain, each with a focused responsibility.
 
 ### Revisit When
 
-Consider a stronger API/UI split when:
+Revisit the UI or API split when:
 
 - the UI should be deployed separately from the API
 - multiple frontends need to use the same backend
@@ -179,7 +184,7 @@ Therefore `torch` and `transformers` live in the optional `ml` dependency group 
 - Normal installs and Docker builds stay smaller.
 - Basic analysis works without downloading large models.
 - Heavy analyzers can fail clearly if optional dependencies are not installed.
-- Benchmarking or high-quality ML scoring requires an explicit opt-in install.
+- High-quality ML scoring requires an explicit opt-in install.
 
 ### Usage
 

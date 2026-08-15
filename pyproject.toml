@@ -47,10 +47,6 @@ sentiment = [
     "vaderSentiment",
 ]
 
-benchmark = [
-    "scikit-learn",
-]
-
 ml = [
     "torch",
     "transformers<5",

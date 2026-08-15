@@ -3,8 +3,7 @@ import pandas as pd
 from src.app.dto import AnalysisConfig
 import logging
 
-from src.app.defaults import default_config
-from src.shared.helpers import clean_text, save_csv
+from src.shared.helpers import clean_text
 from src.infra.storage.db.content_repository import (
     load_content_df,
     has_content_coverage,
@@ -111,11 +110,3 @@ def fetch_youtube_posts(config: AnalysisConfig) -> pd.DataFrame:
     logger.info(f"Fetched {len(df)} YouTube posts for query='{config.coin}'")
 
     return df
-
-
-if __name__ == "__main__":
-    df = fetch_youtube_posts(default_config())
-    save_csv(df, f"data/tests/{default_config().coin}_youtube.csv")
-    logger.info(
-        f"Saved YouTube posts to data/tests/{default_config().coin}_youtube.csv"
-    )

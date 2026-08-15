@@ -13,9 +13,7 @@ __pycache__/
 
 tests/
 stubs/
-data/**
-!data/benchmark/
-!data/benchmark/**
+data/
 logs/
 *.log
 

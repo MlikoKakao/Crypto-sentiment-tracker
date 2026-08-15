@@ -9,6 +9,7 @@ from src.app.dto import AnalysisConfig
 from src.infra.fetchers import service
 from src.infra.fetchers import reddit
 from src.infra.fetchers import youtube
+from src.infra.fetchers import price
 from src.shared.helpers import normalize_coin
 
 
@@ -119,3 +120,23 @@ def test_youtube_fetch_without_api_key_raises_runtime_error(
 def test_unsupported_coin_raises_value_error() -> None:
     with pytest.raises(ValueError, match="Unsupported coin: DOGE"):
         normalize_coin("DOGE")
+
+
+def test_xmr_price_fallback_returns_fetched_prices(
+    monkeypatch: pytest.MonkeyPatch,
+    analysis_config: AnalysisConfig,
+) -> None:
+    monkeypatch.setattr(price, "load_price_df", lambda config: pd.DataFrame())
+    monkeypatch.setattr(price, "has_price_coverage", lambda config, df: False)
+    monkeypatch.setattr(
+        price.requests,
+        "get",
+        lambda *args, **kwargs: SimpleNamespace(
+            status_code=200,
+            json=lambda: {"prices": [[1_700_000_000_000, 150.0]]},
+        ),
+    )
+
+    result = price.get_price_history(replace(analysis_config, coin="XMR"))
+
+    assert result["price"].tolist() == [150.0]

@@ -25,17 +25,13 @@ from src.presentation.sidebar import (
     sidebar_to_indicator,
 )
 from src.domain.analysis.lead_lag import compute_lead_lag
-from src.presentation.demo_view import render_demo_page
 from src.domain.signals.engine import build_signal_df, SIGNAL_COLUMNS
 from src.presentation.translations import TEXT
 
 
-def render_app(demo_mode: bool = False) -> None:
-    if demo_mode:
-        render_demo_page()
-    else:
-        state = render_sidebar()
-        render_live_page(state)
+def render_app() -> None:
+    state = render_sidebar()
+    render_live_page(state)
 
 
 def render_live_page(state: SidebarState) -> None:

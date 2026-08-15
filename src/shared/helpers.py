@@ -1,30 +1,8 @@
 import pandas as pd
 from datetime import datetime
-import os
-import logging
-from typing import Any, cast
-from pathlib import Path
+from typing import cast
 
 from src.app.dto import Coin
-
-logger = logging.getLogger(__name__)
-
-
-# CSV HANDLING
-def load_csv(filepath: Path | str, parse_dates: Any = None):
-    if not os.path.exists(filepath):
-        logger.error(f"File not found: {filepath}")
-        raise ValueError(f"File not found: {filepath}")
-    logger.info(f"Loaded CSV from: {filepath}")
-    return pd.read_csv(filepath, parse_dates=parse_dates)
-
-
-def save_csv(df: pd.DataFrame, filepath: Path | str, enabled: bool = True):
-    if not enabled:
-        return
-    df.to_csv(filepath, index=False)
-    logger.debug(f"Saved CSV to: {filepath} ({len(df)} rows)")
-
 
 def normalize_timestamp_column(
     df: pd.DataFrame,
